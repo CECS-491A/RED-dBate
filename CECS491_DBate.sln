@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CECS491_DBate", "CECS491_DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization", "Authorization\Authorization.csproj", "{9BA25348-558C-4A11-927D-C6F643408025}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{DA715C19-AB21-4F03-BC41-DBE636042736}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9BA25348-558C-4A11-927D-C6F643408025}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BA25348-558C-4A11-927D-C6F643408025}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BA25348-558C-4A11-927D-C6F643408025}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA715C19-AB21-4F03-BC41-DBE636042736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA715C19-AB21-4F03-BC41-DBE636042736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA715C19-AB21-4F03-BC41-DBE636042736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA715C19-AB21-4F03-BC41-DBE636042736}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
