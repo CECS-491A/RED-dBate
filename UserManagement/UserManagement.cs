@@ -8,5 +8,24 @@ namespace UserManagement
 {
     public class UserManagement
     {
+        public void CreateAccount()
+        {
+
+        }
+
+        public void DisableAccount()
+        {
+
+        }
+
+        public void DeleteAccount()
+        {
+
+        }
+
+        public void ConfigureAccount()
+        {
+
+        }
     }
 }
