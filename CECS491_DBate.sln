@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization", "Authorizat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{DA715C19-AB21-4F03-BC41-DBE636042736}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement", "UserManagement\UserManagement.csproj", "{BF17CBF5-01D5-4ED0-8616-5C5056FCAC17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DA715C19-AB21-4F03-BC41-DBE636042736}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA715C19-AB21-4F03-BC41-DBE636042736}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA715C19-AB21-4F03-BC41-DBE636042736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF17CBF5-01D5-4ED0-8616-5C5056FCAC17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF17CBF5-01D5-4ED0-8616-5C5056FCAC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF17CBF5-01D5-4ED0-8616-5C5056FCAC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF17CBF5-01D5-4ED0-8616-5C5056FCAC17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
