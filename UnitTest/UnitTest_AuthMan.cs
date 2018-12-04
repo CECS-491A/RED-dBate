@@ -9,6 +9,9 @@ namespace UnitTest
     [TestClass]
     public class UnitTest_AuthMan
     {
+        /// <summary>
+        /// blah blah
+        /// </summary>
         AuthorizationManager aM = new AuthorizationManager();
         //ClaimStorage cs = new ClaimStorage();
 
