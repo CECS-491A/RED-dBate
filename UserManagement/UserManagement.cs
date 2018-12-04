@@ -73,6 +73,25 @@ namespace UserManagement
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="u"></param>
+        public void EnableAccount(User u)
+        {
+            try
+            {
+                u.IsAccountActivated = true;
+                _User.Update(u);
+                _uow.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failure in Enabling Account", ex);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="id"></param>
         public void DeleteAccountbyId(int id)
         {
