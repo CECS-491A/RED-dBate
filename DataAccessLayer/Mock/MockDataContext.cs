@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Mock
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class MockDataContext
     {
+        //private int CounterID = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public List<User> User
         {
             get
@@ -20,21 +28,25 @@ namespace DataAccessLayer.Mock
                        ID = 1,
                        Name = "Bob",
                        Role = "Admin",
-                       CollectionClaims = {"View","Update", "Delete", "Create"}
+                       CollectionClaims = {"View","Update", "Delete", "Create"},
+                       IsAccountActivated = true
                     },
                     new User
                     {
                        ID = 2,
                        Name = "Bill",
                        Role = "System Admin",
-                       CollectionClaims = {"View","Update", "Delete", "Create", "CreateAdmin"}
+                       CollectionClaims = {"View","Update", "Delete", "Create", "CreateAdmin"},
+                       IsAccountActivated = true
+
                     },
                     new User
                     {
                        ID = 3,
                        Name = "Aaron Burr",
                        Role = "Registered User",
-                       CollectionClaims = {"View"}
+                       CollectionClaims = {"View"},
+                       IsAccountActivated = true
                     }
                 };
             }

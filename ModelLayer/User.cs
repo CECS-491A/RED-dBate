@@ -28,6 +28,8 @@ namespace ModelLayer
         /// </summary>
         public List<string> CollectionClaims { get; set; }
 
+        public bool IsAccountActivated { get; set; }
+
         #region Constructors
         /// <summary>
         /// 
