@@ -88,17 +88,15 @@ namespace UserManagement
             }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
-        public void DeleteAccountbyId(int id)
+        /// <param name="u"></param>
+        public void DeleteAccount(User u)
         {
             try
             {
-                User model = _User.GetAll().Where(s => s.ID == id).SingleOrDefault();
-                _User.Delete(model);
+                _User.Delete(u);
                 _uow.Save();
             }
             catch (Exception ex)
@@ -107,25 +105,101 @@ namespace UserManagement
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="name"></param>
         public void ConfigureName(User u, string name)
         {
-            u.Name = name;
-            _User.Update(u);
-            _uow.Save();
+            try
+            {
+                u.Name = name;
+                _User.Update(u);
+                _uow.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failure Configuring name of user", ex);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="role"></param>
         public void ConfigureRole(User u, string role)
         {
-            u.Role = role;
-            _User.Update(u);
-            _uow.Save();
+            try
+            {
+                u.Role = role;
+                _User.Update(u);
+                _uow.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failure Configuring role of user", ex);
+            }
         }
 
-        //CLAIM MANAGEMENT HAS TO BE DONE
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="claim"></param>
+        public void AddClaim(User u, string claim)
+        {
+            try
+            {
+                u.CollectionClaims.Add(claim);
+                _User.Update(u);
+                _uow.Save();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Failure Adding new Claim to User", ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="claim"></param>
         public void DeleteClaim(User u, string claim)
         {
-            //_User.Delete();
-            _uow.Save();
+            try
+            {
+                u.CollectionClaims.Remove(claim);
+                _User.Update(u);
+                _uow.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failure Deleting Claim of User", ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="neededClaim"></param>
+        /// <param name="updatedClaim"></param>
+        public void ConfigureClaim(User u, string neededClaim, string updatedClaim)
+        {
+            try
+            {
+                int index = u.CollectionClaims.BinarySearch(neededClaim);
+                u.CollectionClaims.Insert(index, updatedClaim);
+                _User.Update(u);
+                _uow.Save();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Failure Updating a Claim of a User", ex);
+            }
         }
     }
 }
