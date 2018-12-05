@@ -11,7 +11,7 @@ namespace UserManagement
     /// <summary>
     /// 
     /// </summary>
-    public class UserManagement
+    public class UserManagement_Manager
     {
         /// <summary>
         /// 
@@ -27,7 +27,7 @@ namespace UserManagement
         /// 
         /// </summary>
         /// <param name="uow"></param>
-        public UserManagement(IUnitOfWork uow)
+        public UserManagement_Manager(IUnitOfWork uow)
         {
             _uow = uow;
 
@@ -67,7 +67,6 @@ namespace UserManagement
             {
                 throw new Exception("Failure in Disabling Account", ex);
             }
-
         }
 
         /// <summary>
