@@ -9,24 +9,25 @@ using System.Threading.Tasks;
 namespace UserManagement
 {
     /// <summary>
-    /// 
+    /// Class that allows enables users depending on their role to control user access such as creating, deleting, updating accounts
+    /// as well as configuring account information/rights
     /// </summary>
     public class UserManagement_Manager
     {
         /// <summary>
-        /// 
+        /// interface class that keeps track of data by having classes that can get repositories and saving it
         /// </summary>
         private IUnitOfWork _uow;
 
         /// <summary>
-        /// 
+        /// IRepository class, containins method used to add,delete, configure accounts/info
         /// </summary>
         private IRepository<User> _User;
 
         /// <summary>
-        /// 
+        /// Contructor for Class initiates uow(unit of work) and user repository
         /// </summary>
-        /// <param name="uow"></param>
+        /// <param name="uow">interface class that keeps track of data by having classes that can get repositories and saving it</param>
         public UserManagement_Manager(IUnitOfWork uow)
         {
             _uow = uow;
@@ -35,9 +36,9 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// method that creates a user account for them to use
         /// </summary>
-        /// <param name="u"></param>
+        /// <param name="u">User object that contains user information used to create account</param>
         public void CreateAccount(User u)
         {
             try
@@ -52,9 +53,9 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// Method used to disable account of a user
         /// </summary>
-        /// <param name="u"></param>
+        /// <param name="u">user object cotaining information to delete it's account</param>
         public void DisableAccount(User u)
         {
             try
@@ -70,9 +71,9 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// Method that enables an account to be used
         /// </summary>
-        /// <param name="u"></param>
+        /// <param name="u">user object containing information needed to enable the user account</param>
         public void EnableAccount(User u)
         {
             try
@@ -88,9 +89,9 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// Method used to delete account of a user
         /// </summary>
-        /// <param name="u"></param>
+        /// <param name="u">object containing user information used to delete account</param>
         public void DeleteAccount(User u)
         {
             try
@@ -105,10 +106,10 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// Method used to update name of users account
         /// </summary>
-        /// <param name="u"></param>
-        /// <param name="name"></param>
+        /// <param name="u">user object containing info to configure</param>
+        /// <param name="name">updated name</param>
         public void ConfigureName(User u, string name)
         {
             try
@@ -124,10 +125,10 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// Method that updates role of the account
         /// </summary>
-        /// <param name="u"></param>
-        /// <param name="role"></param>
+        /// <param name="u">object containing users information that can be updated</param>
+        /// <param name="role">updated role of the user</param>
         public void ConfigureRole(User u, string role)
         {
             try
@@ -143,10 +144,10 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// Method used to add more claims to the users account
         /// </summary>
-        /// <param name="u"></param>
-        /// <param name="claim"></param>
+        /// <param name="u">object containing information that can be configured</param>
+        /// <param name="claim">claim to be added to the user</param>
         public void AddClaim(User u, string claim)
         {
             try
@@ -162,10 +163,10 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// Method used to delete a claim that a user has stored
         /// </summary>
-        /// <param name="u"></param>
-        /// <param name="claim"></param>
+        /// <param name="u">object containing the users information</param>
+        /// <param name="claim">claim to be deleted from account</param>
         public void DeleteClaim(User u, string claim)
         {
             try
@@ -181,11 +182,11 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// 
+        /// Method that configures claim of a user account
         /// </summary>
-        /// <param name="u"></param>
-        /// <param name="neededClaim"></param>
-        /// <param name="updatedClaim"></param>
+        /// <param name="u">object used containing user account information</param>
+        /// <param name="neededClaim">claim that is going to be updated</param>
+        /// <param name="updatedClaim">updated claim that the user wants</param>
         public void ConfigureClaim(User u, string neededClaim, string updatedClaim)
         {
             try
@@ -200,5 +201,7 @@ namespace UserManagement
                 throw new Exception("Failure Updating a Claim of a User", ex);
             }
         }
+
+        //MORE METHODS HAVE TO BE ADDED IN PROGRESS.....
     }
 }

@@ -5,12 +5,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Much of this code was gotten from https://www.gaui.is/how-to-mock-the-datacontext-linq/
+/// Explanation: This code was used word for word because it was exactly what we needed in order to keep track 
+/// of the changes in the repositoy layer when connecting to a database or creating mokc datacontext as the article states. 
+/// Although we did used the code from the website tutorial, we did write comments throghout the code in order to understand it.
+/// </summary>
 namespace DataAccessLayer
 {
+    /// <summary>
+    /// Class that keeos tracks of data changes 
+    /// </summary>
+    /// <typeparam name="TContext">type of contect being used, generic</typeparam>
     public class UnitOfWork<TContext> : IUnitOfWork where TContext : DataContext, new()
     {
+        /// <summary>
+        /// Object obtained from System.Data.Linq, represent entry point for LINQ to SQL framework 
+        /// </summary>
         private readonly DataContext Context;
+
+        /// <summary>
+        /// Object obtained from System.Collections.Generic, represents a collections of keys and values
+        /// </summary>
         private Dictionary<Type, object> _repositories;
+
+        /// <summary>
+        /// boolean variable that checks whether the context was disposed
+        /// </summary>
         private bool _disposed;
 
         // Default constructor that news the context and the dictionary containing all the repositories
@@ -48,7 +69,7 @@ namespace DataAccessLayer
             Context.SubmitChanges();
         }
 
-        // Disposes the context
+        // Disposes the context, garbage collector to reclaims unused memory
         public void Dispose()
         {
             Dispose(true);

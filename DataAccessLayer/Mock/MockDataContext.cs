@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.Mock
 {
     /// <summary>
-    /// 
+    /// Class used to perform a Mock DataContext and also to store data of a User Object
     /// </summary>
     public class MockDataContext
     {
         //private int CounterID = 0;
 
         /// <summary>
-        /// Mock Database
+        /// Mock DataContext used to store/edit user object data stored in a List of User objects
         /// </summary>
         public List<User> User
         {

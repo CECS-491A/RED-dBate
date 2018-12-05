@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace Authorization
 {
+    /// <summary>
+    /// Class that contains claims that specific role might have
+    /// </summary>
     public class ConstantRoleClaims
     {
+
+        /// <summary>
+        /// Method that returns claims that a regular system admin has
+        /// </summary>
+        /// <returns>list of string claims</returns>
         public List<string> GetSystemAdminClaims()
         {
             List<string> sysAdminClaims = new List<string>();
@@ -19,6 +27,10 @@ namespace Authorization
             return sysAdminClaims;
         }
 
+        /// <summary>
+        /// Method that returns claims that an admin user would have normally
+        /// </summary>
+        /// <returns>list of string adminclaims</returns>
         public List<string> GetAdminClaims()
         {
             List<string> adminClaims = new List<string>();
@@ -30,6 +42,10 @@ namespace Authorization
             return adminClaims;
         }
 
+        /// <summary>
+        /// Method that returns claims that a regular user would have normally
+        /// </summary>
+        /// <returns>list of string reguser claims</returns>
         public List<string> GetRegUserClaims()
         {
             List<string> regUserClaims = new List<string>();
