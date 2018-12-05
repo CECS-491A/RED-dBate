@@ -15,7 +15,7 @@ namespace DataAccessLayer.Mock
         //private int CounterID = 0;
 
         /// <summary>
-        /// 
+        /// Mock Database
         /// </summary>
         public List<User> User
         {

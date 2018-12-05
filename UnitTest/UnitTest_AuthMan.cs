@@ -47,6 +47,23 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void TestCheckUsertoUser()
+        {
+            string claim = "Authorize User";
+            bool expected = true;
+            bool actual;
+
+            aM.identity.Name = "Bob";
+            aM.identity.CollectionClaims.Add(claim);
+
+
+            actual = aM.CheckAccess("Update Documents");
+
+            Console.WriteLine("Actual Value: " + actual);
+            Assert.AreEqual(expected, actual);
+        }
+
 
     }
 }
