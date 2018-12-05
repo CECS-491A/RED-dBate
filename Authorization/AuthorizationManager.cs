@@ -1,4 +1,5 @@
 ﻿using ModelLayer;
+using System;
 
 namespace Authorization
 {
@@ -21,13 +22,20 @@ namespace Authorization
         {
             bool access;
 
-            if (user.CollectionClaims.Contains(claim))
+            try
             {
-                access = true;
+                if (user.CollectionClaims.Contains(claim))
+                {
+                    access = true;
+                }
+                else
+                {
+                    access = false;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                access = false;
+                throw new Exception(ex.Message);
             }
 
             return access;

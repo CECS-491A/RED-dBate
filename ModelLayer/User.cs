@@ -21,6 +21,26 @@ namespace ModelLayer
         /// <summary>
         /// 
         /// </summary>
+        public string Username { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Password { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string DOB { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Location { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Role { get; set; }
 
         /// <summary>
@@ -28,8 +48,12 @@ namespace ModelLayer
         /// </summary>
         public List<string> CollectionClaims { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsAccountActivated { get; set; }
 
+        //CONSTRUCTORS NEED TO BE FIXED
         #region Constructors
         /// <summary>
         /// 
@@ -45,12 +69,33 @@ namespace ModelLayer
         /// </summary>
         /// <param name="id"></param>
         /// <param name="n"></param>
+        /// <param name="p"></param>
+        /// <param name="dob"></param>
+        /// <param name="r"></param>
+        /// <param name="loc"></param>
+        /// <param name="c"></param>
+        public User(int id, string n, string p, string dob, string r, string loc, List<string> c)
+        {
+            ID = ID;
+            Username = n;
+            Password = p;
+            DOB = dob;
+            Location = loc;
+            Role = r;
+            CollectionClaims = c;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="n"></param>
         /// <param name="r"></param>
         /// <param name="c"></param>
         public User(int id, string n, string r, List<string> c)
         {
             ID = ID;
-            Name = n;
+            Username = n;
             Role = r;
             CollectionClaims = c;
         }
