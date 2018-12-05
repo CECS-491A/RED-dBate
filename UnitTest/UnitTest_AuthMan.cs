@@ -48,13 +48,32 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestCheckUserDoesNotExist()
+        {
+            string claim = "Authorize ID User";
+            bool expected = false;
+            bool actual;
+
+            /*
+            aM.identity.Name = "123";
+            aM.identity.CollectionClaims.Add(claim);
+            */
+
+            actual = aM.CheckAccess("Update Documents");
+
+            Console.WriteLine("Actual Value: " + actual);
+            Assert.AreEqual(expected, actual);
+        }
+
+        /*
+        [TestMethod]
         public void TestCheckUsertoUser()
         {
-            string claim = "Authorize User";
+            string claim = "Authorize ID User";
             bool expected = true;
             bool actual;
 
-            aM.identity.Name = "Bob";
+            aM.identity.Name = "123";
             aM.identity.CollectionClaims.Add(claim);
 
 
@@ -63,6 +82,7 @@ namespace UnitTest
             Console.WriteLine("Actual Value: " + actual);
             Assert.AreEqual(expected, actual);
         }
+        */
 
 
     }
