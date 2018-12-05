@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using DataAccessLayer;
 using DataAccessLayer.Mock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ModelLayer;
 using UserManagement;
 
 namespace UnitTest
@@ -28,21 +30,44 @@ namespace UnitTest
         [TestMethod]
         public void TestCreateAccountValid()
         {
-            //_userService.
+
+            User u = new User();
+            u.ID = 5;
+            u.Name = "Barrack Obama";
+            u.Role = "Registered";
+            u.IsAccountActivated = true;
+            u.CollectionClaims = new List<string> {"View" };
+
             try
             {
-                
+                _userManagement.CreateAccount(u);
             }
             catch(Exception ex)
             {
-
+                Assert.Fail("Exception: " + ex.Message);
             }
         }
 
-        [TestMethod]
+/*        [TestMethod]
         public void TestCreateAccountInValid()
         {
+            
+            User u = new User();
+            u.ID = 5;
+            u.Name = "Michelle Obama";
+            u.Role = "Registered";
+            u.IsAccountActivated = true;
+            u.CollectionClaims = new List<string> { "View" };
 
-        }
+            try
+            {
+                _userManagement.CreateAccount(u);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail("Exception: " + ex.Message);
+            }
+            
+        }*/
     }
 }
