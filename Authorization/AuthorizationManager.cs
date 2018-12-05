@@ -1,7 +1,7 @@
 ﻿namespace Authorization
 {
     /// <summary>
-    /// 
+    /// Authorization management class
     /// </summary>
     public class AuthorizationManager
     {
