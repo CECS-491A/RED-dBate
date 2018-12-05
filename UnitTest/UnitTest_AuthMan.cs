@@ -22,8 +22,8 @@ namespace UnitTest
             bool expected = true;
             bool actual;
 
-            aM.identity.Name = "Bob";
-            aM.identity.CollectionClaims.Add(claim);
+            aM.user.Name = "Bob";
+            aM.user.CollectionClaims.Add(claim);
 
             actual = aM.CheckAccess(claim);
 
@@ -38,8 +38,8 @@ namespace UnitTest
             bool expected = false;
             bool actual;
 
-            aM.identity.Name = "Bob";
-            aM.identity.CollectionClaims.Add(claim);
+            aM.user.Name = "Bob";
+            aM.user.CollectionClaims.Add(claim);
 
             actual = aM.CheckAccess("Update Documents");
 
@@ -50,14 +50,8 @@ namespace UnitTest
         [TestMethod]
         public void TestCheckUserDoesNotExist()
         {
-            string claim = "Authorize ID User";
             bool expected = false;
             bool actual;
-
-            /*
-            aM.identity.Name = "123";
-            aM.identity.CollectionClaims.Add(claim);
-            */
 
             actual = aM.CheckAccess("Update Documents");
 

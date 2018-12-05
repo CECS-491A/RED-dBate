@@ -1,4 +1,6 @@
-﻿namespace Authorization
+﻿using ModelLayer;
+
+namespace Authorization
 {
     /// <summary>
     /// Authorization management class
@@ -8,7 +10,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public Identity identity = new Identity();
+        public User user = new User();
 
         /// <summary>
         /// 
@@ -19,7 +21,7 @@
         {
             bool access;
 
-            if (identity.CollectionClaims.Contains(claim))
+            if (user.CollectionClaims.Contains(claim))
             {
                 access = true;
             }
