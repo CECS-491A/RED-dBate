@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using DataAccessLayer;
 using DataAccessLayer.Mock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ModelLayer;
 using UserManagement;
 
 namespace UnitTest
@@ -12,13 +14,14 @@ namespace UnitTest
 
         IUnitOfWork _uow;
         Activation _activation;
-        //UserManagement_Manager _userManagement;
+        IRepository<User> _User;
 
         [TestInitialize]
         public void SetUp()
         {
             _uow = new MockUnitOfWork<MockDataContext>();
             _activation = new Activation(_uow);
+            _User = _uow.GetRepository<User>();
         }
 
         [TestCleanup]
@@ -28,8 +31,150 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void Test_UserManagement_EnableAccount_SystemAdmin_to_Admin_Valid()
         {
+            var uName = "Bill2080"; //system admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            u2.IsAccountActivated = false;
+
+            bool actual = _activation.EnableAccount(u1,u2);
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void Test_UserManagement_EnableAccount_Admin_to_SystemAdmin_Invalid()
+        {
+            var uName = "Bill2080"; //system admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+
+            bool actual = _activation.EnableAccount(u1, u2);
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void Test_UserManagement_EnableAccount_Admin_to_RegUser_Valid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //reg user
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            u2.IsAccountActivated = false;
+
+            bool actual = _activation.EnableAccount(u1, u2);
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test_UserManagement_EnableAccount_RegUser_to_Admin_Invalid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //reg user
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            u2.IsAccountActivated = true;
+
+            bool actual = _activation.EnableAccount(u1, u2);
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test_UserManagement_DisableAccount_SystemAdmin_to_Admin_Valid()
+        {
+            var uName = "Bill2080"; //system admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            u2.IsAccountActivated = false;
+
+            bool actual = _activation.EnableAccount(u1, u2);
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void Test_UserManagement_DisableAccount_Admin_to_SystemAdmin_Invalid()
+        {
+            var uName = "Bill2080"; //system admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            u2.IsAccountActivated = true;
+
+            bool actual = _activation.DisableAccount(u1, u2);
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestMethod]
+        public void Test_UserManagement_DisableAccount_Admin_to_RegUser_Valid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //reg user
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            u2.IsAccountActivated = true;
+
+            bool actual = _activation.DisableAccount(u1, u2);
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Test_UserManagement_DisableAccount_RegUser_to_Admin_Invalid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //reg user
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            u2.IsAccountActivated = true;
+
+            bool actual = _activation.DisableAccount(u1, u2);
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }

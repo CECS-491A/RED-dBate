@@ -48,22 +48,26 @@ namespace UserManagement
                 u2.IsAccountActivated = false;
                 _User.Update(u2);
                 _uow.Save();
+                Console.WriteLine("hello1");
             }
-            else if (u2.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == "System Admin" && u2.Role == "Admin")
             {
                 u2.IsAccountActivated = false;
                 _User.Update(u2);
                 _uow.Save();
+                Console.WriteLine("hello2");
             }
             else
             {
                 u2.IsAccountActivated = true;
                 _User.Update(u2);
                 _uow.Save();
-                throw new Exception("Didn't meet any of the requirements");
+                Console.WriteLine("hello3" + disabledAccount);
+                //throw new Exception("Didn't meet any of the requirements");
             }
 
             disabledAccount = u2.IsAccountActivated;
+            Console.WriteLine("hello4" + disabledAccount);
 
             return disabledAccount;
         }
@@ -83,21 +87,25 @@ namespace UserManagement
                 u2.IsAccountActivated = true;
                 _User.Update(u2);
                 _uow.Save();
+                Console.WriteLine("hello1");
             }
-            else if (u2.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == "System Admin" && u2.Role == "Admin")
             {
                 u2.IsAccountActivated = true;
                 _User.Update(u2);
                 _uow.Save();
+                Console.WriteLine("hello2");
             }
             else
             {
                 u2.IsAccountActivated = false;
                 _User.Update(u2);
                 _uow.Save();
-                throw new Exception("Didn't meet any of the requirements");
+                Console.WriteLine("hello3");
+                //throw new Exception("Didn't meet any of the requirements");
             }
 
+            Console.WriteLine("hello4");
             enabledAccount = u2.IsAccountActivated;
 
             return enabledAccount;
