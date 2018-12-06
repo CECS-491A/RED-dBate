@@ -32,65 +32,52 @@ namespace UnitTest
             // Clean resources
         }
 
-        /*
+        
         /// <summary>
         /// Test Case for empty creation ATTEMPT
         /// </summary>
         [TestMethod]
-        public void Creation_isEmpty()
+        public void Creation_isEmptyCreateAccount_Invalid()
         {
-            var uName = " ";
-            var uName2 = " "; 
-            bool expected = false;
-
-            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
-
-            bool actual = _creation.CreateAccount(u1, u2);
-            Console.WriteLine(actual);
-
-            Assert.AreEqual(expected, actual);
-        }
-        */
-
-        /// <summary>
-        /// Test Case duplication
-        /// </summary>
-        [TestMethod]
-        public void Creation_Duplication()
-        {
-            var uName = "Bill2080"; //system admin
+            var uName = "y";
+            var uName2 = "i "; 
             bool expected = true;
+            bool actual;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = new User();
+            u2.Name = uName2;
 
-            bool actual = _creation.Duplication(u1);
+            var uList = _User.GetAll().AsEnumerable();
+
+            bool userInDB = false;
+            foreach (User u in uList)
+            {
+
+                if (!uList.Contains(u1) || !uList.Contains(u2))
+                {
+                    userInDB = false;        
+                }
+                else if(uList.Contains(u1) && uList.Contains(u2))
+                {
+                    userInDB = true;
+                }
+            }
+
+            if(userInDB == false)
+            {
+                actual = true;
+            }
+            else
+            {
+                actual = _creation.CreateAccount(u1, u2);
+            }
+
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
-
         }
-
-        /*
-        /// <summary>
-        /// Test Case duplication  UNABLE TO PASS A NON DUPLICATE WITH A NEW ACC
-        /// </summary>
-        [TestMethod]
-        public void Creation_NotDuplication()
-        {
-            var uName = "Bob"; // user
-            bool expected = false;
-
-            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-
-            bool actual = _creation.Duplication(u1);
-            Console.WriteLine(actual);
-
-            Assert.AreEqual(expected, actual);
-
-        }
-        */
-
+     
         /// <summary>
         /// Test case for creation admin on user
         /// </summary>
@@ -98,11 +85,17 @@ namespace UnitTest
         public void Creation_AdminToUser_Valid()
         {
             var uName = "Bob2080"; //admin
-            var uName2 = "VicePresident"; //regular user
+            //var uName2 = "VicePresident"; //regular user
+
             bool expected = true;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            User u2 = new User();
+            u2.Username = "Bobby23";
+            u2.Role = "Registered User";
+            u2.Password = "bboy23";
+            u2.DOB = "12/12/1993";
+            u2.Location = "Long Beach, CA USA";
 
             bool actual = _creation.CreateAccount(u1, u2);
             Console.WriteLine(actual);
@@ -118,12 +111,15 @@ namespace UnitTest
         public void Creation_UserToAdmin_NotValid()
         {
             var uName = "VicePresident"; //regular user
-            var uName2 = "Bob2080"; //admin
             bool expected = false;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
-
+            User u2 = new User();
+            u2.Username = "Bobby23";
+            u2.Role = "Admin";
+            u2.Password = "bboy23";
+            u2.DOB = "12/12/1993";
+            u2.Location = "Long Beach, CA USA";
             bool actual = _creation.CreateAccount(u1, u2);
             Console.WriteLine(actual);
 
@@ -138,11 +134,15 @@ namespace UnitTest
         public void Creation_SystemAdminToAdmin_Valid()
         {
             var uName = "Bill2080"; //system admin
-            var uName2 = "Bob2080"; //admin
             bool expected = true;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            User u2 = new User();
+            u2.Username = "Bobby23";
+            u2.Role = "Admin";
+            u2.Password = "bboy23";
+            u2.DOB = "12/12/1993";
+            u2.Location = "Long Beach, CA USA";
 
             bool actual = _creation.CreateAccount(u1, u2);
             Console.WriteLine(actual);
@@ -151,26 +151,25 @@ namespace UnitTest
 
         }
 
-        /*
-        /// <summary>
-        /// THIS CODE IS WRONG. ADMIN CREATING SYSTEM ADMIN
-        /// </summary>
         [TestMethod]
-        public void Creation_AdminToSystemAdmin_Valid()
+        public void Creation_AdminToSystemAdmin_Invalid()
         {
             var uName = "Bob2080"; //admin
-            var uName2 = "Bill2080"; //systemadmin
             bool expected = false;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            User u2 = new User();
+            u2.Username = "Bobby23";
+            u2.Role = "System Admin";
+            u2.Password = "bboy23";
+            u2.DOB = "12/12/1993";
+            u2.Location = "Long Beach, CA USA";
 
             bool actual = _creation.CreateAccount(u1, u2);
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
 
-        }
-        */
+        }        
     }
 }

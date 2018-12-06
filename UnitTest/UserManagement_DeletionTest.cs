@@ -13,7 +13,6 @@ namespace UnitTest
     {
         IUnitOfWork _uow;
         Deletion _deletion;
-        //UserManagement_Manager _userManagement;
         IRepository<User> _User;
 
         [TestInitialize]
@@ -30,6 +29,7 @@ namespace UnitTest
 
             // Clean resources
         }
+
         /// <summary>
         /// Test case admin on user
         /// </summary>
@@ -49,7 +49,7 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
 
         }
-        /*
+        
         /// <summary>
         /// Test case user on admin
         /// </summary>
@@ -69,9 +69,7 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
 
         }
-        */
-
-        /*
+        
         [TestMethod]
         public void Deletion_SystemAdminToAdmin_isValid()
         {
@@ -88,17 +86,12 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
 
         }
-        */
 
-        /*
-        /// <summary>
-        /// UNIT TEST IS TESTING IT WRONG. ADMIN CAN DELETE SYSTEMADMIN BUT SYSTEM ADMIN CANT DELETE ADMIN
-        /// </summary>
         [TestMethod]
-        public void Deletion_SystemAdminToAdmin_isNotValid()
+        public void Deletion_AdminToSystemAdmin_isNotValid()
         {
-            var uName = "Bob2080";
-            var uName2 = "Bill2080";
+            var uName = "Bob2080"; // admin
+            var uName2 = "Bill2080"; // system admin
             bool expected = false;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
@@ -108,8 +101,6 @@ namespace UnitTest
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
-
         }
-        */
     }
 }

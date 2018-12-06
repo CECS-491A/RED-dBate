@@ -48,21 +48,25 @@ namespace UserManagement
                 _User.Delete(u2);
                 _uow.Save();
                 accountDeleted = true;
+                //Console.WriteLine("Hello 1");
             }
-            else if (u2.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == "System Admin" && u2.Role == "Admin")
             {
                 _User.Delete(u2);
                 _uow.Save();
                 accountDeleted = true;
+                //Console.WriteLine("Hello 2");
             }
             else
             {
                 accountDeleted = false;
-                throw new Exception("Didn't meet any of the requirements");
+                //Console.WriteLine("Hello 3");
+                //throw new Exception("Didn't meet any of the requirements");
             }
+
+            //Console.WriteLine("Hello 4");
 
             return accountDeleted;
         }
-
     }
 }
