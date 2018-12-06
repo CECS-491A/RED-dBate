@@ -51,9 +51,13 @@
     <Reference Include="System.IdentityModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest_AuthMan.cs" />
+    <Compile Include="Authorization_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserManagementTest.cs" />
+    <Compile Include="UserManagement_ActivationTest.cs" />
+    <Compile Include="UserManagement_ConfigurationTest.cs" />
+    <Compile Include="UserManagement_CreationTest.cs" />
+    <Compile Include="UserManagement_DeletionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
