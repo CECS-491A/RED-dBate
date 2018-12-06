@@ -42,6 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activation.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Creation.cs" />
+    <Compile Include="Deletion.cs" />
     <Compile Include="UserManagement_Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -11,7 +11,6 @@ namespace UnitTest
     public class UnitTest_AuthMan
     {
         AuthorizationManager aM = new AuthorizationManager();
-        User u = new User();
 
         [TestMethod]
         public void TestCheckAccessClaimInUserValid()
@@ -131,25 +130,5 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
 
         }
-        /*
-        [TestMethod]
-        public void TestCheckUsertoUser()
-        {
-            string claim = "Authorize ID User";
-            bool expected = true;
-            bool actual;
-
-            aM.identity.Name = "123";
-            aM.identity.CollectionClaims.Add(claim);
-
-
-            actual = aM.CheckAccess("Update Documents");
-
-            Console.WriteLine("Actual Value: " + actual);
-            Assert.AreEqual(expected, actual);
-        }
-        */
-
-
     }
 }

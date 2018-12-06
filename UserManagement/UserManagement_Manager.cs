@@ -31,8 +31,28 @@ namespace UserManagement
         public UserManagement_Manager(IUnitOfWork uow)
         {
             _uow = uow;
-
             _User = _uow.GetRepository<User>();
+        }
+
+        /// <summary>
+        /// Method that checks whether the collection of users contains duplicate usernames
+        /// </summary>
+        /// <param name="u">user u object</param>
+        /// <returns>returns true or false</returns>
+        public bool Duplication(User u)
+        {
+            IEnumerable<User> listUsers = _User.GetAll().AsEnumerable<User>();
+            bool duplicate = true;
+
+            // do a seperate method
+            foreach (User ur in listUsers)
+            {
+                if (ur.Username == u.Username)
+                {
+                    duplicate = false;
+                }
+            }
+            return duplicate;
         }
 
         /// <summary>
@@ -41,10 +61,29 @@ namespace UserManagement
         /// <param name="u">User object that contains user information used to create account</param>
         public void CreateAccount(User u)
         {
+            bool duplicate = Duplication(u);
+
             try
             {
-                _User.Add(u);
-                _uow.Save();
+                if(u.Role == "Registered User")
+                {
+                    if(u.Username != null && duplicate != false && u.Password != null && u.DOB != null && u.Location != null)
+                    {
+                        _User.Add(u);
+                        _uow.Save();
+                    }
+                }
+                else if(u.Role == "System Admin" || u.Role == "Admin")
+                {
+                    if(u.Username != null && u.DOB != null && u.Location != null){
+                        _User.Add(u);
+                        _uow.Save();
+                    }
+                }
+                else
+                {
+                    throw new Exception("Failure Creating an account");
+                }
             }
             catch (Exception ex)
             {
@@ -56,13 +95,16 @@ namespace UserManagement
         /// Method used to disable account of a user
         /// </summary>
         /// <param name="u">user object cotaining information to delete it's account</param>
-        public void DisableAccount(User u)
+        public void DisableAccount(User u1, User u2)
         {
             try
             {
-                u.IsAccountActivated = false;
-                _User.Update(u);
-                _uow.Save();
+                if(u1.Role == "System Admin" || u1.Role == "Admin")
+                {
+                    u2.IsAccountActivated = false;
+                    _User.Update(u2);
+                    _uow.Save();
+                }
             }
             catch(Exception ex)
             {
