@@ -54,11 +54,11 @@
     <Compile Include="Authorization_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PwnedPasswordTest.cs" />
-    <Compile Include="UserManagement_ActivationTest.cs" />
-    <Compile Include="UserManagement_ConfigurationTest.cs" />
-    <Compile Include="UserManagement_ConfigureClaimsTest.cs" />
-    <Compile Include="UserManagement_CreationTest.cs" />
-    <Compile Include="UserManagement_DeletionTest.cs" />
+    <Compile Include="UserManagementTesting\UserManagement_ActivationTest.cs" />
+    <Compile Include="UserManagementTesting\UserManagement_ConfigurationTest.cs" />
+    <Compile Include="UserManagementTesting\UserManagement_ConfigureClaimsTest.cs" />
+    <Compile Include="UserManagementTesting\UserManagement_CreationTest.cs" />
+    <Compile Include="UserManagementTesting\UserManagement_DeletionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

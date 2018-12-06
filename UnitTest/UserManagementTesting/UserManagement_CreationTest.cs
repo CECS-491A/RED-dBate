@@ -44,12 +44,16 @@ namespace UnitTest
             bool expected = true;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            User u2 = new User();
-            u2.Username = "Bobby23";
-            u2.Role = "Registered User";
-            u2.Password = "bboy23";
-            u2.DOB = "12/12/1993";
-            u2.Location = "Long Beach, CA USA";
+            User u2 = new User
+            {
+                ID = 7,
+                Username = "Bobby23",
+                Name = "John",
+                Role = "Registered User",
+                Password = "bboy23",
+                DOB = "12/12/1993",
+                Location = "Long Beach, CA USA"
+            };
 
             bool actual = _creation.CreateAccount(u1, u2);
             Console.WriteLine(actual);

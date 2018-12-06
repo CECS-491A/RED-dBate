@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using Authorization;
+using DataAccessLayer;
+using DataAccessLayer.Mock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelLayer;
 
@@ -129,6 +131,30 @@ namespace UnitTest
             Console.WriteLine("Actual Value: " + actual);
             Assert.AreEqual(expected, actual);
 
+        }
+
+        [TestMethod]
+        public void TestCheckUserToSystemInvalid()
+        {
+            string claim = "ViewData";
+            bool expected = false;
+
+            bool actual = aM.CheckAccessSystem(claim);
+
+            Console.WriteLine("Actual Value: " + actual);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestCheckUserToSystemValid()
+        {
+            string claim = "View Documents";
+            bool expected = true;
+
+            bool actual = aM.CheckAccessSystem(claim);
+
+            Console.WriteLine("Actual Value: " + actual);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

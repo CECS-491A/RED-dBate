@@ -38,14 +38,14 @@ namespace UserManagement
         private bool Duplication(User u)
         {
             IEnumerable<User> listUsers = _User.GetAll().AsEnumerable<User>();
-            bool duplicate = true;
+            bool duplicate = false;
 
             // do a seperate method
             foreach (User ur in listUsers)
             {
                 if (ur.Username == u.Username)
                 {
-                    duplicate = false;
+                    duplicate = true;
                 }
             }
             return duplicate;
@@ -64,13 +64,13 @@ namespace UserManagement
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
-                if (u2.Username != null && duplicate == false && u2.Password != null && u2.DOB != null && u2.Location != null)
+                if (duplicate == false && u2.Password != null && u2.DOB != null && u2.Location != null)
                 {
                     _User.Add(u2);
                     _uow.Save();
                     accountCreated = true;
                 }
-                Console.WriteLine("hello1");
+                Console.WriteLine("hello1" + accountCreated);
             }
             else if (u1.Role == "System Admin" && u2.Role == "Admin")
             {

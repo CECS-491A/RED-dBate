@@ -55,5 +55,27 @@ namespace Authorization
 
             return regUserClaims;
         }
+
+        /// <summary>
+        /// Method that returns claims that a regular user would have normally
+        /// </summary>
+        /// <returns>list of string reguser claims</returns>
+        public List<string> GetSystemClaims()
+        {
+            List<string> systemClaims = new List<string>();
+            systemClaims.Add("View Documents");
+            systemClaims.Add("View Pages");
+            systemClaims.Add("Update Password");
+            systemClaims.Add("Create Regular User Account");
+            systemClaims.Add("Update Regular User Account");
+            systemClaims.Add("Disable Regular User Account");
+            systemClaims.Add("Enable Regular User Account");
+            systemClaims.Add("Create Admin Account");
+            systemClaims.Add("Update Admin Account");
+            systemClaims.Add("Disable Admin Account");
+            systemClaims.Add("Enable Admin Account");
+
+            return systemClaims;
+        }
     }
 }

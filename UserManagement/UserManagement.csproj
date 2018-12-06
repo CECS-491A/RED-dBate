@@ -47,7 +47,6 @@
     <Compile Include="ConfigureClaims.cs" />
     <Compile Include="Creation.cs" />
     <Compile Include="Deletion.cs" />
-    <Compile Include="UserManagement_Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
