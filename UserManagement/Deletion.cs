@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace UserManagement
 {
+    /// <summary>
+    /// Class used to delete accounts
+    /// </summary>
     public class Deletion
     {
         /// <summary>
@@ -33,18 +36,31 @@ namespace UserManagement
         /// <summary>
         /// Method used to delete account of a user
         /// </summary>
-        /// <param name="u">object containing user information used to delete account</param>
-        public void DeleteAccount(User u)
+        /// <param name="u1">user object representing user performing the delete function</param>
+        /// <param name="u2">user being deleted</param>
+        /// <returns>accountDeleted = True or False</returns>
+        public bool DeleteAccount(User u1, User u2)
         {
-            try
+            bool accountDeleted;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
-                _User.Delete(u);
+                _User.Delete(u2);
                 _uow.Save();
+                accountDeleted = true;
             }
-            catch (Exception ex)
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
             {
-                throw new Exception("Failure deleting User", ex);
+                _User.Delete(u2);
+                _uow.Save();
+                accountDeleted = true;
             }
+            else
+            {
+                accountDeleted = false;
+            }
+
+            return accountDeleted;
         }
 
     }

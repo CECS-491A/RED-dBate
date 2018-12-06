@@ -31,83 +31,223 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// Method used to update name of users account
+        /// Method used to update name of user account and return whether it was completed or not
         /// </summary>
-        /// <param name="u">user object containing info to configure</param>
+        /// <param name="u1">User performing function</param>
+        /// <param name="u2">user where name is being updated</param>
         /// <param name="name">updated name</param>
-        public void ConfigureName(User u, string name)
+        /// <returns>true or false of nameConfigured</returns>
+        public bool ConfigureName(User u1, User u2, string name)
         {
-            try
+            bool nameConfigured;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
-                u.Name = name;
-                _User.Update(u);
+                u2.Name = name;
+                _User.Update(u2);
                 _uow.Save();
+                nameConfigured = true;
             }
-            catch (Exception ex)
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
             {
-                throw new Exception("Failure Configuring name of user", ex);
+                u2.Name = name;
+                _User.Update(u2);
+                _uow.Save();
+                nameConfigured = true;
             }
+            else
+            {
+                nameConfigured = false;
+            }
+
+            return nameConfigured;
         }
 
         /// <summary>
-        /// Method that updates role of the account
+        /// Method used to update role of user account and return whether it was completed or not
         /// </summary>
-        /// <param name="u">object containing users information that can be updated</param>
-        /// <param name="role">updated role of the user</param>
-        public void ConfigureRole(User u, string role)
+        /// <param name="u1">User performing function</param>
+        /// <param name="u2">user where role is being updated</param>
+        /// <param name="role">updated role</param>
+        /// <returns>true or false of roleConfigured</returns>
+        public bool ConfigureRole(User u1, User u2, string role)
         {
-            try
+            bool roleConfigured;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
-                u.Role = role;
-                _User.Update(u);
+                u2.Role = role;
+                _User.Update(u2);
                 _uow.Save();
+                roleConfigured = true;
             }
-            catch (Exception ex)
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
             {
-                throw new Exception("Failure Configuring role of user", ex);
+                u2.Role = role;
+                _User.Update(u2);
+                _uow.Save();
+                roleConfigured = true;
             }
+            else
+            {
+                roleConfigured = false;
+            }
+
+            return roleConfigured;
         }
 
         /// <summary>
-        /// Method used to add more claims to the users account
+        /// Method used to update password of user account and return whether it was completed or not
         /// </summary>
-        /// <param name="u">object containing information that can be configured</param>
-        /// <param name="claim">claim to be added to the user</param>
-        public void AddClaim(User u, string claim)
+        /// <param name="u1">User performing function</param>
+        /// <param name="u2">user where password is being updated</param>
+        /// <param name="password">updated password</param>
+        /// <returns>true or false of passwordConfigured</returns>
+        public bool ConfigurePassword(User u1, User u2, string password)
         {
-            try
+            bool passwordConfigured;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
-                u.CollectionClaims.Add(claim);
-                _User.Update(u);
+                u2.Password = password;
+                _User.Update(u2);
                 _uow.Save();
+                passwordConfigured = true;
             }
-            catch (Exception ex)
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
             {
-                throw new Exception("Failure Adding new Claim to User", ex);
+                u2.Password = password;
+                _User.Update(u2);
+                _uow.Save();
+                passwordConfigured = true;
             }
+            else
+            {
+                passwordConfigured = false;
+            }
+
+            return passwordConfigured;
         }
 
         /// <summary>
-        /// Method that configures claim of a user account
+        /// Method used to update location of user account and return whether it was completed or not
         /// </summary>
-        /// <param name="u">object used containing user account information</param>
-        /// <param name="neededClaim">claim that is going to be updated</param>
-        /// <param name="updatedClaim">updated claim that the user wants</param>
-        public void ConfigureClaim(User u, string neededClaim, string updatedClaim)
+        /// <param name="u1">User performing function</param>
+        /// <param name="u2">user where location is being updated</param>
+        /// <param name="loc">updated loc</param>
+        /// <returns>true or false of locConfigured</returns>
+        public bool ConfigureLocation(User u1, User u2, string loc)
         {
-            try
+            bool locConfigured;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
-                int index = u.CollectionClaims.BinarySearch(neededClaim);
-                u.CollectionClaims.Insert(index, updatedClaim);
-                _User.Update(u);
+                u2.Location = loc;
+                _User.Update(u2);
                 _uow.Save();
+                locConfigured = true;
             }
-            catch (Exception ex)
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
             {
-                throw new Exception("Failure Updating a Claim of a User", ex);
+                u2.Location = loc;
+                _User.Update(u2);
+                _uow.Save();
+                locConfigured = true;
             }
+            else
+            {
+                locConfigured = false;
+            }
+
+            return locConfigured;
         }
 
-        //MORE METHODS HAVE TO BE ADDED IN PROGRESS.....
+        /// <summary>
+        /// Method used to update dob of user account and return whether it was completed or not
+        /// </summary>
+        /// <param name="u1">User performing function</param>
+        /// <param name="u2">user where dob is being updated</param>
+        /// <param name="dob">updated dob</param>
+        /// <returns>true or false of dobConfigured</returns>
+        public bool ConfigureDOB(User u1, User u2, string dob)
+        {
+            bool dobConfigured;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            {
+                u2.DOB = dob;
+                _User.Update(u2);
+                _uow.Save();
+                dobConfigured = true;
+            }
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
+            {
+                u2.DOB = dob;
+                _User.Update(u2);
+                _uow.Save();
+                dobConfigured = true;
+            }
+            else
+            {
+                dobConfigured = false;
+            }
+
+            return dobConfigured;
+        }
+
+        /// <summary>
+        /// Method that checks whether the collection of users contains duplicate usernames
+        /// </summary>
+        /// <param name="u">user u object</param>
+        /// <returns>returns true or false</returns>
+        public bool Duplication(User u)
+        {
+            IEnumerable<User> listUsers = _User.GetAll().AsEnumerable<User>();
+            bool duplicate = true;
+
+            // do a seperate method
+            foreach (User ur in listUsers)
+            {
+                if (ur.Username == u.Username)
+                {
+                    duplicate = false;
+                }
+            }
+            return duplicate;
+        }
+
+        /// <summary>
+        /// Method used to update username of user account and return whether it was completed or not
+        /// </summary>
+        /// <param name="u1">User performing function</param>
+        /// <param name="u2">user where username is being updated</param>
+        /// <param name="uName">updated username</param>
+        /// <returns>true or false of uNameConfigured</returns>
+        public bool ConfigureUsername(User u1, User u2, string uName)
+        {
+            bool duplicate = Duplication(u2);
+            bool uNameConfigured;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User" && duplicate == false)
+            {
+                u2.Username = uName;
+                _User.Update(u2);
+                _uow.Save();
+                uNameConfigured = true;
+            }
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
+            {
+                u2.Username = uName;
+                _User.Update(u2);
+                _uow.Save();
+                uNameConfigured = true;
+            }
+            else
+            {
+                uNameConfigured = false;
+            }
+
+            return uNameConfigured;
+        }
     }
 }

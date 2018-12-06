@@ -28,6 +28,10 @@ namespace DataAccessLayer.Mock
                        ID = 1,
                        Name = "Bob",
                        Role = "Admin",
+                       Username = "Bob2080",
+                       Location = "Long Beach, CA USA",
+                       Password = "Admin",
+                       DOB = "12/15/1996",
                        CollectionClaims = {"View","Update", "Delete", "Create"},
                        IsAccountActivated = true
                     },
@@ -36,6 +40,10 @@ namespace DataAccessLayer.Mock
                        ID = 2,
                        Name = "Bill",
                        Role = "System Admin",
+                       Username = "Bill2080",
+                       Location = "Long Beach, CA USA",
+                       Password = "SystemAdmin",
+                       DOB = "12/15/1987",
                        CollectionClaims = {"View","Update", "Delete", "Create", "CreateAdmin"},
                        IsAccountActivated = true
 
@@ -45,6 +53,10 @@ namespace DataAccessLayer.Mock
                        ID = 3,
                        Name = "Aaron Burr",
                        Role = "Registered User",
+                       Username = "VicePresident",
+                       Location = "Long Beach, CA USA",
+                       Password = "User1",
+                       DOB = "12/15/1985",
                        CollectionClaims = {"View"},
                        IsAccountActivated = true
                     }

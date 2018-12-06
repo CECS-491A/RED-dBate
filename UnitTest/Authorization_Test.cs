@@ -8,7 +8,7 @@ using ModelLayer;
 namespace UnitTest
 {
     [TestClass]
-    public class UnitTest_AuthMan
+    public class Authorization_Test
     {
         AuthorizationManager aM = new AuthorizationManager();
 

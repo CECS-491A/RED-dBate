@@ -38,14 +38,14 @@ namespace UserManagement
         public bool Duplication(User u)
         {
             IEnumerable<User> listUsers = _User.GetAll().AsEnumerable<User>();
-            bool duplicate = true;
+            bool duplicate = false;
 
             // do a seperate method
             foreach (User ur in listUsers)
             {
                 if (ur.Username == u.Username)
                 {
-                    duplicate = false;
+                    duplicate = true;
                 }
             }
             return duplicate;
@@ -55,18 +55,19 @@ namespace UserManagement
         /// method that creates a user account for them to use
         /// </summary>
         /// <param name="u">User object that contains user information used to create account</param>
-        public void CreateAccount(User u)
+        public bool CreateAccount(User u)
         {
             bool duplicate = Duplication(u);
+            bool accountCreated = true;
 
-            try
-            {
                 if (u.Role == "Registered User")
                 {
-                    if (u.Username != null && duplicate != false && u.Password != null && u.DOB != null && u.Location != null)
+                    if (u.Username != null && duplicate == false && u.Password != null && u.DOB != null && u.Location != null)
                     {
                         _User.Add(u);
                         _uow.Save();
+                        accountCreated = true;
+                        //return accountCreated;
                     }
                 }
                 else if (u.Role == "System Admin" || u.Role == "Admin")
@@ -75,18 +76,17 @@ namespace UserManagement
                     {
                         _User.Add(u);
                         _uow.Save();
+                        accountCreated = true;
+                        //return accountCreated;
                     }
                 }
                 else
                 {
-                    throw new Exception("Failure Creating an account");
+                    accountCreated = false;
+                    //return accountCreated;
+                    //throw new Exception("Failure Creating an account");
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Failure Creating User Account", ex);
+            return accountCreated;
             }
         }
-
     }
-}

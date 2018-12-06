@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace UserManagement
 {
+    /// <summary>
+    /// Enables or disables account of a user
+    /// </summary>
     public class Activation
     {
         /// <summary>
@@ -31,43 +34,71 @@ namespace UserManagement
         }
 
         /// <summary>
-        /// Method used to disable account of a user
+        ///  Method used to disable account of a user
         /// </summary>
-        /// <param name="u">user object cotaining information to delete it's account</param>
-        public void DisableAccount(User u1, User u2)
+        /// <param name="u1">User object representing user performing the function</param>
+        /// <param name="u2">User object representing the user that's having it's account disabled</param>
+        /// <returns>disabledAccount = true or false</returns>
+        public bool DisableAccount(User u1, User u2)
         {
-            try
+            bool disabledAccount;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
-                if (u1.Role == "System Admin" || u1.Role == "Admin")
-                {
-                    u2.IsAccountActivated = false;
-                    _User.Update(u2);
-                    _uow.Save();
-                }
+                u2.IsAccountActivated = false;
+                _User.Update(u2);
+                _uow.Save();
             }
-            catch (Exception ex)
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
             {
-                throw new Exception("Failure in Disabling Account", ex);
+                u2.IsAccountActivated = false;
+                _User.Update(u2);
+                _uow.Save();
             }
+            else
+            {
+                u2.IsAccountActivated = true;
+                _User.Update(u2);
+                _uow.Save();
+            }
+
+            disabledAccount = u2.IsAccountActivated;
+
+            return disabledAccount;
         }
 
         /// <summary>
         /// Method that enables an account to be used
         /// </summary>
-        /// <param name="u">user object containing information needed to enable the user account</param>
-        public void EnableAccount(User u)
+        /// <param name="u1">User object representing the user performing the function</param>
+        /// <param name="u2">user object represent the user that's going to have it's account enabled</param>
+        /// <returns>enabledAccount = True or False</returns>
+        public bool EnableAccount(User u1, User u2)
         {
-            try
+            bool enabledAccount;
+
+            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
-                u.IsAccountActivated = true;
-                _User.Update(u);
+                u2.IsAccountActivated = true;
+                _User.Update(u2);
                 _uow.Save();
             }
-            catch (Exception ex)
+            else if (u2.Role == "System Admin" && u2.Role == "Admin")
             {
-                throw new Exception("Failure in Enabling Account", ex);
+                u2.IsAccountActivated = true;
+                _User.Update(u2);
+                _uow.Save();
             }
-        }
+            else
+            {
+                u2.IsAccountActivated = false;
+                _User.Update(u2);
+                _uow.Save();
+            }
 
+            enabledAccount = u2.IsAccountActivated;
+
+            return enabledAccount;
+        }
     }
 }
