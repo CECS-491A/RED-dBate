@@ -9,7 +9,7 @@ namespace PwnedPassword
     /// <summary>
     /// Holds the pwned status and status message of the password.
     /// </summary>
-    class PasswordStatus
+    public class PasswordStatus
     {
         //An integer representing the status of the password's pwned status
         public int Status { get; set; }

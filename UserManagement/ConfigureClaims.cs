@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace UserManagement
 {
-    class ConfigureClaims
+    public class ConfigureClaims
     {
         /// <summary>
         /// interface class that keeps track of data by having classes that can get repositories and saving it
@@ -58,7 +58,7 @@ namespace UserManagement
             else
             {
                 claimAdded = false;
-                throw new Exception("Didn't meet any of the requirements");
+                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return claimAdded;
@@ -105,6 +105,7 @@ namespace UserManagement
         /// <param name="claim">claim to delete</param>
         private void DeleteSpecificClaim(User u, string claim)
         {
+
             foreach (string c in u.CollectionClaims)
             {
                 if (u.CollectionClaims.Contains(claim))

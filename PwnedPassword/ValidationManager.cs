@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PwnedPassword
 {
-    class ValidationManager
+    public class ValidationManager
     {
         private static PasswordValidationService pvs = new PasswordValidationService();
 
