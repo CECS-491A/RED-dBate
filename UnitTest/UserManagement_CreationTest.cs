@@ -31,52 +31,6 @@ namespace UnitTest
 
             // Clean resources
         }
-
-        
-        /// <summary>
-        /// Test Case for empty creation ATTEMPT
-        /// </summary>
-        [TestMethod]
-        public void Creation_isEmptyCreateAccount_Invalid()
-        {
-            var uName = "y";
-            var uName2 = "i "; 
-            bool expected = true;
-            bool actual;
-
-            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            User u2 = new User();
-            u2.Name = uName2;
-
-            var uList = _User.GetAll().AsEnumerable();
-
-            bool userInDB = false;
-            foreach (User u in uList)
-            {
-
-                if (!uList.Contains(u1) || !uList.Contains(u2))
-                {
-                    userInDB = false;        
-                }
-                else if(uList.Contains(u1) && uList.Contains(u2))
-                {
-                    userInDB = true;
-                }
-            }
-
-            if(userInDB == false)
-            {
-                actual = true;
-            }
-            else
-            {
-                actual = _creation.CreateAccount(u1, u2);
-            }
-
-            Console.WriteLine(actual);
-
-            Assert.AreEqual(expected, actual);
-        }
      
         /// <summary>
         /// Test case for creation admin on user
@@ -101,7 +55,6 @@ namespace UnitTest
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
-
         }
 
         /// <summary>
@@ -170,6 +123,51 @@ namespace UnitTest
 
             Assert.AreEqual(expected, actual);
 
-        }        
+        }
+
+        /// <summary>
+        /// Test Case for empty creation ATTEMPT
+        /// </summary>
+        [TestMethod]
+        public void Creation_isEmptyCreateAccount_Invalid()
+        {
+            var uName = "y";
+            var uName2 = "i ";
+            bool expected = true;
+            bool actual;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = new User();
+            u2.Name = uName2;
+
+            var uList = _User.GetAll().AsEnumerable();
+
+            bool userInDB = false;
+            foreach (User u in uList)
+            {
+
+                if (!uList.Contains(u1) || !uList.Contains(u2))
+                {
+                    userInDB = false;
+                }
+                else if (uList.Contains(u1) && uList.Contains(u2))
+                {
+                    userInDB = true;
+                }
+            }
+
+            if (userInDB == false)
+            {
+                actual = true;
+            }
+            else
+            {
+                actual = _creation.CreateAccount(u1, u2);
+            }
+
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

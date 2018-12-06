@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using DataAccessLayer;
 using DataAccessLayer.Mock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ModelLayer;
 using UserManagement;
 
 namespace UnitTest
@@ -11,12 +13,14 @@ namespace UnitTest
     {
         IUnitOfWork _uow;
         Configuration _configuration;
-        
+        IRepository<User> _User;
+
         [TestInitialize]
         public void SetUp()
         {
             _uow = new MockUnitOfWork<MockDataContext>();
             _configuration = new Configuration(_uow);
+            _User = _uow.GetRepository<User>();
         }
 
         [TestCleanup]
@@ -26,8 +30,397 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void UserManagement_ConfigureName_AdminToUser_Valid()
         {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //user
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigureName(u1, u2, "Donald Duck");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureName_SysAdminToAdmin_Valid()
+        {
+            var uName = "Bill2080"; //sys admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigureName(u1, u2, "Donald Duck");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureName_RegUserToAdmin_Invalid()
+        {
+            var uName = "VicePresident"; //reg user
+            var uName2 = "Bob2080"; //admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigureName(u1, u2, "Donald Duck");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureName_AdminToSysAdmin_Invalid()
+        {
+            var uName = "Bob2080"; // admin
+            var uName2 = "Bill2080"; //sys admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigureName(u1, u2, "Donald Duck");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureRole_AdminToUser_Valid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //user
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            
+            bool actual = _configuration.ConfigureRole(u1, u2, "Registered User Level 2");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureRole_SysAdminToAdmin_Valid()
+        {
+            var uName = "Bill2080"; //sys admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigureRole(u1, u2, "Reigstered User");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureRole_RegUserToAdmin_Invalid()
+        {
+            var uName = "VicePresident"; //reg user
+            var uName2 = "Bob2080"; //admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigureRole(u1, u2, "System Admin");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureRole_AdminToSysAdmin_Invalid()
+        {
+            var uName = "Bob2080"; // admin
+            var uName2 = "Bill2080"; //sys admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigureRole(u1, u2, "Admin");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigurePassword_AdminToUser_Valid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //user
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigurePassword(u1, u2, "DonaldDuck");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigurePassword_SysAdminToAdmin_Valid()
+        {
+            var uName = "Bill2080"; //sys admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigurePassword(u1, u2, "DonaldDuck");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigurePassword_RegUserToAdmin_Invalid()
+        {
+            var uName = "VicePresident"; //reg user
+            var uName2 = "Bob2080"; //admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigurePassword(u1, u2, "DonaldDuck");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigurePassword_AdminToSysAdmin_Invalid()
+        {
+            var uName = "Bob2080"; // admin
+            var uName2 = "Bill2080"; //sys admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigurePassword(u1, u2, "DonaldDuck");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureLocation_AdminToUser_Valid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //user
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigureLocation(u1, u2, "Long Beach, CA USA");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureLocation_SysAdminToAdmin_Valid()
+        {
+            var uName = "Bill2080"; //sys admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            
+            bool actual = _configuration.ConfigureLocation(u1, u2, "Long Beach, CA USA");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureLocation_RegUserToAdmin_Invalid()
+        {
+            var uName = "VicePresident"; //reg user
+            var uName2 = "Bob2080"; //admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigureLocation(u1, u2, "Long Beach, CA USA");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureLocation_AdminToSysAdmin_Invalid()
+        {
+            var uName = "Bob2080"; // admin
+            var uName2 = "Bill2080"; //sys admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            
+            bool actual = _configuration.ConfigureLocation(u1, u2, "Long Beach, CA USA");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureDOB_AdminToUser_Valid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //user
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            
+            bool actual = _configuration.ConfigureDOB(u1, u2, "12/15/1996");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureDOB_SysAdminToAdmin_Valid()
+        {
+            var uName = "Bill2080"; //sys admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+           
+            bool actual = _configuration.ConfigureDOB(u1, u2, "12/15/1996");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureDOB_RegUserToAdmin_Invalid()
+        {
+            var uName = "VicePresident"; //reg user
+            var uName2 = "Bob2080"; //admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigureDOB(u1, u2, "12/15/1996");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureDOB_AdminToSysAdmin_Invalid()
+        {
+            var uName = "Bob2080"; // admin
+            var uName2 = "Bill2080"; //sys admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigureDOB(u1, u2, "12/15/1996");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureUsername_AdminToUser_Valid()
+        {
+            var uName = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //user
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigureUsername(u1, u2, "Donald93");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureUsername_SysAdminToAdmin_Valid()
+        {
+            var uName = "Bill2080"; //sys admin
+            var uName2 = "Bob2080"; //admin
+            bool expected = true;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Console.WriteLine(u1.Username);
+
+            bool actual = _configuration.ConfigureUsername(u1, u2, "Bill34");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureUsername_RegUserToAdmin_Invalid()
+        {
+            var uName = "VicePresident"; //reg user
+            var uName2 = "Bob2080"; //admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigureUsername(u1, u2, "KanyeWest39");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UserManagement_ConfigureUsername_AdminToSysAdmin_Invalid()
+        {
+            var uName = "Bob2080"; // admin
+            var uName2 = "Bill2080"; //sys admin
+            bool expected = false;
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            bool actual = _configuration.ConfigureUsername(u1, u2, "Pete49er");
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }

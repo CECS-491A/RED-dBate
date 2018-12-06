@@ -38,14 +38,14 @@ namespace UserManagement
         private bool Duplication(User u)
         {
             IEnumerable<User> listUsers = _User.GetAll().AsEnumerable<User>();
-            bool duplicate = false;
+            bool duplicate = true;
 
             // do a seperate method
             foreach (User ur in listUsers)
             {
                 if (ur.Username == u.Username)
                 {
-                    duplicate = true;
+                    duplicate = false;
                 }
             }
             return duplicate;
