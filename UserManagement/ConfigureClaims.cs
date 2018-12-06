@@ -92,7 +92,7 @@ namespace UserManagement
             else
             {
                 claimDeleted = false;
-                throw new Exception("Didn't meet any of the requirements");
+                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return claimDeleted;
@@ -105,10 +105,11 @@ namespace UserManagement
         /// <param name="claim">claim to delete</param>
         private void DeleteSpecificClaim(User u, string claim)
         {
+            var collectionClaims = u.CollectionClaims.ToList();
 
-            foreach (string c in u.CollectionClaims)
+            foreach (string c in collectionClaims)
             {
-                if (u.CollectionClaims.Contains(claim))
+                if (collectionClaims.Contains(claim))
                 {
                     u.CollectionClaims.Remove(claim);
                 }

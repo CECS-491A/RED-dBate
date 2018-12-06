@@ -59,7 +59,7 @@ namespace DataAccessLayer.Mock
                        Location = "Long Beach, CA USA",
                        Password = "User1",
                        DOB = "12/15/1985",
-                       CollectionClaims = {"View"},
+                       CollectionClaims = {"View", "ViewDocuments"},
                        IsAccountActivated = true
                     }
                 };

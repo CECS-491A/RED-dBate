@@ -2,6 +2,7 @@
 using DataAccessLayer;
 using DataAccessLayer.Mock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ModelLayer;
 using UserManagement;
 
 namespace UnitTest
@@ -11,13 +12,15 @@ namespace UnitTest
     {
         IUnitOfWork _uow;
         Deletion _deletion;
-        //UserManagement_Manager _userManagement;
+        IRepository<User> _User;
+
 
         [TestInitialize]
         public void SetUp()
         {
             _uow = new MockUnitOfWork<MockDataContext>();
             _deletion = new Deletion(_uow);
+            _User = _uow.GetRepository<User>();
         }
 
         [TestCleanup]
