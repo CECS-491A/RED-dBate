@@ -39,7 +39,7 @@ namespace UserManagement
         /// <returns>claimAdded = True or False</returns>
         public bool AddClaim(User u1, User u2, string claim)
         {
-            bool claimAdded;
+            bool claimAdded = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -58,6 +58,7 @@ namespace UserManagement
             else
             {
                 claimAdded = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return claimAdded;
@@ -72,7 +73,7 @@ namespace UserManagement
         /// <returns>claimDeleted = True or False</returns>
         public bool DeletedClaim(User u1, User u2, string claim)
         {
-            bool claimDeleted;
+            bool claimDeleted = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -91,6 +92,7 @@ namespace UserManagement
             else
             {
                 claimDeleted = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return claimDeleted;

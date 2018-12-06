@@ -60,7 +60,7 @@ namespace UnitTest
             u.Name = "Michelle Obama";
             u.Role = "Registered";
             u.IsAccountActivated = false;
-            u.CollectionClaims = new List<string> { "View" };
+            u.CollectionClaims =  new List<string> { "View" };
             bool actual = _creation.CreateAccount(u);
             Console.WriteLine(actual);
             Assert.AreEqual(expected, actual);

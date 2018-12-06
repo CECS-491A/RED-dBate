@@ -41,7 +41,7 @@ namespace UserManagement
         /// <returns>disabledAccount = true or false</returns>
         public bool DisableAccount(User u1, User u2)
         {
-            bool disabledAccount;
+            bool disabledAccount = true;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -60,6 +60,7 @@ namespace UserManagement
                 u2.IsAccountActivated = true;
                 _User.Update(u2);
                 _uow.Save();
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             disabledAccount = u2.IsAccountActivated;
@@ -75,7 +76,7 @@ namespace UserManagement
         /// <returns>enabledAccount = True or False</returns>
         public bool EnableAccount(User u1, User u2)
         {
-            bool enabledAccount;
+            bool enabledAccount = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -94,6 +95,7 @@ namespace UserManagement
                 u2.IsAccountActivated = false;
                 _User.Update(u2);
                 _uow.Save();
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             enabledAccount = u2.IsAccountActivated;

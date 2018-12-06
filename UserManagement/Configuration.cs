@@ -39,7 +39,7 @@ namespace UserManagement
         /// <returns>true or false of nameConfigured</returns>
         public bool ConfigureName(User u1, User u2, string name)
         {
-            bool nameConfigured;
+            bool nameConfigured = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -58,6 +58,7 @@ namespace UserManagement
             else
             {
                 nameConfigured = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return nameConfigured;
@@ -72,7 +73,7 @@ namespace UserManagement
         /// <returns>true or false of roleConfigured</returns>
         public bool ConfigureRole(User u1, User u2, string role)
         {
-            bool roleConfigured;
+            bool roleConfigured = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -91,6 +92,7 @@ namespace UserManagement
             else
             {
                 roleConfigured = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return roleConfigured;
@@ -105,7 +107,7 @@ namespace UserManagement
         /// <returns>true or false of passwordConfigured</returns>
         public bool ConfigurePassword(User u1, User u2, string password)
         {
-            bool passwordConfigured;
+            bool passwordConfigured = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -124,6 +126,7 @@ namespace UserManagement
             else
             {
                 passwordConfigured = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return passwordConfigured;
@@ -138,7 +141,7 @@ namespace UserManagement
         /// <returns>true or false of locConfigured</returns>
         public bool ConfigureLocation(User u1, User u2, string loc)
         {
-            bool locConfigured;
+            bool locConfigured = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -157,6 +160,7 @@ namespace UserManagement
             else
             {
                 locConfigured = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return locConfigured;
@@ -171,7 +175,7 @@ namespace UserManagement
         /// <returns>true or false of dobConfigured</returns>
         public bool ConfigureDOB(User u1, User u2, string dob)
         {
-            bool dobConfigured;
+            bool dobConfigured = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -190,6 +194,7 @@ namespace UserManagement
             else
             {
                 dobConfigured = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return dobConfigured;
@@ -226,7 +231,7 @@ namespace UserManagement
         public bool ConfigureUsername(User u1, User u2, string uName)
         {
             bool duplicate = Duplication(u2);
-            bool uNameConfigured;
+            bool uNameConfigured = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User" && duplicate == false)
             {
@@ -245,6 +250,7 @@ namespace UserManagement
             else
             {
                 uNameConfigured = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return uNameConfigured;

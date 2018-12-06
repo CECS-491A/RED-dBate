@@ -41,7 +41,7 @@ namespace UserManagement
         /// <returns>accountDeleted = True or False</returns>
         public bool DeleteAccount(User u1, User u2)
         {
-            bool accountDeleted;
+            bool accountDeleted = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
@@ -58,6 +58,7 @@ namespace UserManagement
             else
             {
                 accountDeleted = false;
+                throw new Exception("Didn't meet any of the requirements");
             }
 
             return accountDeleted;

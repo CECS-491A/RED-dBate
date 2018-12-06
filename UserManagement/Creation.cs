@@ -58,7 +58,7 @@ namespace UserManagement
         public bool CreateAccount(User u)
         {
             bool duplicate = Duplication(u);
-            bool accountCreated = true;
+            bool accountCreated = false;
 
                 if (u.Role == "Registered User")
                 {
