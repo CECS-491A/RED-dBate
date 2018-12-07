@@ -16,7 +16,7 @@ namespace Authorization
         public User user = new User();
 
         /// <summary>
-        /// Method that checks whether a specific user is authoried for somethig
+        /// Method that checks whether a specific user is authorized for something
         /// </summary>
         /// <param name="claim">contains claim that is going to be checked for authorization</param>
         /// <returns></returns>
@@ -44,7 +44,7 @@ namespace Authorization
         }
 
         /// <summary>
-        /// Method that checks whether a specific user is authoried for something from the system
+        /// Method that checks whether a specific user is authorized for something from the system
         /// </summary>
         /// <param name="claim">contains claim that is going to be checked for authorization</param>
         /// <returns>access = true or false</returns>
