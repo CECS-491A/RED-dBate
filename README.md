@@ -5,6 +5,9 @@ Summary of project
 
 * Authorization	
 * CECS491_DBate	
+* DataAccessLayer
+* ModelLayer
+* PwnedPassword
 * UnitTest	
 * UserManagement
 
