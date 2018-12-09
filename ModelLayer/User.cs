@@ -34,12 +34,12 @@ namespace ModelLayer
         /// <summary>
         /// date of birth of user
         /// </summary>
-        public DateOfBirth DOB { get; set; }
+        public string DOB { get; set; }
 
         /// <summary>
         /// location of user
         /// </summary>
-        public Location Location { get; set; }
+        public string Location { get; set; }
 
         /// <summary>
         /// represents the role that the specific user has
@@ -49,7 +49,7 @@ namespace ModelLayer
         /// <summary>
         /// list of claims/rights that a user has
         /// </summary>
-        public List<Claim> CollectionClaims { get; set; }
+        public List<string> CollectionClaims { get; set; }
 
         /// <summary>
         /// bool variable that knows whether account is activated (True/False)
@@ -63,7 +63,7 @@ namespace ModelLayer
         /// </summary>
         public User()
         {
-            CollectionClaims = new List<Claim>();
+            CollectionClaims = new List<string>();
 
         }
 
@@ -77,7 +77,7 @@ namespace ModelLayer
         /// <param name="r"></param>
         /// <param name="loc"></param>
         /// <param name="c"></param>
-        public User(int id, string n, string p, DateOfBirth dob, string r, Location loc, List<Claim> c)
+        public User(int id, string n, string p, String dob, string r, string loc, List<string> c)
         {
             ID = ID;
             Username = n;

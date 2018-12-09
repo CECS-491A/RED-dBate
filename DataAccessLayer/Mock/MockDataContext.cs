@@ -31,7 +31,7 @@ namespace DataAccessLayer.Mock
                        Name = "Bob",
                        Role = "Admin",
                        Username = "Bob2080",
-                       Location = ,
+                       Location = "Long Beach, CA, USA",
                        Password = "Admin",
                        DOB = "12/15/1996",
                        CollectionClaims = {"View","Update", "Delete", "Create"},
@@ -65,22 +65,5 @@ namespace DataAccessLayer.Mock
                 };
             }
         }
-
-        /// <summary>
-        /// Mock DataContext used to store/edit user object data stored in a List of User objects
-        /// </summary>
-        public List<DateOfBirth> 
-        {
-            get
-            {
-                return new List<User>
-                {
-                    new User
-                    {
- 
-                };
-            }
-        }
     }
-
 }
