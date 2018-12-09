@@ -34,12 +34,12 @@ namespace ModelLayer
         /// <summary>
         /// date of birth of user
         /// </summary>
-        public string DOB { get; set; }
+        public DateOfBirth DOB { get; set; }
 
         /// <summary>
         /// location of user
         /// </summary>
-        public string Location { get; set; }
+        public Location Location { get; set; }
 
         /// <summary>
         /// represents the role that the specific user has
@@ -49,7 +49,7 @@ namespace ModelLayer
         /// <summary>
         /// list of claims/rights that a user has
         /// </summary>
-        public List<string> CollectionClaims { get; set; }
+        public List<Claim> CollectionClaims { get; set; }
 
         /// <summary>
         /// bool variable that knows whether account is activated (True/False)
@@ -63,7 +63,7 @@ namespace ModelLayer
         /// </summary>
         public User()
         {
-            CollectionClaims = new List<string>();
+            CollectionClaims = new List<Claim>();
 
         }
 
@@ -77,7 +77,7 @@ namespace ModelLayer
         /// <param name="r"></param>
         /// <param name="loc"></param>
         /// <param name="c"></param>
-        public User(int id, string n, string p, string dob, string r, string loc, List<string> c)
+        public User(int id, string n, string p, DateOfBirth dob, string r, Location loc, List<Claim> c)
         {
             ID = ID;
             Username = n;
@@ -85,45 +85,6 @@ namespace ModelLayer
             DOB = dob;
             Location = loc;
             Role = r;
-            CollectionClaims = c;
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="n"></param>
-        /// <param name="r"></param>
-        /// <param name="c"></param>
-        public User(int id, string n, string r, List<string> c)
-        {
-            ID = ID;
-            Username = n;
-            Role = r;
-            CollectionClaims = c;
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="n"></param>
-        /// <param name="r"></param>
-        /// <param name="c"></param>
-        public User(string n, string r, List<string> c)
-        {
-            Name = n;
-            Role = r;
-            CollectionClaims = c;
-        }
-
-        /// <summary>
-        /// Constructor for user class 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <param name="c"></param>
-        public User(string n, List<string> c)
-        {
-            Name = n;
             CollectionClaims = c;
         }
         #endregion

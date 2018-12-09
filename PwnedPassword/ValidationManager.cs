@@ -126,6 +126,5 @@ namespace PwnedPassword
                 return "Password is unsafe! Use a different password!";
             }
         }
-
     }
 }
