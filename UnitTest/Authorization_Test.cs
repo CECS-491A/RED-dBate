@@ -6,6 +6,7 @@ using DataAccessLayer;
 using DataAccessLayer.Mock;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModelLayer;
+using Claim = ModelLayer.Claim;
 
 namespace UnitTest
 {
@@ -17,7 +18,11 @@ namespace UnitTest
         [TestMethod]
         public void TestCheckAccessClaimInUserValid()
         {
-            string claim = "View Documents";
+            //Create Claim
+            Claim claim = new Claim();
+            claim.ID = 7;
+            claim.ClaimName = "ChangeTime";
+
             bool expected = true;
             bool actual;
 
@@ -33,14 +38,23 @@ namespace UnitTest
         [TestMethod]
         public void TestCheckAccessClaimInUserInvalid()
         {
-            string claim = "View Documents";
+
+            //Create Claim
+            Claim claim = new Claim();
+            claim.ID = 7;
+            claim.ClaimName = "ChangeTime";
+
+            Claim invalidClaim = new Claim();
+            invalidClaim.ID = 8;
+            invalidClaim.ClaimName = "ChangeChatRules";
+
             bool expected = false;
             bool actual;
 
             aM.user.Name = "Bob";
             aM.user.CollectionClaims.Add(claim);
 
-            actual = aM.CheckAccess("Update Documents");
+            actual = aM.CheckAccess(invalidClaim);
 
             Console.WriteLine("Actual Value: " + actual);
             Assert.AreEqual(expected, actual);
@@ -49,10 +63,14 @@ namespace UnitTest
         [TestMethod]
         public void TestCheckUserDoesNotExist()
         {
+            Claim invalidClaim = new Claim();
+            invalidClaim.ID = 8;
+            invalidClaim.ClaimName = "ChangeChatRules";
+
             bool expected = false;
             bool actual;
 
-            actual = aM.CheckAccess("Update Documents");
+            actual = aM.CheckAccess(invalidClaim);
 
             Console.WriteLine("Actual Value: " + actual);
             Assert.AreEqual(expected, actual);
@@ -64,10 +82,17 @@ namespace UnitTest
             // Used as a second user
             AuthorizationManager aM2 = new AuthorizationManager();
 
-            string claim = "ViewData";
             bool expected = true;
             bool actual;
-            string claim2 = "CreateRegUserAccount";
+
+            Claim claim = new Claim();
+            claim.ID = 8;
+            claim.ClaimName = "ViewData";
+
+            Claim claim2 = new Claim();
+            claim2.ID = 8;
+            claim2.ClaimName = "CreateRegUserAccount";
+
 
             aM.user.Name = "Luis";
             aM.user.Role = "System Admin";
@@ -102,10 +127,17 @@ namespace UnitTest
             // Used as a second user
             AuthorizationManager aM2 = new AuthorizationManager();
 
-            string claim = "ViewData";
             bool expected = false;
             bool result;
-            string claim2 = "CreateRegUserAccount";
+
+            Claim claim = new Claim();
+            claim.ID = 8;
+            claim.ClaimName = "ViewData";
+
+            Claim claim2 = new Claim();
+            claim2.ID = 8;
+            claim2.ClaimName = "CreateRegUserAccount";
+
 
             aM.user.Name = "Luis";
             aM.user.Role = "Registered User";
@@ -133,7 +165,9 @@ namespace UnitTest
 
         }
 
-        [TestMethod]
+        //THIS IS COMMENTED OUT BECAUSE I MAY OR MAY NOT DELETE METHOD. IT'S PROBABLY NOT HOW THE 
+        // HOW THE PROFESSOR WANTS IT
+       /* [TestMethod]
         public void TestCheckUserToSystemInvalid()
         {
             string claim = "ViewData";
@@ -155,6 +189,6 @@ namespace UnitTest
 
             Console.WriteLine("Actual Value: " + actual);
             Assert.AreEqual(expected, actual);
-        }
+        }*/
     }
 }

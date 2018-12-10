@@ -139,7 +139,7 @@ namespace UserManagement
         /// <param name="u2">user where location is being updated</param>
         /// <param name="loc">updated loc</param>
         /// <returns>true or false of locConfigured</returns>
-        public bool ConfigureLocation(User u1, User u2, string loc)
+        public bool ConfigureLocation(User u1, User u2, Location loc)
         {
             bool locConfigured = false;
 
@@ -173,7 +173,7 @@ namespace UserManagement
         /// <param name="u2">user where dob is being updated</param>
         /// <param name="dob">updated dob</param>
         /// <returns>true or false of dobConfigured</returns>
-        public bool ConfigureDOB(User u1, User u2, string dob)
+        public bool ConfigureDOB(User u1, User u2, DateOfBirth dob)
         {
             bool dobConfigured = false;
 

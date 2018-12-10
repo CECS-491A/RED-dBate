@@ -20,13 +20,14 @@ namespace Authorization
         /// </summary>
         /// <param name="claim">contains claim that is going to be checked for authorization</param>
         /// <returns></returns>
-        public bool CheckAccess(string claim)
+        public bool CheckAccess(Claim claim)
         {
             bool access;
 
             try
             {
-                if (user.CollectionClaims.Contains(claim))
+                //if (user.CollectionClaims.Contains(claim))
+                if(user.CollectionClaims.Contains(claim))
                 {
                     access = true;
                 }
@@ -48,7 +49,8 @@ namespace Authorization
         /// </summary>
         /// <param name="claim">contains claim that is going to be checked for authorization</param>
         /// <returns>access = true or false</returns>
-        public bool CheckAccessSystem(string claim)
+        //MIGHT HAVE TO FIX THIS 
+        /*public bool CheckAccessSystem(string claim)
         {
             ConstantRoleClaims crc = new ConstantRoleClaims();
             bool access = true;
@@ -67,6 +69,6 @@ namespace Authorization
             }
 
             return access;
-        }
+        }*/
     }
 }

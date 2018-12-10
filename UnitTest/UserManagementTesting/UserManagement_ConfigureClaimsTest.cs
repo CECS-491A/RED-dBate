@@ -14,6 +14,7 @@ namespace UnitTest
         IUnitOfWork _uow;
         ConfigureClaims _configureClaims;
         IRepository<User> _User;
+        IRepository<Claim> _Claim;
 
         [TestInitialize]
         public void SetUp()
@@ -21,6 +22,8 @@ namespace UnitTest
             _uow = new MockUnitOfWork<MockDataContext>();
             _configureClaims = new ConfigureClaims(_uow);
             _User = _uow.GetRepository<User>();
+            _Claim = _uow.GetRepository<Claim>();
+
         }
 
         [TestCleanup]
@@ -35,13 +38,16 @@ namespace UnitTest
         {
             var uName = "Bob2080";
             var uName2 = "VicePresident";
+            var cName = "Update";
             bool expected = true;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault(); 
+            User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+
+            Claim c = _Claim.GetAll().Where(s => s.ClaimName == cName).SingleOrDefault();
             Console.WriteLine(u1.Username);
 
-            bool actual =  _configureClaims.AddClaim(u1, u2, "Create Documents");
+            bool actual =  _configureClaims.AddClaim(u1, u2, c);
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -53,13 +59,14 @@ namespace UnitTest
         {
             var uName = "Bob2080";
             var uName2 = "VicePresident";
+            var cName = "Update";
             bool expected = false;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
-            //Console.WriteLine(u1.Username);
+            Claim c = _Claim.GetAll().Where(s => s.ClaimName == cName).SingleOrDefault();
 
-            bool actual = _configureClaims.AddClaim(u1, u2, "Create Documents");
+            bool actual = _configureClaims.AddClaim(u1, u2, c);
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -70,16 +77,17 @@ namespace UnitTest
         {
             var uName = "Bob2080";
             var uName2 = "VicePresident";
+            var cName = "View";
             bool expected = true;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
+            Claim c = _Claim.GetAll().Where(s => s.ClaimName == cName).SingleOrDefault();
 
-            bool actual = _configureClaims.DeletedClaim(u1,u2,"ViewDocuments");
+            bool actual = _configureClaims.DeletedClaim(u1,u2,c);
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
-        
         }
 
         [TestMethod]
@@ -88,12 +96,14 @@ namespace UnitTest
             //Registered Users can't delete claims
             var uName = "Bob2080";
             var uName2 = "VicePresident";
+            var cName = "Update";
             bool expected = false;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            Claim c = _Claim.GetAll().Where(s => s.ClaimName == cName).SingleOrDefault();
 
-            bool actual = _configureClaims.DeletedClaim(u1, u2, "Update");
+            bool actual = _configureClaims.DeletedClaim(u1, u2, c);
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);

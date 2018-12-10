@@ -43,6 +43,9 @@ namespace UnitTest
 
             bool expected = true;
 
+            DateOfBirth dob = new DateOfBirth("12","15","1996");
+            Location loc = new Location("Long Beach", "CA", "USA");
+
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = new User
             {
@@ -51,8 +54,8 @@ namespace UnitTest
                 Name = "John",
                 Role = "Registered User",
                 Password = "bboy23",
-                DOB = "12/12/1993",
-                Location = "Long Beach, CA USA"
+                DOB = dob,
+                Location = loc
             };
 
             bool actual = _creation.CreateAccount(u1, u2);
@@ -70,13 +73,16 @@ namespace UnitTest
             var uName = "VicePresident"; //regular user
             bool expected = false;
 
+            DateOfBirth dob = new DateOfBirth("12", "15", "1996");
+            Location loc = new Location("Long Beach", "CA", "USA");
+
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = new User();
             u2.Username = "Bobby23";
             u2.Role = "Admin";
             u2.Password = "bboy23";
-            u2.DOB = "12/12/1993";
-            u2.Location = "Long Beach, CA USA";
+            u2.DOB = dob;
+            u2.Location = loc;
             bool actual = _creation.CreateAccount(u1, u2);
             Console.WriteLine(actual);
 
@@ -93,13 +99,16 @@ namespace UnitTest
             var uName = "Bill2080"; //system admin
             bool expected = true;
 
+            DateOfBirth dob = new DateOfBirth("12", "15", "1996");
+            Location loc = new Location("Long Beach", "CA", "USA");
+
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = new User();
             u2.Username = "Bobby23";
             u2.Role = "Admin";
             u2.Password = "bboy23";
-            u2.DOB = "12/12/1993";
-            u2.Location = "Long Beach, CA USA";
+            u2.DOB = dob;
+            u2.Location = loc;
 
             bool actual = _creation.CreateAccount(u1, u2);
             Console.WriteLine(actual);
@@ -114,13 +123,16 @@ namespace UnitTest
             var uName = "Bob2080"; //admin
             bool expected = false;
 
+            DateOfBirth dob = new DateOfBirth("12", "15", "1996");
+            Location loc = new Location("Long Beach", "CA", "USA");
+
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = new User();
             u2.Username = "Bobby23";
             u2.Role = "System Admin";
             u2.Password = "bboy23";
-            u2.DOB = "12/12/1993";
-            u2.Location = "Long Beach, CA USA";
+            u2.DOB = dob;
+            u2.Location = loc;
 
             bool actual = _creation.CreateAccount(u1, u2);
             Console.WriteLine(actual);

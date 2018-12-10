@@ -53,7 +53,7 @@ namespace UnitTest
         public void Test_UserManagement_EnableAccount_Admin_to_SystemAdmin_Invalid()
         {
             var uName = "Bill2080"; //system admin
-            var uName2 = "Bob2080"; //admin
+            var uName2 = "VicePresident"; //admin
             bool expected = false;
 
             User u1 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
@@ -62,7 +62,7 @@ namespace UnitTest
             bool actual = _activation.EnableAccount(u1, u2);
 
             Console.WriteLine(actual);
-
+            Console.WriteLine(uName);
             Assert.AreEqual(expected, actual);
 
         }

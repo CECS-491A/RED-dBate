@@ -37,7 +37,7 @@ namespace UserManagement
         /// <param name="u2">user that is habing claims added</param>
         /// <param name="claim">claim that is being added</param>
         /// <returns>claimAdded = True or False</returns>
-        public bool AddClaim(User u1, User u2, string claim)
+        public bool AddClaim(User u1, User u2, Claim claim)
         {
             bool claimAdded = false;
 
@@ -71,12 +71,13 @@ namespace UserManagement
         /// <param name="u2">user that is having claims deleted</param>
         /// <param name="claim">claim that is being delete</param>
         /// <returns>claimDeleted = True or False</returns>
-        public bool DeletedClaim(User u1, User u2, string claim)
+        public bool DeletedClaim(User u1, User u2, Claim claim)
         {
             bool claimDeleted = false;
 
             if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
             {
+                Console.WriteLine("1");
                 DeleteSpecificClaim(u2, claim);
                 _User.Update(u2);
                 _uow.Save();
@@ -84,6 +85,7 @@ namespace UserManagement
             }
             else if (u2.Role == "System Admin" && u2.Role == "Admin")
             {
+                Console.WriteLine("2");
                 DeleteSpecificClaim(u2, claim);
                 _User.Update(u2);
                 _uow.Save();
@@ -103,19 +105,15 @@ namespace UserManagement
         /// </summary>
         /// <param name="u">user u object</param>
         /// <param name="claim">claim to delete</param>
-        private void DeleteSpecificClaim(User u, string claim)
+        private void DeleteSpecificClaim(User u, Claim claim)
         {
-            var collectionClaims = u.CollectionClaims.ToList();
+            var collectionClaims = u.CollectionClaims;
 
-            foreach (string c in collectionClaims)
+            foreach (Claim c in collectionClaims)
             {
                 if (collectionClaims.Contains(claim))
                 {
                     u.CollectionClaims.Remove(claim);
-                }
-                else
-                {
-                    throw new Exception("Claim not found");
                 }
             }
         }

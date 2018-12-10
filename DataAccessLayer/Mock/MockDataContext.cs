@@ -12,10 +12,6 @@ namespace DataAccessLayer.Mock
     /// </summary>
     public class MockDataContext
     {
-        //private int CounterID = 0;
-
-        
-
         /// <summary>
         /// Mock DataContext used to store/edit user object data stored in a List of User objects
         /// </summary>
@@ -31,10 +27,10 @@ namespace DataAccessLayer.Mock
                        Name = "Bob",
                        Role = "Admin",
                        Username = "Bob2080",
-                       Location = "Long Beach, CA, USA",
+                       Location = Location[0],
                        Password = "Admin",
-                       DOB = "12/15/1996",
-                       CollectionClaims = {"View","Update", "Delete", "Create"},
+                       DOB = Birth[0],
+                       CollectionClaims = new List<Claim>{Claim[0], Claim[1], Claim[2], Claim[3]},
                        IsAccountActivated = true
                     },
                     new User
@@ -43,10 +39,10 @@ namespace DataAccessLayer.Mock
                        Name = "Bill",
                        Role = "System Admin",
                        Username = "Bill2080",
-                       Location = "Long Beach, CA USA",
+                       Location = Location[0],
                        Password = "SystemAdmin",
-                       DOB = "12/15/1987",
-                       CollectionClaims = {"View","Update", "Delete", "Create", "CreateAdmin"},
+                       DOB = Birth[0],
+                       CollectionClaims = Claim,
                        IsAccountActivated = true
 
                     },
@@ -56,11 +52,100 @@ namespace DataAccessLayer.Mock
                        Name = "Aaron Burr",
                        Role = "Registered User",
                        Username = "VicePresident",
-                       Location = "Long Beach, CA USA",
+                       Location = Location[0],
                        Password = "User1",
-                       DOB = "12/15/1985",
-                       CollectionClaims = {"View", "ViewDocuments"},
+                       DOB = Birth[0],
+                       CollectionClaims = new List<Claim>{Claim[0]},
                        IsAccountActivated = true
+                    }
+                };
+            }
+        }
+
+        public List<Claim> Claim
+        {
+            get
+            {
+                return new List<Claim>
+                {
+                    new Claim
+                    {
+                        ID = 1,
+                        ClaimName  = "View"
+                    },
+                    new Claim
+                    {
+                        ID = 2,
+                        ClaimName  = "Create"
+                    },
+                    new Claim
+                    {
+                        ID = 3,
+                        ClaimName  = "Update"
+                    },
+                    new Claim
+                    {
+                        ID = 4,
+                        ClaimName  = "Delete"
+                    },
+                    new Claim
+                    {
+                        ID = 5,
+                        ClaimName  = "ViewDocument"
+                    },
+                    new Claim
+                    {
+                        ID = 6,
+                        ClaimName  = "CreateAdmin"
+                    }
+                };
+            }
+        }
+
+        public List<Location> Location
+        {
+            get
+            {
+                return new List<Location>
+                {
+                    new Location
+                    {
+                        City = "Long Beach",
+                        State = "CA",
+                        Country = "USA"
+                    }
+                };
+            }
+        }
+
+        public List<DateOfBirth> Birth
+        {
+            get
+            {
+                return new List<DateOfBirth>
+                {
+                    new DateOfBirth
+                    {
+                        Day = "12",
+                        Month = "15",
+                        Year = "1993"
+                        
+                    }
+                };
+            }
+        }
+
+        public List<Client> Client
+        {
+            get
+            {
+                return new List<Client>
+                {
+                    new Client
+                    {
+                        ID = 1,
+                        Name = "Dave",
+                        ClaimCollection = Claim
                     }
                 };
             }
