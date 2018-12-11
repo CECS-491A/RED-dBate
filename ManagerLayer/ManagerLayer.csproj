@@ -4,14 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{11AB7410-E5EC-47D1-AB23-E7ED3F2BBEE5}</ProjectGuid>
+    <ProjectGuid>{28413BF6-B380-4010-84E1-7A94A8C43726}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ManagerLayer</RootNamespace>
-    <AssemblyName>ManagerLayer</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>PwnedPassword</RootNamespace>
+    <AssemblyName>PwnedPassword</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,15 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Password\Models\PasswordStatus.cs" />
-    <Compile Include="Password\ValidationManager.cs" />
+    <Compile Include="HashFunction.cs" />
+    <Compile Include="IHashFunction.cs" />
+    <Compile Include="PasswordStatus.cs" />
+    <Compile Include="PasswordStatusChecker.cs" />
+    <Compile Include="PasswordValidationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
-      <Project>{2f63f058-8142-4a19-b37a-3bc7a382279f}</Project>
-      <Name>ServiceLayer</Name>
-    </ProjectReference>
+    <Compile Include="ValidationManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

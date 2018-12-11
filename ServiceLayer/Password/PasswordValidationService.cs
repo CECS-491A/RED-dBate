@@ -42,9 +42,9 @@ namespace ServiceLayer.Password
                 return responseHashList;
 
             }
-            catch (HttpRequestException re)
+            catch (HttpRequestException httpRequestError)
             {
-                //Console.WriteLine()
+                Console.WriteLine("Error: " + httpRequestError);
                 return null;
 
             }
