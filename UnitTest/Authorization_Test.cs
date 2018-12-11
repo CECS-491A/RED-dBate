@@ -11,7 +11,7 @@ namespace UnitTest
     [TestClass]
     public class Authorization_Test
     {
-        AuthorizationManager aM = new AuthorizationManager();
+        Authorization aM = new Authorization();
 
         [TestMethod]
         public void TestCheckAccessClaimInUserValid()
@@ -78,7 +78,7 @@ namespace UnitTest
         public void TestCheckUserToUserValid()
         {
             // Used as a second user
-            AuthorizationManager aM2 = new AuthorizationManager();
+            Authorization aM2 = new Authorization();
 
             bool expected = true;
             bool actual;
@@ -123,7 +123,7 @@ namespace UnitTest
         public void TestCheckUserToUserInvalid()
         {
             // Used as a second user
-            AuthorizationManager aM2 = new AuthorizationManager();
+            Authorization aM2 = new Authorization();
 
             bool expected = false;
             bool result;
