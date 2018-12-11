@@ -2,10 +2,9 @@
 using System.Linq;
 using DataAccessLayer;
 using DataAccessLayer.Mock;
+using DataAccessLayer.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ModelLayer;
-using UserManagement;
-
+using ServiceLayer.UserManagement;
 
 namespace UnitTest
 {

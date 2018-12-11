@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelLayer
+namespace DataAccessLayer.Models
 {
     /// <summary>
     /// Model Class for User
