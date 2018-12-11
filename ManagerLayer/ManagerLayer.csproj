@@ -46,7 +46,6 @@
     <Compile Include="IHashFunction.cs" />
     <Compile Include="PasswordStatus.cs" />
     <Compile Include="PasswordStatusChecker.cs" />
-    <Compile Include="PasswordValidationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationManager.cs" />
   </ItemGroup>
