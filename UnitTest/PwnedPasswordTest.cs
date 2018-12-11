@@ -40,7 +40,7 @@ namespace UnitTest
         public void IsPasswordSafe_AcceptablePasswordPass_ReturnMatchingObjectValues()
         {
             PasswordStatus expected = new PasswordStatus(1, "Password has been breached a few times before! We recommend you change your password!");
-            PasswordStatus actual = vManager.IsPasswordSafe("pwnage142").Result;
+            PasswordStatus actual = vManager.IsPasswordSafe("passwordpassword1234").Result;
 
             Assert.AreEqual(expected.Status, actual.Status);
             Assert.AreEqual(expected.Message, actual.Message);
@@ -60,7 +60,7 @@ namespace UnitTest
         public void IsPasswordSafe_UnsafePasswordSuccess_ReturnMatchingObjectValues()
         {
             PasswordStatus expected = new PasswordStatus(2, "Password is unsafe! Use a different password!");
-            PasswordStatus actual = vManager.IsPasswordSafe("password123").Result;
+            PasswordStatus actual = vManager.IsPasswordSafe("passwordpassword").Result;
 
             Assert.AreEqual(expected.Status, actual.Status);
             Assert.AreEqual(expected.Message, actual.Message);
