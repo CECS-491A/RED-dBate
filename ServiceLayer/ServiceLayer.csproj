@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\AuthorizationManager.cs" />
+    <Compile Include="Constants\Roles.cs" />
+    <Compile Include="UserManagement\Interfaces\IClaimsConfigure.cs" />
+    <Compile Include="UserManagement\Interfaces\IConfigure.cs" />
     <Compile Include="Password\PasswordValidationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserManagement\Activation.cs" />

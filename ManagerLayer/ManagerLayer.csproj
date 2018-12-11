@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Password\PasswordStatus.cs" />
+    <Compile Include="Password\Models\PasswordStatus.cs" />
     <Compile Include="Password\ValidationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
