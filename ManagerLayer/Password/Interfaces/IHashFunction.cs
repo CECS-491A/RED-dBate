@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManagerLayer.Password
+namespace ManayerLayer.Password
 {
     public interface IHashFunction
     {

@@ -1,4 +1,5 @@
-﻿using ServiceLayer;
+﻿using ManayerLayer.Password;
+using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ManagerLayer.Password
     public class ValidationManager
     {
         private static PasswordValidationService pvs = new PasswordValidationService();
-        private static HashFunction sHash = new HashFunction();
+        private static IHashFunction sHash = new HashFunction();
         private static PasswordStatusChecker checkStatus = new PasswordStatusChecker();
 
         /// <summary>

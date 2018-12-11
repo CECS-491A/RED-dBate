@@ -1,12 +1,11 @@
-﻿using ManagerLayer.Password;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManagerLayer.Password
+namespace ManayerLayer.Password
 {
     class HashFunction : IHashFunction
     {
