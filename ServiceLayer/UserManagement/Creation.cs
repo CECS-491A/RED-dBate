@@ -92,6 +92,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Creating account Failed");
                 accountCreated = false;
             }
 

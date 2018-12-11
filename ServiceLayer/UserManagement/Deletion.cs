@@ -58,7 +58,9 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Deleting Account Failed");
                 accountDeleted = false;
+
             }
 
             return accountDeleted;

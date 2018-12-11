@@ -59,6 +59,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Configuting name Failed");
                 nameConfigured = false;
             }
 
@@ -92,6 +93,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Configuting role Failed");
                 roleConfigured = false;
             }
 
@@ -125,6 +127,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Configuting password Failed");
                 passwordConfigured = false;
             }
 
@@ -158,6 +161,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Configuting location Failed");
                 locConfigured = false;
             }
 
@@ -191,6 +195,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Configuting date of birth Failed");
                 dobConfigured = false;
             }
 
@@ -245,6 +250,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Configuting username Failed");
                 uNameConfigured = false;
             }
 

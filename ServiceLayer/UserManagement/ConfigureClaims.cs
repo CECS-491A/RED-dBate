@@ -59,6 +59,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Add Claim Failed Failed");
                 claimAdded = false;
             }
 
@@ -92,6 +93,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Deleting Claim Failed");
                 claimDeleted = false;
             }
 

@@ -58,6 +58,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Account Disabling Failed");
                 u2.IsAccountActivated = true;
                 _User.Update(u2);
                 _uow.Save();
@@ -92,6 +93,7 @@ namespace ServiceLayer.UserManagement
             }
             else
             {
+                Console.WriteLine("Error: Account Enabling Failed");
                 u2.IsAccountActivated = false;
                 _User.Update(u2);
                 _uow.Save();

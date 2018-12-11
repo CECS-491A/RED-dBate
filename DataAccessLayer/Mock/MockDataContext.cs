@@ -144,7 +144,7 @@ namespace DataAccessLayer.Mock
                     new Client
                     {
                         ID = 1,
-                        Name = "Dave",
+                        Name = "IT",
                         ClaimCollection = Claim
                     }
                 };
