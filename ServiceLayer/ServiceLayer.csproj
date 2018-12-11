@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\AuthorizationManager.cs" />
+    <Compile Include="Authorization\IAuthorize.cs" />
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="UserManagement\Interfaces\IClaimsConfigure.cs" />
     <Compile Include="UserManagement\Interfaces\IConfigure.cs" />
@@ -52,6 +53,9 @@
     <Compile Include="UserManagement\ConfigureClaims.cs" />
     <Compile Include="UserManagement\Creation.cs" />
     <Compile Include="UserManagement\Deletion.cs" />
+    <Compile Include="UserManagement\Interfaces\ICreation.cs" />
+    <Compile Include="UserManagement\Interfaces\IDeletion.cs" />
+    <Compile Include="UserManagement\Interfaces\IEnable.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">

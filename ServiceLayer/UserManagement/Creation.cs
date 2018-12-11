@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Models;
 using ServiceLayer.Constants;
+using ServiceLayer.UserManagement.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.UserManagement
 {
-    public class Creation : Roles
+    public class Creation : Roles, ICreation
     {
         /// <summary>
         /// interface class that keeps track of data by having classes that can get repositories and saving it

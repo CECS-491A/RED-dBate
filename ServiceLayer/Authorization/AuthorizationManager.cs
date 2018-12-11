@@ -8,7 +8,7 @@ namespace ServiceLayer.Authorization
     /// <summary>
     /// Authorization management class
     /// </summary>
-    public class AuthorizationManager
+    public class AuthorizationManager : IAuthorize
     {
         /// <summary>
         /// User Object that contains information of the specific user

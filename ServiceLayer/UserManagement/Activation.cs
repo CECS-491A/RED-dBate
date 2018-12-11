@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Models;
 using ServiceLayer.Constants;
+using ServiceLayer.UserManagement.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace ServiceLayer.UserManagement
     /// <summary>
     /// Enables or disables account of a user
     /// </summary>
-    public class Activation : Roles
+    public class Activation : Roles, IEnable
     {
         /// <summary>
         /// interface class that keeps track of data by having classes that can get repositories and saving it
