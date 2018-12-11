@@ -8,6 +8,9 @@ namespace ModelLayer
 {
     public class Claim
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public int ID { get; set; }
         public string ClaimName { get; set; }
 
