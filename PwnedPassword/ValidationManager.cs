@@ -26,7 +26,7 @@ namespace PwnedPassword
         {
             if (password.Length < 12)
             {
-                PasswordStatus status = new PasswordStatus(-2, "That's not a real password!");
+                PasswordStatus status = new PasswordStatus(-2, "That's not a valid password!");
                 return status;
             }
             else {
