@@ -4,19 +4,19 @@ DBate is a classic web application whose main purpose is to enhance the debate a
 # Directory Hierarchy
 * CECS491_DBate
 * DataAccessLayer
- * Mock
- * Models
+  * Mock
+  * Models
 * ManagerLayer
- * Password
+  * Password
 * ModelLayer
 * PwnedPassword
 * ServiceLayer
- * Authorization
- * Constants
- * Password
- * UserManagement
+  * Authorization
+  * Constants
+  * Password
+  * UserManagement
 * UnitTest
- * UserManagementTesting
+  * UserManagementTesting
 
 # Installation
 Instructions on how to setup project
