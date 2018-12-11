@@ -16,3 +16,4 @@ DBate is a classic web application whose main purpose is to enhance the debate a
 Instructions on how to setup project
 
 # License
+* End User License Agreement
