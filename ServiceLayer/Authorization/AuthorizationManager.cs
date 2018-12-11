@@ -15,6 +15,8 @@ namespace ServiceLayer.Authorization
         /// </summary>
         public User user = new User();
 
+        public Client client = new Client();
+
         /// <summary>
         /// Method that checks whether a specific user is authorized for something
         /// </summary>
@@ -28,6 +30,9 @@ namespace ServiceLayer.Authorization
             {
                 if(user.CollectionClaims.Contains(claim))
                 {
+                    access = true;
+                }
+                else if(client.ClaimCollection.Contains(claim) && user.CollectionClaims.Contains(claim)){
                     access = true;
                 }
                 else
