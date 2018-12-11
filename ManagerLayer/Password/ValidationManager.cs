@@ -1,4 +1,4 @@
-﻿using ServiceLayer.Password;
+﻿using ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,8 @@ namespace ManagerLayer.Password
                 PasswordStatus status = new PasswordStatus(-2, "That's not a valid password!");
                 return status;
             }
-            else {
+            else
+            {
                 //Password converted to bytes and hashed.
                 string stringHash = sHash.StringHash(password);
                 //Gets the first five characters of the hashed password (prefix) 
@@ -47,6 +48,6 @@ namespace ManagerLayer.Password
                 return status;
             }
         }
-        
+
     }
 }

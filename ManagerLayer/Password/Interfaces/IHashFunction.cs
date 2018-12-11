@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PwnedPassword
+namespace ManagerLayer.Password
 {
-    interface IHashFunction
+    public interface IHashFunction
     {
         /// <summary>
         /// Get a hashed string from a value.

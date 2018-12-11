@@ -43,7 +43,8 @@ namespace ServiceLayer.Authorization
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                Console.WriteLine("Error: Not Authorized");
+                return false;
             }
 
             return access;

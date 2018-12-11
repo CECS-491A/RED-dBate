@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ManagerLayer.Password;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PwnedPassword
+namespace ManagerLayer.Password
 {
     class HashFunction : IHashFunction
     {

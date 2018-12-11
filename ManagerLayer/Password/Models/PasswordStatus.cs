@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ManagerLayer.Password
-{   
+{
     /// <summary>
     /// Holds the pwned status and status message of the password.
     /// </summary>

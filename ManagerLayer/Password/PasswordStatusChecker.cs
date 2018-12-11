@@ -5,13 +5,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace PwnedPassword
+namespace ManagerLayer.Password
 {
-    class PasswordStatusChecker
+    public class PasswordStatusChecker
     {
         public PasswordStatusChecker()
         {
-            
+
         }
 
         /// <summary>
@@ -25,12 +25,12 @@ namespace PwnedPassword
             int statusNumber;
             //There was an error so checkPwned is empty.
             if (string.IsNullOrEmpty(checkPwned))
-            {   
+            {
                 statusNumber = -1;
             }
             //Rest of the hashed password exists in checkpwned
-            else if(checkPwned.Contains(restOfHash))
-            { 
+            else if (checkPwned.Contains(restOfHash))
+            {
                 int index = checkPwned.IndexOf(restOfHash);
                 //Represents a colon followed by 1 or more digits
                 Regex colon = new Regex(@":(\d+)");
@@ -38,7 +38,7 @@ namespace PwnedPassword
                 Match counter = colon.Match(checkPwned, index);
                 //Number of times password has been pwned is parsed.
                 int.TryParse(counter.Value.Substring(1), out int result);
-                
+
                 //Password has been breached a few times(1-10) before, recommend change password.
                 if (result > 0 && result < 11)
                 {
@@ -48,7 +48,7 @@ namespace PwnedPassword
                 else
                 {
                     statusNumber = 2;
-                }                
+                }
             }
             //Password has not been pwned previously.
             else
@@ -68,7 +68,7 @@ namespace PwnedPassword
         /// <returns>Status message.</returns>
         public String StatusMessages(int statusNumber)
         {
-            if(statusNumber == -1)
+            if (statusNumber == -1)
             {
                 return "An ERROR has occurred with the request while checking password security.";
             }
