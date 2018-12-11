@@ -70,7 +70,7 @@ namespace PwnedPassword
         {
             if(statusNumber == -1)
             {
-                return "An ERROR has occurred while checking password security.";
+                return "An ERROR has occurred with the request while checking password security.";
             }
             else if (statusNumber == 0)
             {

@@ -7,30 +7,39 @@ using System.Threading.Tasks;
 
 namespace PwnedPassword
 {
-    class HashFunction
+    class HashFunction : IHashFunction
     {
         /// <summary>
         /// Converts the password into bytes, hashes it, then formats it to uppercase hexadecimal.
         /// </summary>
-        /// <param name="password"></param>
+        /// <param name="passedValue"></param>
         /// <returns>The hashed password</returns>
-        public string StringHash(string password)
+        public string StringHash(string passedValue)
         {
-            //Uses sha1 hash function to create hash of the password in bytes
-            SHA1 sha = SHA1.Create();
-            byte[] byteHash = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-            string stringHash = "";
-            StringBuilder sb = new StringBuilder();
-
-            //Formats bytes into uppercase hexadecimal characters and appends to stringbuilder
-            for (int i = 0; i < byteHash.Length; i++)
+            //If the passed in string is null or empty, will return null back.
+            if (string.IsNullOrEmpty(passedValue))
             {
-                sb.Append(byteHash[i].ToString("X2"));
+                return null;
             }
-            stringHash = sb.ToString(); //Converts stringbuilder into string
+            //This runs as long as string isn't null or empty.
+            else
+            {
+                //Uses sha1 hash function to create hash of the password in bytes
+                SHA1 sha = SHA1.Create();
+                byte[] byteHash = sha.ComputeHash(Encoding.UTF8.GetBytes(passedValue));
 
-            return stringHash;
+                string stringHash = "";
+                StringBuilder sb = new StringBuilder();
+
+                //Formats bytes into uppercase hexadecimal characters and appends to stringbuilder
+                for (int i = 0; i < byteHash.Length; i++)
+                {
+                    sb.Append(byteHash[i].ToString("X2"));
+                }
+                stringHash = sb.ToString(); //Converts stringbuilder into string
+
+                return stringHash;
+            }
         }
     }
 }

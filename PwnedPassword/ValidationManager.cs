@@ -24,21 +24,27 @@ namespace PwnedPassword
         /// -1 - an error occurred in the http request </returns>
         public async Task<PasswordStatus> IsPasswordSafe(string password)
         {
-            //Password converted to bytes and hashed.
-            string stringHash = sHash.StringHash(password);
-            //Gets the first five characters of the hashed password (prefix) 
-            string prefix = stringHash.Substring(0, 5);
-            //Calls FindPassword to see all pwned passwords that have the same prefix
-            //checkPwned is Task<String>
-            var checkPwned = await pvs.FindPassword(prefix);
-            //restOfHash is part of password hash that is not the prefix
-            string restOfHash = stringHash.Substring(5, stringHash.Length - 5);
-            
-            //Check if password has been pwned and if its usable. Get object with int representing status & a message.
-            //Status number and message are stored in PasswordStatus object
-            PasswordStatus status = checkStatus.StatusOfPassword(checkPwned, restOfHash);
-            //Returns object
-            return status;
+            if (password.Length < 12)
+            {
+                PasswordStatus status = new PasswordStatus(-2, "That's not a real password!");
+                return status;
+            }
+            else {
+                //Password converted to bytes and hashed.
+                string stringHash = sHash.StringHash(password);
+                //Gets the first five characters of the hashed password (prefix) 
+                string prefix = stringHash.Substring(0, 5);
+                //Calls FindPassword to see all pwned passwords that have the same prefix
+                //checkPwned is Task<String>
+                var checkPwned = await pvs.FindPassword(prefix);
+                //restOfHash is part of password hash that is not the prefix
+                string restOfHash = stringHash.Substring(5, stringHash.Length - 5);
+
+                //Check if password has been pwned and if its usable. Get object with int representing status & a message.
+                //Status number and message are stored in PasswordStatus object
+                PasswordStatus status = checkStatus.StatusOfPassword(checkPwned, restOfHash);
+                return status;
+            }
         }
         
     }
