@@ -65,6 +65,38 @@ namespace UnitTest
         }
 
         /// <summary>
+        /// Test case for creation system admin on user
+        /// </summary>
+        [TestMethod]
+        public void Creation_SystemAdminToUser_Valid()
+        {
+            var uName = "Bill2080"; // system admin
+            //var uName2 = "VicePresident"; //regular user
+
+            bool expected = true;
+
+            DateOfBirth dob = new DateOfBirth("12", "15", "1996");
+            Location loc = new Location("Long Beach", "CA", "USA");
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = new User
+            {
+                ID = 7,
+                Username = "Bobby23",
+                Name = "John",
+                Role = "Registered User",
+                Password = "bboy23",
+                DOB = dob,
+                Location = loc
+            };
+
+            bool actual = _creation.CreateAccount(u1, u2);
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
         /// Test case for creation user on admin
         /// </summary>
         [TestMethod]
@@ -80,6 +112,32 @@ namespace UnitTest
             User u2 = new User();
             u2.Username = "Bobby23";
             u2.Role = "Admin";
+            u2.Password = "bboy23";
+            u2.DOB = dob;
+            u2.Location = loc;
+            bool actual = _creation.CreateAccount(u1, u2);
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        /// <summary>
+        /// Test case for creation user on admin
+        /// </summary>
+        [TestMethod]
+        public void Creation_UserToSystemAdmin_NotValid()
+        {
+            var uName = "VicePresident"; //regular user
+            bool expected = false;
+
+            DateOfBirth dob = new DateOfBirth("12", "15", "1996");
+            Location loc = new Location("Long Beach", "CA", "USA");
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = new User();
+            u2.Username = "Bobby23";
+            u2.Role = "System Admin";
             u2.Password = "bboy23";
             u2.DOB = dob;
             u2.Location = loc;
@@ -117,8 +175,38 @@ namespace UnitTest
 
         }
 
+        /// <summary>
+        /// Test Case Admin creating System Admin is not valid
+        /// </summary>
         [TestMethod]
         public void Creation_AdminToSystemAdmin_Invalid()
+        {
+            var uName = "Bill2080"; //system admin
+            bool expected = false;
+
+            DateOfBirth dob = new DateOfBirth("12", "15", "1996");
+            Location loc = new Location("Long Beach", "CA", "USA");
+
+            User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
+            User u2 = new User();
+            u2.Username = "Bobby23";
+            u2.Role = "System Admin";
+            u2.Password = "bboy23";
+            u2.DOB = dob;
+            u2.Location = loc;
+
+            bool actual = _creation.CreateAccount(u1, u2);
+            Console.WriteLine(actual);
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        /// <summary>
+        /// Test Case Admin creating another Admin is not valid
+        /// </summary>
+        [TestMethod]
+        public void Creation_AdminToAdmin_Invalid()
         {
             var uName = "Bob2080"; //admin
             bool expected = false;
@@ -129,7 +217,7 @@ namespace UnitTest
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = new User();
             u2.Username = "Bobby23";
-            u2.Role = "System Admin";
+            u2.Role = "Admin";
             u2.Password = "bboy23";
             u2.DOB = dob;
             u2.Location = loc;
