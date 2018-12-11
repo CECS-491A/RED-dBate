@@ -78,7 +78,7 @@ namespace UnitTest
 
 
         //---StatusOfPassWord() Test---//
-
+        /*
 
         [TestMethod]
         public void StatusOfPassword_FewBreachesSuccess_ReturnsOne()
@@ -207,5 +207,6 @@ namespace UnitTest
 
             Assert.AreNotEqual(expected, actual);
         }
+        */
     }
 }
