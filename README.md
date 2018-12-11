@@ -2,15 +2,21 @@
 DBate is a classic web application whose main purpose is to enhance the debate and discussion skills of individuals. This web app implements a chat system with game-like functionalities that are designed to create an environment for users to participate in discussions as debaters, moderators, or viewers.
 
 # Directory Hierarchy
-* Authorization	
-* CECS491_DBate	
+* CECS491_DBate
 * DataAccessLayer
-  * Mock
+ * Mock
+ * Models
+* ManagerLayer
+ * Password
 * ModelLayer
 * PwnedPassword
+* ServiceLayer
+ * Authorization
+ * Constants
+ * Password
+ * UserManagement
 * UnitTest
-  * UserManagementTesting
-* UserManagement
+ * UserManagementTesting
 
 # Installation
 Instructions on how to setup project
