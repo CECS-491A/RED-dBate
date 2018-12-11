@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Claims;
-using Authorization;
 using DataAccessLayer;
 using DataAccessLayer.Mock;
+using DataAccessLayer.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ModelLayer;
-using Claim = ModelLayer.Claim;
+using ServiceLayer.Authorization;
 
 namespace UnitTest
 {

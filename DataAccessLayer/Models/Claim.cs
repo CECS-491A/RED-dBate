@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelLayer
+namespace DataAccessLayer.Models
 {
     public class Claim
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public int ID { get; set; }
         public string ClaimName { get; set; }
 

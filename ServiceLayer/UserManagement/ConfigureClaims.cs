@@ -1,14 +1,16 @@
 ﻿using DataAccessLayer;
-using ModelLayer;
+using DataAccessLayer.Models;
+using ServiceLayer.Constants;
+using ServiceLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserManagement
+namespace ServiceLayer.UserManagement
 {
-    public class ConfigureClaims
+    public class ConfigureClaims : Roles, IClaimsConfigure
     {
         /// <summary>
         /// interface class that keeps track of data by having classes that can get repositories and saving it
@@ -41,14 +43,14 @@ namespace UserManagement
         {
             bool claimAdded = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 u2.CollectionClaims.Add(claim);
                 _User.Update(u2);
                 _uow.Save();
                 claimAdded = true;
             }
-            else if (u2.Role == "System Admin" && u2.Role == "Admin")
+            else if (u2.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.CollectionClaims.Add(claim);
                 _User.Update(u2);
@@ -58,7 +60,6 @@ namespace UserManagement
             else
             {
                 claimAdded = false;
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return claimAdded;
@@ -75,17 +76,15 @@ namespace UserManagement
         {
             bool claimDeleted = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
-                Console.WriteLine("1");
                 DeleteSpecificClaim(u2, claim);
                 _User.Update(u2);
                 _uow.Save();
                 claimDeleted = true;
             }
-            else if (u2.Role == "System Admin" && u2.Role == "Admin")
+            else if (u2.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
-                Console.WriteLine("2");
                 DeleteSpecificClaim(u2, claim);
                 _User.Update(u2);
                 _uow.Save();
@@ -94,7 +93,6 @@ namespace UserManagement
             else
             {
                 claimDeleted = false;
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return claimDeleted;

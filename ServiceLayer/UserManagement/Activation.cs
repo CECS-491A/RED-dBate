@@ -1,17 +1,18 @@
 ﻿using DataAccessLayer;
-using ModelLayer;
+using DataAccessLayer.Models;
+using ServiceLayer.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserManagement
+namespace ServiceLayer.UserManagement
 {
     /// <summary>
     /// Enables or disables account of a user
     /// </summary>
-    public class Activation
+    public class Activation : Roles
     {
         /// <summary>
         /// interface class that keeps track of data by having classes that can get repositories and saving it
@@ -43,31 +44,26 @@ namespace UserManagement
         {
             bool disabledAccount = true;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 u2.IsAccountActivated = false;
                 _User.Update(u2);
                 _uow.Save();
-                Console.WriteLine("hello1");
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.IsAccountActivated = false;
                 _User.Update(u2);
                 _uow.Save();
-                Console.WriteLine("hello2");
             }
             else
             {
                 u2.IsAccountActivated = true;
                 _User.Update(u2);
                 _uow.Save();
-                Console.WriteLine("hello3" + disabledAccount);
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             disabledAccount = u2.IsAccountActivated;
-            Console.WriteLine("hello4" + disabledAccount);
 
             return disabledAccount;
         }
@@ -82,30 +78,25 @@ namespace UserManagement
         {
             bool enabledAccount = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 u2.IsAccountActivated = true;
                 _User.Update(u2);
                 _uow.Save();
-                Console.WriteLine("hello1");
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.IsAccountActivated = true;
                 _User.Update(u2);
                 _uow.Save();
-                Console.WriteLine("hello2");
             }
             else
             {
                 u2.IsAccountActivated = false;
                 _User.Update(u2);
                 _uow.Save();
-                Console.WriteLine("hello3");
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
-            Console.WriteLine("hello4");
             enabledAccount = u2.IsAccountActivated;
 
             return enabledAccount;

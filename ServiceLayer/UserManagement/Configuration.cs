@@ -1,14 +1,16 @@
 ﻿using DataAccessLayer;
-using ModelLayer;
+using DataAccessLayer.Models;
+using ServiceLayer.Constants;
+using ServiceLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserManagement
+namespace ServiceLayer.UserManagement
 {
-    public class Configuration
+    public class Configuration : Roles, IConfigure
     {
         /// <summary>
         /// interface class that keeps track of data by having classes that can get repositories and saving it
@@ -41,14 +43,14 @@ namespace UserManagement
         {
             bool nameConfigured = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 u2.Name = name;
                 _User.Update(u2);
                 _uow.Save();
                 nameConfigured = true;
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.Name = name;
                 _User.Update(u2);
@@ -58,7 +60,6 @@ namespace UserManagement
             else
             {
                 nameConfigured = false;
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return nameConfigured;
@@ -75,14 +76,14 @@ namespace UserManagement
         {
             bool roleConfigured = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 u2.Role = role;
                 _User.Update(u2);
                 _uow.Save();
                 roleConfigured = true;
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.Role = role;
                 _User.Update(u2);
@@ -92,7 +93,6 @@ namespace UserManagement
             else
             {
                 roleConfigured = false;
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return roleConfigured;
@@ -109,14 +109,14 @@ namespace UserManagement
         {
             bool passwordConfigured = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 u2.Password = password;
                 _User.Update(u2);
                 _uow.Save();
                 passwordConfigured = true;
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.Password = password;
                 _User.Update(u2);
@@ -126,7 +126,6 @@ namespace UserManagement
             else
             {
                 passwordConfigured = false;
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return passwordConfigured;
@@ -143,14 +142,14 @@ namespace UserManagement
         {
             bool locConfigured = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 u2.Location = loc;
                 _User.Update(u2);
                 _uow.Save();
                 locConfigured = true;
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.Location = loc;
                 _User.Update(u2);
@@ -160,7 +159,6 @@ namespace UserManagement
             else
             {
                 locConfigured = false;
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return locConfigured;
@@ -177,14 +175,14 @@ namespace UserManagement
         {
             bool dobConfigured = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 u2.DOB = dob;
                 _User.Update(u2);
                 _uow.Save();
                 dobConfigured = true;
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.DOB = dob;
                 _User.Update(u2);
@@ -194,7 +192,6 @@ namespace UserManagement
             else
             {
                 dobConfigured = false;
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return dobConfigured;
@@ -210,7 +207,6 @@ namespace UserManagement
             IEnumerable<User> listUsers = _User.GetAll().AsEnumerable<User>();
             bool duplicate = true;
 
-            // do a seperate method
             foreach (User ur in listUsers)
             {
                 if (ur.Username == u.Username)
@@ -233,14 +229,14 @@ namespace UserManagement
             bool duplicate = Duplication(u2);
             bool uNameConfigured = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User" && duplicate == false)
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER && duplicate == false)
             {
                 u2.Username = uName;
                 _User.Update(u2);
                 _uow.Save();
                 uNameConfigured = true;
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 u2.Username = uName;
                 _User.Update(u2);
@@ -250,7 +246,6 @@ namespace UserManagement
             else
             {
                 uNameConfigured = false;
-                //throw new Exception("Didn't meet any of the requirements");
             }
 
             return uNameConfigured;

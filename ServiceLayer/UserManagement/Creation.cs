@@ -1,14 +1,15 @@
 ﻿using DataAccessLayer;
-using ModelLayer;
+using DataAccessLayer.Models;
+using ServiceLayer.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserManagement
+namespace ServiceLayer.UserManagement
 {
-    public class Creation
+    public class Creation : Roles
     {
         /// <summary>
         /// interface class that keeps track of data by having classes that can get repositories and saving it
@@ -62,7 +63,7 @@ namespace UserManagement
             bool duplicate = Duplication(u2);
             bool accountCreated = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 if (duplicate == false && u2.Password != null && u2.DOB != null && u2.Location != null)
                 {
@@ -70,9 +71,8 @@ namespace UserManagement
                     _uow.Save();
                     accountCreated = true;
                 }
-                Console.WriteLine("hello1" + accountCreated);
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 if (u2.Username != null && u2.DOB != null && u2.Location != null)
                 {
@@ -80,9 +80,8 @@ namespace UserManagement
                     _uow.Save();
                     accountCreated = true;
                 }
-                Console.WriteLine("hello2");
             }
-            else if (u1.Role == "Admin" && u2.Role == "Registered User")
+            else if (u1.Role == ADMIN && u2.Role == REG_USER)
             {
                 if (u2.Username != null && duplicate == false && u2.Password != null && u2.DOB != null && u2.Location != null)
                 {
@@ -90,17 +89,13 @@ namespace UserManagement
                     _uow.Save();
                     accountCreated = true;
                 }
-                Console.WriteLine("hello3");
             }
             else
             {
                 accountCreated = false;
-                Console.WriteLine("hello4");
             }
-
-            Console.WriteLine("hello5");
 
             return accountCreated;
-            }
         }
     }
+}

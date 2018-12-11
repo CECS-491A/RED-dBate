@@ -1,17 +1,18 @@
 ﻿using DataAccessLayer;
-using ModelLayer;
+using DataAccessLayer.Models;
+using ServiceLayer.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserManagement
+namespace ServiceLayer.UserManagement
 {
     /// <summary>
     /// Class used to delete accounts
     /// </summary>
-    public class Deletion
+    public class Deletion : Roles
     {
         /// <summary>
         /// interface class that keeps track of data by having classes that can get repositories and saving it
@@ -43,28 +44,22 @@ namespace UserManagement
         {
             bool accountDeleted = false;
 
-            if ((u1.Role == "System Admin" || u1.Role == "Admin") && u2.Role == "Registered User")
+            if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
                 _User.Delete(u2);
                 _uow.Save();
                 accountDeleted = true;
-                //Console.WriteLine("Hello 1");
             }
-            else if (u1.Role == "System Admin" && u2.Role == "Admin")
+            else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
                 _User.Delete(u2);
                 _uow.Save();
                 accountDeleted = true;
-                //Console.WriteLine("Hello 2");
             }
             else
             {
                 accountDeleted = false;
-                //Console.WriteLine("Hello 3");
-                //throw new Exception("Didn't meet any of the requirements");
             }
-
-            //Console.WriteLine("Hello 4");
 
             return accountDeleted;
         }

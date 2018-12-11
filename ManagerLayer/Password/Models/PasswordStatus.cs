@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PwnedPassword
+namespace ManagerLayer.Password
 {   
     /// <summary>
     /// Holds the pwned status and status message of the password.

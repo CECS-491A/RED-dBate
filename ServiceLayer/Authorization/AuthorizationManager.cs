@@ -1,9 +1,9 @@
 ﻿using DataAccessLayer;
-using ModelLayer;
+using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Authorization
+namespace ServiceLayer.Authorization
 {
     /// <summary>
     /// Authorization management class
