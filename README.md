@@ -15,7 +15,7 @@ DBate is a classic web application whose main purpose is to enhance the debate a
   - Constants
   - Password
   - UserManagement
-  * UnitTest
+* UnitTest
   - Files for Unit Test
   - UserManagementTesting: Unit tests files for User Management
 
