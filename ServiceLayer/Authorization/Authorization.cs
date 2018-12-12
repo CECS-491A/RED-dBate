@@ -41,9 +41,9 @@ namespace ServiceLayer.Authorization
                     access = false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error: Not Authorized");
+                Console.WriteLine("Error: Not Authorized" );
                 return false;
             }
 

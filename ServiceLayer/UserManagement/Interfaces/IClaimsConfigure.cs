@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.Interfaces
 {
+    /// <summary>
+    /// Reusable functions for Configuration for claims
+    /// </summary>
     public interface IClaimsConfigure
     {
         bool AddClaim(User u1, User u2, Claim c);

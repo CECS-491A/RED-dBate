@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.UserManagement.Interfaces
 {
+    /// <summary>
+    /// Reusable functions for enabling for user management
+    /// </summary>
     public interface IEnable
     {
         bool DisableAccount(User u1, User u2);

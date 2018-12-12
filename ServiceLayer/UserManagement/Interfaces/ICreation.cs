@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.UserManagement.Interfaces
 {
+    /// <summary>
+    /// Reusable functions for Creation for user management
+    /// </summary>
     public interface ICreation
     {
         bool CreateAccount(User u1, User u2);

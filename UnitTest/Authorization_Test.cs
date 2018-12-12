@@ -88,7 +88,7 @@ namespace UnitTest
             claim.ClaimName = "ViewData";
 
             Claim claim2 = new Claim();
-            claim2.ID = 8;
+            claim2.ID = 9;
             claim2.ClaimName = "CreateRegUserAccount";
 
 
@@ -133,7 +133,7 @@ namespace UnitTest
             claim.ClaimName = "ViewData";
 
             Claim claim2 = new Claim();
-            claim2.ID = 8;
+            claim2.ID = 9;
             claim2.ClaimName = "CreateRegUserAccount";
 
 
@@ -162,31 +162,5 @@ namespace UnitTest
             Assert.AreEqual(expected, actual);
 
         }
-
-        //THIS IS COMMENTED OUT BECAUSE I MAY OR MAY NOT DELETE METHOD. IT'S PROBABLY NOT HOW THE 
-        // HOW THE PROFESSOR WANTS IT
-       /* [TestMethod]
-        public void TestCheckUserToSystemInvalid()
-        {
-            string claim = "ViewData";
-            bool expected = false;
-
-            bool actual = aM.CheckAccessSystem(claim);
-
-            Console.WriteLine("Actual Value: " + actual);
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void TestCheckUserToSystemValid()
-        {
-            string claim = "View Documents";
-            bool expected = true;
-
-            bool actual = aM.CheckAccessSystem(claim);
-
-            Console.WriteLine("Actual Value: " + actual);
-            Assert.AreEqual(expected, actual);
-        }*/
     }
 }

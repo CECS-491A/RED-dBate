@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.Interfaces
 {
+    /// <summary>
+    /// Reusable functions for Configurations
+    /// </summary>
     public interface IConfigure
     {
         bool ConfigureName(User u1, User u2, string name);

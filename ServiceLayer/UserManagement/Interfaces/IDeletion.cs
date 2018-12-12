@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer.UserManagement.Interfaces
 {
+    /// <summary>
+    /// Reusable functions for deletion for user management
+    /// </summary>
     public interface IDeletion
     {
         bool DeleteAccount(User u1, User u2);
