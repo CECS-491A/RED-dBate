@@ -7,7 +7,7 @@ DBate is a classic web application whose main purpose is to enhance the debate a
   - Mock: Mock database
   - Models
 * ManagerLayer
-  * Password
+  - Password
 * ModelLayer
 * PwnedPassword
 * ServiceLayer
@@ -15,8 +15,9 @@ DBate is a classic web application whose main purpose is to enhance the debate a
   - Constants
   - Password
   - UserManagement
-* UnitTest
- - Files for Unit Test
- - UserManagementTesting: Unit tests files for User Management
+  * UnitTest
+  - Files for Unit Test
+  - UserManagementTesting: Unit tests files for User Management
+
 # License
 * MIT License Agreement
