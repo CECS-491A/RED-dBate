@@ -44,37 +44,43 @@ namespace UnitTest
         [TestMethod]
         public void StatusOfPassword_Error()
         {
-            PasswordStatus expectedStatus = StatusOfPassword();
-            PasswordStatus actualStaus = StausOfPassword();
+            PasswordStatus expectedStatus = new PasswordStatus(-1, "An ERROR has occurred with the request while checking password security.");
+            PasswordStatus actualStatus = sCheck.StatusOfPassword("","");
 
-            Assert.AreEqual(expectedStatus, actualStaus);
+            Assert.AreEqual(expectedStatus.Status, actualStatus.Status);
+            Assert.AreEqual(expectedStatus.Message, actualStatus.Message);
         }
-
+        
         [TestMethod]
         public void StatusOfPassword_Unsafe()
         {
-            PasswordStatus expectedStatus = StatusOfPassword();
-            PasswordStatus actualStaus = StausOfPassword();
+            PasswordStatus expectedStatus = new PasswordStatus(2, "Password is unsafe! Use a different password!");
+            PasswordStatus actualStatus = sCheck.StatusOfPassword("TESTPREFIX:100", "TESTPREFIX");
 
-            Assert.AreEqual(expectedStatus, actualStaus);
+            Assert.AreEqual(expectedStatus.Status, actualStatus.Status);
+            Assert.AreEqual(expectedStatus.Message, actualStatus.Message);
         }
 
+        
         [TestMethod]
         public void StatusOfPassword_Dangerous()
         {
-            PasswordStatus expectedStatus = StatusOfPassword();
-            PasswordStatus actualStaus = StausOfPassword();
+            PasswordStatus expectedStatus = new PasswordStatus(1, "Password has been breached a few times before! We recommend you change your password!");
+            PasswordStatus actualStatus = sCheck.StatusOfPassword("TESTPREFIX:10", "TESTPREFIX");
 
-            Assert.AreEqual(expectedStatus, actualStaus);
+            Assert.AreEqual(expectedStatus.Status, actualStatus.Status);
+            Assert.AreEqual(expectedStatus.Message, actualStatus.Message);
         }
-
+        
         [TestMethod]
         public void StatusOfPassword_Secured()
         {
-            PasswordStatus expectedStatus = StatusOfPassword();
-            PasswordStatus actualStaus = StausOfPassword();
+            PasswordStatus expectedStatus = new PasswordStatus(0, "Password is safe to use!");
+            PasswordStatus actualStatus = sCheck.StatusOfPassword("TESTPREFIX:100", "NOPREFIXFOUND");
 
-            Assert.AreEqual(expectedStatus, actualStaus);
+            Assert.AreEqual(expectedStatus.Status, actualStatus.Status);
+            Assert.AreEqual(expectedStatus.Message, actualStatus.Message);
         }
+        
     }
 }
