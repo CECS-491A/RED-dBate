@@ -18,6 +18,5 @@ DBate is a classic web application whose main purpose is to enhance the debate a
 * UnitTest
  - Files for Unit Test
  - UserManagementTesting: Unit tests files for User Management
-
 # License
 * MIT License Agreement
