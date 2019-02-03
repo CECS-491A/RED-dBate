@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerLayer", "ManagerLaye
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{2F63F058-8142-4A19-B37A-3BC7A382279F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CECS491_DBate", "CECS491_DBate\CECS491_DBate.csproj", "{2E07B46B-27D9-4F01-A573-63CD76E40BD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CECS491_DBate_WebAPI", "CECS491_DBate_WebAPI\CECS491_DBate_WebAPI.csproj", "{FEE11A05-D0F7-482B-A1DD-6E9D29E92859}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{2F63F058-8142-4A19-B37A-3BC7A382279F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F63F058-8142-4A19-B37A-3BC7A382279F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F63F058-8142-4A19-B37A-3BC7A382279F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E07B46B-27D9-4F01-A573-63CD76E40BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E07B46B-27D9-4F01-A573-63CD76E40BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E07B46B-27D9-4F01-A573-63CD76E40BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E07B46B-27D9-4F01-A573-63CD76E40BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEE11A05-D0F7-482B-A1DD-6E9D29E92859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEE11A05-D0F7-482B-A1DD-6E9D29E92859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEE11A05-D0F7-482B-A1DD-6E9D29E92859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEE11A05-D0F7-482B-A1DD-6E9D29E92859}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
