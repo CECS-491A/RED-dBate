@@ -3,12 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Bulma from 'bulma'
-import 'bulma/css/bulma.css'
+import './../node_modules/bulma/css/bulma.css';
 
 Vue.config.productionTip = false
-
-Vue.use(Bulma);
 
 /* eslint-disable no-new */
 new Vue({
