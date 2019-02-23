@@ -4,11 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
-namespace CECS491_DBate_WebAPI.Controllers
+namespace test.Controllers
 {
-    //[EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class HomeController : ApiController
     {
         [HttpGet]
