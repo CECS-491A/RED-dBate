@@ -7,8 +7,6 @@ import './../node_modules/bulma/css/bulma.css';
 
 Vue.config.productionTip = false
 
-window.$ = window.jQuery = require('jquery')
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

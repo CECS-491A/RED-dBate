@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace CECS491_DBate_WebAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext() : base("DBateConnection")
+        public ApplicationDbContext() : base("name = DBateConnection")
         {
         }
 
@@ -17,6 +18,9 @@ namespace CECS491_DBate_WebAPI.Data
             return new ApplicationDbContext();
         }
 
-        //public DbSet<WeightMeasurement> WeightMeasurements { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Claim> Claims { get; set; }
+        public DbSet<DateOfBirth> BirthDays { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }

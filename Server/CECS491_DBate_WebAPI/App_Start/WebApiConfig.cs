@@ -13,8 +13,11 @@ namespace CECS491_DBate_WebAPI
         {
 
             // Enable CORS for the Vue App
-            EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:8080", "*", "*");
-            config.EnableCors(cors);
+            //EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost/client", "*", "*");
+            //EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:8080", "*", "*");
+            //EnableCorsAttribute cors = new EnableCorsAttribute("https://dbate.azurewebsites.net/client", "*", "*");
+
+            config.EnableCors();
 
 
             // Set JSON formatter as default one and remove XmlFormatter

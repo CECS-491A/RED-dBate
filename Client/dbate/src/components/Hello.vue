@@ -1,8 +1,6 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h1>{{ msg2 }}</h1>
-
   </div>
 </template>
 
@@ -13,12 +11,13 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js PWA',
-      msg2: "f" 
+      msg: "f" 
     }
   },
   mounted(){
-    axios.get('http://localhost:5000/api/home').then(msg2 => {this.msg2 = msg2.data; console.log(this.msg2);})
+    //axios.get('http://localhost/backend/api/home').then(msg2 => {this.msg2 = msg2.data; console.log(this.msg2);})
+    axios.get('http://localhost:5000/api/home').then(msg => {this.msg = msg.data; console.log(this.msg);})
+    //axios.get('https://dbate.azurewebsites.net/backend/api/home').then(msg2 => {this.msg2 = msg2.data; console.log(this.msg2);})
   }
 }
 </script>

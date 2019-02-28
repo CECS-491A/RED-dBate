@@ -13,7 +13,7 @@ namespace CECS491_DBate_WebAPI
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
             //ConfigureAuth(app);
-            //app.UseCors(CorsOptions.AllowAll);
+            app.UseCors(CorsOptions.AllowAll);
             var hubConfiguration = new HubConfiguration();
             hubConfiguration.EnableDetailedErrors = true;
             app.MapSignalR(hubConfiguration);

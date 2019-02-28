@@ -6,6 +6,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace CECS491_DBate_WebAPI
 {
+
     public class ChatHub : Hub
     {
 
@@ -24,11 +25,11 @@ namespace CECS491_DBate_WebAPI
             Clients.All.hello();
         }
 
-        public void Send(string name, string message)
+        public void Send(string message)
         {
             // Call the addNewMessageToPage method to update clients.
             //Clients.All.addNewMessageToPage(name, message);
-            Clients.All.sendMessageToClients($"[{DateTime.Now}] <b>{name} says:</b> {message}");
+            Clients.All.sendMessageToClients($"[{DateTime.Now}] <b>Person 1 says:</b> {message}");
         }
     }
 }

@@ -9,7 +9,7 @@ namespace CECS491_DBate_WebAPI.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(CECS491_DBate_WebAPI.Data.ApplicationDbContext context)

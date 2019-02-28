@@ -14,7 +14,7 @@ namespace CECS491_DBate_WebAPI.Controllers
         [HttpGet]
         public string Hello()
         {
-            return "Hello World";
+            return "Hello World " + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
         }
 
     }
