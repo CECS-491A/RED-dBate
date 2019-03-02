@@ -33,9 +33,9 @@ namespace KFC.RED.DataAccessLayer.Migrations
                         Country = c.String(),
                         Role = c.String(),
                         IsAccountActivated = c.Boolean(nullable: false),
+                        IsUserPlaying = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
-            
         }
         
         public override void Down()

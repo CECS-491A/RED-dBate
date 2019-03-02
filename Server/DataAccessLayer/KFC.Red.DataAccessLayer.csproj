@@ -56,6 +56,10 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Migrations\201903022126180_Initial.cs" />
+    <Compile Include="Migrations\201903022126180_Initial.Designer.cs">
+      <DependentUpon>201903022126180_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mock\MockDataContext.cs" />
     <Compile Include="Mock\MockRepository.cs" />
@@ -81,6 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903022126180_Initial.resx">
+      <DependentUpon>201903022126180_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

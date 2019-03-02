@@ -95,7 +95,7 @@ namespace KFC.Red.Models
             DateOfBirth = dob;
             City = cty;
             State = s;
-            Country = ctry; 
+            Country = ctry;
             Role = r;
             CollectionClaims = c;
         }

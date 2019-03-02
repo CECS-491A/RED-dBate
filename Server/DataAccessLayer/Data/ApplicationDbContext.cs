@@ -17,7 +17,6 @@ namespace KFC.Red.DataAccessLayer
         {
             return new ApplicationDbContext();
         }
-
         public DbSet<User> Users { get; set; }
         public DbSet<Claim> Claims { get; set; }
     }

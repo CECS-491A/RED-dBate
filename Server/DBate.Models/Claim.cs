@@ -30,4 +30,3 @@ namespace KFC.Red.Models
         #endregion
     }
 }
-
