@@ -20,11 +20,6 @@ namespace KFC.Red.DBate.WebAPI
 
         }
 
-        public void Hello()
-        {
-            Clients.All.hello();
-        }
-
         public void Send(string username, string message)
         {
             username = "bob";
@@ -59,5 +54,22 @@ namespace KFC.Red.DBate.WebAPI
             }
 
         }
+
+        /*
+        public override System.Threading.Tasks.Task OnDisconnected()
+        {
+            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            if (item != null)
+            {
+                ConnectedUsers.Remove(item);
+
+                var id = Context.ConnectionId;
+                Clients.All.onUserDisconnected(id, item.UserName);
+
+            }
+
+            return base.OnDisconnected();
+        }
+        */
     }
 }

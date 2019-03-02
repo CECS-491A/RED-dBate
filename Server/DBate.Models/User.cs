@@ -64,6 +64,8 @@ namespace KFC.Red.Models
         /// </summary>
         public bool IsAccountActivated { get; set; }
 
+        public bool IsUserPlaying { get; set; }
+
         //CONSTRUCTORS NEED TO BE FIXED
         #region Constructors
         /// <summary>
