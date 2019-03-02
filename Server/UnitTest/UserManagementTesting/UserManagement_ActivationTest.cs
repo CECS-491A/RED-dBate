@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using DataAccessLayer;
-using DataAccessLayer.Mock;
-using DataAccessLayer.Models;
+using KFC.Red.DataAccessLayer;
+using KFC.Red.DataAccessLayer.Mock;
+using KFC.Red.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ServiceLayer.UserManagement;
+using KFC.Red.ServiceLayer.UserManagement;
 
-namespace UnitTest
+namespace KFC.Red.UnitTest
 {
     [TestClass]
     public class UserManagement_ActivationTest

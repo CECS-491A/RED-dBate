@@ -7,8 +7,8 @@
     <ProjectGuid>{2F63F058-8142-4A19-B37A-3BC7A382279F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceLayer</RootNamespace>
-    <AssemblyName>ServiceLayer</AssemblyName>
+    <RootNamespace>KFC.Red.ServiceLayer</RootNamespace>
+    <AssemblyName>KFC.Red.ServiceLayer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -58,9 +58,13 @@
     <Compile Include="UserManagement\Interfaces\IEnable.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+    <ProjectReference Include="..\DataAccessLayer\KFC.Red.DataAccessLayer.csproj">
       <Project>{0cad09c9-11e0-4eee-ad4b-7cc77e305bec}</Project>
-      <Name>DataAccessLayer</Name>
+      <Name>KFC.Red.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBate.Models\KFC.Red.Models.csproj">
+      <Project>{8a4c6416-2080-41bb-9f13-45a60dd2336e}</Project>
+      <Name>KFC.Red.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

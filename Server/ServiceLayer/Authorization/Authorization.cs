@@ -1,9 +1,9 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Models;
+﻿using KFC.Red.DataAccessLayer;
+using KFC.Red.Models;
 using System;
 using System.Collections.Generic;
 
-namespace ServiceLayer.Authorization
+namespace KFC.Red.ServiceLayer.Authorization
 {
     /// <summary>
     /// Authorization management class
@@ -15,7 +15,7 @@ namespace ServiceLayer.Authorization
         /// </summary>
         public User user = new User();
 
-        public Client client = new Client();
+        //public Client client = new Client();
 
         /// <summary>
         /// Method that checks whether a specific user is authorized for something
@@ -33,9 +33,9 @@ namespace ServiceLayer.Authorization
                     access = true;
                 }
                 //Checking system authorization
-                else if(client.ClaimCollection.Contains(claim) && user.CollectionClaims.Contains(claim)){
+                /*else if(client.ClaimCollection.Contains(claim) && user.CollectionClaims.Contains(claim)){
                     access = true;
-                }
+                }*/
                 else
                 {
                     access = false;

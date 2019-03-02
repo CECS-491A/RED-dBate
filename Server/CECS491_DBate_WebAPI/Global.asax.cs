@@ -6,7 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace CECS491_DBate_WebAPI
+namespace KFC.Red.DBate.WebAPI
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

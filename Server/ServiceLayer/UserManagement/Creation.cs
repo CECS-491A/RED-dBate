@@ -1,14 +1,14 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Models;
-using ServiceLayer.Constants;
-using ServiceLayer.UserManagement.Interfaces;
+﻿using KFC.Red.DataAccessLayer;
+using KFC.Red.Models;
+using KFC.Red.ServiceLayer.Constants;
+using KFC.Red.ServiceLayer.UserManagement.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.UserManagement
+namespace KFC.Red.ServiceLayer.UserManagement
 {
     public class Creation : Roles, ICreation
     {
@@ -66,7 +66,7 @@ namespace ServiceLayer.UserManagement
 
             if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
-                if (duplicate == false && u2.Password != null && u2.DOB != null && u2.Location != null)
+                if (duplicate == false && u2.Password != null && u2.DateOfBirth != null)
                 {
                     _User.Add(u2);
                     _uow.Save();
@@ -75,7 +75,7 @@ namespace ServiceLayer.UserManagement
             }
             else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
-                if (u2.Username != null && u2.DOB != null && u2.Location != null)
+                if (u2.Username != null && u2.DateOfBirth != null)
                 {
                     _User.Add(u2);
                     _uow.Save();
@@ -84,7 +84,7 @@ namespace ServiceLayer.UserManagement
             }
             else if (u1.Role == ADMIN && u2.Role == REG_USER)
             {
-                if (u2.Username != null && duplicate == false && u2.Password != null && u2.DOB != null && u2.Location != null)
+                if (u2.Username != null && duplicate == false && u2.Password != null && u2.DateOfBirth != null)
                 {
                     _User.Add(u2);
                     _uow.Save();

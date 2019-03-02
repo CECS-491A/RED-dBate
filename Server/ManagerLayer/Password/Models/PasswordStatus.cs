@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManagerLayer.Password
+namespace KFC.Red.ManagerLayer.Password
 {
     /// <summary>
     /// Holds the pwned status and status message of the password.

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace CECS491_DBate_WebAPI
+namespace KFC.Red.DBate.WebAPI
 {
     public static class WebApiConfig
     {

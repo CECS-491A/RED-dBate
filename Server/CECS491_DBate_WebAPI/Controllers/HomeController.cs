@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace CECS491_DBate_WebAPI.Controllers
+namespace KFC.Red.DBate.WebAPI.Controllers
 {
     //[EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class HomeController : ApiController

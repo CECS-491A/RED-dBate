@@ -1,8 +1,8 @@
 ﻿using System;
-using ManagerLayer.Password;
+using KFC.Red.ManagerLayer.Password;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTest
+namespace KFC.Red.UnitTest
 {
     [TestClass]
     public class PasswordStatusCheckerTest

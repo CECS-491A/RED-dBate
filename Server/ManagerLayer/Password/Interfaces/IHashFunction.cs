@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManayerLayer.Password
+namespace KFC.Red.ManagerLayer.Password
 {
     public interface IHashFunction
     {

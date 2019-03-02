@@ -1,14 +1,14 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Models;
-using ServiceLayer.Constants;
-using ServiceLayer.Interfaces;
+﻿using KFC.Red.DataAccessLayer;
+using KFC.Red.Models;
+using KFC.Red.ServiceLayer.Constants;
+using KFC.Red.ServiceLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.UserManagement
+namespace KFC.Red.ServiceLayer.UserManagement
 {
     public class Configuration : Roles, IConfigure
     {
@@ -141,20 +141,24 @@ namespace ServiceLayer.UserManagement
         /// <param name="u2">user where location is being updated</param>
         /// <param name="loc">updated loc</param>
         /// <returns>true or false of locConfigured</returns>
-        public bool ConfigureLocation(User u1, User u2, Location loc)
+        public bool ConfigureLocation(User u1, User u2, string city, string state, string country)
         {
             bool locConfigured = false;
 
             if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
-                u2.Location = loc;
+                u2.City = city;
+                u2.State = state;
+                u2.Country = country;
                 _User.Update(u2);
                 _uow.Save();
                 locConfigured = true;
             }
             else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
-                u2.Location = loc;
+                u2.City = city;
+                u2.State = state;
+                u2.Country = country;
                 _User.Update(u2);
                 _uow.Save();
                 locConfigured = true;
@@ -175,20 +179,20 @@ namespace ServiceLayer.UserManagement
         /// <param name="u2">user where dob is being updated</param>
         /// <param name="dob">updated dob</param>
         /// <returns>true or false of dobConfigured</returns>
-        public bool ConfigureDOB(User u1, User u2, DateOfBirth dob)
+        public bool ConfigureDOB(User u1, User u2, DateTime dob)
         {
             bool dobConfigured = false;
 
             if ((u1.Role == SYS_ADMIN || u1.Role == ADMIN) && u2.Role == REG_USER)
             {
-                u2.DOB = dob;
+                u2.DateOfBirth = dob;
                 _User.Update(u2);
                 _uow.Save();
                 dobConfigured = true;
             }
             else if (u1.Role == SYS_ADMIN && u2.Role == ADMIN)
             {
-                u2.DOB = dob;
+                u2.DateOfBirth = dob;
                 _User.Update(u2);
                 _uow.Save();
                 dobConfigured = true;

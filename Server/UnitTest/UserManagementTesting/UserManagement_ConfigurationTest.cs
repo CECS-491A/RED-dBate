@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using DataAccessLayer;
-using DataAccessLayer.Mock;
-using DataAccessLayer.Models;
+using KFC.Red.DataAccessLayer;
+using KFC.Red.DataAccessLayer.Mock;
+using KFC.Red.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ServiceLayer.UserManagement;
+using KFC.Red.ServiceLayer.UserManagement;
 
-namespace UnitTest
+namespace KFC.Red.UnitTest
 {
     [TestClass]
     public class UserManagement_ConfigurationTest
@@ -14,8 +14,6 @@ namespace UnitTest
         IUnitOfWork _uow;
         Configuration _configuration;
         IRepository<User> _User;
-        IRepository<Location> _Location;
-        IRepository<DateOfBirth> _DOB;
 
         [TestInitialize]
         public void SetUp()
@@ -23,8 +21,6 @@ namespace UnitTest
             _uow = new MockUnitOfWork<MockDataContext>();
             _configuration = new Configuration(_uow);
             _User = _uow.GetRepository<User>();
-            _Location = _uow.GetRepository<Location>();
-            _DOB = _uow.GetRepository<DateOfBirth>();
         }
 
         [TestCleanup]
@@ -460,11 +456,10 @@ namespace UnitTest
             var lS = "CA";
             bool expected = true;
 
-            Location loc = _Location.GetAll().Where(s => s.City == lC && s.State == lS).SingleOrDefault();
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
 
-            bool actual = _configuration.ConfigureLocation(u1, u2, loc);
+            bool actual = _configuration.ConfigureLocation(u1, u2, lC, lS, "USA");
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -484,11 +479,10 @@ namespace UnitTest
             var lS = "CA";
             bool expected = true;
 
-            Location loc = _Location.GetAll().Where(s => s.City == lC && s.State == lS).SingleOrDefault();
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
 
-            bool actual = _configuration.ConfigureLocation(u1, u2, loc);
+            bool actual = _configuration.ConfigureLocation(u1, u2, lC, lS, "USA");
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -507,11 +501,10 @@ namespace UnitTest
             var lS = "CA";
             bool expected = true;
 
-            Location loc = _Location.GetAll().Where(s => s.City == lC && s.State == lS).SingleOrDefault();
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
             
-            bool actual = _configuration.ConfigureLocation(u1, u2, loc);
+            bool actual = _configuration.ConfigureLocation(u1, u2, lC, lS, "USA");
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -530,12 +523,11 @@ namespace UnitTest
             var lS = "CA";
             bool expected = false;
 
-            Location loc = _Location.GetAll().Where(s => s.City == lC && s.State == lS).SingleOrDefault();
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
             Console.WriteLine(u1.Username);
 
-            bool actual = _configuration.ConfigureLocation(u1, u2, loc);
+            bool actual = _configuration.ConfigureLocation(u1, u2, lC, lS, "USA");
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -554,12 +546,11 @@ namespace UnitTest
             var lS = "CA";
             bool expected = false;
 
-            Location loc = _Location.GetAll().Where(s => s.City == lC && s.State == lS).SingleOrDefault();
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
             Console.WriteLine(u1.Username);
 
-            bool actual = _configuration.ConfigureLocation(u1, u2, loc);
+            bool actual = _configuration.ConfigureLocation(u1, u2, lC, lS, "USA");
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -579,11 +570,10 @@ namespace UnitTest
             var lS = "CA";
             bool expected = false;
 
-            Location loc = _Location.GetAll().Where(s => s.City == lC && s.State == lS).SingleOrDefault();
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
 
-            bool actual = _configuration.ConfigureLocation(u1, u2, loc);
+            bool actual = _configuration.ConfigureLocation(u1, u2, lC, lS, "USA");
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -602,11 +592,10 @@ namespace UnitTest
             var lS = "CA";
             bool expected = false;
 
-            Location loc = _Location.GetAll().Where(s => s.City == lC && s.State == lS).SingleOrDefault();
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
 
-            bool actual = _configuration.ConfigureLocation(u1, u2, loc);
+            bool actual = _configuration.ConfigureLocation(u1, u2, lC, lS, "USA");
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -621,16 +610,13 @@ namespace UnitTest
             var uName = "Bob2080"; //admin
             var uName2 = "VicePresident"; //user
 
-            var m = "12";
-            var d = "15";
-            var y = "1996";
             bool expected = true;
 
-            DateOfBirth dob = _DOB.GetAll().Where(s => s.Month == m && s.Day == d && s.Year == y).SingleOrDefault();
+            DateTime dob = new DateTime(1996,12,15);
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
             
-            bool actual = _configuration.ConfigureDOB(u1, u2, dob);
+            bool actual = _configuration.ConfigureDOB(u1,u2,dob);
             Console.WriteLine(actual);
 
             Assert.AreEqual(expected, actual);
@@ -645,12 +631,9 @@ namespace UnitTest
             var uName = "Bill2080"; //sys admin
             var uName2 = "Bob2080"; //admin
 
-            var m = "12";
-            var d = "15";
-            var y = "1996";
             bool expected = true;
 
-            DateOfBirth dob = _DOB.GetAll().Where(s => s.Month == m && s.Day == d && s.Year == y).SingleOrDefault();
+            DateTime dob = new DateTime(1996,12,15);
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
            
@@ -669,12 +652,9 @@ namespace UnitTest
             var uName = "Bill2080"; //sys admin
             var uName2 = "VicePresident"; //regular user
 
-            var m = "12";
-            var d = "15";
-            var y = "1996";
             bool expected = true;
 
-            DateOfBirth dob = _DOB.GetAll().Where(s => s.Month == m && s.Day == d && s.Year == y).SingleOrDefault();
+            DateTime dob = new DateTime(1996, 12, 15);
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
 
@@ -693,12 +673,9 @@ namespace UnitTest
             var uName = "VicePresident"; //reg user
             var uName2 = "Bob2080"; //admin
 
-            var m = "12";
-            var d = "15";
-            var y = "1996";
             bool expected = false;
 
-            DateOfBirth dob = _DOB.GetAll().Where(s => s.Month == m && s.Day == d && s.Year == y).SingleOrDefault();
+            DateTime dob = new DateTime(1996, 12, 15);
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
             Console.WriteLine(u1.Username);
@@ -718,12 +695,9 @@ namespace UnitTest
             var uName = "VicePresident"; //reg user
             var uName2 = "Bill2080"; //system admin
 
-            var m = "12";
-            var d = "15";
-            var y = "1996";
             bool expected = false;
 
-            DateOfBirth dob = _DOB.GetAll().Where(s => s.Month == m && s.Day == d && s.Year == y).SingleOrDefault();
+            DateTime dob = new DateTime(1996, 12, 15);
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
             Console.WriteLine(u1.Username);
@@ -743,12 +717,9 @@ namespace UnitTest
             var uName = "Bob2080"; // admin
             var uName2 = "Bill2080"; //sys admin
 
-            var m = "12";
-            var d = "15";
-            var y = "1996";
             bool expected = false;
 
-            DateOfBirth dob = _DOB.GetAll().Where(s => s.Month == m && s.Day == d && s.Year == y).SingleOrDefault();
+            DateTime dob = new DateTime(1996, 12, 15);
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
 
@@ -767,12 +738,9 @@ namespace UnitTest
             var uName = "Bob2080"; // admin
             var uName2 = "Bob2080"; // admin
 
-            var m = "12";
-            var d = "15";
-            var y = "1996";
             bool expected = false;
 
-            DateOfBirth dob = _DOB.GetAll().Where(s => s.Month == m && s.Day == d && s.Year == y).SingleOrDefault();
+            DateTime dob = new DateTime(1996, 12, 15);
             User u1 = _User.GetAll().Where(s => s.Username == uName).SingleOrDefault();
             User u2 = _User.GetAll().Where(s => s.Username == uName2).SingleOrDefault();
 

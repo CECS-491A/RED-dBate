@@ -1,11 +1,11 @@
-﻿using DataAccessLayer.Models;
+﻿using KFC.Red.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.Authorization
+namespace KFC.Red.ServiceLayer.Authorization
 {
     /// <summary>
     /// Interface that has reusable authorization methods/functions

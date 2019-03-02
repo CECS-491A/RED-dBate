@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 /// of the changes in the repositoy layer when connecting to a database or creating mokc datacontext as the article states. 
 /// Although we did used the code from the website tutorial, we did write comments throghout the code in order to understand it.
 /// </summary>
-namespace DataAccessLayer
+namespace KFC.Red.DataAccessLayer
 {
     /// <summary>
     ///  List of methods that can be implemented wherever it is being called in the classes, mostly used for UOW classes

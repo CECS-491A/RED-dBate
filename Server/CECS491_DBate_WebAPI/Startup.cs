@@ -3,9 +3,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
 
-[assembly: OwinStartup(typeof(CECS491_DBate_WebAPI.Startup))]
+[assembly: OwinStartup(typeof(KFC.Red.DBate.WebAPI.Startup))]
 
-namespace CECS491_DBate_WebAPI
+namespace KFC.Red.DBate.WebAPI
 {
     public partial class Startup
     {

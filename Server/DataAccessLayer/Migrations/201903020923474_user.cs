@@ -1,9 +1,9 @@
-namespace CECS491_DBate_WebAPI.Migrations
+namespace KFC.RED.DataAccessLayer.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class user : DbMigration
     {
         public override void Up()
         {

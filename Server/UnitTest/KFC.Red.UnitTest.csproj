@@ -8,8 +8,8 @@
     <ProjectGuid>{DA715C19-AB21-4F03-BC41-DBE636042736}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTest</RootNamespace>
-    <AssemblyName>UnitTest</AssemblyName>
+    <RootNamespace>KFC.Red.UnitTest</RootNamespace>
+    <AssemblyName>KFC.Red.UnitTest</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -74,17 +74,21 @@
     <Compile Include="UserManagementTesting\UserManagement_DeletionTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+    <ProjectReference Include="..\DataAccessLayer\KFC.Red.DataAccessLayer.csproj">
       <Project>{0CAD09C9-11E0-4EEE-AD4B-7CC77E305BEC}</Project>
-      <Name>DataAccessLayer</Name>
+      <Name>KFC.Red.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ManagerLayer\ManagerLayer.csproj">
-      <Project>{11ab7410-e5ec-47d1-ab23-e7ed3f2bbee5}</Project>
-      <Name>ManagerLayer</Name>
+    <ProjectReference Include="..\DBate.Models\KFC.Red.Models.csproj">
+      <Project>{8a4c6416-2080-41bb-9f13-45a60dd2336e}</Project>
+      <Name>KFC.Red.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
+    <ProjectReference Include="..\ManagerLayer\KFC.Red.ManagerLayer.csproj">
+      <Project>{28413BF6-B380-4010-84E1-7A94A8C43726}</Project>
+      <Name>KFC.Red.ManagerLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceLayer\KFC.Red.ServiceLayer.csproj">
       <Project>{2f63f058-8142-4a19-b37a-3bc7a382279f}</Project>
-      <Name>ServiceLayer</Name>
+      <Name>KFC.Red.ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

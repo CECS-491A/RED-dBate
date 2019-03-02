@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ManagerLayer.Password
+namespace KFC.Red.ManagerLayer.Password
 {
     public class PasswordStatusChecker
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Models
+namespace KFC.Red.Models
 {
     /// <summary>
     /// Model Class for User
@@ -38,15 +38,16 @@ namespace DataAccessLayer.Models
         [Required]
         public string Password { get; set; }
 
-        /// <summary>
-        /// date of birth of user
-        /// </summary>
-        public int DobID { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime DateOfBirth { get; set; }
 
-        /// <summary>
-        /// location of user
-        public int LocID { get; set; }
-        /// </summary>
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        public string Country { get; set; }
 
         /// <summary>
         /// represents the role that the specific user has
@@ -84,13 +85,15 @@ namespace DataAccessLayer.Models
         /// <param name="r"></param>
         /// <param name="loc"></param>
         /// <param name="c"></param>
-        public User(int id, string n, string p, int dob, string r, int loc, List<Claim> c)
+        public User(int id, string n, string p, DateTime dob, string r, string cty, string s, string ctry, List<Claim> c)
         {
             ID = ID;
             Username = n;
             Password = p;
-            DobID = dob;
-            LocID = loc;
+            DateOfBirth = dob;
+            City = cty;
+            State = s;
+            Country = ctry; 
             Role = r;
             CollectionClaims = c;
         }

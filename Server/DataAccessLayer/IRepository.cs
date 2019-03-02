@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer
+namespace KFC.Red.DataAccessLayer
 {
     /// <summary>
     /// IRepository class that contains methods that can be implemented in classed that this interface is called upon

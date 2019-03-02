@@ -1,14 +1,14 @@
-﻿using DataAccessLayer;
-using DataAccessLayer.Models;
-using ServiceLayer.Constants;
-using ServiceLayer.Interfaces;
+﻿using KFC.Red.DataAccessLayer;
+using KFC.Red.Models;
+using KFC.Red.ServiceLayer.Constants;
+using KFC.Red.ServiceLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.UserManagement
+namespace KFC.Red.ServiceLayer.UserManagement
 {
     public class ConfigureClaims : Roles, IClaimsConfigure
     {

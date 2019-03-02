@@ -1,18 +1,18 @@
-namespace CECS491_DBate_WebAPI.Migrations
+namespace KFC.RED.DataAccessLayer.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CECS491_DBate_WebAPI.Data.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<KFC.Red.DataAccessLayer.ApplicationDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(CECS491_DBate_WebAPI.Data.ApplicationDbContext context)
+        protected override void Seed(KFC.Red.DataAccessLayer.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

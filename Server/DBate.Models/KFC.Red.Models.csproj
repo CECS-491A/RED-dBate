@@ -7,8 +7,8 @@
     <ProjectGuid>{8A4C6416-2080-41BB-9F13-45A60DD2336E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBate.Models</RootNamespace>
-    <AssemblyName>DBate.Models</AssemblyName>
+    <RootNamespace>KFC.Red.Models</RootNamespace>
+    <AssemblyName>KFC.Red.Models</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,12 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Models\Claim.cs" />
-    <Compile Include="Models\DateOfBirth.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Claim.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

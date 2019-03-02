@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace CECS491_DBate_WebAPI
+namespace KFC.Red.DBate.WebAPI
 {
     public class FilterConfig
     {

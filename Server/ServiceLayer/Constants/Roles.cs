@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.Constants
+namespace KFC.Red.ServiceLayer.Constants
 {
     /// <summary>
     /// Class that just has constant list of roles. Used for consistency in User Management

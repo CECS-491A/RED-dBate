@@ -1,11 +1,11 @@
-﻿using DataAccessLayer.Models;
+﻿using KFC.Red.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.UserManagement.Interfaces
+namespace KFC.Red.ServiceLayer.UserManagement.Interfaces
 {
     /// <summary>
     /// Reusable functions for deletion for user management

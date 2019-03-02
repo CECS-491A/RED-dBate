@@ -5,7 +5,7 @@
     </header>
     <main>
       <br/>
-      <router-link to="chat">Chat Room</router-link>
+      <!--<router-link to="chat">Chat Room</router-link>-->
       <router-view/>
     </main>
   </div>

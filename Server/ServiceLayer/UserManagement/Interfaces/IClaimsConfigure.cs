@@ -1,11 +1,11 @@
-﻿using DataAccessLayer.Models;
+﻿using KFC.Red.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer.Interfaces
+namespace KFC.Red.ServiceLayer.Interfaces
 {
     /// <summary>
     /// Reusable functions for Configuration for claims

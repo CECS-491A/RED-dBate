@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManayerLayer.Password
+namespace KFC.Red.ManagerLayer.Password
 {
     class HashFunction : IHashFunction
     {

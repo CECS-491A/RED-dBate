@@ -2,9 +2,9 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ManagerLayer.Password;
+using KFC.Red.ManagerLayer.Password;
 
-namespace UnitTest
+namespace KFC.Red.UnitTest
 {
     [TestClass]
     public class PwnedPasswordTest

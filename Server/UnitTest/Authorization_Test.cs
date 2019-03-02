@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccessLayer;
-using DataAccessLayer.Mock;
-using DataAccessLayer.Models;
+using KFC.Red.DataAccessLayer;
+using KFC.Red.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ServiceLayer.Authorization;
+using KFC.Red.ServiceLayer.Authorization;
 
-namespace UnitTest
+namespace KFC.Red.UnitTest
 {
     [TestClass]
     public class Authorization_Test

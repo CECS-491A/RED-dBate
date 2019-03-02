@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
-namespace CECS491_DBate_WebAPI
+namespace KFC.Red.DBate.WebAPI
 {
 
     public class ChatHub : Hub
@@ -25,11 +25,39 @@ namespace CECS491_DBate_WebAPI
             Clients.All.hello();
         }
 
-        public void Send(string message)
+        public void Send(string username, string message)
         {
+            username = "bob";
+            //message = ""
             // Call the addNewMessageToPage method to update clients.
             //Clients.All.addNewMessageToPage(name, message);
-            Clients.All.sendMessageToClients($"[{DateTime.Now}] <b>Person 1 says:</b> {message}");
+            //Clients.All.sendMessageToClients($"{username}: {message}");
+            Clients.All.broadcastMessage(username, message);
+
+        }
+
+        /// <summary>
+        /// User to send private message among your respective group
+        /// </summary>
+        /// <param name="toUserId"></param>
+        /// <param name="message"></param>
+        public void SendPrivateMessage(string toUserId, string message)
+        {
+
+            string fromUserId = Context.ConnectionId;
+
+            var toUser = "9";//ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
+            var fromUser = "ko"; //ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
+
+            if (toUser != null && fromUser != null)
+            {
+                // send to 
+                //Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.UserName, message);
+
+                // send to caller user
+                //Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message);
+            }
+
         }
     }
 }

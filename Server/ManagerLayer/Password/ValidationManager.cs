@@ -1,5 +1,5 @@
-﻿using ManayerLayer.Password;
-using ServiceLayer;
+﻿using KFC.Red.ManagerLayer.Password;
+using KFC.Red.ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManagerLayer.Password
+namespace KFC.Red.ManagerLayer.Password
 {
     public class ValidationManager
     {

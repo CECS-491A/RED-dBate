@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace CECS491_DBate_WebAPI.Controllers
+namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class ChatController : ApiController
     {
