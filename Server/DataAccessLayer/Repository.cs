@@ -7,23 +7,24 @@ namespace KFC.Red.DataAccessLayer
 {
   
     /// <summary>
-    /// Generic repository class used used to coomunicate with data acces layer  or any databases conected to it
+    /// Generic repository class used used to comunicate with data acces layer  or any databases conected to it
     /// </summary>
     /// <typeparam name="T">place holder generic</typeparam>
     public class Repository<T> : IRepository<T> where T : class
     {
-        /// <summary>
-        ///Object obtained from System.Data.Linq, represent entry point for LINQ to SQL framework 
-        /// </summary>
         private DataContext Context;
 
         /// <summary>
         /// Constructor Used to initialize context with parameter being passed 
         /// </summary>
         /// <param name="ctx"></param>
-        public Repository(DataContext ctx)
+        public Repository(DataContext cntx)
         {
-            Context = ctx;
+            if (cntx == null)
+            {
+                throw new ArgumentNullException("datacontext empty");
+            }
+            Context = cntx;
         }
 
         /// <summary>
@@ -36,11 +37,15 @@ namespace KFC.Red.DataAccessLayer
         }
 
         /// <summary>
-        /// Methid that inserts a type of entity to the dataxontext.
+        /// Method that inserts a type of entity to the dataxontext.
         /// </summary>
         /// <param name="entity">generic type of entity unknowned for now</param>
         public void Add(T entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("Entity empty");
+            }
             Context.GetTable<T>().InsertOnSubmit(entity);
         }
 
@@ -50,6 +55,10 @@ namespace KFC.Red.DataAccessLayer
         /// <param name="entity">generic type of entity unknown unless repository connected to a more sepcifc repository</param>
         public void Delete(T entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("Entity empty");
+            }
             Context.GetTable<T>().DeleteOnSubmit(entity);
         }
 
@@ -59,6 +68,10 @@ namespace KFC.Red.DataAccessLayer
         /// <param name="entity">a genric collection of entities</param>
         public void DeleteAll(IEnumerable<T> entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("Entity empty");
+            }
             Context.GetTable<T>().DeleteAllOnSubmit(entity);
         }
 
@@ -68,6 +81,10 @@ namespace KFC.Red.DataAccessLayer
         /// <param name="entity">placeholder for type of entity</param>
         public void Update(T entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("Entity empty");
+            }
             var entry = Context.GetTable<T>().Where(s => s == entity);
             Context.GetTable<T>().Attach(entity);
         }
@@ -80,7 +97,7 @@ namespace KFC.Red.DataAccessLayer
         {
             return Context.GetTable<T>().Any();
         }
-
+        
         /// <summary>
         /// Method that returns the collection objects of a particular type from the datacontext
         /// </summary>
@@ -89,6 +106,16 @@ namespace KFC.Red.DataAccessLayer
         {
             return Context.GetTable<T>();
         }
+        
+        /// <summary>
+        /// Method that returns an object by ID 
+        /// </summary>
+        /// <returns>returns generic object by ID</returns>        
+        public T RetrieveByID(int id)
+        {
+            return Context.GetTable<T>().Find(id);
+        }
+
     }
 
 }
