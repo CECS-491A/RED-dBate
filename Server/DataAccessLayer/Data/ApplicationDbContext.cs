@@ -1,7 +1,7 @@
 ﻿using KFC.Red.DataAccessLayer.Models;
 using System.Data.Entity;
 
-namespace KFC.Red.DataAccessLayer
+namespace KFC.Red.DataAccessLayer.Data
 {
     public class ApplicationDbContext : DbContext
     {

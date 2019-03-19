@@ -1,19 +1,20 @@
 namespace KFC.RED.DataAccessLayer.Migrations
 {
+    using KFC.Red.DataAccessLayer.Data;
     using KFC.Red.DataAccessLayer.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<KFC.Red.DataAccessLayer.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(KFC.Red.DataAccessLayer.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

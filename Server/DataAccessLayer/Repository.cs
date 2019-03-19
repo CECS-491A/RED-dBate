@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data;
 using System.Data.Linq;
+using System;
 
 namespace KFC.Red.DataAccessLayer
 {
@@ -113,7 +114,9 @@ namespace KFC.Red.DataAccessLayer
         /// <returns>returns generic object by ID</returns>        
         public T RetrieveByID(int id)
         {
-            return Context.GetTable<T>().Find(id);
+            //HAVE TO FUX THIS SOON
+            //return Context.;
+            return null;
         }
 
     }

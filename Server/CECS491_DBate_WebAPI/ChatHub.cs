@@ -1,4 +1,5 @@
 ﻿using KFC.Red.DataAccessLayer;
+using KFC.Red.DataAccessLayer.Data;
 using Microsoft.AspNet.SignalR;
 
 namespace KFC.Red.DBate.WebAPI

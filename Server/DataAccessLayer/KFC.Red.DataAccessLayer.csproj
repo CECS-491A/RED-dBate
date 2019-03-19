@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
-    <Compile Include="Data\DBateDBInitializer.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\201903022126180_Initial.cs" />

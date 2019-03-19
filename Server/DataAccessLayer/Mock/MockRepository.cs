@@ -55,6 +55,11 @@ namespace KFC.Red.DataAccessLayer.Mock
             _context.Remove(entity);
         }
 
+        public T RetrieveByID(int id)
+        {
+            return _context.ElementAt(id);
+        }
+
         /// <summary>
         /// removes all the entity in context passed  from the parameter
         /// </summary>
