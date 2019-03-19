@@ -2,9 +2,9 @@
 using System.Linq;
 using KFC.Red.DataAccessLayer;
 using KFC.Red.DataAccessLayer.Mock;
-using KFC.Red.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KFC.Red.ServiceLayer.UserManagement;
+using KFC.Red.DataAccessLayer.Models;
 
 namespace KFC.Red.UnitTest
 {

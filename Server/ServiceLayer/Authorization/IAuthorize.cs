@@ -1,9 +1,5 @@
-﻿using KFC.Red.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using KFC.Red.DataAccessLayer.Models;
 
 namespace KFC.Red.ServiceLayer.Authorization
 {

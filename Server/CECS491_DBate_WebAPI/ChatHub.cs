@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using KFC.Red.DataAccessLayer;
 using Microsoft.AspNet.SignalR;
 
 namespace KFC.Red.DBate.WebAPI
@@ -10,10 +7,22 @@ namespace KFC.Red.DBate.WebAPI
     public class ChatHub : Hub
     {
 
+        //private IRepository<User> _User;
+        //Sprivate IUnitOfWork _uow;
+        private ApplicationDbContext ctx;
+
         public ChatHub()
         {
-
+            ctx = new ApplicationDbContext();
         }
+
+        /*
+        public ChatHub(IUnitOfWork uow)
+        {
+            _uow = uow;
+            _User = _uow.GetRepository<User>();
+        }
+        */
 
         public ChatHub(string username)
         {
@@ -23,12 +32,7 @@ namespace KFC.Red.DBate.WebAPI
         public void Send(string username, string message)
         {
             username = "bob";
-            //message = ""
-            // Call the addNewMessageToPage method to update clients.
-            //Clients.All.addNewMessageToPage(name, message);
-            //Clients.All.sendMessageToClients($"{username}: {message}");
             Clients.All.broadcastMessage(username, message);
-
         }
 
         /// <summary>
@@ -56,20 +60,16 @@ namespace KFC.Red.DBate.WebAPI
         }
 
         /*
-        public override System.Threading.Tasks.Task OnDisconnected()
+        public override Task OnDisconnected(bool stopCalled)
         {
-            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (item != null)
+            using (ctx)
             {
-                ConnectedUsers.Remove(item);
-
-                var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.UserName);
-
+                var connection = ctx.Connections.Find(Context.ConnectionId);
+                connection.Connected = false;
+                ctx.SaveChanges();
             }
-
-            return base.OnDisconnected();
-        }
+            return base.OnDisconnected(stopCalled);
+        } 
         */
     }
 }

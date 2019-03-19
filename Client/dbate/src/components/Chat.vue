@@ -5,8 +5,7 @@
           <div class="columns has-same-height">
             <div class="column">
               <header>
-                <div class="user-count">0</div>
-                <h1>Tokyo Chat</h1>
+                <div class="user-count">{{group1}}</div>
               </header>
 
               <section class="sidebar">
@@ -15,7 +14,7 @@
             </div>
             <div class="column is-5">
               <header>
-                <h1>Question?</h1>
+                <h1>{{question}}</h1>
               </header>
 
               <section class="chat">
@@ -32,8 +31,7 @@
             </div>
             <div class="column">
               <header>
-                <div class="user-count">0</div>
-                <h1>Tokyo Chat</h1>
+                <div class="user-count">{{group2}}</div>
               </header>
 
               <section class="sidebar">
@@ -54,6 +52,9 @@
     name: 'chat',
     data () {
       return {
+        question: 'question?',
+        group1: 'Group 1',
+        group2: 'Group 2',
         username: '',
         message: '',
         messages: [],
@@ -126,6 +127,7 @@
     height: calc(100vh - 165px);
     background: white;
     padding: 5px 10px;
+    overflow: scroll;
   }
 
   .chat p {

@@ -187,9 +187,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBate.Models\KFC.Red.Models.csproj">
-      <Project>{8A4C6416-2080-41BB-9F13-45A60DD2336E}</Project>
-      <Name>KFC.Red.Models</Name>
+    <ProjectReference Include="..\DataAccessLayer\KFC.Red.DataAccessLayer.csproj">
+      <Project>{0cad09c9-11e0-4eee-ad4b-7cc77e305bec}</Project>
+      <Name>KFC.Red.DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

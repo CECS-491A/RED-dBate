@@ -78,10 +78,6 @@
       <Project>{0CAD09C9-11E0-4EEE-AD4B-7CC77E305BEC}</Project>
       <Name>KFC.Red.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DBate.Models\KFC.Red.Models.csproj">
-      <Project>{8a4c6416-2080-41bb-9f13-45a60dd2336e}</Project>
-      <Name>KFC.Red.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ManagerLayer\KFC.Red.ManagerLayer.csproj">
       <Project>{28413BF6-B380-4010-84E1-7A94A8C43726}</Project>
       <Name>KFC.Red.ManagerLayer</Name>

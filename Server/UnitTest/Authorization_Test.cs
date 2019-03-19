@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using KFC.Red.DataAccessLayer;
-using KFC.Red.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KFC.Red.ServiceLayer.Authorization;
+using KFC.Red.DataAccessLayer.Models;
 
 namespace KFC.Red.UnitTest
 {

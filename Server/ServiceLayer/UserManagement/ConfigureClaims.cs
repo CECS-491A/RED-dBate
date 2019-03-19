@@ -1,5 +1,5 @@
 ﻿using KFC.Red.DataAccessLayer;
-using KFC.Red.Models;
+using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.Constants;
 using KFC.Red.ServiceLayer.Interfaces;
 using System;

@@ -54,16 +54,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Data\DBateDBInitializer.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\201903022126180_Initial.cs" />
     <Compile Include="Migrations\201903022126180_Initial.Designer.cs">
       <DependentUpon>201903022126180_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903030702044_Connection.cs" />
+    <Compile Include="Migrations\201903030702044_Connection.Designer.cs">
+      <DependentUpon>201903030702044_Connection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mock\MockDataContext.cs" />
     <Compile Include="Mock\MockRepository.cs" />
     <Compile Include="Mock\MockUnitOfWork.cs" />
+    <Compile Include="Models\Claim.cs" />
+    <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -78,17 +86,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBate.Models\KFC.Red.Models.csproj">
-      <Project>{8a4c6416-2080-41bb-9f13-45a60dd2336e}</Project>
-      <Name>KFC.Red.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903022126180_Initial.resx">
       <DependentUpon>201903022126180_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903030702044_Connection.resx">
+      <DependentUpon>201903030702044_Connection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
