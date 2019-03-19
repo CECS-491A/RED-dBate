@@ -21,5 +21,6 @@ namespace KFC.Red.DataAccessLayer
         void DeleteAll(IEnumerable<T> entity);
         void Update(T entity);
         bool Any();
+        T RetrieveByID(int id);
     }
 }
