@@ -25,7 +25,7 @@
 
               <form>
                 <input type="text" placeholder="argument" v-model="message" />
-                <button v-on:click="sendMessage">Send</button>
+                <button type="button" v-on:click="sendMessage()">Send</button>
               </form>
               <br/>
             </div>
@@ -62,15 +62,16 @@
         proxy: null,
       }
     },
-    beforeMount () {
-      let that = this
-      this.connection = $.hubConnection('http://localhost:5000/signalr')
-      this.proxy = this.connection.createHubProxy('ChatHub')
+    mounted () {
       this.username = localStorage.getItem('username')
-      this.proxy.on('broadcastMessage', (username, message) => {
+      //let that = this
+      //this.connection = $.hubConnection('http://localhost:5000/signalr')
+      this.connection = $.hubConnection('https://thedbate.azurewebsites.net/backend/signalr')
+      this.proxy = this.connection.createHubProxy('ChatHub')
+      /*this.proxy.on('messageReceived', (username, message) => {
         console.log('test')
         that.messages.push({username:username, message: message })
-      })
+      })*/
       this.connection
         .start({ })
         .done(() => { console.log('Now connected') })
@@ -81,6 +82,7 @@
         this.proxy.invoke('send', this.username, this.message)
         .done(() => { console.log('Invocation of Send succeeded') })
         .fail(error => { console.log('Invocation of Send failed. Error: ' + error) })
+        this.messages.push({username: this.username, message: this.message })
       }
     }
   }

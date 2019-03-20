@@ -50,8 +50,12 @@ namespace KFC.Red.DBate.WebAPI
 
         public void Send(string username, string message)
         {
-            //username = "bob";
-            Clients.All.broadcastMessage(username, message);
+            // store last 100 messages in cache
+            AddMessageinCache(username, message);
+
+            // Broad cast message
+            Clients.All.messageReceived(username, message);
+            //Clients.All.broadcastMessage(username, message);
         }
 
         /// <summary>
@@ -93,9 +97,9 @@ namespace KFC.Red.DBate.WebAPI
             return OnDisconnected();
         }
 
-        private void AddMessageinCache(int id, string message)
+        private void AddMessageinCache(string username, string message)
         {
-            CurrentMessage.Add(new MessageDetail { UserId = id, Message = message });
+            CurrentMessage.Add(new MessageDetail { Username = username, Message = message });
 
             if (CurrentMessage.Count > 100)
                 CurrentMessage.RemoveAt(0);

@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201903200419242_delete-connections-table.Designer.cs">
       <DependentUpon>201903200419242_delete-connections-table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903201536478_newChanges.cs" />
+    <Compile Include="Migrations\201903201536478_newChanges.Designer.cs">
+      <DependentUpon>201903201536478_newChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Mock\MockDataContext.cs" />
     <Compile Include="Mock\MockRepository.cs" />
@@ -102,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903200419242_delete-connections-table.resx">
       <DependentUpon>201903200419242_delete-connections-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903201536478_newChanges.resx">
+      <DependentUpon>201903201536478_newChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

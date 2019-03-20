@@ -1,13 +1,13 @@
 <template>
-  <v-toolbar app color="primary">
-    <v-toolbar-title>
-      <span>Dbate</span>
+  <v-toolbar color="primary">
+    <v-toolbar-title class="ml-0 pl-3">
+      <span><strong class="white--text text--lighten-1">Dbate</strong></span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
-    <v-btn to="home"  flat>Home</v-btn>
-    <v-btn to="about" flat>About</v-btn>
-    <v-btn to="chat-cred" flat>Chat</v-btn>
+    <v-btn to="home"  flat><strong class="white--text text--lighten-1">Home</strong></v-btn>
+    <v-btn to="about" flat><strong class="white--text text--lighten-1">About</strong></v-btn>
+    <v-btn to="chat-cred" flat><strong class="white--text text--lighten-1">Chat</strong></v-btn>
   </v-toolbar>
 </template>
 
