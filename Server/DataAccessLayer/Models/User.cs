@@ -64,9 +64,9 @@ namespace KFC.Red.DataAccessLayer.Models
         /// </summary>
         public bool IsAccountActivated { get; set; }
 
-        public ICollection<Connection> Connections { get; set; }
+        //public ICollection<Connection> Connections { get; set; }
 
-        //public bool IsUserPlaying { get; set; }
+        public bool IsUserPlaying { get; set; } = false;
 
         //CONSTRUCTORS NEED TO BE FIXED
         #region Constructors

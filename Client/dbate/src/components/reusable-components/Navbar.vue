@@ -1,26 +1,18 @@
 <template>
-  <v-app>
-    <nav-bar />
+  <v-toolbar app color="primary">
+    <v-toolbar-title>
+      <span>Dbate</span>
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
 
-    <v-content>
-      <router-view />
-    </v-content>
-  </v-app>
+    <v-btn to="home"  flat>Home</v-btn>
+    <v-btn to="about" flat>About</v-btn>
+    <v-btn to="chat-cred" flat>Chat</v-btn>
+  </v-toolbar>
 </template>
 
-<script>
-import NavBar from '@/components/reusable-components/NavBar.vue'
-
-export default {
-  name: 'app',
-  components: {
-    NavBar
-  }
-}
-</script>
-
 <style>
-/*body {
+body {
   margin: 0;
 }
 
@@ -54,5 +46,4 @@ header span {
   box-sizing: border-box;
   padding-top: 16px;
 }
-*/
 </style>

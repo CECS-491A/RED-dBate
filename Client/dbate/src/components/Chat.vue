@@ -66,6 +66,7 @@
       let that = this
       this.connection = $.hubConnection('http://localhost:5000/signalr')
       this.proxy = this.connection.createHubProxy('ChatHub')
+      this.username = localStorage.getItem('username')
       this.proxy.on('broadcastMessage', (username, message) => {
         console.log('test')
         that.messages.push({username:username, message: message })

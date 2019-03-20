@@ -114,7 +114,7 @@ namespace KFC.Red.DataAccessLayer
         /// <returns>returns generic object by ID</returns>        
         public T RetrieveByID(int id)
         {
-            //HAVE TO FUX THIS SOON
+            //HAVE TO FiX THIS SOON
             //return Context.;
             return null;
         }

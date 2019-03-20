@@ -18,6 +18,7 @@ namespace KFC.Red.DataAccessLayer.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Claim> Claims { get; set; }
-        public DbSet<Connection> Connections { get; set; }
+        //public DbSet<MessageDetail> Messages { get; set; }
+        //public DbSet<Connection> Connections { get; set; }
     }
 }
