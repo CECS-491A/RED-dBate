@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using Authorization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AuthorizationContext = System.Security.Claims.AuthorizationContext;
+
+namespace UnitTest
+{
+    [TestClass]
+    public class UnitTest_AuthorizationManager
+    {
+        AuthorizationManager aM = new AuthorizationManager();
+        //ClaimStorage cs = new ClaimStorage();
+
+        [TestMethod]
+        public void TestCheckAccessValid()
+        {
+            string claim = "View Documents";
+            bool expected = true;
+            bool actual;
+
+            aM.identity.Name = "Bob";
+            aM.identity.CollectionClaims.Add(claim);
+
+            actual = aM.CheckAccess(claim);
+
+            Console.WriteLine("Actual Value: " + actual);
+            Assert.AreEqual(expected,actual);
+        }
+
+        [TestMethod]
+        public void TestCheckAccessInvalid()
+        {
+            string claim = "View Documents";
+            bool expected = false;
+            bool actual;
+
+            aM.identity.Name = "Bob";
+            aM.identity.CollectionClaims.Add(claim);
+
+            actual = aM.CheckAccess("Update Documents");
+
+            Console.WriteLine("Actual Value: " + actual);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+    }
+}

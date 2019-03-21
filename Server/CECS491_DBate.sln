@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.UnitTest", "UnitTest\KFC.Red.UnitTest.csproj", "{DA715C19-AB21-4F03-BC41-DBE636042736}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.UnitTest", "KFC.Red.UnitTest\KFC.Red.UnitTest.csproj", "{DA715C19-AB21-4F03-BC41-DBE636042736}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.DataAccessLayer", "DataAccessLayer\KFC.Red.DataAccessLayer.csproj", "{0CAD09C9-11E0-4EEE-AD4B-7CC77E305BEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.DataAccessLayer", "KFC.Red.DataAccessLayer\KFC.Red.DataAccessLayer.csproj", "{0CAD09C9-11E0-4EEE-AD4B-7CC77E305BEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.ManagerLayer", "ManagerLayer\KFC.Red.ManagerLayer.csproj", "{28413BF6-B380-4010-84E1-7A94A8C43726}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.ManagerLayer", "KFC.Red.ManagerLayer\KFC.Red.ManagerLayer.csproj", "{28413BF6-B380-4010-84E1-7A94A8C43726}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.ServiceLayer", "ServiceLayer\KFC.Red.ServiceLayer.csproj", "{2F63F058-8142-4A19-B37A-3BC7A382279F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.ServiceLayer", "KFC.Red.ServiceLayer\KFC.Red.ServiceLayer.csproj", "{2F63F058-8142-4A19-B37A-3BC7A382279F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.DBate.WebAPI", "CECS491_DBate_WebAPI\KFC.Red.DBate.WebAPI.csproj", "{FEE11A05-D0F7-482B-A1DD-6E9D29E92859}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KFC.Red.DBate.WebAPI", "KFC.Red.DBate.WebAPI\KFC.Red.DBate.WebAPI.csproj", "{FEE11A05-D0F7-482B-A1DD-6E9D29E92859}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
