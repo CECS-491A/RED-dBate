@@ -50,6 +50,7 @@
     <Compile Include="Password\PasswordStatusChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Password\ValidationManager.cs" />
+    <Compile Include="QuestionManagement\QuestionManager.cs" />
     <Compile Include="UserManagement\UserManagement.cs" />
   </ItemGroup>
   <ItemGroup>

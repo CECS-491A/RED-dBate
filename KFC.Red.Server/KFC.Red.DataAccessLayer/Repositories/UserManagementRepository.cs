@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Repositories
+namespace KFC.Red.DataAccessLayer.Repositories
 {
     public class UserManagementRepository
     {

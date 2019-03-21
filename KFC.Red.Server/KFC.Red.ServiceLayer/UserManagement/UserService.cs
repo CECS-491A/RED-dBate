@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
-using DataAccessLayer.Repositories;
+using KFC.Red.DataAccessLayer.Repositories;
 using KFC.Red.ServiceLayer.UserManagement.Interfaces;
 
 namespace KFC.Red.ServiceLayer.UserManagement

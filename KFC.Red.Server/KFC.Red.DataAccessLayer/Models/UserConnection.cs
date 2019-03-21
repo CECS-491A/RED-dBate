@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.RED.DataAccessLayer.Models
+namespace KFC.Red.DataAccessLayer.Models
 {
-    public class MessageDetail
+    public class UserConnection
     {
+        public string ConnectionId { get; set; }
         public string Username { get; set; }
-        public string Message { get; set; }
     }
-
 }

@@ -2,7 +2,6 @@
 using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.UserManagement;
-using KFC.RED.DataAccessLayer.Models;
 using Microsoft.AspNet.SignalR;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace KFC.Red.DBate.WebAPI
         //Sprivate IUnitOfWork _uow;
         private ApplicationDbContext ctx;
         private UserManagement um;
-        private Repository<User> rep;
+        //private Repository<User> rep;
         List<User> users;
 
         static List<UserConnection> ConnectedUsers = new List<UserConnection>();
