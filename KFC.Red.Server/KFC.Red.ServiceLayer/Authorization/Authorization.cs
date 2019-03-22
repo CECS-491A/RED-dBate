@@ -32,10 +32,6 @@ namespace KFC.Red.ServiceLayer.Authorization
                 {
                     access = true;
                 }
-                //Checking system authorization
-                /*else if(client.ClaimCollection.Contains(claim) && user.CollectionClaims.Contains(claim)){
-                    access = true;
-                }*/
                 else
                 {
                     access = false;
