@@ -17,7 +17,7 @@ namespace KFC.RED.DataAccessLayer.Models
         public DateTime DeleteTime { get; set; } = DateTime.UtcNow;
         public DateTime UpdateTime { get; set; } = DateTime.UtcNow;
 
-        [ForeignKey("UserOfSession")]
+        [ForeignKey("User")]
         public int UId { get; set; }
         public User User { get; set; }
 
