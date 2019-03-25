@@ -10,18 +10,17 @@ namespace KFC.Red.Dbate.Logging.Repositories
     /// <summary>
     /// File to connect to the Mongo Repository.
     /// </summary>
-    class MongoDBRepo
+    public class MongoDBRepo
     {
         //The client that manage the connection
-        public MongoClient Client;
+        public MongoClient _client;
         //The interface that manage the database
-        public IMongoDatabase Db;
+        public IMongoDatabase _database;
 
         public MongoDBRepo(string url, string database)
         {
-            this.Client = new MongoClient(url);
-            // Comment out. (create database if it doenst exist already)
-            this.Db = this.Client.GetDatabase(database);
+            _client = new MongoClient(url);
+            _database = _client.GetDatabase(database);
         }
     }
 }
