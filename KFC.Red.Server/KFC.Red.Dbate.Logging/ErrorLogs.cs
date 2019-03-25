@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System.ComponentModel.DataAnnotations;
+//using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// Representing and fomatting the Logs into Bson attributes.
@@ -57,6 +53,5 @@ namespace KFC.Red.Dbate.Logging.Repositories
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         */
-
     }
 }

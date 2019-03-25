@@ -153,6 +153,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ChatHub.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\ErrorLogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -197,6 +198,10 @@
     <ProjectReference Include="..\KFC.Red.DataAccessLayer\KFC.Red.DataAccessLayer.csproj">
       <Project>{0cad09c9-11e0-4eee-ad4b-7cc77e305bec}</Project>
       <Name>KFC.Red.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KFC.Red.Dbate.Logging\KFC.Red.Dbate.Logging.csproj">
+      <Project>{daac43cb-a305-4044-b113-28eee0efaf7d}</Project>
+      <Name>KFC.Red.Dbate.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\KFC.Red.ManagerLayer\KFC.Red.ManagerLayer.csproj">
       <Project>{28413BF6-B380-4010-84E1-7A94A8C43726}</Project>

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson;
 
 namespace KFC.Red.Dbate.Logging.Repositories
 {
-    class ErrorCollection
+    public class ErrorLogsCollection
     {
         //Initialized the mongo db repository
         internal MongoDBRepo _repo = new MongoDBRepo("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true", "connectiontest");
@@ -18,7 +14,7 @@ namespace KFC.Red.Dbate.Logging.Repositories
         private readonly IMongoCollection<ErrorLogs> _collection;
 
 
-        public ErrorCollection()
+        public ErrorLogsCollection()
         {
             _collection = _repo._database.GetCollection<ErrorLogs>(_collectionName);
         }
@@ -27,7 +23,7 @@ namespace KFC.Red.Dbate.Logging.Repositories
         /// List out the error logs
         /// </summary>
         /// <returns></returns>
-        public List<ErrorLogs> GetAll()
+        public List<ErrorLogs> GetAllErrors()
         {
             var query = _collection.Find(new BsonDocument()).ToListAsync();
             return query.Result;
@@ -38,7 +34,7 @@ namespace KFC.Red.Dbate.Logging.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ErrorLogs Get(string id)
+        public ErrorLogs GetError(string id)
         {
             return _collection.Find(new BsonDocument { { "_id", new ObjectId(id) } }).FirstAsync().Result;
         }
@@ -47,7 +43,7 @@ namespace KFC.Red.Dbate.Logging.Repositories
         /// Delete one error log
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(string id)
+        public void DeleteErrors(string id)
         {
             _collection.DeleteOne(new BsonDocument { { "_id", new ObjectId(id) } });
         }
@@ -55,7 +51,7 @@ namespace KFC.Red.Dbate.Logging.Repositories
         /// <summary>
         /// Delete all the error logs
         /// </summary>
-        public void DeleteAll()
+        public void DeleteAllErrors()
         {
             _collection.DeleteManyAsync(FilterDefinition<ErrorLogs>.Empty);
         }
