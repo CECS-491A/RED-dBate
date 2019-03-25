@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// Representing and fomatting the Logs into Bson attributes.
@@ -19,7 +20,7 @@ namespace KFC.Red.Dbate.Logging.Repositories
         /// </summary>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ID { get; set; }
+        public Object Id { get; set; }
 
         [BsonElement("Date")]
         public string Date { get; set; }
@@ -51,6 +52,11 @@ namespace KFC.Red.Dbate.Logging.Repositories
         [BsonElement("Username")]
         public string Username { get; set; }
 
+        /*
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        */
 
     }
 }
