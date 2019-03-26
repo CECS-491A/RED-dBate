@@ -13,7 +13,7 @@ using System.Data.Entity.Validation;
 
 namespace KFC.Red.ManagerLayer.QuestionManagement
 {
-    class QuestionManager
+    public class QuestionManager
     {
         private IQuestionService _questionService;
 
