@@ -26,7 +26,17 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
         {
             return new ApplicationDbContext();
         }
-
+        
+        public int CreateQuestion(Question question)
+        {
+            using (var _db = CreateDbContext())
+            {
+                var response = _questionService.CreateQuestion(_db,question);               
+                // will return null if question does not exist
+                return _db.SaveChanges();
+            }
+        }
+        
         public int DeleteQuestion(Question question)
         {
             using (var _db = CreateDbContext())
