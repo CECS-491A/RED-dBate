@@ -20,11 +20,11 @@ namespace KFC.RED.DataAccessLayer.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            context.Users.AddOrUpdate(x => x.ID,
-                new User() { ID = 1, Name = "Jane Austen", Username = "ja2080@gmail.com", DateOfBirth = new DateTime(1996,12,15), IsAccountActivated = true },
-                new User() { ID = 2, Name = "Charles Dickens", Username = "cd2080@gmail.com", DateOfBirth = new DateTime(1996, 12, 15), IsAccountActivated = true },
-                new User() { ID = 3, Name = "Miguel de Cervantes", Username = "mdc2080@gmail.com", DateOfBirth = new DateTime(1996, 12, 15), IsAccountActivated = true }
-            );
+            //context.Users.AddOrUpdate(x => x.ID,
+                //new User() { ID = 1, Name = "Jane Austen", Username = "ja2080@gmail.com", DateOfBirth = new DateTime(1996,12,15), IsAccountActivated = true },
+                //new User() { ID = 2, Name = "Charles Dickens", Username = "cd2080@gmail.com", DateOfBirth = new DateTime(1996, 12, 15), IsAccountActivated = true },
+                //new User() { ID = 3, Name = "Miguel de Cervantes", Username = "mdc2080@gmail.com", DateOfBirth = new DateTime(1996, 12, 15), IsAccountActivated = true }
+            //);
         }
     }
 }

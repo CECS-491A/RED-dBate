@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="DTOs\LoginDTO.cs" />
+    <Compile Include="DTOs\LoginResponseDTO.cs" />
     <Compile Include="Migrations\201903022126180_Initial.cs" />
     <Compile Include="Migrations\201903022126180_Initial.Designer.cs">
       <DependentUpon>201903022126180_Initial.cs</DependentUpon>
@@ -72,12 +74,15 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Claim.cs" />
+    <Compile Include="Models\ErrorCollection.cs" />
     <Compile Include="Models\MessageDetail.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\Session.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
+    <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\UserManagementRepository.cs" />
   </ItemGroup>
   <ItemGroup>
