@@ -1,5 +1,5 @@
-﻿using KFC.Red.ManagerLayer.QuestionManagement;
-using KFC.Red.DataAccessLayer.Models;
+﻿using KFC.Red.DataAccessLayer.Models;
+using KFC.Red.ManagerLayer.QuestionManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +9,26 @@ using System.Web.Http;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
-    public class QuestionManagementRequest
-    {
-        [HttpBindRequired]
-        public Question Question { get; set; }
-
-        [HttpBindRequired]
-        public int QuestionID { get; set; }
-
-        [HttpBindRequired]
-        public string QuestionString { get; set; }
-    }
-
     public class QuestionController : ApiController
     {
+        public class QuestionManagementRequest
+        {
+            public Question question { get; set; }
+            public int QuestionID { get; set; }
+            public string QuestionString { get; set; }
+        }
+
         // http GET/POST/PUT/DELETE methods based on add/update/delete questions
-        // see user controller in SSO
         [HttpPost]
         [Route("api/question/add")]
         public IHttpActionResult AddQuestion([FromBody] QuestionManagementRequest Request)
         {
             QuestionManager questionM = new QuestionManager();
-            //Question question = new Question();
             if (questionM.ExistingQuestion(Request.QuestionString) == true)
             {
                 return Content(HttpStatusCode.Conflict, "Question already exists");
             }
-            
-            // add question to database
+            questionM.CreateQuestion(Request.question);
         }
 
         [HttpPut]
@@ -44,10 +36,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         public IHttpActionResult UpdateQuestion([FromBody] QuestionManagementRequest Request)
         {
             QuestionManager questionM = new QuestionManager();
-
             if (questionM.ExistingQuestion(Request.QuestionString) == true)
             {
-                // update question
+                questionM.UpdateQuestion(Request.question);
             }
             else
             {
@@ -60,10 +51,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         public IHttpActionResult DeleteQuestion([FromBody] QuestionManagementRequest Request)
         {
             QuestionManager questionM = new QuestionManager();
-            //Question question = new Question();
             if (questionM.ExistingQuestion(Request.QuestionString) == true)
             {
-                // remove question from database
+                questionM.DeleteQuestion(Request.QuestionID);
             }
             else
             {
