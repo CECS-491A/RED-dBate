@@ -13,7 +13,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
     {
         public class QuestionManagementRequest
         {
-            public Question question { get; set; }
             public int QuestionID { get; set; }
             public string QuestionString { get; set; }
         }
