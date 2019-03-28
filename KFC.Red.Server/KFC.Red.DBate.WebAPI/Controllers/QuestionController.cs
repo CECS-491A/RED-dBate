@@ -18,7 +18,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             public string QuestionString { get; set; }
         }
 
-        // http GET/POST/PUT/DELETE methods based on add/update/delete questions
         [HttpPost]
         [Route("api/question/add")]
         public IHttpActionResult AddQuestion([FromBody] QuestionManagementRequest Request)
@@ -28,7 +27,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             {
                 return Content(HttpStatusCode.Conflict, "Question already exists");
             }
-            questionM.CreateQuestion(Request.question);
+            else
+            {
+                return Ok(questionM.CreateQuestion(Request.question));
+            }
         }
 
         [HttpPut]
@@ -38,7 +40,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             QuestionManager questionM = new QuestionManager();
             if (questionM.ExistingQuestion(Request.QuestionString) == true)
             {
-                questionM.UpdateQuestion(Request.question);
+                return Ok(questionM.UpdateQuestion(Request.question));
             }
             else
             {
@@ -53,10 +55,14 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             QuestionManager questionM = new QuestionManager();
             if (questionM.ExistingQuestion(Request.QuestionString) == true)
             {
-                questionM.DeleteQuestion(Request.QuestionID);
+                return Ok(questionM.DeleteQuestion(Request.QuestionID));
             }
             else
             {
+                if (questionM.DeleteQuestion(Request.question) == null)
+                {
+                    return Content(HttpStatusCode.Conflict, "Question does not exist.");
+                }
                 return Content(HttpStatusCode.Conflict, "Question not in database.");
             }
         }
