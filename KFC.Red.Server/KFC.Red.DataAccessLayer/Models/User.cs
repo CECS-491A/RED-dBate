@@ -17,7 +17,7 @@ namespace KFC.Red.DataAccessLayer.Models
         [Column(Order = 0)]
         [Required]
         public int ID { get; set; }
-
+        public Guid SsoId { get; set; }
         public string Username { get; set; }
 
         [Required]
