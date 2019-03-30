@@ -17,18 +17,26 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             public string QuestionString { get; set; }
         }
 
+        [HttpGet]
+        [Route("api/question/randomquestion")]
+        public IHttpActionResult GetRandomQuestion()
+        {
+            QuestionManager questionM = new QuestionManager();
+            return Ok(questionM.RandomizeQuestion());
+        }
+
         [HttpPost]
         [Route("api/question/add")]
         public IHttpActionResult AddQuestion([FromBody] QuestionManagementRequest Request)
         {
             QuestionManager questionM = new QuestionManager();
-            if (questionM.ExistingQuestion(Request.QuestionString) == true)
+            if (questionM.ExistingQuestion(Request.QuestionString) == false)
             {
-                return Content(HttpStatusCode.Conflict, "Question already exists");
+                return Ok(questionM.CreateQuestion(Request.QuestionID, Request.QuestionString));
             }
             else
             {
-                return Ok(questionM.CreateQuestion(Request.question));
+                return Content(HttpStatusCode.Conflict, "Question already exists");
             }
         }
 
@@ -39,7 +47,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             QuestionManager questionM = new QuestionManager();
             if (questionM.ExistingQuestion(Request.QuestionString) == true)
             {
-                return Ok(questionM.UpdateQuestion(Request.question));
+                return Ok(questionM.UpdateQuestion(Request.QuestionID, Request.QuestionString));
             }
             else
             {
@@ -58,10 +66,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             }
             else
             {
-                if (questionM.DeleteQuestion(Request.question) == null)
-                {
-                    return Content(HttpStatusCode.Conflict, "Question does not exist.");
-                }
                 return Content(HttpStatusCode.Conflict, "Question not in database.");
             }
         }
