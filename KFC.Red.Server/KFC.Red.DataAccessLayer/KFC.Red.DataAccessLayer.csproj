@@ -76,13 +76,23 @@
     <Compile Include="Migrations\201903291947299_ssoIDattribute.Designer.cs">
       <DependentUpon>201903291947299_ssoIDattribute.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903292332286_ChatroomIDattribute.cs" />
+    <Compile Include="Migrations\201903292332286_ChatroomIDattribute.Designer.cs">
+      <DependentUpon>201903292332286_ChatroomIDattribute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903292344586_ChatAttributes.cs" />
+    <Compile Include="Migrations\201903292344586_ChatAttributes.Designer.cs">
+      <DependentUpon>201903292344586_ChatAttributes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Chatroom.cs" />
     <Compile Include="Models\Claim.cs" />
     <Compile Include="Models\ErrorCollection.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ChatRoomRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\UserManagementRepository.cs" />
@@ -114,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903291947299_ssoIDattribute.resx">
       <DependentUpon>201903291947299_ssoIDattribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903292332286_ChatroomIDattribute.resx">
+      <DependentUpon>201903292332286_ChatroomIDattribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903292344586_ChatAttributes.resx">
+      <DependentUpon>201903292344586_ChatAttributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
