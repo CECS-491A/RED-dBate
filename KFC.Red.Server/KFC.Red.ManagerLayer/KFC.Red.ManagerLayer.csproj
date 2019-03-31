@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chatroom\ChatroomManager.cs" />
     <Compile Include="Password\HashFunction.cs" />
     <Compile Include="Password\Interfaces\IHashFunction.cs" />
     <Compile Include="Password\Models\PasswordStatus.cs" />

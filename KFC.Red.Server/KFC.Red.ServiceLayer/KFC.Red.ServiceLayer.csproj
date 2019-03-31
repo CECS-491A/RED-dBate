@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="Authorization\Authorization.cs" />
     <Compile Include="Authorization\IAuthorize.cs" />
+    <Compile Include="ChatRoom\ChatRoomService.cs" />
+    <Compile Include="ChatRoom\HubService.cs" />
+    <Compile Include="ChatRoom\Interface\IChatRoom.cs" />
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="Password\PasswordValidationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

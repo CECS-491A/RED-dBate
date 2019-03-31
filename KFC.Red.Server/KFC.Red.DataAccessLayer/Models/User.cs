@@ -18,6 +18,7 @@ namespace KFC.Red.DataAccessLayer.Models
         [Required]
         public int ID { get; set; }
         public Guid SsoId { get; set; }
+        public int ChatroomID { get; set; }
         public string Username { get; set; }
 
         [Required]
