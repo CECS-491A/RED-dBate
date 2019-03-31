@@ -151,7 +151,6 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="ChatHub.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ErrorLogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

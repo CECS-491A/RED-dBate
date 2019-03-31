@@ -1,166 +1,159 @@
+    
 <template>
-  <div>
-    <main>
-      <section class="section" id="about">
-          <div class="columns has-same-height">
-            <div class="column">
-              <header>
-                <div class="user-count">{{group1}}</div>
-              </header>
+  <v-layout row wrap>
+    <v-flex sm2 offset-xs1 class="scrollable">
+      <v-heading>Team Members</v-heading>
+      <players></players>
+    </v-flex>
 
-              <section class="sidebar">
+    <v-flex sm2 offset-xs1 class="scrollable">
+      <v-heading>Moderator</v-heading>
+      <players></players>
+    </v-flex>
 
-              </section>
-            </div>
-            <div class="column is-5">
-              <header>
-                <h1>{{question}}</h1>
-              </header>
-
-              <section class="chat">
-                <ul v-if="messages">
-                  <li v-for="item in messages"> <strong>{{item.username}}</strong> : {{item.message}}</li>
-                </ul>
-              </section>
-
-              <form>
-                <input type="text" placeholder="argument" v-model="message" />
-                <button type="button" v-on:click="sendMessage()">Send</button>
-              </form>
-              <br/>
-            </div>
-            <div class="column">
-              <header>
-                <div class="user-count">{{group2}}</div>
-              </header>
-
-              <section class="sidebar">
-
-              </section>
-            </div>
-          </div>
-        </section>
-    </main>
-  </div>
+    <v-flex sm2 offset-xs1 class="scrollable">
+      <v-heading>Opposing Team</v-heading>
+      <players></players>
+    </v-flex>
+    
+    <v-flex xs8 offset-xs1 style="position: relative;">
+      <div class="chat-container" v-on:scroll="onScroll" ref="chatContainer" >
+      </div>
+      <div class="typer">
+        <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
+        <v-btn icon class="blue--text emoji-panel" @click="toggleEmojiPanel">
+          <v-icon>mood</v-icon>
+        </v-btn>
+      </div>
+    </v-flex>
+  </v-layout>
 </template>
-
 <script>
-  import $ from 'jquery'
-  import 'ms-signalr-client-jquery-3'
-
+  //import Message from './Message.vue'
+  //import EmojiPicker from './EmojiPicker.vue'
+  import Players from '@/components/reusable-components/Players.vue'
+  //import * as firebase from 'firebase'
   export default {
-    name: 'chat',
     data () {
       return {
-        question: 'question?',
-        group1: 'Group 1',
-        group2: 'Group 2',
-        username: '',
-        message: '',
-        messages: [],
-        connection: null,
-        proxy: null,
+        content: '',
+        chatMessages: [],
+        emojiPanel: false,
+        currentRef: {},
+        loading: false,
+        totalChatHeight: 0
       }
     },
+    props: [
+      'id'
+    ],
     mounted () {
-      this.username = localStorage.getItem('username')
-      //let that = this
-      //this.connection = $.hubConnection('http://localhost:5000/signalr')
-      this.connection = $.hubConnection('https://thedbate.azurewebsites.net/backend/signalr')
-      this.proxy = this.connection.createHubProxy('ChatHub')
-      /*this.proxy.on('messageReceived', (username, message) => {
-        console.log('test')
-        that.messages.push({username:username, message: message })
-      })*/
-      this.connection
-        .start({ })
-        .done(() => { console.log('Now connected') })
-        .fail(() => { console.log('Could not connect') })
+      this.loadChat()
+      this.$store.dispatch('loadOnlineUsers')
+    },
+    components: {
+      //'message': Message,
+      //'emoji-picker': EmojiPicker,
+      'players': Players
+    },
+    computed: {
+      messages () {
+      },
+      username () {
+      },
+      onChildAdded () {
+
+      }
+    },
+    watch: {
+      '$route.params.id' (newId, oldId) {
+        this.currentRef.off('child_added', this.onChildAdded)
+        this.loadChat()
+      }
     },
     methods: {
+      loadChat () {
+      },
+      onScroll () {
+      },
+      processMessage (message) {
+      },
       sendMessage () {
-        this.proxy.invoke('send', this.username, this.message)
-        .done(() => { console.log('Invocation of Send succeeded') })
-        .fail(error => { console.log('Invocation of Send failed. Error: ' + error) })
-        this.messages.push({username: this.username, message: this.message })
+        
+      },
+      scrollToEnd () {
+      
+      },
+      scrollTo () {
+      },
+      addMessage (emoji) {
+      },
+      toggleEmojiPanel () {      
       }
     }
   }
 </script>
 
 <style>
- * {
+  .scrollable {
+    overflow-y: auto;
+    height: 20vh;
+  }
+  .typer{
     box-sizing: border-box;
-    transition: all .3s ease;
-  }
-
-  html, body {
-    background: #eee;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    height: 4.9rem;
     width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 -5px 10px -5px rgba(0,0,0,.2);
   }
-
-  main {
-    width: calc(100% - 20px);
-    /*max-width: 500px;*/
-    margin: 10px auto;
-    font-family: Helvetica, Arial, Sans, sans-serif;
+  .typer .emoji-panel{
+    /*margin-right: 15px;*/
   }
-
-  h1, .user-count {
-    margin: 0;
-    padding: 10px 0;
-    font-size: 32px;
-  }
-
-  .sidebar {
-    content: '';
-    width: 100%;
-    height: calc(80vh - 165px);
-    background: white;
-    padding: 0;
-    margin-right:  0px;
-  }
-
-  .chat {
-    content: '';
-    width: 100%;
-    height: calc(100vh - 165px);
-    background: white;
-    padding: 5px 10px;
-    overflow: scroll;
-  }
-
-  .chat p {
-    margin: 0 0 5px 0;
-  }
-
-  input, button {
-    width: 100%;
-    font: inherit;
-    background: #fff;
+  .typer input[type=text]{
+    position: absolute;
+    left: 2.5rem;
+    padding: 1rem;
+    width: 80%;
+    background-color: transparent;
     border: none;
-    margin-top: 10px;
-    padding: 5px 10px;
+    outline: none;
+    font-size: 1.25rem;
   }
-
-  button:hover {
-    cursor: pointer;
-    background: #ddd;
+  .chat-container{
+    box-sizing: border-box;
+    height: calc(100vh - 9.5rem);
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f2f2f2;
   }
-
-  @media all and (min-width: 500px) {
-    .chat {
-      height: calc(100vh - 140px);
+  .message{
+    margin-bottom: 3px;
+  }
+  .message.own{
+    text-align: right;
+  }
+  .message.own .content{
+    background-color: lightskyblue;
+  }
+  .chat-container .username{
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .chat-container .content{
+    padding: 8px;
+    background-color: lightgreen;
+    border-radius: 10px;
+    display:inline-block;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12);
+    max-width: 50%;
+    word-wrap: break-word;
     }
-    input {
-      width: calc(100% - 160px);
-    }
-    button {
-      float: right;
-      width: 150px;
+  @media (max-width: 480px) {
+    .chat-container .content{
+      max-width: 60%;
     }
   }
 </style>
