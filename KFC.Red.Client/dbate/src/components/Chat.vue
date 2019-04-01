@@ -1,22 +1,38 @@
     
 <template>
+   <v-container fluid grid-list-xl>
   <v-layout row wrap>
-    <v-flex sm2 offset-xs1 class="scrollable">
+    <v-flex sm3 offset-xs1 class="scrollable">
       <v-heading>Team Members</v-heading>
       <players></players>
     </v-flex>
 
-    <v-flex sm2 offset-xs1 class="scrollable">
+    <v-flex sm3 offset-xs1 class="scrollable">
       <v-heading>Moderator</v-heading>
       <players></players>
     </v-flex>
 
-    <v-flex sm2 offset-xs1 class="scrollable">
+    <v-flex sm3 offset-xs1 class="scrollable">
       <v-heading>Opposing Team</v-heading>
       <players></players>
     </v-flex>
-    
-    <v-flex xs8 offset-xs1 style="position: relative;">
+  </v-layout
+  >
+  <v-layout>
+    <v-flex sm4 offset-xs1 style="position: relative;">
+      <v-toolbar-title>Group Chat Room</v-toolbar-title>
+      <div class="chat-container" v-on:scroll="onScroll" ref="chatContainer" >
+      </div>
+      <div class="typer">
+        <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
+        <v-btn icon class="blue--text emoji-panel" @click="toggleEmojiPanel">
+          <v-icon>mood</v-icon>
+        </v-btn>
+      </div>
+    </v-flex>
+
+    <v-flex sm8 offset-xs1 style="position: relative;">      
+      <v-toolbar-title>Question: {{question}}</v-toolbar-title>
       <div class="chat-container" v-on:scroll="onScroll" ref="chatContainer" >
       </div>
       <div class="typer">
@@ -27,6 +43,7 @@
       </div>
     </v-flex>
   </v-layout>
+   </v-container>
 </template>
 <script>
   //import Message from './Message.vue'
@@ -36,6 +53,9 @@
   export default {
     data () {
       return {
+        question: '',
+        dialogm1: '',
+        dialog: false,
         content: '',
         chatMessages: [],
         emojiPanel: false,
@@ -109,9 +129,7 @@
     background-color: #fff;
     box-shadow: 0 -5px 10px -5px rgba(0,0,0,.2);
   }
-  .typer .emoji-panel{
-    /*margin-right: 15px;*/
-  }
+
   .typer input[type=text]{
     position: absolute;
     left: 2.5rem;
