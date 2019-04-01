@@ -7,6 +7,7 @@ import Home from '@/components/Home'
 import ChatList from '@/components/ChatList'
 import ChatCredentials from '@/components/ChatCredentials'
 import QuestionManagement from '@/components/QuestionManagement'
+import LogManager from '@/components/LogManager'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/questmanagement',
       name: 'QuestManagement',
       component: QuestionManagement
+    },
+    {
+      path: '/logmanager',
+      name: 'LogManager',
+      component: LogManager
     }
   ]
 })
