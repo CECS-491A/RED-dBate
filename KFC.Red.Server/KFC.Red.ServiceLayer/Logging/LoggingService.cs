@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using KFC.RED.DataAccessLayer.Models;
+using KFC.Red.ServiceLayer.Logging;
 
 namespace KFC.Red.ServiceLayer.Logging
 {
-    public class LoggingService
+    public class LoggingService : ILoggingService
     {
         public MongoClient Client { get; set; }
         public IMongoDatabase documents { get; set; }
@@ -92,6 +93,17 @@ namespace KFC.Red.ServiceLayer.Logging
         {
             myDoc.FindOneAndDelete(log);
         }
+
+        public void DeleteAllLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
+        {
+            myDoc.DeleteMany(log);
+        }
+
+        public void CountLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
+        {
+            myDoc.CountDocumentsAsync(log);
+        }
+
 
     }
 }
