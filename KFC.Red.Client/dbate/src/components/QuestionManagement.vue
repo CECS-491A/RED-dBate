@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import axios from "axios"
+// import { apiURL } from '@/const.js'
   export default {
     data: () => ({
       dialog: false,
@@ -91,48 +93,55 @@
         question: ''
       }
     }),
-
     computed: {
       formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       }
     },
-
     watch: {
       dialog (val) {
         val || this.close()
       }
     },
-
     created () {
       this.initialize()
     },
-
     methods: {
       initialize () {
-        this.questions = [
+          const url = `${apiURL}/question/randomquestion`
+          axios.get(url, 
           {
-              questionID: 1,
-              question: 'How Are ypu?'
-          },
-          {
-              questionID: 2,
-              question: "okay?"
-          }
-        ]
+              params: 
+              {
+                  questionID: this.$data.questionID,
+                  question: this.$data.question
+              }
+          })
+            // missing error handling ?
+        // this.questions = [
+        //   {
+        //       questionID: 1,
+        //       question: 'How are you?'
+        //   },
+        //   {
+        //       questionID: 2,
+        //       question: "Okay?"
+        //   }
+        // ]
       },
-
       editItem (item) {
-        this.editedIndex = this.questions.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
+          const url =  `${apiURL}/question/update`
+          axios.put(url,
+          {
+          })
+        // this.editedIndex = this.questions.indexOf(item)
+        // this.editedItem = Object.assign({}, item)
+        // this.dialog = true
       },
-
       deleteItem (item) {
         const index = this.questions.indexOf(item)
         confirm('Are you sure you want to delete this item?') && this.questions.splice(index, 1)
       },
-
       close () {
         this.dialog = false
         setTimeout(() => {
@@ -140,7 +149,6 @@
           this.editedIndex = -1
         }, 300)
       },
-
       save () {
         if (this.editedIndex > -1) {
           Object.assign(this.questions[this.editedIndex], this.editedItem)
