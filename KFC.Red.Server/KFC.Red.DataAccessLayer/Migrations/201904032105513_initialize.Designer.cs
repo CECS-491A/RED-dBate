@@ -7,13 +7,13 @@ namespace KFC.RED.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class newChanges : IMigrationMetadata
+    public sealed partial class initialize : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(newChanges));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialize));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903201536478_newChanges"; }
+            get { return "201904032105513_initialize"; }
         }
         
         string IMigrationMetadata.Source

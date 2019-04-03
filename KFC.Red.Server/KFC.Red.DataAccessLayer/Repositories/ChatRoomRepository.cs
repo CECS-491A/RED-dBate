@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.Red.DataAccessLayer.Models
+namespace KFC.Red.DataAccessLayer.Repositories
 {
-    class ErrorCollection
+    public class ChatRoomRepository
     {
     }
 }

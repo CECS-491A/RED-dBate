@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.Red.DataAccessLayer.Models
+namespace KFC.Red.ManagerLayer.Chatroom
 {
-    class ErrorCollection
+    public class ChatroomManager
     {
+
     }
 }

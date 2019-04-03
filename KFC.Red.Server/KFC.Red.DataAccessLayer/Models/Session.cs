@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.RED.DataAccessLayer.Models
+namespace KFC.Red.DataAccessLayer.Models
 {
     public class Session
     {

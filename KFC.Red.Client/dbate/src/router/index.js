@@ -6,6 +6,8 @@ import About from '@/components/About'
 import Home from '@/components/Home'
 import ChatList from '@/components/ChatList'
 import ChatCredentials from '@/components/ChatCredentials'
+import QuestionManagement from '@/components/QuestionManagement'
+import LogManager from '@/components/LogManager'
 
 Vue.use(Router)
 
@@ -27,11 +29,6 @@ export default new Router({
       component: ChatCredentials
     },
     {
-      path: '/home',
-      name: 'Home',
-      component: Home
-    },
-    {
       path: '/about',
       name: 'About',
       component: About
@@ -40,6 +37,16 @@ export default new Router({
       path: '/chat-list',
       name: 'ChatList',
       component: ChatList
+    },
+    {
+      path: '/questmanagement',
+      name: 'QuestManagement',
+      component: QuestionManagement
+    },
+    {
+      path: '/logmanager',
+      name: 'LogManager',
+      component: LogManager
     }
   ]
 })
