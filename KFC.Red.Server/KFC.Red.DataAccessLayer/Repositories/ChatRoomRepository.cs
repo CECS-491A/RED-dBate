@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.RED.DataAccessLayer.Repositories
+namespace KFC.Red.DataAccessLayer.Repositories
 {
     public class ChatRoomRepository
     {

@@ -1,5 +1,5 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
-using KFC.RED.DataAccessLayer.Models;
+using KFC.Red.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.RED.DataAccessLayer.Repositories
+namespace KFC.Red.DataAccessLayer.Repositories
 {
     public class SessionRepository
     {
