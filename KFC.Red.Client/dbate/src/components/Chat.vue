@@ -19,7 +19,7 @@
 
               <section class="chat">
                 <ul v-if="messages">
-                  <li v-for="item in messages"> <strong>{{item.username}}</strong> : {{item.message}}</li>
+                  <li for="item in messages"> <strong>{{item.username}}</strong> : {{item.message}}</li>
                 </ul>
               </section>
 
@@ -47,7 +47,6 @@
 <script>
   import $ from 'jquery'
   import 'ms-signalr-client-jquery-3'
-
   export default {
     name: 'chat',
     data () {
@@ -93,7 +92,6 @@
     box-sizing: border-box;
     transition: all .3s ease;
   }
-
   html, body {
     background: #eee;
     width: 100%;
@@ -101,20 +99,17 @@
     margin: 0;
     padding: 0;
   }
-
   main {
     width: calc(100% - 20px);
     /*max-width: 500px;*/
     margin: 10px auto;
     font-family: Helvetica, Arial, Sans, sans-serif;
   }
-
   h1, .user-count {
     margin: 0;
     padding: 10px 0;
     font-size: 32px;
   }
-
   .sidebar {
     content: '';
     width: 100%;
@@ -123,7 +118,6 @@
     padding: 0;
     margin-right:  0px;
   }
-
   .chat {
     content: '';
     width: 100%;
@@ -132,11 +126,9 @@
     padding: 5px 10px;
     overflow: scroll;
   }
-
   .chat p {
     margin: 0 0 5px 0;
   }
-
   input, button {
     width: 100%;
     font: inherit;
@@ -145,12 +137,10 @@
     margin-top: 10px;
     padding: 5px 10px;
   }
-
   button:hover {
     cursor: pointer;
     background: #ddd;
   }
-
   @media all and (min-width: 500px) {
     .chat {
       height: calc(100vh - 140px);
