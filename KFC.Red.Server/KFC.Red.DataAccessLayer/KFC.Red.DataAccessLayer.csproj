@@ -87,7 +87,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Chatroom.cs" />
     <Compile Include="Models\Claim.cs" />
-    <Compile Include="Models\ErrorCollection.cs" />
+    <Compile Include="Models\ErrorLogs.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\User.cs" />

@@ -152,7 +152,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ChatController.cs" />
-    <Compile Include="Controllers\ErrorLogsController.cs" />
+    <Compile Include="Controllers\ErrorLogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -198,13 +198,13 @@
       <Project>{0cad09c9-11e0-4eee-ad4b-7cc77e305bec}</Project>
       <Name>KFC.Red.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\KFC.Red.Dbate.Logging\KFC.Red.Dbate.Logging.csproj">
-      <Project>{daac43cb-a305-4044-b113-28eee0efaf7d}</Project>
-      <Name>KFC.Red.Dbate.Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\KFC.Red.ManagerLayer\KFC.Red.ManagerLayer.csproj">
       <Project>{28413BF6-B380-4010-84E1-7A94A8C43726}</Project>
       <Name>KFC.Red.ManagerLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KFC.Red.ServiceLayer\KFC.Red.ServiceLayer.csproj">
+      <Project>{2F63F058-8142-4A19-B37A-3BC7A382279F}</Project>
+      <Name>KFC.Red.ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
