@@ -5,12 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
-using KFC.RED.DataAccessLayer.Models;
 
-
-namespace KFC.Red.ServiceLayer.Logging
+namespace KFC.Red.ServiceLayer.Logging.Interfaces
 {
-    public interface ILoggingService
+    public interface ITelemetryLoggingService
     {
         List<BsonDocument> GetListOfCollections();
         IMongoCollection<BsonDocument> GetCollection(string collection);

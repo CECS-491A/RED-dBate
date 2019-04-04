@@ -10,31 +10,48 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class ErrorLogController : ApiController
     {
-
         [HttpPost]
         [Route("api/errorlog/createerrorlog")]
         public IHttpActionResult CreateErrorLog()
         {
-            LoggingService ls = new LoggingService();
-            ls.CreateLog();
+            ErrorLoggingService ls = new ErrorLoggingService();
+            ls.CreateErrorLog();
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("api/errorlog/createerrorlog")]
+        public IHttpActionResult CreateInfoLog()
+        {
+            ErrorLoggingService ls = new ErrorLoggingService();
+            ls.CreateErrorLog();
             return Ok();
         }
 
         [HttpGet]
         [Route("api/errorlog/displaylogs")]
-        public IHttpActionResult DisplayLogs()
+        public IHttpActionResult DisplayErrorLogs()
         {
-            LoggingService ls = new LoggingService();
+            ErrorLoggingService ls = new ErrorLoggingService();
             return Ok();
         }
 
         [HttpDelete]
         [Route("api/errorlog/deletelog")]
-        public IHttpActionResult DeleteLog()
+        public IHttpActionResult DeleteErrorLog()
         {
-            LoggingService ls = new LoggingService();
+            ErrorLoggingService ls = new ErrorLoggingService();
             //ls.DeleteLog();
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("api/errorlog/countlog")]
+        public IHttpActionResult CountErrorLog()
+        {
+            ErrorLoggingService ls = new ErrorLoggingService();
+            //ls.DeleteLog();
+            return Ok("counting message");
         }
 
     }

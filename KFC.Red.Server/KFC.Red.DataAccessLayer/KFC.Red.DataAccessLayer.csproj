@@ -90,6 +90,7 @@
     <Compile Include="Models\ErrorLogs.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\TelemetryLogs.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ChatRoomRepository.cs" />

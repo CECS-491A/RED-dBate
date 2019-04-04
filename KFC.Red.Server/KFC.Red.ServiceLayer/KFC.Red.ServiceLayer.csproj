@@ -69,8 +69,10 @@
     <Compile Include="ChatRoom\HubService.cs" />
     <Compile Include="ChatRoom\Interface\IChatRoom.cs" />
     <Compile Include="Constants\Roles.cs" />
-    <Compile Include="Logging\ILoggingService.cs" />
-    <Compile Include="Logging\LoggingService.cs" />
+    <Compile Include="Logging\Interfaces\IErrorLoggingService.cs" />
+    <Compile Include="Logging\ErrorLoggingService.cs" />
+    <Compile Include="Logging\Interfaces\ITelemetryLoggingService.cs" />
+    <Compile Include="Logging\TelemetryLoggingService.cs" />
     <Compile Include="Password\PasswordValidationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionManagement\Interfaces\IQuestionService.cs" />

@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using KFC.RED.DataAccessLayer.Models;
-using KFC.Red.ServiceLayer.Logging;
+using KFC.Red.ServiceLayer.Logging.Interfaces;
 
 namespace KFC.Red.ServiceLayer.Logging
 {
-    public class LoggingService : ILoggingService
+    public class TelemetryLoggingService : ITelemetryLoggingService
     {
         public MongoClient Client { get; set; }
         public IMongoDatabase documents { get; set; }
 
-        public LoggingService()
+        public TelemetryLoggingService()
         {
             Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
-            documents = Client.GetDatabase("Logging");
+            documents = Client.GetDatabase("TelemetryLogging");
         }
 
         public List<BsonDocument> GetListOfCollections()
@@ -33,7 +33,7 @@ namespace KFC.Red.ServiceLayer.Logging
             return documents.GetCollection<BsonDocument>(collection);
         }
 
-        public Task<List<BsonDocument>> GetAllErrorLogsAsync()
+        public Task<List<BsonDocument>> GetAllTelemetryLogsAsync()
         {
             IMongoCollection<BsonDocument> SpeCollection = this.documents.GetCollection<BsonDocument>("CustomLog");
             //var documents = await SpeCollection.Find(Builders<BsonDocument>.Filter.Empty).ToListAsync();
@@ -43,31 +43,14 @@ namespace KFC.Red.ServiceLayer.Logging
             //return documents;
         }
 
-        /*
-        public void CreateLog(IMongoCollection<BsonDocument> myDoc, ErrorLogs errorLog)
+        public void CreateTelemetryLog(IMongoCollection<BsonDocument> myDoc, BsonDocument telemetryLog)
         {
-            //BsonElement employeename = new BsonElement("employeename","Tapas Pal");
-            BsonElement date = new BsonElement("date", errorLog.Date);
-            BsonElement error = new BsonElement("error", errorLog.Error);
-            BsonElement target = new BsonElement("target", errorLog.LineofCode);
-            BsonElement currentLoggedUser = new BsonElement("loggedInUser", errorLog.CurrentLoggedInUser);
-            BsonElement userRequest = new BsonElement("userRequest", errorLog.CurrentLoggedInUser);
-
-            BsonDocument log = new BsonDocument();
-            log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
-            myDoc.InsertOne(log);
-            //return myDoc;
-        }
-        */
-
-        public void CreateLog(IMongoCollection<BsonDocument> myDoc, BsonDocument errorLog)
-        {
-            myDoc.InsertOne(errorLog);
+            myDoc.InsertOne(telemetryLog);
         }
 
-        public void CreateLog()
+        public void CreateTelemetryLog()
         {
-            ErrorLogs errorLog = new ErrorLogs();
+            TelemetryLogs telemetryLog = new TelemetryLogs();
             BsonDocument log = new BsonDocument();
             IMongoCollection<BsonDocument> myDoc = GetCollection("CustomLog");
 
@@ -78,32 +61,20 @@ namespace KFC.Red.ServiceLayer.Logging
             }
             catch (DivideByZeroException ex)
             {
-                BsonElement date = new BsonElement("date", errorLog.Date);
+                BsonElement date = new BsonElement("date", telemetryLog.Date);
                 BsonElement error = new BsonElement("error", ex.Message.ToString());
                 BsonElement target = new BsonElement("target", ex.TargetSite.ToString());
                 BsonElement currentLoggedUser = new BsonElement("loggedInUser", "Jane Doe");
                 BsonElement userRequest = new BsonElement("userRequest", "click event");
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
             }
-
             myDoc.InsertOne(log);
         }
 
-        public void DeleteLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
-        {
-            myDoc.FindOneAndDelete(log);
-        }
-
-        public void DeleteAllLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
-        {
-            myDoc.DeleteMany(log);
-        }
-
-        public void CountLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
+        public void CountTelemetryLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
         {
             myDoc.CountDocumentsAsync(log);
         }
-
 
     }
 }
