@@ -9472,7 +9472,8 @@ var xhrSuccessStatus = {
 	},
 	xhrSupported = jQuery.ajaxSettings.xhr();
 
-support.cors = !!xhrSupported && ( "withCredentials" in xhrSupported );
+support.
+ = !!xhrSupported && ( "withCredentials" in xhrSupported );
 support.ajax = xhrSupported = !!xhrSupported;
 
 jQuery.ajaxTransport( function( options ) {

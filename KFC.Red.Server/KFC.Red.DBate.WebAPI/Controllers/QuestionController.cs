@@ -6,12 +6,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class QuestionController : ApiController
     {
         public class QuestionManagementRequest
+        {
+            public string QuestionString { get; set; }
+        }
+
+        public class QuestionManagentCompRequest
         {
             public int QuestionID { get; set; }
             public string QuestionString { get; set; }
@@ -25,14 +33,44 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok(questionM.RandomizeQuestion());
         }
 
+        [HttpGet]
+        [Route("api/question/getquestions")]
+        public List<Question> GetAllQuestions()
+        {
+
+            List<Question> questionData = new List<Question>();
+            QuestionManager questionM = new QuestionManager();
+            var serializer = new JavaScriptSerializer();
+            var _db = questionM.CreateDbContext();
+
+            var query = from models in _db.Questions select models;
+
+            foreach (var item in query.ToList())
+            {
+                questionData.Add(
+                    new Question
+                    {
+                        QuestionID = item.QuestionID,
+                        QuestionString = item.QuestionString
+                    });
+            }
+
+            var serializedResult = serializer.Serialize(questionData);
+
+            return questionData;
+        }
+
+
         [HttpPost]
         [Route("api/question/add")]
         public IHttpActionResult AddQuestion([FromBody] QuestionManagementRequest Request)
         {
             QuestionManager questionM = new QuestionManager();
-            if (questionM.ExistingQuestion(Request.QuestionString) == false)
+            bool isExist = questionM.ExistingQuestion(Request.QuestionString);
+            if (isExist == false)
             {
-                return Ok(questionM.CreateQuestion(Request.QuestionID, Request.QuestionString));
+                questionM.CreateQuestion(Request.QuestionString);
+                return Ok("Succesfully Added");
             }
             else
             {
@@ -40,14 +78,15 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("api/question/update")]
         public IHttpActionResult UpdateQuestion([FromBody] QuestionManagementRequest Request)
         {
             QuestionManager questionM = new QuestionManager();
             if (questionM.ExistingQuestion(Request.QuestionString) == true)
             {
-                return Ok(questionM.UpdateQuestion(Request.QuestionID, Request.QuestionString));
+                questionM.UpdateQuestion(Request.QuestionString);
+                return Ok("Successfully updated");
             }
             else
             {
@@ -55,14 +94,16 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("api/question/delete")]
-        public IHttpActionResult DeleteQuestion([FromBody] QuestionManagementRequest Request)
+        public IHttpActionResult DeleteQuestion([FromBody] QuestionManagementRequest RequestQuestion)
         {
             QuestionManager questionM = new QuestionManager();
-            if (questionM.ExistingQuestion(Request.QuestionString) == true)
+            if (questionM.ExistingQuestion(RequestQuestion.QuestionString) == true)
             {
-                return Ok(questionM.DeleteQuestion(Request.QuestionID));
+                Question q = questionM.GetQuestion(RequestQuestion.QuestionString);
+                questionM.DeleteQuestion(q);
+                return Ok("Successful");
             }
             else
             {

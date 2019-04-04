@@ -108,38 +108,40 @@ import axios from "axios"
     },
     methods: {
       initialize () {
-          const url = `${apiURL}/question/randomquestion`
-          axios.get(url, 
-          {
-              params: 
-              {
-                  questionID: this.$data.questionID,
-                  question: this.$data.question
+          var qdata
+          var size
+          const url = `http://localhost:5000/api/question/getquestions`;
+          axios.get(url).then(questData =>{
+            this.questions.push(questData), qdata = questData.data, console.log(qdata)
+            size = qdata.length           
+            for(var i = 0; i<size;i++){
+              var questionItem = {
+                questionID : qdata[i].QuestionID,
+                question : qdata[i].QuestionString
               }
+              this.questions.push(questionItem)
+            }
           })
-            // missing error handling ?
-        // this.questions = [
-        //   {
-        //       questionID: 1,
-        //       question: 'How are you?'
-        //   },
-        //   {
-        //       questionID: 2,
-        //       question: "Okay?"
-        //   }
-        // ]
       },
       editItem (item) {
-          const url =  `${apiURL}/question/update`
-          axios.put(url,
+        this.editedIndex = this.questions.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialog = true
+          const url = `http://localhost:5000/api/question/update`
+          axios.post(url,
           {
-          })
-        // this.editedIndex = this.questions.indexOf(item)
-        // this.editedItem = Object.assign({}, item)
-        // this.dialog = true
+            QuestionString: this.editedItem.question
+          }).then(q =>{console.log(q.data)})
       },
       deleteItem (item) {
         const index = this.questions.indexOf(item)
+          console.log(item.question)
+          const url = 'http://localhost:5000/api/question/delete'
+          axios.post(url,
+          {
+            QuestionString: item.question
+          }).then(q =>{console.log(q.data)})
+          .catch(e => {alert(e.data)})
         confirm('Are you sure you want to delete this item?') && this.questions.splice(index, 1)
       },
       close () {
@@ -155,6 +157,12 @@ import axios from "axios"
         } else {
           this.questions.push(this.editedItem)
         }
+          const url = 'http://localhost:5000/api/question/add'
+          axios.post(url,
+          {
+            QuestionString: this.editedItem.question
+          }).then(q =>{console.log(q.data)})
+          .catch(e => {alert(e.data)})
         this.close()
       }
     }

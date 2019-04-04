@@ -10,6 +10,7 @@ using KFC.Red.ServiceLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.QuestionManagement.Interfaces;
 
 using System.Data.Entity.Validation;
+using System.Data.Entity.Core;
 
 namespace KFC.Red.ManagerLayer.QuestionManagement
 {
@@ -22,7 +23,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             _questionService = new QuestionService();
         }
 
-        private ApplicationDbContext CreateDbContext()
+        public ApplicationDbContext CreateDbContext()
         {
             return new ApplicationDbContext();
         }
@@ -37,13 +38,10 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             }
         }
 
-        public int CreateQuestion(
-            int questionID,
-            string questionString)
+        public int CreateQuestion(string questionString)
         {
             Question question = new Question
             {
-                QuestionID = questionID,
                 QuestionString = questionString
             };
 
@@ -90,13 +88,10 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             }
         }
 
-        public int UpdateQuestion(
-            int questionID,
-            string questionString)
+        public int UpdateQuestion(string questionString)
         {
             Question question = new Question
             {
-                QuestionID = questionID,
                 QuestionString = questionString
             };
 
@@ -105,6 +100,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 var response = _questionService.UpdateQuestion(_db, question);
                 try
                 {
+                    _questionService.UpdateQuestion(_db, question);
                     return _db.SaveChanges();
                 }
                 catch (DbEntityValidationException)
@@ -143,6 +139,15 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             using (var _db = CreateDbContext())
             {
                 return _questionService.ExistingQuestion(_db, question);
+            }
+        }
+
+        public bool ExistingQuestion(int questID)
+        {
+            using (var _db = CreateDbContext())
+            {
+                Question question = _questionService.GetQuestion(_db, questID);
+                return _questionService.ExistingQuestion(_db, question.QuestionString);
             }
         }
 
