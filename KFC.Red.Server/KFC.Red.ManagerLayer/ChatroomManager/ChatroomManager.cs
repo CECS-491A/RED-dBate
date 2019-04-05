@@ -13,10 +13,12 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
     public class ChatroomManager
     {
         private IChatroom _chatroomService;
+        private HubService _hubService;
 
         public ChatroomManager()
         {
             _chatroomService = new ChatRoomService();
+            _hubService = new HubService();
         }
 
         private ApplicationDbContext CreateDbContext()
