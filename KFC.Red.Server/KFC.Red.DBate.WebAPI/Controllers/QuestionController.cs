@@ -19,6 +19,12 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             public string QuestionString { get; set; }
         }
 
+        public class QuestionManagementIdRequest
+        {
+            public int QuestionID { get; set; }
+            public string QuestionString { get; set; }
+        }
+
         public class QuestionManagentCompRequest
         {
             public int QuestionID { get; set; }
@@ -78,15 +84,18 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("api/question/update")]
-        public IHttpActionResult UpdateQuestion([FromBody] QuestionManagementRequest Request)
+        [HttpPut]
+        [Route("api/question/update/{QuestionID}")]
+        public IHttpActionResult UpdateQuestion([FromBody] QuestionManagementIdRequest Request)
         {
             QuestionManager questionM = new QuestionManager();
             if (questionM.ExistingQuestion(Request.QuestionString) == true)
             {
-                questionM.UpdateQuestion(Request.QuestionString);
-                return Ok("Successfully updated");
+                Question question = questionM.GetQuestion(Request.QuestionID);
+                question.QuestionString = Request.QuestionString;
+                questionM.UpdateQuestion(question);
+                questionM.DeleteQuestion(Request.QuestionID);
+                return Ok("updated");
             }
             else
             {

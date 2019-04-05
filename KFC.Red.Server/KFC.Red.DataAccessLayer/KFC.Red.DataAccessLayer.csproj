@@ -60,6 +60,14 @@
     <Compile Include="Migrations\201904032105513_initialize.Designer.cs">
       <DependentUpon>201904032105513_initialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904050003334_QuestionRowVersion.cs" />
+    <Compile Include="Migrations\201904050003334_QuestionRowVersion.Designer.cs">
+      <DependentUpon>201904050003334_QuestionRowVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904050506415_initializeQuest.cs" />
+    <Compile Include="Migrations\201904050506415_initializeQuest.Designer.cs">
+      <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Chatroom.cs" />
     <Compile Include="Models\Claim.cs" />
@@ -88,6 +96,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904032105513_initialize.resx">
       <DependentUpon>201904032105513_initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904050003334_QuestionRowVersion.resx">
+      <DependentUpon>201904050003334_QuestionRowVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904050506415_initializeQuest.resx">
+      <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

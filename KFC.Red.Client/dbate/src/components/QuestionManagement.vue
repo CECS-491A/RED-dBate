@@ -42,7 +42,7 @@
     >
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
-        <td class="text-xs-center">{{ props.item.questionID }}</td>
+        <td class="text-xs-center">{{ props.item.displayedID }}</td>
         <td class="text-xs-center">{{ props.item.question }}</td>
         <td class="justify-center layout px-0">
           <v-icon
@@ -60,24 +60,21 @@
           </v-icon>
         </td>
       </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
-      </template>
     </v-data-table>
   </div>
 </template>
 
 <script>
 import axios from "axios"
-// import { apiURL } from '@/const.js'
   export default {
     data: () => ({
       dialog: false,
+      isEdit: false,
       headers: [
         {
           text: 'Question',
           align: 'left',
-          sortable: false,
+          sortable: true,
           value: 'name'
         },
         { text: 'Question ID', value: 'questionID' },
@@ -95,7 +92,7 @@ import axios from "axios"
     }),
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? 'New Question' : 'Edit Question'
       }
     },
     watch: {
@@ -112,10 +109,11 @@ import axios from "axios"
           var size
           const url = `http://localhost:5000/api/question/getquestions`;
           axios.get(url).then(questData =>{
-            this.questions.push(questData), qdata = questData.data, console.log(qdata)
+            qdata = questData.data
             size = qdata.length           
             for(var i = 0; i<size;i++){
               var questionItem = {
+                displayedID: i+1,
                 questionID : qdata[i].QuestionID,
                 question : qdata[i].QuestionString
               }
@@ -124,18 +122,21 @@ import axios from "axios"
           })
       },
       editItem (item) {
+        this.isEdit = true
         this.editedIndex = this.questions.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
-          const url = `http://localhost:5000/api/question/update`
-          axios.post(url,
+        console.log(this.editedItem.questionID)      
+        const url = 'http://localhost:5000/api/question/update/' + this.editedItem.questionID
+
+        axios.put(url,
           {
+            QuestionID: this.editedItem.questionID,
             QuestionString: this.editedItem.question
-          }).then(q =>{console.log(q.data)})
+          }).then(q =>{console.log(q.data +"gggggggggggggggg")}).catch(u => {console.log("not succ: " + u.data)})
       },
       deleteItem (item) {
         const index = this.questions.indexOf(item)
-          console.log(item.question)
           const url = 'http://localhost:5000/api/question/delete'
           axios.post(url,
           {
@@ -146,10 +147,6 @@ import axios from "axios"
       },
       close () {
         this.dialog = false
-        setTimeout(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        }, 300)
       },
       save () {
         if (this.editedIndex > -1) {
@@ -157,6 +154,8 @@ import axios from "axios"
         } else {
           this.questions.push(this.editedItem)
         }
+
+        console.log(this.editedItem.questionID + " " + this.editedItem.question)
           const url = 'http://localhost:5000/api/question/add'
           axios.post(url,
           {

@@ -11,6 +11,7 @@ using KFC.Red.ServiceLayer.QuestionManagement.Interfaces;
 
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
 
 namespace KFC.Red.ManagerLayer.QuestionManagement
 {
@@ -111,6 +112,10 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
                     return 0;
                 }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    return 0;
+                }
             }
         }
 
@@ -121,6 +126,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 var response = _questionService.UpdateQuestion(_db, question);
                 try
                 {
+                    
                     return _db.SaveChanges();
                 }
                 catch (DbEntityValidationException)
