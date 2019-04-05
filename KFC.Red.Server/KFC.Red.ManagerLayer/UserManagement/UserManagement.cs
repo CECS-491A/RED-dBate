@@ -115,16 +115,5 @@ namespace KFC.Red.ManagerLayer.UserManagement
                 return _userService.ExistingUser(_db, email);
             }
         }
-
-        /*
-        public List<User> GetAllUsers()
-        {
-            using(var _db = CreateDbContext())
-            {
-                List<User> list = _db.Set<User>().ToList();
-                return list;
-            }
-        }
-        */
     }
 }
