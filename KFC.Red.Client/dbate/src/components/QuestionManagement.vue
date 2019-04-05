@@ -47,13 +47,6 @@
         <td class="justify-center layout px-0">
           <v-icon
             small
-            class="mr-2"
-            @click="editItem(props.item)"
-          >
-            edit
-          </v-icon>
-          <v-icon
-            small
             @click="deleteItem(props.item)"
           >
             delete
@@ -69,7 +62,6 @@ import axios from "axios"
   export default {
     data: () => ({
       dialog: false,
-      isEdit: false,
       headers: [
         {
           text: 'Question',
@@ -92,7 +84,7 @@ import axios from "axios"
     }),
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Question' : 'Edit Question'
+        return this.editedIndex === -1 ? 'New Question' : ''
       }
     },
     watch: {
@@ -120,20 +112,6 @@ import axios from "axios"
               this.questions.push(questionItem)
             }
           })
-      },
-      editItem (item) {
-        this.isEdit = true
-        this.editedIndex = this.questions.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-        console.log(this.editedItem.questionID)      
-        const url = 'http://localhost:5000/api/question/update/' + this.editedItem.questionID
-
-        axios.put(url,
-          {
-            QuestionID: this.editedItem.questionID,
-            QuestionString: this.editedItem.question
-          }).then(q =>{console.log(q.data +"gggggggggggggggg")}).catch(u => {console.log("not succ: " + u.data)})
       },
       deleteItem (item) {
         const index = this.questions.indexOf(item)

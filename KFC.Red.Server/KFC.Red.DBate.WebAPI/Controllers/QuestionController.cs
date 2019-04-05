@@ -19,18 +19,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             public string QuestionString { get; set; }
         }
 
-        public class QuestionManagementIdRequest
-        {
-            public int QuestionID { get; set; }
-            public string QuestionString { get; set; }
-        }
-
-        public class QuestionManagentCompRequest
-        {
-            public int QuestionID { get; set; }
-            public string QuestionString { get; set; }
-        }
-
         [HttpGet]
         [Route("api/question/randomquestion")]
         public IHttpActionResult GetRandomQuestion()
@@ -81,25 +69,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             else
             {
                 return Content(HttpStatusCode.Conflict, "Question already exists");
-            }
-        }
-
-        [HttpPut]
-        [Route("api/question/update/{QuestionID}")]
-        public IHttpActionResult UpdateQuestion([FromBody] QuestionManagementIdRequest Request)
-        {
-            QuestionManager questionM = new QuestionManager();
-            if (questionM.ExistingQuestion(Request.QuestionString) == true)
-            {
-                Question question = questionM.GetQuestion(Request.QuestionID);
-                question.QuestionString = Request.QuestionString;
-                questionM.UpdateQuestion(question);
-                questionM.DeleteQuestion(Request.QuestionID);
-                return Ok("updated");
-            }
-            else
-            {
-                return Content(HttpStatusCode.Conflict, "Question not in database.");
             }
         }
 
