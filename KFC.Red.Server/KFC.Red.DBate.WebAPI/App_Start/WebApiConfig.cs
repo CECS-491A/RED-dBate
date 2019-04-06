@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -16,17 +17,17 @@ namespace KFC.Red.DBate.WebAPI
             //EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost/client", "*", "*");
             //EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:8080", "*", "*");
             //EnableCorsAttribute cors = new EnableCorsAttribute("https://dbate.azurewebsites.net/client", "*", "*");
-
-            config.EnableCors();
+            //config.EnableCors(cors);
 
 
             // Set JSON formatter as default one and remove XmlFormatter
-            var jsonFormatter = config.Formatters.JsonFormatter;
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //var jsonFormatter = config.Formatters.JsonFormatter;
+            //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             // Remove the XML formatter
-            config.Formatters.Remove(config.Formatters.XmlFormatter);
-            jsonFormatter.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
+            //config.Formatters.Remove(config.Formatters.XmlFormatter);
+            //jsonFormatter.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();

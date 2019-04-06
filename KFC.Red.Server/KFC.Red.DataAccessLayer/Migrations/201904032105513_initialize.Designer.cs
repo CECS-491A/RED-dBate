@@ -7,13 +7,13 @@ namespace KFC.RED.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ssoIDattribute : IMigrationMetadata
+    public sealed partial class initialize : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ssoIDattribute));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialize));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903291947299_ssoIDattribute"; }
+            get { return "201904032105513_initialize"; }
         }
         
         string IMigrationMetadata.Source

@@ -10,10 +10,12 @@ using KFC.Red.ServiceLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.QuestionManagement.Interfaces;
 
 using System.Data.Entity.Validation;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
 
 namespace KFC.Red.ManagerLayer.QuestionManagement
 {
-    class QuestionManager
+    public class QuestionManager
     {
         private IQuestionService _questionService;
 
@@ -22,7 +24,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             _questionService = new QuestionService();
         }
 
-        private ApplicationDbContext CreateDbContext()
+        public ApplicationDbContext CreateDbContext()
         {
             return new ApplicationDbContext();
         }
@@ -31,12 +33,27 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
         {
             using (var _db = CreateDbContext())
             {
-                var response = _questionService.CreateQuestion(_db,question);               
+                var response = _questionService.CreateQuestion(_db, question);               
                 // will return null if question does not exist
                 return _db.SaveChanges();
             }
         }
-        
+
+        public int CreateQuestion(string questionString)
+        {
+            Question question = new Question
+            {
+                QuestionString = questionString
+            };
+
+            using (var _db = CreateDbContext())
+            {
+                var response = _questionService.CreateQuestion(_db, question);
+                // will return null if question does not exist
+                return _db.SaveChanges();   //error
+            }
+        }
+
         public int DeleteQuestion(Question question)
         {
             using (var _db = CreateDbContext())
@@ -72,6 +89,36 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             }
         }
 
+        public int UpdateQuestion(string questionString)
+        {
+            Question question = new Question
+            {
+                QuestionString = questionString
+            };
+
+            using (var _db = CreateDbContext())
+            {
+                var response = _questionService.UpdateQuestion(_db, question);
+                try
+                {
+                    _questionService.UpdateQuestion(_db, question);
+                    return _db.SaveChanges();
+                }
+                catch (DbEntityValidationException)
+                {
+                    // catch error
+                    // rollback changes
+                    _db.Entry(response).CurrentValues.SetValues(_db.Entry(response).OriginalValues);
+                    _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
+                    return 0;
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    return 0;
+                }
+            }
+        }
+
         public int UpdateQuestion(Question question)
         {
             using (var _db = CreateDbContext())
@@ -79,6 +126,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 var response = _questionService.UpdateQuestion(_db, question);
                 try
                 {
+                    
                     return _db.SaveChanges();
                 }
                 catch (DbEntityValidationException)
@@ -98,6 +146,51 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             {
                 return _questionService.ExistingQuestion(_db, question);
             }
+        }
+
+        public bool ExistingQuestion(int questID)
+        {
+            using (var _db = CreateDbContext())
+            {
+                Question question = _questionService.GetQuestion(_db, questID);
+                return _questionService.ExistingQuestion(_db, question.QuestionString);
+            }
+        }
+
+        private int MaxQuestionSize()
+        {
+            int maxSize;
+            using (var _db = CreateDbContext())
+            {
+                maxSize = _db.Questions.Max(p => p.QuestionID);
+            }
+            return maxSize;
+        }
+
+        private int MinQuestionSize()
+        {
+            int minSize;
+            using (var _db = CreateDbContext())
+            {
+                minSize = _db.Questions.Min(p => p.QuestionID);
+            }
+            return minSize;
+        }
+
+        public string RandomizeQuestion()
+        {
+            Question question;
+            string quest;
+
+            using (var _db = CreateDbContext())
+            {
+                var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
+                question = _questionService.GetQuestion(_db, index);
+            }
+
+            quest = question.QuestionString;
+
+            return quest;
         }
     }
 }

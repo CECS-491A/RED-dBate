@@ -3,7 +3,7 @@ namespace KFC.RED.DataAccessLayer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ChatAttributes : DbMigration
+    public partial class initializeQuest : DbMigration
     {
         public override void Up()
         {

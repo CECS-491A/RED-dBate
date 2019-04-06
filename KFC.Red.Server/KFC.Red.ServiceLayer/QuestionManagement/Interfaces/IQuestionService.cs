@@ -16,5 +16,6 @@ namespace KFC.Red.ServiceLayer.QuestionManagement.Interfaces
         Question DeleteQuestion(ApplicationDbContext _db, int Id);
         Question UpdateQuestion(ApplicationDbContext _db, Question question);
         bool ExistingQuestion(ApplicationDbContext _db, string question);
+        int GetNumberForRandomization(int minValue, int maxValue);
     }
 }

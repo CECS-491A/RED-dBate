@@ -7,13 +7,13 @@ namespace KFC.RED.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class ChatroomIDattribute : IMigrationMetadata
+    public sealed partial class initializeQuest : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ChatroomIDattribute));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initializeQuest));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903292332286_ChatroomIDattribute"; }
+            get { return "201904050506415_initializeQuest"; }
         }
         
         string IMigrationMetadata.Source

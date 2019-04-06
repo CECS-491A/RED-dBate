@@ -56,33 +56,17 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
-    <Compile Include="Migrations\201903022126180_Initial.cs" />
-    <Compile Include="Migrations\201903022126180_Initial.Designer.cs">
-      <DependentUpon>201903022126180_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201904032105513_initialize.cs" />
+    <Compile Include="Migrations\201904032105513_initialize.Designer.cs">
+      <DependentUpon>201904032105513_initialize.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903030702044_Connection.cs" />
-    <Compile Include="Migrations\201903030702044_Connection.Designer.cs">
-      <DependentUpon>201903030702044_Connection.cs</DependentUpon>
+    <Compile Include="Migrations\201904050003334_QuestionRowVersion.cs" />
+    <Compile Include="Migrations\201904050003334_QuestionRowVersion.Designer.cs">
+      <DependentUpon>201904050003334_QuestionRowVersion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903200419242_delete-connections-table.cs" />
-    <Compile Include="Migrations\201903200419242_delete-connections-table.Designer.cs">
-      <DependentUpon>201903200419242_delete-connections-table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903201536478_newChanges.cs" />
-    <Compile Include="Migrations\201903201536478_newChanges.Designer.cs">
-      <DependentUpon>201903201536478_newChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903291947299_ssoIDattribute.cs" />
-    <Compile Include="Migrations\201903291947299_ssoIDattribute.Designer.cs">
-      <DependentUpon>201903291947299_ssoIDattribute.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903292332286_ChatroomIDattribute.cs" />
-    <Compile Include="Migrations\201903292332286_ChatroomIDattribute.Designer.cs">
-      <DependentUpon>201903292332286_ChatroomIDattribute.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903292344586_ChatAttributes.cs" />
-    <Compile Include="Migrations\201903292344586_ChatAttributes.Designer.cs">
-      <DependentUpon>201903292344586_ChatAttributes.cs</DependentUpon>
+    <Compile Include="Migrations\201904050506415_initializeQuest.cs" />
+    <Compile Include="Migrations\201904050506415_initializeQuest.Designer.cs">
+      <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Chatroom.cs" />
@@ -111,26 +95,14 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903022126180_Initial.resx">
-      <DependentUpon>201903022126180_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904032105513_initialize.resx">
+      <DependentUpon>201904032105513_initialize.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903030702044_Connection.resx">
-      <DependentUpon>201903030702044_Connection.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904050003334_QuestionRowVersion.resx">
+      <DependentUpon>201904050003334_QuestionRowVersion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903200419242_delete-connections-table.resx">
-      <DependentUpon>201903200419242_delete-connections-table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903201536478_newChanges.resx">
-      <DependentUpon>201903201536478_newChanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903291947299_ssoIDattribute.resx">
-      <DependentUpon>201903291947299_ssoIDattribute.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903292332286_ChatroomIDattribute.resx">
-      <DependentUpon>201903292332286_ChatroomIDattribute.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903292344586_ChatAttributes.resx">
-      <DependentUpon>201903292344586_ChatAttributes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904050506415_initializeQuest.resx">
+      <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

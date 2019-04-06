@@ -5,6 +5,7 @@ using KFC.Red.ServiceLayer.UserManagement;
 using KFC.Red.ServiceLayer.UserManagement.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
@@ -100,6 +101,10 @@ namespace KFC.Red.ManagerLayer.UserManagement
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
                     return 0;
                 }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    return 0;
+                }
             }
         }
 
@@ -110,16 +115,5 @@ namespace KFC.Red.ManagerLayer.UserManagement
                 return _userService.ExistingUser(_db, email);
             }
         }
-
-        /*
-        public List<User> GetAllUsers()
-        {
-            using(var _db = CreateDbContext())
-            {
-                List<User> list = _db.Set<User>().ToList();
-                return list;
-            }
-        }
-        */
     }
 }

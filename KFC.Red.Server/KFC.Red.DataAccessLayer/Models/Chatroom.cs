@@ -6,13 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.RED.DataAccessLayer.Models
+namespace KFC.Red.DataAccessLayer.Models
 {
     public class Chatroom
     {
-        [Required]
         public int ChatroomID { get; set; }
+
+        [ForeignKey("Question")]
         public int QuestionID { get; set; }
-        
+        public Question Question { get; set; }
+
     }
 }

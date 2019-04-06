@@ -18,7 +18,6 @@ namespace KFC.Red.DataAccessLayer.Models
         [Required]
         public int ID { get; set; }
         public Guid SsoId { get; set; }
-        public int ChatroomID { get; set; }
         public string Username { get; set; }
 
         [Required]
@@ -48,6 +47,8 @@ namespace KFC.Red.DataAccessLayer.Models
 
         public bool IsUserPlaying { get; set; } = false;
 
-
+        [ForeignKey("Chatroom")]
+        public int ChatroomID { get; set; }
+        public Chatroom Chatroom { get; set; }
     }
 }
