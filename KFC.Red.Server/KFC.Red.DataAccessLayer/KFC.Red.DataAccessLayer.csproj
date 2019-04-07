@@ -71,6 +71,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\Chatroom.cs" />
+    <Compile Include="Models\ChatStorage.cs" />
     <Compile Include="Models\Claim.cs" />
     <Compile Include="Models\ErrorCollection.cs" />
     <Compile Include="Models\Question.cs" />
