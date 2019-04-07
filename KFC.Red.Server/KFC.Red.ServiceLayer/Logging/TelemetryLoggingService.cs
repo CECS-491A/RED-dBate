@@ -76,5 +76,9 @@ namespace KFC.Red.ServiceLayer.Logging
             myDoc.CountDocumentsAsync(log);
         }
 
+        public Task<List<BsonDocument>> GetAllErrorLogsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

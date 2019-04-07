@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using KFC.RED.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.Logging.Interfaces;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.ServiceLayer.Logging
 {
@@ -14,11 +15,13 @@ namespace KFC.Red.ServiceLayer.Logging
     {
         public MongoClient Client { get; set; }
         public IMongoDatabase documents { get; set; }
+        public IMongoCollection<ErrorLogDTO> _logCollection;
 
         public ErrorLoggingService()
         {
             Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
-            documents = Client.GetDatabase("ErrorLogging");
+            documents = Client.GetDatabase("Logging");
+            _logCollection = documents.GetCollection<ErrorLogDTO>("CustomLog1");
         }
 
         public List<BsonDocument> GetListOfCollections()
@@ -29,8 +32,12 @@ namespace KFC.Red.ServiceLayer.Logging
 
         public IMongoCollection<BsonDocument> GetCollection(string collection)
         {
-            collection = "CustomLog";
             return documents.GetCollection<BsonDocument>(collection);
+        }
+
+        public List<IMongoCollection<BsonDocument>> GetDocuments()
+        {
+            return null;
         }
 
         public Task<List<BsonDocument>> GetAllErrorLogsAsync()
@@ -79,7 +86,7 @@ namespace KFC.Red.ServiceLayer.Logging
         {
             ErrorLogs errorLog = new ErrorLogs();
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = GetCollection("CustomLog");
+            IMongoCollection<BsonDocument> myDoc = GetCollection("CustomLog1");
 
             try
             {
