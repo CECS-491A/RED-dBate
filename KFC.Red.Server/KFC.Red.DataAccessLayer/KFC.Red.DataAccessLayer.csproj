@@ -38,6 +38,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\KFC.Red.DBate.WebAPI\bin\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -54,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="DTOs\ErrorLogDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
     <Compile Include="Migrations\201904032105513_initialize.cs" />

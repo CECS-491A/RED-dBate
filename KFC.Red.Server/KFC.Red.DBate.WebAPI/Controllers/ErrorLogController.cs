@@ -1,15 +1,23 @@
 ﻿using KFC.Red.ServiceLayer.Logging;
+using KFC.RED.DataAccessLayer.Models;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Serialization;
+using MongoDB.Driver.Linq;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class ErrorLogController : ApiController
     {
+
+        //MIGHT NOT BE NEEDED
         [HttpPost]
         [Route("api/errorlog/createerrorlog")]
         public IHttpActionResult CreateErrorLog()
@@ -19,21 +27,22 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("api/errorlog/createerrorlog")]
-        public IHttpActionResult CreateInfoLog()
-        {
-            ErrorLoggingService ls = new ErrorLoggingService();
-            ls.CreateErrorLog();
-            return Ok();
-        }
-
         [HttpGet]
         [Route("api/errorlog/displaylogs")]
-        public IHttpActionResult DisplayErrorLogs()
+        public async System.Threading.Tasks.Task<List<ErrorLogDTO>> DisplayErrorLogsAsync()
         {
+            ErrorLogs e = new ErrorLogs();
             ErrorLoggingService ls = new ErrorLoggingService();
-            return Ok();
+            var collection = ls.GetCollection("CustomLog1");
+            var count = await collection.CountDocumentsAsync(new BsonDocument());
+            var documents = await ls._logCollection.Find(new BsonDocument()).ToListAsync();
+            
+            return documents;
+        }
+
+        HttpResponseMessage ToJson(BsonDocument document)
+        {
+            return new HttpResponseMessage { Content = new StringContent(document.ToJson(), System.Text.Encoding.UTF8, "application/json") };
         }
 
         [HttpDelete]
