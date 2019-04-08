@@ -10,10 +10,6 @@
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <v-card>
-          <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
-          </v-card-title>
-
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
@@ -40,7 +36,13 @@
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td class="text-xs-center">{{ props.item.logID }}</td>
-        <td class="text-xs-center">{{ props.item.log }}</td>
+        <td class="text-xs-center">{{ props.item.logDate }}</td>
+        <td class="text-xs-center">{{ props.item.logError }}</td>
+        <td class="text-xs-center">{{ props.item.logTarget }}</td>
+        <td class="text-xs-center">{{ props.item.loggedUser }}</td>
+        <td class="text-xs-center">{{ props.item.CurrentLoggedInUser }}</td>
+        <td class="text-xs-center">{{ props.item.loggedUserRequest }}</td>
+        
         <td class="justify-center layout px-0">
 
           <v-icon
@@ -67,10 +69,6 @@
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <v-card>
-          <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
-          </v-card-title>
-
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
@@ -98,7 +96,12 @@
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td class="text-xs-center">{{ props.item.tlogID }}</td>
-        <td class="text-xs-center">{{ props.item.tlog }}</td>
+        <td class="text-xs-center">{{ props.item.tDateUserLogin }}</td>
+        <td class="text-xs-center">{{ props.item.tDateUserLogout }}</td>
+        <td class="text-xs-center">{{ props.item.tDateUserPageVisit }}</td>
+        <td class="text-xs-center">{{ props.item.tDateUserFunct }}</td>
+        <td class="text-xs-center">{{ props.item.tIP }}</td>
+        <td class="text-xs-center">{{ props.item.tLoc }}</td>
         <td class="justify-center layout px-0">
 
           <v-icon
@@ -119,6 +122,8 @@
 </template>
 
 <script>
+import axios from "axios"
+
   export default {
     data: () => ({
       dialog: false,
@@ -133,6 +138,7 @@
         { text: 'log', value: 'log' },
       ],
       logs: [],
+      tlogs: [],
       editedIndex: -1,
       editedItem: {
         log: 0,
@@ -156,29 +162,46 @@
 
     methods: {
       initialize () {
-        this.logs = [
-          {
-            logID: 1,
-            log: 'error log1'
-          },
-          {
-            logID: 2,
-            log: "error log2"
-          }
-        ]
+          var ldata
+          var size
+          const url = `http://localhost:5000/api/errorlog/displaylogs`;
+          axios.get(url).then(logData =>{
+            ldata = logData.data
+            size = ldata.length           
+            for(var i = 0; i<size;i++){
+              var logItem = {
+                tlogID: i+1,
+                tDateUserLogin: ldata[i].tDateUserLogin, 
+                tDateUserLogout: ldata[i].tDateUserLogout,
+                tDateUserPageVisit: ldata[i].tDateUserPageVisit,
+                tDateUserFunct: ldata[i].tDateUserFunct,
+                tIP: ldata[i].tIP,
+                tLoc: ""
+              }
+              this.tlogs.push(logItem)
+            }
+          })
       },
 
       initialize2 () {
-        this.tlogs = [
-          {
-            tlogID: 1,
-            tlog: 'tele log1'
-          },
-          {
-            tlogID: 2,
-            tlog: "tele log2"
-          }
-        ]
+          var ldata
+          var size
+          const url = `http://localhost:5000/api/errorlog/displaylogs`;
+          axios.get(url).then(logData =>{
+            ldata = logData.data
+            size = ldata.length           
+            for(var i = 0; i<size;i++){
+              var logItem = {
+                logID: i+1,
+                logDate: ldata[i].Date, 
+                logError: ldata[i].Error,
+                logTarget: ldata[i].LineofCode,
+                loggedUser: ldata[i].CurrentLoggedInUser,
+                loggedUserRequest: ldata[i].UserRequest
+              }
+              this.logs.push(logItem)
+            }
+          })
       },
 
       deleteItem (item) {

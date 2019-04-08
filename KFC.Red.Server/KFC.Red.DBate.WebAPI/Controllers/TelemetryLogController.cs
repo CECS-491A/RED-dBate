@@ -1,10 +1,15 @@
-﻿using System;
+﻿using KFC.Red.ServiceLayer.Logging;
+using KFC.RED.DataAccessLayer.Models;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using KFC.Red.ServiceLayer.Logging;
+using System.Web.Script.Serialization;
+using MongoDB.Driver.Linq;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
@@ -21,10 +26,15 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/telemetrylog/displaylogs")]
-        public IHttpActionResult DisplayTelemetryLogs()
+        public async System.Threading.Tasks.Task<List<TelemetryLogDTO>> DisplayErrorLogsAsync()
         {
+            TelemetryLogs t = new TelemetryLogs();
             TelemetryLoggingService ls = new TelemetryLoggingService();
-            return Ok("displaying logs");
+            var collection = ls.GetCollection("CustomLog1");
+            var count = await collection.CountDocumentsAsync(new BsonDocument());
+            var documents = await ls._tlogCollection.Find(new BsonDocument()).ToListAsync();
+
+            return documents;
         }
 
         [HttpGet]
