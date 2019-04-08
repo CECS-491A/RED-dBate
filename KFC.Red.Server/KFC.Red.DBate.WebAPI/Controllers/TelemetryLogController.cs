@@ -29,10 +29,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         public async System.Threading.Tasks.Task<List<TelemetryLogDTO>> DisplayErrorLogsAsync()
         {
             TelemetryLogs t = new TelemetryLogs();
-            ErrorLoggingService ls = new ErrorLoggingService();
+            TelemetryLoggingService ls = new TelemetryLoggingService();
             var collection = ls.GetCollection("CustomLog1");
             var count = await collection.CountDocumentsAsync(new BsonDocument());
-            var documents = await ls._logCollection.Find(new BsonDocument()).ToListAsync();
+            var documents = await ls._tlogCollection.Find(new BsonDocument()).ToListAsync();
 
             return documents;
         }
