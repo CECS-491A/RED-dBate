@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using KFC.RED.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.Logging.Interfaces;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.ServiceLayer.Logging
 {
@@ -14,11 +15,13 @@ namespace KFC.Red.ServiceLayer.Logging
     {
         public MongoClient Client { get; set; }
         public IMongoDatabase documents { get; set; }
+        public IMongoCollection<TelemetryLogDTO> _tlogCollection;
 
         public TelemetryLoggingService()
         {
             Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
             documents = Client.GetDatabase("TelemetryLogging");
+            _tlogCollection = documents.GetCollection<TelemetryLogDTO>("CustomLog1");
         }
 
         public List<BsonDocument> GetListOfCollections()
