@@ -72,6 +72,7 @@
     <Compile Include="ChatRoom\ChatRoomService.cs" />
     <Compile Include="ChatRoom\HubService.cs" />
     <Compile Include="ChatRoom\Interface\IChatRoom.cs" />
+    <Compile Include="ChatRoom\MessageIDIncrement.cs" />
     <Compile Include="Constants\Roles.cs" />
     <Compile Include="Password\PasswordValidationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

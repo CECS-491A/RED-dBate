@@ -14,11 +14,13 @@ namespace KFC.Red.DBate.WebAPI.Controllers
     {
         private ChatroomManager _ChatManager;
         private HubService _ChatHub;
+        private MessageIDIncrement _Increment;
 
         public ChatController(ChatroomManager chatroomManager)
         {
             _ChatManager = chatroomManager;
             _ChatHub = new HubService();
+            _Increment = new MessageIDIncrement();
         }
         
         public List<ChatMessage> GetMessages()
@@ -28,7 +30,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         public void PostMessage(ChatMessage chatMsg)
         {
-            //chatMsg.Id =
+            chatMsg.Id = _Increment.IncrementID();
             chatMsg.DateTime = DateTime.Now;
             _ChatManager.AddMessage(chatMsg);
             
@@ -36,7 +38,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         }
 
 
-        public List<String> GetUserID(string username)
+        public List<String> GetUsers(string username)
         {
             _ChatManager.AddUser(username);
             _ChatHub.SendUserList(_ChatManager.GetSessionUsers());
