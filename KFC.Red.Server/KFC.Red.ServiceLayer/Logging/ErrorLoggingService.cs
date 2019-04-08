@@ -14,25 +14,25 @@ namespace KFC.Red.ServiceLayer.Logging
     public class ErrorLoggingService : IErrorLoggingService
     {
         public MongoClient Client { get; set; }
-        public IMongoDatabase documents { get; set; }
+        public IMongoDatabase database { get; set; }
         public IMongoCollection<ErrorLogDTO> _logCollection;
 
         public ErrorLoggingService()
         {
             Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
-            documents = Client.GetDatabase("Logging");
-            _logCollection = documents.GetCollection<ErrorLogDTO>("CustomLog1");
+            database = Client.GetDatabase("Logging");
+            _logCollection = database.GetCollection<ErrorLogDTO>("CustomLog1");
         }
 
         public List<BsonDocument> GetListOfCollections()
         {
-            var collectionList = documents.ListCollections().ToList();
+            var collectionList = database.ListCollections().ToList();
             return collectionList;
         }
 
         public IMongoCollection<BsonDocument> GetCollection(string collection)
         {
-            return documents.GetCollection<BsonDocument>(collection);
+            return database.GetCollection<BsonDocument>(collection);
         }
 
         public List<IMongoCollection<BsonDocument>> GetDocuments()
@@ -42,7 +42,7 @@ namespace KFC.Red.ServiceLayer.Logging
 
         public Task<List<BsonDocument>> GetAllErrorLogsAsync()
         {
-            IMongoCollection<BsonDocument> SpeCollection = this.documents.GetCollection<BsonDocument>("CustomLog");
+            IMongoCollection<BsonDocument> SpeCollection = this.database.GetCollection<BsonDocument>("CustomLog");
             //var documents = await SpeCollection.Find(Builders<BsonDocument>.Filter.Empty).ToListAsync();
             var documents = SpeCollection.AsQueryable();
 
@@ -52,7 +52,7 @@ namespace KFC.Red.ServiceLayer.Logging
 
         public Task<List<BsonDocument>> GetAllLogsAsync()
         {
-            IMongoCollection<BsonDocument> SpeCollection = this.documents.GetCollection<BsonDocument>("CustomLog");
+            IMongoCollection<BsonDocument> SpeCollection = this.database.GetCollection<BsonDocument>("CustomLog");
             //var documents = await SpeCollection.Find(Builders<BsonDocument>.Filter.Empty).ToListAsync();
             var documents = SpeCollection.AsQueryable();
 
@@ -106,9 +106,10 @@ namespace KFC.Red.ServiceLayer.Logging
             myDoc.InsertOne(log);
         }
 
-        public void DeleteErrorLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
+        public void DeleteErrorLog(BsonDocument log)
         {
-            myDoc.FindOneAndDelete(log);
+            //myDoc.FindOneAndDelete(log);
+            _logCollection.FindOneAndDelete(log);
         }
 
         public void DeleteAllErrorLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
