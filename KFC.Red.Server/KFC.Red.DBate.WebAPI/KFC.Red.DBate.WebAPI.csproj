@@ -202,6 +202,10 @@
       <Project>{28413BF6-B380-4010-84E1-7A94A8C43726}</Project>
       <Name>KFC.Red.ManagerLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\KFC.Red.ServiceLayer\KFC.Red.ServiceLayer.csproj">
+      <Project>{2f63f058-8142-4a19-b37a-3bc7a382279f}</Project>
+      <Name>KFC.Red.ServiceLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
