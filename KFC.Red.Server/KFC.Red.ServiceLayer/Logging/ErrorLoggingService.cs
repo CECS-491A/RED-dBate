@@ -102,6 +102,29 @@ namespace KFC.Red.ServiceLayer.Logging
                 BsonElement userRequest = new BsonElement("userRequest", "click event");
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
             }
+            
+            //Email Notification
+            //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
+            MailMessage mail = new MailMessage();
+
+            mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Port = 587;
+            smtp.EnableSsl = true;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
+            smtp.Host = "smtp.mail.yahoo.com";
+
+            //Replace with admin address
+            mail.To.Add(new MailAddress("caytkid1@gmail.com"));
+
+            mail.IsBodyHtml = true;
+            mail.Subject = "Test Subject";
+            mail.Body = "Test Message";
+            smtp.Send(mail);
+            //
 
             myDoc.InsertOne(log);
         }
