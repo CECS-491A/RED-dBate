@@ -10,8 +10,5 @@ namespace KFC.Red.ServiceLayer.Logging.Interfaces
 {
     public interface ITelemetryLoggingService
     {
-        List<BsonDocument> GetListOfCollections();
-        IMongoCollection<BsonDocument> GetCollection(string collection);
-        Task<List<BsonDocument>> GetAllErrorLogsAsync();
     }
 }

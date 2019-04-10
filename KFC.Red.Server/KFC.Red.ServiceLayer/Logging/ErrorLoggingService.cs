@@ -14,25 +14,26 @@ namespace KFC.Red.ServiceLayer.Logging
     public class ErrorLoggingService : IErrorLoggingService
     {
         public MongoClient Client { get; set; }
-        public IMongoDatabase documents { get; set; }
+        public IMongoDatabase database { get; set; }
         public IMongoCollection<ErrorLogDTO> _logCollection;
+        public int failedLogs;
 
         public ErrorLoggingService()
         {
             Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
-            documents = Client.GetDatabase("Logging");
-            _logCollection = documents.GetCollection<ErrorLogDTO>("CustomLog1");
+            database = Client.GetDatabase("Logging");
+            _logCollection = database.GetCollection<ErrorLogDTO>("CustomLog1");
         }
 
         public List<BsonDocument> GetListOfCollections()
         {
-            var collectionList = documents.ListCollections().ToList();
+            var collectionList = database.ListCollections().ToList();
             return collectionList;
         }
 
         public IMongoCollection<BsonDocument> GetCollection(string collection)
         {
-            return documents.GetCollection<BsonDocument>(collection);
+            return database.GetCollection<BsonDocument>(collection);
         }
 
         public List<IMongoCollection<BsonDocument>> GetDocuments()
@@ -42,7 +43,7 @@ namespace KFC.Red.ServiceLayer.Logging
 
         public Task<List<BsonDocument>> GetAllErrorLogsAsync()
         {
-            IMongoCollection<BsonDocument> SpeCollection = this.documents.GetCollection<BsonDocument>("CustomLog");
+            IMongoCollection<BsonDocument> SpeCollection = this.database.GetCollection<BsonDocument>("CustomLog");
             //var documents = await SpeCollection.Find(Builders<BsonDocument>.Filter.Empty).ToListAsync();
             var documents = SpeCollection.AsQueryable();
 
@@ -52,7 +53,7 @@ namespace KFC.Red.ServiceLayer.Logging
 
         public Task<List<BsonDocument>> GetAllLogsAsync()
         {
-            IMongoCollection<BsonDocument> SpeCollection = this.documents.GetCollection<BsonDocument>("CustomLog");
+            IMongoCollection<BsonDocument> SpeCollection = this.database.GetCollection<BsonDocument>("CustomLog");
             //var documents = await SpeCollection.Find(Builders<BsonDocument>.Filter.Empty).ToListAsync();
             var documents = SpeCollection.AsQueryable();
 
@@ -82,7 +83,7 @@ namespace KFC.Red.ServiceLayer.Logging
             myDoc.InsertOne(errorLog);
         }
 
-        public void CreateErrorLog()
+        public void CreateErrorLog(Exception ex)
         {
             ErrorLogs errorLog = new ErrorLogs();
             BsonDocument log = new BsonDocument();
@@ -90,25 +91,51 @@ namespace KFC.Red.ServiceLayer.Logging
 
             try
             {
-                int zero = 0;
-                int result = 5 / zero;
-            }
-            catch (DivideByZeroException ex)
-            {
                 BsonElement date = new BsonElement("date", errorLog.Date);
                 BsonElement error = new BsonElement("error", ex.Message.ToString());
                 BsonElement target = new BsonElement("target", ex.TargetSite.ToString());
                 BsonElement currentLoggedUser = new BsonElement("loggedInUser", "Jane Doe");
                 BsonElement userRequest = new BsonElement("userRequest", "click event");
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+                
+                myDoc.InsertOne(log);
             }
+            catch (MongoConnectionException e)
+            {
+                if (failedLogs <= 100)
+                {
+                    //Email Notification
+                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
+                    MailMessage mail = new MailMessage();
 
-            myDoc.InsertOne(log);
+                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
+
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
+                    smtp.Host = "smtp.mail.yahoo.com";
+
+                    //Replace with admin address
+                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
+
+                    mail.IsBodyHtml = true;
+                    mail.Subject = "Test Subject";
+                    mail.Body = "Test Message";
+                    smtp.Send(mail);
+
+                    //Reset counter
+                    failedLogs = 0;
+                }
+            }
         }
 
-        public void DeleteErrorLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
+        public void DeleteErrorLog(BsonDocument log)
         {
-            myDoc.FindOneAndDelete(log);
+            //myDoc.FindOneAndDelete(log);
+            _logCollection.FindOneAndDelete(log);
         }
 
         public void DeleteAllErrorLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
