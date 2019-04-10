@@ -2,6 +2,7 @@
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.ChatRoom;
 using KFC.Red.ServiceLayer.ChatRoom.Interface;
+using KFC.RED.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,79 +13,31 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
 {
     public class ChatroomManager
     {
-        private IChatroom _chatroomService;
-        private HubService _hubService;
-
-        public ChatroomManager()
+        private ChatStorage _ChatStore;
+        
+        public ChatroomManager(ChatStorage chatStore)
         {
-            _chatroomService = new ChatRoomService();
-            _hubService = new HubService();
+            _ChatStore = chatStore;
+        }
+        
+        public void AddMessage(ChatMessage chatMsg)
+        {
+            _ChatStore.MessageList.Add(chatMsg);
+        } 
+
+        public void AddUser(String Username)
+        {
+            _ChatStore.UserList.Add(Username);
         }
 
-        private ApplicationDbContext CreateDbContext()
+        public List<ChatMessage> GetSessionMessages()
         {
-            return new ApplicationDbContext();
+            return _ChatStore.MessageList;
         }
-
-        public int CreateChatroom(Chatroom chatroom)
+        
+        public List<String> GetSessionUsers()
         {
-            using (var _db = CreateDbContext())
-            {
-                var response = _chatroomService.CreateChatroom(_db, chatroom);
-                // will return null if question does not exist
-                return _db.SaveChanges();
-            }
-        }
-
-        public int DeleteChatroom(Chatroom chatroom)
-        {
-            using (var _db = CreateDbContext())
-            {
-                var response = _chatroomService.DeleteChatroom(_db, chatroom.ChatroomID);
-                // will return null if chatroom does not exist
-                return _db.SaveChanges();
-            }
-        }
-
-        public int DeleteChatroom(int id)
-        {
-            using (var _db = CreateDbContext())
-            {
-                var response = _chatroomService.DeleteChatroom(_db, id);
-                return _db.SaveChanges();
-            }
-        }
-
-        public Chatroom GetChatroom(int id)
-        {
-            using (var _db = CreateDbContext())
-            {
-                return _chatroomService.GetChatroom(_db, id);
-            }
-        }
-
-        public Chatroom GetChatroom(Chatroom chatroom)
-        {
-            using (var _db = CreateDbContext())
-            {
-                return _chatroomService.GetChatroom(_db, chatroom);
-            }
-        }
-
-        public bool ExistingChatroom(int id)
-        {
-            using (var _db = CreateDbContext())
-            {
-                return _chatroomService.ExistingChatroom(_db, id);
-            }
-        }
-
-        public bool ExistingChatroom(Chatroom chatroom)
-        {
-            using (var _db = CreateDbContext())
-            {
-                return _chatroomService.ExistingChatroom(_db, chatroom);
-            }
+            return _ChatStore.UserList;
         }
     }
 }

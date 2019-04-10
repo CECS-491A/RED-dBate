@@ -208,7 +208,7 @@
       <Name>KFC.Red.ManagerLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\KFC.Red.ServiceLayer\KFC.Red.ServiceLayer.csproj">
-      <Project>{2F63F058-8142-4A19-B37A-3BC7A382279F}</Project>
+      <Project>{2f63f058-8142-4a19-b37a-3bc7a382279f}</Project>
       <Name>KFC.Red.ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
