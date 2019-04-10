@@ -32,8 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.8.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="MongoDB.Driver, Version=2.8.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="MongoDB.Driver.Core, Version=2.8.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatroomManager\ChatroomManager.cs" />
+    <Compile Include="Logging\ErrorLoggingManager.cs" />
     <Compile Include="Password\HashFunction.cs" />
     <Compile Include="Password\Interfaces\IHashFunction.cs" />
     <Compile Include="Password\Models\PasswordStatus.cs" />
@@ -63,6 +73,9 @@
       <Name>KFC.Red.ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -38,6 +38,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\KFC.Red.DBate.WebAPI\bin\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -54,8 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="DTOs\ErrorLogDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
+    <Compile Include="DTOs\TelemetryLogDTO.cs" />
     <Compile Include="Migrations\201904032105513_initialize.cs" />
     <Compile Include="Migrations\201904032105513_initialize.Designer.cs">
       <DependentUpon>201904032105513_initialize.cs</DependentUpon>
@@ -73,9 +78,10 @@
     <Compile Include="Models\Chatroom.cs" />
     <Compile Include="Models\ChatStorage.cs" />
     <Compile Include="Models\Claim.cs" />
-    <Compile Include="Models\ErrorCollection.cs" />
+    <Compile Include="Models\ErrorLogs.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\TelemetryLogs.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ChatRoomRepository.cs" />
