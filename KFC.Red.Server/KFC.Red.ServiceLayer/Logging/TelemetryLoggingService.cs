@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
-using KFC.RED.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.Logging.Interfaces;
-using KFC.RED.DataAccessLayer.DTOs;
 using System.Net.Mail;
 using System.Net;
+using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.DataAccessLayer.Models;
 
 namespace KFC.Red.ServiceLayer.Logging
 {

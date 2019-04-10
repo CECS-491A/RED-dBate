@@ -1,4 +1,4 @@
-namespace KFC.RED.DataAccessLayer.Migrations
+namespace KFC.red.DataAccessLayer.Migrations
 {
     using System;
     using System.Data.Entity;

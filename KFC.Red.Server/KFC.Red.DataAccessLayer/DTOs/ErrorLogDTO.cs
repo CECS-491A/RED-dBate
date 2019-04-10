@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.RED.DataAccessLayer.DTOs
+namespace KFC.Red.DataAccessLayer.DTOs
 {
     public class ErrorLogDTO
     {

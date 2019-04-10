@@ -204,7 +204,7 @@
       <Name>KFC.Red.DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\KFC.Red.ManagerLayer\KFC.Red.ManagerLayer.csproj">
-      <Project>{28413BF6-B380-4010-84E1-7A94A8C43726}</Project>
+      <Project>{28413bf6-b380-4010-84e1-7a94a8c43726}</Project>
       <Name>KFC.Red.ManagerLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\KFC.Red.ServiceLayer\KFC.Red.ServiceLayer.csproj">

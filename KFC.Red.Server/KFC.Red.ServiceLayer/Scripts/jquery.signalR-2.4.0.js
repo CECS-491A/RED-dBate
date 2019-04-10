@@ -686,7 +686,7 @@
             connection._.negotiateRequest = function () {
                 var res,
                     redirects = 0,
-                    MAX_REDIRECTS = 100,
+                    MAX_redIRECTS = 100,
                     keepAliveData,
                     protocolError,
                     transports = [],
@@ -747,7 +747,7 @@
                                 return;
                             }
                             else if (res.RedirectUrl) {
-                                if (redirects === MAX_REDIRECTS) {
+                                if (redirects === MAX_redIRECTS) {
                                     onFailed(signalR._.error(resources.errorRedirectionExceedsLimit), connection);
                                     return;
                                 }

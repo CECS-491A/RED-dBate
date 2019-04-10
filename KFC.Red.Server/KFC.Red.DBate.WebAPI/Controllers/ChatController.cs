@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.ChatroomManager;
 using KFC.Red.ServiceLayer.ChatRoom;
-using KFC.RED.DataAccessLayer.Models;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {

@@ -1,10 +1,10 @@
 ﻿using KFC.Red.ServiceLayer.Logging;
 using System.Collections.Generic;
 using System.Web.Http;
-using KFC.RED.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.Logging;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using KFC.Red.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
@@ -22,7 +22,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         public IHttpActionResult CreateErrorLog()
         {
             ErrorLoggingService ls = new ErrorLoggingService();
-            ls.CreateErrorLog();
+            //ls.CreateErrorLog();
             return Ok();
         }
 

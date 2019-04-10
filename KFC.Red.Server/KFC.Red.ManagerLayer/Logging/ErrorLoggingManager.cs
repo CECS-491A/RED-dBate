@@ -1,6 +1,6 @@
 ﻿using KFC.Red.ServiceLayer.Logging;
-using KFC.RED.DataAccessLayer.DTOs;
-using KFC.RED.DataAccessLayer.Models;
+using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.DataAccessLayer.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;

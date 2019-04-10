@@ -2,7 +2,6 @@
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.ChatRoom;
 using KFC.Red.ServiceLayer.ChatRoom.Interface;
-using KFC.RED.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

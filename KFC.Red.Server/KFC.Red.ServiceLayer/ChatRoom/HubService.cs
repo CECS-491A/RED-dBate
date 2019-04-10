@@ -1,5 +1,4 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
-using KFC.RED.DataAccessLayer.Models;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KFC.Red.DataAccessLayer.Models;
 
 namespace KFC.Red.ServiceLayer.ChatRoom
 {
