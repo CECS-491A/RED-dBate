@@ -3,17 +3,17 @@
    <v-container fluid grid-list-xl>
   <v-layout row wrap>
     <v-flex sm3 offset-xs1 class="scrollable">
-      <v-heading>Team Members</v-heading>
+      <h1>Team Members</h1>
       <players></players>
     </v-flex>
 
     <v-flex sm3 offset-xs1 class="scrollable">
-      <v-heading>Moderator</v-heading>
+      <h1>Moderator</h1>
       <players></players>
     </v-flex>
 
     <v-flex sm3 offset-xs1 class="scrollable">
-      <v-heading>Opposing Team</v-heading>
+      <h1>Opposing Team</h1>
       <players></players>
     </v-flex>
   </v-layout
@@ -21,94 +21,79 @@
   <v-layout>
     <v-flex sm4 offset-xs1 style="position: relative;">
       <v-toolbar-title>Group Chat Room</v-toolbar-title>
-      <div class="chat-container" v-on:scroll="onScroll" ref="chatContainer" >
+      <div class="chat-container" ref="chatContainer" >
+      
       </div>
       <div class="typer">
         <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
-        <v-btn icon class="blue--text emoji-panel" @click="toggleEmojiPanel">
-          <v-icon>mood</v-icon>
-        </v-btn>
       </div>
     </v-flex>
 
     <v-flex sm8 offset-xs1 style="position: relative;">      
-      <v-toolbar-title>Question: {{question}}</v-toolbar-title>
-      <div class="chat-container" v-on:scroll="onScroll" ref="chatContainer" >
+      <v-toolbar-title>Question: {{this.question}}</v-toolbar-title>
+      <div class="chat-container" ref="chatContainer" >
+        <ul v-if="messages">
+          <li v-for="item in messages"> <strong>{{item.username}}</strong> : {{item.message}}</li>
+        </ul>
       </div>
       <div class="typer">
         <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
-        <v-btn icon class="blue--text emoji-panel" @click="toggleEmojiPanel">
-          <v-icon>mood</v-icon>
-        </v-btn>
       </div>
     </v-flex>
   </v-layout>
    </v-container>
 </template>
 <script>
-  //import Message from './Message.vue'
-  //import EmojiPicker from './EmojiPicker.vue'
+  import axios from "axios"
   import Players from '@/components/reusable-components/Players.vue'
-  //import * as firebase from 'firebase'
+  import $ from 'jquery'
+  import 'ms-signalr-client-jquery-3'
+
   export default {
     data () {
       return {
         question: '',
-        dialogm1: '',
-        dialog: false,
+        messages: [],
         content: '',
-        chatMessages: [],
-        emojiPanel: false,
-        currentRef: {},
-        loading: false,
-        totalChatHeight: 0
+        chathub: $.connection.DBateChatHub,
+        username: '',
+        users: []
       }
     },
-    props: [
-      'id'
-    ],
     mounted () {
-      this.loadChat()
-      this.$store.dispatch('loadOnlineUsers')
+      //this.username = localStorage.getItem('username')
+      //let that = this
+      //this.connection = $.hubConnection('http://localhost:5000/signalr')
+      //this.proxy = this.connection.createHubProxy('DBateChatHub')
+      this.randomQuestion()
     },
     components: {
-      //'message': Message,
-      //'emoji-picker': EmojiPicker,
       'players': Players
     },
-    computed: {
-      messages () {
-      },
-      username () {
-      },
-      onChildAdded () {
-
-      }
-    },
-    watch: {
-      '$route.params.id' (newId, oldId) {
-        this.currentRef.off('child_added', this.onChildAdded)
-        this.loadChat()
-      }
-    },
     methods: {
-      loadChat () {
-      },
-      onScroll () {
-      },
-      processMessage (message) {
-      },
       sendMessage () {
-        
+        const url = 'http://localhost:5000/api/chat/postmessage'
+        //const url = ''
+        axios.post(url,{
+          Id: 1,
+          UserId: 1111,
+          Username: 'Bill',
+          Message: 'hi' ,
+          DateTime: '2/2/22'
+        }).then(msg => {
+          this.username = 'bill'
+          this.message = 'hi'
+          this.messages.push(this.username,this.messages)
+          console.log(msg + "h")
+        })
+        .catch(e => {console.log("error: " + e)});
       },
-      scrollToEnd () {
-      
-      },
-      scrollTo () {
-      },
-      addMessage (emoji) {
-      },
-      toggleEmojiPanel () {      
+      randomQuestion () {
+        //const url ='http://localhost:5000/api/question/randomquestion'
+        const url = 'https://thedbate.azurewebsites.net/backend/api/question/randomquestion';
+        axios.get(url)
+        .then(qst => {this.question = qst.data; console.log(this.question + "ddd")})
+        .catch(e => {console.log("error: " + e.data)}) 
       }
     }
   }
