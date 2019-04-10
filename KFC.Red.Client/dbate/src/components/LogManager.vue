@@ -19,12 +19,6 @@
               </v-layout>
             </v-container>
           </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
-          </v-card-actions>
         </v-card>
       </v-dialog>
     </v-toolbar>
@@ -47,14 +41,14 @@
 
           <v-icon
             small
-            @click="deleteItem(props.item)"
+            @click="deleteLogError(props.item)"
           >
             delete
           </v-icon>
         </td>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <v-btn color="primary" @click="initializeLogErrors">Reset</v-btn>
       </template>
     </v-data-table>
     
@@ -78,12 +72,6 @@
               </v-layout>
             </v-container>
           </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
-          </v-card-actions>
         </v-card>
       </v-dialog>
     </v-toolbar>
@@ -106,15 +94,15 @@
 
           <v-icon
             small
-            @click="deleteItem(props.item)"
+            @click="deleteTelemetry(props.item)"
           >
             delete
           </v-icon>
         </td>
       </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
-      </template>
+      <!--<template v-slot:no-data>
+        <v-btn color="primary" @click="initializeTelemetryLogs">Reset</v-btn>
+      </template>-->
     </v-data-table>
 
   </div>
@@ -156,18 +144,19 @@ import axios from "axios"
     },
 
     created () {
-      this.initialize()
-      this.initialize2()
+      this.initializeLogErrors()
+      //this.initializeTelemetryLogs()
     },
 
     methods: {
-      initialize () {
+      initializeTelemetryLogs () {
           var ldata
           var size
           const url = `http://localhost:5000/api/errorlog/displaylogs`;
           axios.get(url).then(logData =>{
             ldata = logData.data
-            size = ldata.length           
+            size = ldata.length
+            //console.log(logData.data.data)           
             for(var i = 0; i<size;i++){
               var logItem = {
                 tlogID: i+1,
@@ -183,7 +172,7 @@ import axios from "axios"
           })
       },
 
-      initialize2 () {
+      initializeLogErrors () {
           var ldata
           var size
           const url = `http://localhost:5000/api/errorlog/displaylogs`;
@@ -192,6 +181,7 @@ import axios from "axios"
             size = ldata.length           
             for(var i = 0; i<size;i++){
               var logItem = {
+                logObjectID: ldata[i].Id,
                 logID: i+1,
                 logDate: ldata[i].Date, 
                 logError: ldata[i].Error,
@@ -203,27 +193,26 @@ import axios from "axios"
             }
           })
       },
-
-      deleteItem (item) {
+      deleteLogError (item) {
         const index = this.logs.indexOf(item)
+        const url = 'http://localhost:5000/api/errorlog/deletelog'
+        console.log(item.logObjectID)
+        axios.post(url,
+        {
+          id: item.logObjectID
+        }).then(q =>{console.log(q.data + "ff")})
+        .catch(e => {alert(e.data)})
         confirm('Are you sure you want to delete this item?') && this.logs.splice(index, 1)
       },
-
-      close () {
-        this.dialog = false
-        setTimeout(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        }, 300)
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.logs[this.editedIndex], this.editedItem)
-        } else {
-          this.logs.push(this.editedItem)
-        }
-        this.close()
+      deleteTelemetry (item) {
+        /*const index = this.tlogs.indexOf(item)
+        const url = 'http://localhost:5000/api/question/delete'
+        axios.post(url,
+        {
+          QuestionString: item.question
+        }).then(q =>{console.log(q.data)})
+        .catch(e => {alert(e.data)})
+        confirm('Are you sure you want to delete this item?') && this.questions.splice(index, 1)*/
       }
     }
   }
