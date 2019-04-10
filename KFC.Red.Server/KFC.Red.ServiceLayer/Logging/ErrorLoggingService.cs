@@ -16,6 +16,7 @@ namespace KFC.Red.ServiceLayer.Logging
         public MongoClient Client { get; set; }
         public IMongoDatabase database { get; set; }
         public IMongoCollection<ErrorLogDTO> _logCollection;
+        public int failedLogs;
 
         public ErrorLoggingService()
         {
@@ -82,7 +83,7 @@ namespace KFC.Red.ServiceLayer.Logging
             myDoc.InsertOne(errorLog);
         }
 
-        public void CreateErrorLog()
+        public void CreateErrorLog(Exception ex)
         {
             ErrorLogs errorLog = new ErrorLogs();
             BsonDocument log = new BsonDocument();
@@ -90,43 +91,45 @@ namespace KFC.Red.ServiceLayer.Logging
 
             try
             {
-                int zero = 0;
-                int result = 5 / zero;
-            }
-            catch (DivideByZeroException ex)
-            {
                 BsonElement date = new BsonElement("date", errorLog.Date);
                 BsonElement error = new BsonElement("error", ex.Message.ToString());
                 BsonElement target = new BsonElement("target", ex.TargetSite.ToString());
                 BsonElement currentLoggedUser = new BsonElement("loggedInUser", "Jane Doe");
                 BsonElement userRequest = new BsonElement("userRequest", "click event");
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+                
+                myDoc.InsertOne(log);
             }
-            
-            //Email Notification
-            //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-            MailMessage mail = new MailMessage();
+            catch (MongoConnectionException e)
+            {
+                if (failedLogs <= 100)
+                {
+                    //Email Notification
+                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
+                    MailMessage mail = new MailMessage();
 
-            mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
+                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
 
-            SmtpClient smtp = new SmtpClient();
-            smtp.Port = 587;
-            smtp.EnableSsl = true;
-            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-            smtp.Host = "smtp.mail.yahoo.com";
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
+                    smtp.Host = "smtp.mail.yahoo.com";
 
-            //Replace with admin address
-            mail.To.Add(new MailAddress("caytkid1@gmail.com"));
+                    //Replace with admin address
+                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
 
-            mail.IsBodyHtml = true;
-            mail.Subject = "Test Subject";
-            mail.Body = "Test Message";
-            smtp.Send(mail);
-            //
+                    mail.IsBodyHtml = true;
+                    mail.Subject = "Test Subject";
+                    mail.Body = "Test Message";
+                    smtp.Send(mail);
 
-            myDoc.InsertOne(log);
+                    //Reset counter
+                    failedLogs = 0;
+                }
+            }
         }
 
         public void DeleteErrorLog(BsonDocument log)
