@@ -16,8 +16,8 @@ export default {
   },
   mounted(){
     //axios.get('http://localhost/backend/api/home').then(msg2 => {this.msg2 = msg2.data; console.log(this.msg2);})
-    //axios.get('http://localhost:5000/api/home').then(msg => {this.msg = msg.data; console.log(this.msg);})
-    axios.get('https://thedbate.azurewebsites.net/backend/api/home').then(msg2 => {this.msg2 = msg2.data; console.log(this.msg2);})
+    axios.get('http://localhost:5000/api/home').then(msg => {this.msg = msg.data; console.log(this.msg);})
+    //axios.get('https://thedbate.azurewebsites.net/backend/api/home').then(msg2 => {this.msg2 = msg2.data; console.log(this.msg2);})
   }
 }
 </script>

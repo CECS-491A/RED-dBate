@@ -10,7 +10,7 @@ namespace KFC.Red.DataAccessLayer.Models
     {
         public TelemetryLogs()
         {
-            Date = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
+            Date = DateTime.Now.ToString("mm/dd/yyyy hh:mm tt");
 
         }
 
@@ -19,7 +19,6 @@ namespace KFC.Red.DataAccessLayer.Models
         public DateTime PageVisit { get; set; }
         public DateTime FunctionalityExecution { get; set; }
         public int Id { get; set; }
-        public string Error { get; set; }
         public string Date { get; set; }
         public string IPAddress { get; set; }
         public string Location { get; set; }
