@@ -19,9 +19,8 @@ namespace KFC.Red.DataAccessLayer.Models
         public DateTime PageVisit { get; set; }
         public DateTime FunctionalityExecution { get; set; }
         public int Id { get; set; }
+        public string Error { get; set; }
         public string Date { get; set; }
-        public string CurrentLoggedInUser { get; set; }
-        public string UserRequest { get; set; }
         public string IPAddress { get; set; }
         public string Location { get; set; }
     }

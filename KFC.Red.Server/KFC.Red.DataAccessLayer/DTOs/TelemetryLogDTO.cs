@@ -19,13 +19,23 @@ namespace KFC.Red.DataAccessLayer.DTOs
         [BsonElement("error")]
         public string Error { get; set; }
 
-        [BsonElement("target")]
-        public string LineofCode { get; set; }
+        [BsonElement("userLogin")]
+        public string UserLogin { get; set; }
 
-        [BsonElement("loggedInUser")]
-        public string CurrentLoggedInUser { get; set; }
+        [BsonElement("userLogout")]
+        public string UserLogout { get; set; }
 
-        [BsonElement("userRequest")]
-        public string UserRequest { get; set; }
+        [BsonElement("pageVisit")]
+        public string PageVisit { get; set; }
+
+        [BsonElement("funtionalityExecution")]
+        public string FunctionalityExecution { get; set; }
+
+        [BsonElement("IPAddress")]
+        public string IPAddress { get; set; }
+
+        [BsonElement("Location")]
+        public string Location { get; set; }
+
     }
 }

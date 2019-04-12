@@ -54,20 +54,31 @@ namespace KFC.Red.ServiceLayer.Logging
             myDoc.InsertOne(telemetryLog);
         }
 
-        public void CreateTelemetryLog(Exception ex)
+        public void CreateTelemetryLog()
         {
             TelemetryLogs telemetryLog = new TelemetryLogs();
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = GetCollection("CustomLog");
+            IMongoCollection<BsonDocument> myDoc = GetCollection("TelemetryLogs");
 
             try
-            {
+            {/*
                 BsonElement date = new BsonElement("date", telemetryLog.Date);
-                BsonElement error = new BsonElement("error", ex.Message.ToString());
-                BsonElement target = new BsonElement("target", ex.TargetSite.ToString());
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "Jane Doe");
-                BsonElement userRequest = new BsonElement("userRequest", "click event");
-                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+                BsonElement userlogin = new BsonElement("userLogin", telemetryLog.Date);
+                BsonElement userlogout = new BsonElement("userLogout", telemetryLog.Date);
+                BsonElement functionalityexecution = new BsonElement("clickevent", telemetryLog.Date);
+                BsonElement pagevisit = new BsonElement("pageVisit", telemetryLog.Date);
+                BsonElement ipaddress = new BsonElement("IPAddress", ex.TargetSite.ToString());
+                BsonElement location = new BsonElement("location", ex.TargetSite.ToString());*/
+                BsonElement date = new BsonElement("date", "04/06/2019 11:29 PM");
+                BsonElement userlogin = new BsonElement("userLogin", "04/06/2019 11:29 PM");
+                BsonElement userlogout = new BsonElement("userLogout", "04/06/2019 11:29 PM");
+                BsonElement functionalityexecution = new BsonElement("clickevent", "04/06/2019 11:29 PM");
+                BsonElement pagevisit = new BsonElement("pageVisit", "04/06/2019 11:29 PM");
+                BsonElement ipaddress = new BsonElement("IPAddress", "198.165.50.90");
+                BsonElement location = new BsonElement("location", "ClickMethod()");
+
+                log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
+                log.Add(location); 
 
                 myDoc.InsertOne(log);
             }

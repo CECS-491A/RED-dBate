@@ -3,6 +3,7 @@ using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -10,12 +11,13 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class TelemetryLogController : ApiController
     {
-        [HttpPost]
+        [HttpGet]
         [Route("api/telemetrylog/createtelemetrylog")]
         public IHttpActionResult CreateTelemetryLog()
         {
             TelemetryLoggingService ls = new TelemetryLoggingService();
             //ls.CreateTelemetryLog();
+            ls.CreateTelemetryLog();
             return Ok("create telemetry logs");
         }
 
