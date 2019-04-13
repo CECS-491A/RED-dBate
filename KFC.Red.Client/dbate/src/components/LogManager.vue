@@ -29,13 +29,13 @@
     >
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
-        <td class="text-xs-center">{{ props.item.logID }}</td>
-        <td class="text-xs-center">{{ props.item.logDate }}</td>
-        <td class="text-xs-center">{{ props.item.logError }}</td>
-        <td class="text-xs-center">{{ props.item.logTarget }}</td>
-        <td class="text-xs-center">{{ props.item.loggedUser }}</td>
-        <td class="text-xs-center">{{ props.item.CurrentLoggedInUser }}</td>
-        <td class="text-xs-center">{{ props.item.loggedUserRequest }}</td>
+        <td class="text-xs-right">{{ props.item.logID }}</td>
+        <td class="text-xs-right">{{ props.item.logDate }}</td>
+        <td class="text-xs-right">{{ props.item.logError }}</td>
+        <td class="text-xs-right">{{ props.item.logTarget }}</td>
+        <td class="text-xs-right">{{ props.item.loggedUser }}</td>
+        <td class="text-xs-right">{{ props.item.CurrentLoggedInUser }}</td>
+        <td class="text-xs-right">{{ props.item.loggedUserRequest }}</td>
         
         <td class="justify-center layout px-0">
 
@@ -74,10 +74,11 @@
     </v-toolbar>
 
     <v-data-table
-      :headers="headers"
+      :headers="headers2"
       :items="tlogs"
       class="elevation-1"
     >
+    
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td class="text-xs-center">{{ props.item.tlogID }}</td>
@@ -106,17 +107,32 @@ import axios from "axios"
 
   export default {
     data: () => ({
-      dialog: false,
       headers: [
         {
           text: 'Log',
           align: 'left',
-          sortable: false,
           value: 'name'
         },
-        { text: 'log ID', value: 'logID' },
-        { text: 'log', value: 'log' },
+        { text: 'Date', value: 'date' },
+        { text: 'Error', value: 'error' },
+        { text: 'Target', value: 'target' },
+        { text: 'User', value: 'user' },
+        { text: 'UserRequest', value: 'userrequest' },
       ],
+
+      headers2: [
+        {
+          text: 'TLog',
+          align: 'left',
+          value: 'name'
+        },
+        { text: 'Date', value: 'date' }, 
+        { text: 'DateUserLogout', value: 'dateuserlogout' },
+        { text: 'DateUserPagevisit', value: 'dateuserpagevisit' },
+        { text: 'IPAddress', value: 'ipaddress' },
+        { text: 'Location', value: 'location' }
+      ],
+      
       logs: [],
       tlogs: [],
       editedIndex: -1,
