@@ -67,12 +67,12 @@ namespace KFC.Red.ServiceLayer.Logging
                 BsonElement functionalityexecution = new BsonElement("clickevent", telemetryLog.Date);
                 BsonElement pagevisit = new BsonElement("pageVisit", telemetryLog.Date);
                 BsonElement ipaddress = new BsonElement("IPAddress", ex.TargetSite.ToString());
-                BsonElement location = new BsonElement("location", ex.TargetSite.ToString());*/
-                BsonElement date = new BsonElement("date", "04/06/2019 11:29 PM");
-                BsonElement userlogin = new BsonElement("userLogin", "04/06/2019 11:29 PM");
-                BsonElement userlogout = new BsonElement("userLogout", "04/06/2019 11:29 PM");
-                BsonElement functionalityexecution = new BsonElement("clickevent", "04/06/2019 11:29 PM");
-                BsonElement pagevisit = new BsonElement("pageVisit", "04/06/2019 11:29 PM");
+                /*BsonElement location = new BsonElement("location", ex.TargetSite.ToString());*/
+                BsonElement date = new BsonElement("date", "05/06/2019 12:29 PM");
+                BsonElement userlogin = new BsonElement("userLogin", "03/06/2019 01:29 PM");
+                BsonElement userlogout = new BsonElement("userLogout", "03/06/2019 11:29 PM");
+                BsonElement functionalityexecution = new BsonElement("clickevent", "04/06/2019 04:29 PM");
+                BsonElement pagevisit = new BsonElement("pageVisit", "04/06/2019 11:40 PM");
                 BsonElement ipaddress = new BsonElement("IPAddress", "198.165.50.90");
                 BsonElement location = new BsonElement("location", "ClickMethod()");
 

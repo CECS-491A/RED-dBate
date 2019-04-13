@@ -138,6 +138,7 @@ import axios from "axios"
     created () {
       this.initializeErrorLogs()
       this.initializeTelemetryLogs()
+      //this.initializeTelemetryLogs()
     },
 
     methods: {
@@ -147,8 +148,7 @@ import axios from "axios"
           const url = `http://localhost:5000/api/telemetrylog/displaylogs`;
           axios.get(url).then(logData =>{
             ldata = logData.data
-            size = ldata.length
-            //console.log(logData.data.data)           
+            size = ldata.length    
             for(var i = 0; i<size;i++){
               var logItem = {
                 tlogID: i+1,
@@ -197,16 +197,6 @@ import axios from "axios"
         }).then(q =>{console.log(q.data + "ff")})
         .catch(e => {alert(e.data)})
         confirm('Are you sure you want to delete this item?') && this.logs.splice(index, 1)
-      },
-      deleteTelemetry (item) {
-        /*const index = this.tlogs.indexOf(item)
-        const url = 'http://localhost:5000/api/question/delete'
-        axios.post(url,
-        {
-          QuestionString: item.question
-        }).then(q =>{console.log(q.data)})
-        .catch(e => {alert(e.data)})
-        confirm('Are you sure you want to delete this item?') && this.questions.splice(index, 1)*/
       }
     }
   }
