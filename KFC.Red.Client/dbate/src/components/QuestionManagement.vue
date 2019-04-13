@@ -99,8 +99,8 @@ import axios from "axios"
       initialize () {
           var qdata
           var size
-          //const url = `http://localhost:5000/api/question/getquestions`;
-          const url = `https://thedbate.azurewebsites.net/backend/api/question/getquestions`;
+          const url = `http://localhost:5000/api/question/getquestions`;
+          //const url = `https://thedbate.azurewebsites.net/backend/api/question/getquestions`;
           axios.get(url).then(questData =>{
             qdata = questData.data
             size = qdata.length           
@@ -116,8 +116,8 @@ import axios from "axios"
       },
       deleteItem (item) {
         const index = this.questions.indexOf(item)
-          //const url = 'http://localhost:5000/api/question/delete'
-          const url = `https://thedbate.azurewebsites.net/backend/api/question/delete`
+          const url = 'http://localhost:5000/api/question/delete'
+          //const url = `https://thedbate.azurewebsites.net/backend/api/question/delete`
           axios.post(url,
           {
             QuestionString: item.question
@@ -136,8 +136,8 @@ import axios from "axios"
         }
 
         console.log(this.editedItem.questionID + " " + this.editedItem.question)
-          //const url = 'http://localhost:5000/api/question/add'
-          const url = `https://thedbate.azurewebsites.net/backend/api/question/add`
+          const url = 'http://localhost:5000/api/question/add'
+          //const url = `https://thedbate.azurewebsites.net/backend/api/question/add`
           axios.post(url,
           {
             QuestionString: this.editedItem.question

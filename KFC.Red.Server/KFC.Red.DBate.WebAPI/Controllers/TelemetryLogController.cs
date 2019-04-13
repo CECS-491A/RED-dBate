@@ -1,37 +1,35 @@
-﻿using KFC.Red.DataAccessLayer.DTOs;
-using KFC.Red.DataAccessLayer.Models;
-using KFC.Red.ServiceLayer.Logging;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
+﻿using KFC.Red.ServiceLayer.Logging;
 using System.Collections.Generic;
 using System.Web.Http;
+using KFC.Red.ManagerLayer.Logging;
+using System.Threading.Tasks;
+using MongoDB.Bson;
+using KFC.Red.DataAccessLayer.DTOs;
+using System.Web.Http.Cors;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class TelemetryLogController : ApiController
     {
+
+        //MIGHT NOT BE NEEDED
         [HttpGet]
         [Route("api/telemetrylog/createtelemetrylog")]
         public IHttpActionResult CreateTelemetryLog()
         {
             TelemetryLoggingService ls = new TelemetryLoggingService();
-            //ls.CreateTelemetryLog();
             ls.CreateTelemetryLog();
-            return Ok("create telemetry logs");
+            return Ok("telemetry log created");
         }
 
         [HttpGet]
         [Route("api/telemetrylog/displaylogs")]
-        public async System.Threading.Tasks.Task<List<TelemetryLogDTO>> DisplayErrorLogsAsync()
+        public async Task<List<TelemetryLogDTO>> DisplayTelemetryLogsAsync()
         {
-            TelemetryLogs t = new TelemetryLogs();
-            TelemetryLoggingService ls = new TelemetryLoggingService();
-            var collection = ls.GetCollection("CustomLog1");
-            var count = await collection.CountDocumentsAsync(new BsonDocument());
-            //var documents = await ls._tlogCollection.Find(new BsonDocument()).ToListAsync();
-            //return documents;
-            return null;
+            TelemetryLoggingManager element = new TelemetryLoggingManager();
+            var documents = element.DisplayTelemetryLogsAsync();
+
+            return await documents;
         }
 
         [HttpGet]
@@ -42,5 +40,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             //ls.DeleteLog();
             return Ok("counting message");
         }
+
     }
 }

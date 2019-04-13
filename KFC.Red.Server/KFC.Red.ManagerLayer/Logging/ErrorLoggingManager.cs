@@ -15,7 +15,6 @@ namespace KFC.Red.ManagerLayer.Logging
     {
         public async Task<List<ErrorLogDTO>> DisplayErrorLogsAsync()
         {
-            ErrorLogs e = new ErrorLogs();
             ErrorLoggingService ls = new ErrorLoggingService();
             var collection = ls.GetCollection("CustomLog1");
             var count = await collection.CountDocumentsAsync(new BsonDocument());

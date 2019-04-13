@@ -15,9 +15,8 @@ namespace KFC.Red.ManagerLayer.Logging
     {
         public async Task<List<TelemetryLogDTO>> DisplayTelemetryLogsAsync()
         {
-            TelemetryLogs e = new TelemetryLogs();
             TelemetryLoggingService ls = new TelemetryLoggingService();
-            var collection = ls.GetCollection("CustomLog1");
+            var collection = ls.GetCollection("CustomLog");
             var count = await collection.CountDocumentsAsync(new BsonDocument());
             var documents = await ls._tlogCollection.Find(new BsonDocument()).ToListAsync();
 

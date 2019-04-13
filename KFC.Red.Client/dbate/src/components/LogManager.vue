@@ -47,9 +47,6 @@
           </v-icon>
         </td>
       </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initializeLogErrors">Reset</v-btn>
-      </template>
     </v-data-table>
     
     
@@ -84,20 +81,15 @@
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td class="text-xs-center">{{ props.item.tlogID }}</td>
+        <td class="text-xs-center">{{ props.item.tDate }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserLogin }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserLogout }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserPageVisit }}</td>
-        <td class="text-xs-center">{{ props.item.tDateUserFunct }}</td>
-        <td class="text-xs-center">{{ props.item.tIP }}</td>
-        <td class="text-xs-center">{{ props.item.tLoc }}</td>
+        <td class="text-xs-center">{{ props.item.tDateUserFunctionalityExecution }}</td>
+        <td class="text-xs-center">{{ props.item.tIPAddress }}</td>
+        <td class="text-xs-center">{{ props.item.tLocation   }}</td>
         <td class="justify-center layout px-0">
 
-          <v-icon
-            small
-            @click="deleteTelemetry(props.item)"
-          >
-            delete
-          </v-icon>
         </td>
       </template>
       <!--<template v-slot:no-data>
@@ -144,15 +136,15 @@ import axios from "axios"
     },
 
     created () {
-      this.initializeLogErrors()
-      //this.initializeTelemetryLogs()
+      this.initializeErrorLogs()
+      this.initializeTelemetryLogs()
     },
 
     methods: {
       initializeTelemetryLogs () {
           var ldata
           var size
-          const url = `http://localhost:5000/api/errorlog/displaylogs`;
+          const url = `http://localhost:5000/api/telemetrylog/displaylogs`;
           axios.get(url).then(logData =>{
             ldata = logData.data
             size = ldata.length
@@ -160,19 +152,21 @@ import axios from "axios"
             for(var i = 0; i<size;i++){
               var logItem = {
                 tlogID: i+1,
-                tDateUserLogin: ldata[i].tDateUserLogin, 
-                tDateUserLogout: ldata[i].tDateUserLogout,
-                tDateUserPageVisit: ldata[i].tDateUserPageVisit,
-                tDateUserFunct: ldata[i].tDateUserFunct,
-                tIP: ldata[i].tIP,
-                tLoc: ""
+                tlogObjectID: ldata[i].Id,
+                tDate: ldata[i].Date,
+                tDateUserLogin: ldata[i].UserLogin, 
+                tDateUserLogout: ldata[i].UserLogout,
+                tDateUserPageVisit: ldata[i].PageVisit,
+                tDateUserFunctionalityExecution: ldata[i].FunctionalityExecution,
+                tIPAddress: ldata[i].IPAddress,
+                tLocation: ldata[i].Location
               }
               this.tlogs.push(logItem)
             }
           })
       },
 
-      initializeLogErrors () {
+      initializeErrorLogs () {
           var ldata
           var size
           const url = `http://localhost:5000/api/errorlog/displaylogs`;

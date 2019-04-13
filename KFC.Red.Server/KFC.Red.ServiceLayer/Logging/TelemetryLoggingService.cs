@@ -24,7 +24,7 @@ namespace KFC.Red.ServiceLayer.Logging
         {
             Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
             documents = Client.GetDatabase("TelemetryLogging");
-            _tlogCollection = documents.GetCollection<TelemetryLogDTO>("CustomLog1");
+            _tlogCollection = documents.GetCollection<TelemetryLogDTO>("CustomLog");
         }
 
         public List<BsonDocument> GetListOfCollections()
@@ -56,9 +56,8 @@ namespace KFC.Red.ServiceLayer.Logging
 
         public void CreateTelemetryLog()
         {
-            TelemetryLogs telemetryLog = new TelemetryLogs();
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = GetCollection("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = GetCollection("CustomLog");
 
             try
             {/*

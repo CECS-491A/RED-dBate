@@ -87,13 +87,12 @@ namespace KFC.Red.ServiceLayer.Logging
 
         public void CreateErrorLog(Exception ex)
         {
-            ErrorLogs errorLog = new ErrorLogs();
             BsonDocument log = new BsonDocument();
             IMongoCollection<BsonDocument> myDoc = GetCollection("CustomLog1");
 
             try
             {
-                BsonElement date = new BsonElement("date", errorLog.Date);
+                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement error = new BsonElement("error", ex.Message.ToString());
                 BsonElement target = new BsonElement("target", ex.TargetSite.ToString());
                 BsonElement currentLoggedUser = new BsonElement("loggedInUser", "Jane Doe");

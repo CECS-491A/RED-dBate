@@ -89,8 +89,8 @@
         .catch(e => {console.log("error: " + e)});
       },
       randomQuestion () {
-        //const url ='http://localhost:5000/api/question/randomquestion'
-        const url = 'https://thedbate.azurewebsites.net/backend/api/question/randomquestion';
+        const url ='http://localhost:5000/api/question/randomquestion'
+        //const url = 'https://thedbate.azurewebsites.net/backend/api/question/randomquestion';
         axios.get(url)
         .then(qst => {this.question = qst.data; console.log(this.question + "ddd")})
         .catch(e => {console.log("error: " + e.data)}) 
