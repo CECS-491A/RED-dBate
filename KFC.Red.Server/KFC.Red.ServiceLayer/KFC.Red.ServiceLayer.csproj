@@ -93,7 +93,6 @@
     <Compile Include="ChatRoom\HubService.cs" />
     <Compile Include="ChatRoom\Interface\IGameSession.cs" />
     <Compile Include="ChatRoom\MessageIDIncrement.cs" />
-    <Compile Include="Constants\Roles.cs" />
     <Compile Include="Logging\Interfaces\IErrorLoggingService.cs" />
     <Compile Include="Logging\ErrorLoggingService.cs" />
     <Compile Include="Logging\Interfaces\ITelemetryLoggingService.cs" />
@@ -102,6 +101,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionManagement\Interfaces\IQuestionService.cs" />
     <Compile Include="QuestionManagement\QuestionService.cs" />
+    <Compile Include="SessionService\ISession.cs" />
+    <Compile Include="SessionService\SessionServ.cs" />
+    <Compile Include="TokenService\Interface\IToken.cs" />
+    <Compile Include="TokenService\TokenService.cs" />
     <Compile Include="UserManagement\Interfaces\IUserService.cs" />
     <Compile Include="UserManagement\UserService.cs" />
   </ItemGroup>
@@ -122,5 +125,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

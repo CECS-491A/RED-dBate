@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace KFC.Red.ManagerLayer.UserManagement
 {
-    public class UserManagement
+    public class UserManager
     {
         //private IPasswordService _passwordService;
         private IUserService _userService;
 
-        public UserManagement()
+        public UserManager()
         {
             _userService = new UserService();
         }

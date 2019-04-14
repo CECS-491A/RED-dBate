@@ -11,7 +11,7 @@ namespace KFC.Red.ServiceLayer.ChatRoom.Interface
     public interface IGameSession
     {
         GameSession CreateGameSession(ApplicationDbContext _db, GameSession gamesession);
-        GameSession GetGameSession(ApplicationDbContext _db, GameSession gamesession);
+        GameSession GetGameSession(ApplicationDbContext _db, string token);
         GameSession GetGameSession(ApplicationDbContext _db, int Id);
         GameSession DeleteGameSession(ApplicationDbContext _db, int Id);
         GameSession DeleteGameSession(ApplicationDbContext _db, GameSession gamesession);

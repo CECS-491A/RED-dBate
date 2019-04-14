@@ -10,11 +10,13 @@ namespace KFC.Red.DataAccessLayer.Models
 {
     public class Session
     {
+        public static readonly int MINUTES_UNTIL_EXPIRATION = 30;
+
         public int Id { get; set; }
         public string Token { get; set; }
 
         public DateTime CreateTime { get; set; } = DateTime.UtcNow;
-        public DateTime DeleteTime { get; set; } = DateTime.UtcNow;
+        public DateTime DeleteTime { get; set; } = DateTime.UtcNow.AddMinutes(MINUTES_UNTIL_EXPIRATION);
         public DateTime UpdateTime { get; set; } = DateTime.UtcNow;
 
         [ForeignKey("User")]

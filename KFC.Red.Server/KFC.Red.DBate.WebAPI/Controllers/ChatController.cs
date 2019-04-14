@@ -23,21 +23,22 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             _Increment = new MessageIDIncrement();
         }
         
+        /*
         [HttpGet]
         [Route("api/chat/getmessages")]
         public List<ChatMessage> GetMessages()
         {
             return _GameSessionManager.GetSessionMessages();
         }
+        */
 
         [HttpPost]
         [Route("api/chat/postmessage")]
         public IHttpActionResult PostMessage(ChatMessage chatMsg)
         {
-            chatMsg.Id = _Increment.IncrementID();
+            //chatMsg.Id = _Increment.IncrementID();
             //chatMsg.DateTime = DateTime.Now;
-            _GameSessionManager.AddMessage(chatMsg);
-            
+            //_GameSessionManager.AddMessage(chatMsg);
             _ChatHub.SendMessage(chatMsg);
             return Ok(chatMsg);
         }
@@ -45,12 +46,11 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/chat/getusers")]
-        public List<string> GetUsers(string username)
+        public List<string> GetUsers(int gid)
         {
-            _GameSessionManager.AddUser(username);
-            _ChatHub.SendUserList(_GameSessionManager.GetSessionUsers());
-            return _GameSessionManager.GetSessionUsers();
-            
+            //_GameSessionManager.AddUser(username);
+            _ChatHub.SendUserList(_GameSessionManager.GetGameUsers(gid));
+            return _GameSessionManager.GetGameUsers(gid);
         }
     }
 }

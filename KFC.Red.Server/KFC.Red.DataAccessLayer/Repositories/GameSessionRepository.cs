@@ -41,10 +41,14 @@ namespace KFC.Red.DataAccessLayer.Repositories
             return _db.GameSessions.Find(Id);
         }
 
-        public GameSession GetGameSession(ApplicationDbContext _db, GameSession c)
+        public GameSession GetGameSession(ApplicationDbContext _db, string token)
         {
-            int Id = c.Id;
-            return _db.GameSessions.Find(Id);
+            return _db.GameSessions.Find(token);
+        }
+
+        public UserGameStorage GetUserGameStorage(ApplicationDbContext _db, int id)
+        {
+            return _db.UserGameStorages.Find(id);
         }
 
         public bool ExistingGameSession(ApplicationDbContext _db, GameSession gamesession)
@@ -65,6 +69,14 @@ namespace KFC.Red.DataAccessLayer.Repositories
                 return true;
             }
             return false;
+        }
+
+        public List<UserGameStorage> GetGameStorages(ApplicationDbContext _db, int gid)
+        {
+            var ugs = _db.UserGameStorages
+                .Where(s => s.GId == gid)
+                .ToList();
+            return ugs;
         }
     }
 }

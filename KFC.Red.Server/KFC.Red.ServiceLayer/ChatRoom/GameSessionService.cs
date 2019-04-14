@@ -38,9 +38,9 @@ namespace KFC.Red.ServiceLayer.ChatRoom
             return _GameSessionRepo.DeleteGameSession(_db, gamesession);
         }
 
-        public GameSession GetGameSession(ApplicationDbContext _db, GameSession gamesession)
+        public GameSession GetGameSession(ApplicationDbContext _db, string token)
         {
-            return _GameSessionRepo.GetGameSession(_db, gamesession);
+            return _GameSessionRepo.GetGameSession(_db, token);
         }
 
         public GameSession GetGameSession(ApplicationDbContext _db, int id)
