@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201904050506415_initializeQuest.Designer.cs">
       <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904140943033_add-chatroom-tables.cs" />
+    <Compile Include="Migrations\201904140943033_add-chatroom-tables.Designer.cs">
+      <DependentUpon>201904140943033_add-chatroom-tables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatStorage.cs" />
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904050506415_initializeQuest.resx">
       <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904140943033_add-chatroom-tables.resx">
+      <DependentUpon>201904140943033_add-chatroom-tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
