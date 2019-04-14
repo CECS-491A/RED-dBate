@@ -92,14 +92,15 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
-    <Compile Include="Models\Chatroom.cs" />
     <Compile Include="Models\ChatStorage.cs" />
     <Compile Include="Models\Claim.cs" />
+    <Compile Include="Models\GameSession.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserGameStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ChatRoomRepository.cs" />
+    <Compile Include="Repositories\GameSessionRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
     <Compile Include="Repositories\UserManagementRepository.cs" />

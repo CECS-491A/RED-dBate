@@ -12,13 +12,13 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class ChatController : ApiController
     {
-        private ChatroomManager _ChatManager;
+        private GameSessionManager _GameSessionManager;
         private HubService _ChatHub;
         private MessageIDIncrement _Increment;
 
-        public ChatController(ChatroomManager chatroomManager)
+        public ChatController(GameSessionManager gamesessionManager)
         {
-            _ChatManager = chatroomManager;
+            _GameSessionManager = gamesessionManager;
             _ChatHub = new HubService();
             _Increment = new MessageIDIncrement();
         }
@@ -27,7 +27,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/getmessages")]
         public List<ChatMessage> GetMessages()
         {
-            return _ChatManager.GetSessionMessages();
+            return _GameSessionManager.GetSessionMessages();
         }
 
         [HttpPost]
@@ -36,7 +36,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         {
             chatMsg.Id = _Increment.IncrementID();
             //chatMsg.DateTime = DateTime.Now;
-            _ChatManager.AddMessage(chatMsg);
+            _GameSessionManager.AddMessage(chatMsg);
             
             _ChatHub.SendMessage(chatMsg);
             return Ok(chatMsg);
@@ -47,9 +47,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/getusers")]
         public List<string> GetUsers(string username)
         {
-            _ChatManager.AddUser(username);
-            _ChatHub.SendUserList(_ChatManager.GetSessionUsers());
-            return _ChatManager.GetSessionUsers();
+            _GameSessionManager.AddUser(username);
+            _ChatHub.SendUserList(_GameSessionManager.GetSessionUsers());
+            return _GameSessionManager.GetSessionUsers();
             
         }
     }

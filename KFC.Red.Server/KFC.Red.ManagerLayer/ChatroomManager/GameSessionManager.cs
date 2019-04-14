@@ -1,7 +1,4 @@
-﻿using KFC.Red.DataAccessLayer.Data;
-using KFC.Red.DataAccessLayer.Models;
-using KFC.Red.ServiceLayer.ChatRoom;
-using KFC.Red.ServiceLayer.ChatRoom.Interface;
+﻿using KFC.Red.DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace KFC.Red.ManagerLayer.ChatroomManager
 {
-    public class ChatroomManager
+    public class GameSessionManager
     {
         private ChatStorage _ChatStore;
-        
-        public ChatroomManager(ChatStorage chatStore)
+
+        public GameSessionManager(ChatStorage chatStore)
         {
             _ChatStore = chatStore;
         }
-        
+
         public void AddMessage(ChatMessage chatMsg)
         {
             _ChatStore.MessageList.Add(chatMsg);
-        } 
+        }
 
-        public void AddUser(String Username)
+        public void AddUser(string Username)
         {
             _ChatStore.UserList.Add(Username);
         }
@@ -33,8 +30,8 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
         {
             return _ChatStore.MessageList;
         }
-        
-        public List<String> GetSessionUsers()
+
+        public List<string> GetSessionUsers()
         {
             return _ChatStore.UserList;
         }

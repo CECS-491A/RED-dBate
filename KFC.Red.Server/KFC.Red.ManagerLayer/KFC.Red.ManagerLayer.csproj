@@ -69,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatroomManager\ChatroomManager.cs" />
+    <Compile Include="ChatroomManager\GameSessionManager.cs" />
     <Compile Include="Logging\ErrorLoggingManager.cs" />
     <Compile Include="Logging\TelemetryLoggingManager.cs" />
     <Compile Include="Password\HashFunction.cs" />
