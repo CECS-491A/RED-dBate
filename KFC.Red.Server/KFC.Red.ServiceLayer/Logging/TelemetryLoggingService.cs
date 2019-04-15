@@ -54,27 +54,22 @@ namespace KFC.Red.ServiceLayer.Logging
             myDoc.InsertOne(telemetryLog);
         }
 
-        public void CreateTelemetryLog()
+        public void CreateTelemetryLog(Exception ex)
         {
             BsonDocument log = new BsonDocument();
             IMongoCollection<BsonDocument> myDoc = GetCollection("CustomLog");
 
             try
-            {/*
-                BsonElement date = new BsonElement("date", telemetryLog.Date);
-                BsonElement userlogin = new BsonElement("userLogin", telemetryLog.Date);
-                BsonElement userlogout = new BsonElement("userLogout", telemetryLog.Date);
-                BsonElement functionalityexecution = new BsonElement("clickevent", telemetryLog.Date);
-                BsonElement pagevisit = new BsonElement("pageVisit", telemetryLog.Date);
-                BsonElement ipaddress = new BsonElement("IPAddress", ex.TargetSite.ToString());
-                /*BsonElement location = new BsonElement("location", ex.TargetSite.ToString());*/
-                BsonElement date = new BsonElement("date", "05/06/2019 12:29 PM");
-                BsonElement userlogin = new BsonElement("userLogin", "03/06/2019 01:29 PM");
-                BsonElement userlogout = new BsonElement("userLogout", "03/06/2019 11:29 PM");
-                BsonElement functionalityexecution = new BsonElement("clickevent", "04/06/2019 04:29 PM");
-                BsonElement pagevisit = new BsonElement("pageVisit", "04/06/2019 11:40 PM");
-                BsonElement ipaddress = new BsonElement("IPAddress", "198.165.50.90");
-                BsonElement location = new BsonElement("location", "ClickMethod()");
+            {
+                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement userlogin = new BsonElement("userLogin", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement userlogout = new BsonElement("userLogout", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement functionalityexecution = new BsonElement("functionalityExecution", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement ipaddress = new BsonElement("IPAddress", "some ip");
+                BsonElement location = new BsonElement("location", "some location");
+
+                myDoc.InsertOne(log);
 
                 log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
                 log.Add(location); 
@@ -112,6 +107,30 @@ namespace KFC.Red.ServiceLayer.Logging
                     failedLogs = 0;
                 }
             }
+        }
+
+        /// <summary>
+        /// From mongo shell, this will print client IP:port, along with connection ID:
+        /// 
+        /// passing true to db.currentOp() shows all connections (including idle). 
+        /// The docs have more examples on filtering connections, 
+        /// see: db.currentOp reference and currentOp output fileds with descriptions.
+        /// </summary>
+        /// <param name="myDoc"></param>
+        /// <param name="telemetryLog"></param>
+        public void IPTelemetryLog(IMongoCollection<BsonDocument> myDoc, BsonDocument telemetryLog)
+        {
+            //myDoc.currentOp(true).inprog.forEach(function(d){ if (d.client) print(d.client, d.connectionId)})
+        }
+
+        /// <summary>
+        /// Using geospatial index to find location
+        /// </summary>
+        /// <param name="myDoc"></param>
+        /// <param name="telemetryLog"></param>
+        public void LocationTelemetryLog(IMongoCollection<BsonDocument> myDoc, BsonDocument telemetryLog)
+        {
+            //myDoc.currentOp(true).inprog.forEach(function(d){ if (d.client) print(d.client, d.connectionId)})
         }
 
         public void CountTelemetryLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)

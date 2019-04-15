@@ -25,10 +25,10 @@ namespace KFC.Red.DataAccessLayer.DTOs
         [BsonElement("pageVisit")]
         public string PageVisit { get; set; }
 
-        [BsonElement("clickevent")]
+        [BsonElement("functionalityExecution")]
         public string FunctionalityExecution { get; set; }
 
-        [BsonElement("IPAddress")]
+        [BsonElement("ipAddress")]
         public string IPAddress { get; set; }
 
         [BsonElement("location")]

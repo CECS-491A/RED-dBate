@@ -18,7 +18,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         public IHttpActionResult CreateTelemetryLog()
         {
             TelemetryLoggingService ls = new TelemetryLoggingService();
-            ls.CreateTelemetryLog();
+            //ls.CreateTelemetryLog();
             return Ok("telemetry log created");
         }
 
