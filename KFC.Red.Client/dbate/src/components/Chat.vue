@@ -25,7 +25,7 @@
       
       </div>
       <div class="typer">
-        <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
+        <input type="text" placeholder="Type here...">
       </div>
     </v-flex>
 
@@ -54,10 +54,12 @@
       return {
         question: '',
         messages: [],
-        content: '',
+        content: "",
         chathub: $.connection.DBateChatHub,
-        username: '',
-        users: []
+        username: "",
+        users: [],
+        connection: null,
+        proxy: null
       }
     },
     mounted () {
@@ -65,6 +67,16 @@
       //let that = this
       //this.connection = $.hubConnection('http://localhost:5000/signalr')
       //this.proxy = this.connection.createHubProxy('DBateChatHub')
+      this.connection = $.hubConnection('http://localhost:5000/signalr')
+      this.proxy = this.connection.createHubProxy('DBateChatHub')
+      /*this.proxy.on('messageReceived', (username, message) => {
+        console.log('test')
+        that.messages.push({username:username, message: message })
+      })*/
+      this.connection
+        .start({ })
+        .done(() => { console.log('Now connected') })
+        .fail(() => { console.log('Could not connect') })
       this.randomQuestion()
     },
     components: {
@@ -74,19 +86,21 @@
       sendMessage () {
         const url = 'http://localhost:5000/api/chat/postmessage'
         //const url = ''
-        axios.post(url,{
-          Id: 1,
-          UserId: 1111,
-          Username: 'Bill',
-          Message: 'hi' ,
-          DateTime: '2/2/22'
+        /*axios.post(url,{
+          Username: "Bill",
+          Message: "hi" 
         }).then(msg => {
-          this.username = 'bill'
-          this.message = 'hi'
-          this.messages.push(this.username,this.messages)
+          this.username = "bill"
+          this.content = "hi"
+          this.messages.push(this.username,this.content)
           console.log(msg + "h")
         })
-        .catch(e => {console.log("error: " + e)});
+        .catch(e => {console.log("error: " + e)});*/
+        
+        this.proxy.invoke('send', this.username, this.message)
+        .done(() => { console.log('Invocation of Send succeeded') })
+        .fail(error => { console.log('Invocation of Send failed. Error: ' + error) })
+        this.messages.push({username: this.username, message: this.message })
       },
       randomQuestion () {
         const url ='http://localhost:5000/api/question/randomquestion'

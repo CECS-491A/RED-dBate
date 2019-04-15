@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace KFC.Red.ManagerLayer.UserManagement
 {
-    public class UserManagement
+    public class UserManager
     {
         //private IPasswordService _passwordService;
         private IUserService _userService;
 
-        public UserManagement()
+        public UserManager()
         {
             _userService = new UserService();
         }
@@ -26,6 +26,15 @@ namespace KFC.Red.ManagerLayer.UserManagement
         private ApplicationDbContext CreateDbContext()
         {
             return new ApplicationDbContext();
+        }
+
+        public int CreateUser(User u)
+        {
+            using (var _db = CreateDbContext())
+            {
+                var resp = _userService.CreateUser(_db, u);
+                return _db.SaveChanges();
+            }
         }
 
         public int DeleteUser(User user)

@@ -47,8 +47,5 @@ namespace KFC.Red.DataAccessLayer.Models
 
         public bool IsUserPlaying { get; set; } = false;
 
-        [ForeignKey("Chatroom")]
-        public int ChatroomID { get; set; }
-        public Chatroom Chatroom { get; set; }
     }
 }

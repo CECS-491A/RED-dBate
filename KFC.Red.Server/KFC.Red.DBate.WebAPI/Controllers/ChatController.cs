@@ -7,37 +7,41 @@ using System.Web.Http;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.ChatroomManager;
 using KFC.Red.ServiceLayer.ChatRoom;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class ChatController : ApiController
     {
-        private ChatroomManager _ChatManager;
+        private GameSessionManager _GameSessionManager;
+        private UserGameStorageManager _UGSManager;
         private HubService _ChatHub;
         private MessageIDIncrement _Increment;
 
-        public ChatController(ChatroomManager chatroomManager)
+        public ChatController(GameSessionManager gamesessionManager)
         {
-            _ChatManager = chatroomManager;
+            _UGSManager = new UserGameStorageManager();
+            _GameSessionManager = gamesessionManager;
             _ChatHub = new HubService();
             _Increment = new MessageIDIncrement();
         }
         
+        /*
         [HttpGet]
         [Route("api/chat/getmessages")]
         public List<ChatMessage> GetMessages()
         {
-            return _ChatManager.GetSessionMessages();
+            return _GameSessionManager.GetSessionMessages();
         }
+        */
 
         [HttpPost]
         [Route("api/chat/postmessage")]
-        public IHttpActionResult PostMessage(ChatMessage chatMsg)
+        public IHttpActionResult PostMessage([FromBody] ChatMessageDTO chatMsg)
         {
-            chatMsg.Id = _Increment.IncrementID();
+            //chatMsg.Id = _Increment.IncrementID();
             //chatMsg.DateTime = DateTime.Now;
-            _ChatManager.AddMessage(chatMsg);
-            
+            //_GameSessionManager.AddMessage(chatMsg);
             _ChatHub.SendMessage(chatMsg);
             return Ok(chatMsg);
         }
@@ -45,12 +49,11 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/chat/getusers")]
-        public List<string> GetUsers(string username)
+        public List<string> GetUsers(int gid)
         {
-            _ChatManager.AddUser(username);
-            _ChatHub.SendUserList(_ChatManager.GetSessionUsers());
-            return _ChatManager.GetSessionUsers();
-            
+            //_GameSessionManager.AddUser(username);
+            _ChatHub.SendUserList(_UGSManager.GetGameUsers(gid));
+            return _UGSManager.GetGameUsers(gid);
         }
     }
 }

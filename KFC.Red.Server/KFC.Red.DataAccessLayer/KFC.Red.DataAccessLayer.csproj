@@ -74,8 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\ErrorLogDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
+    <Compile Include="DTOs\LoginManagerDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
     <Compile Include="DTOs\TelemetryLogDTO.cs" />
     <Compile Include="Migrations\201904032105513_initialize.cs" />
@@ -90,18 +92,24 @@
     <Compile Include="Migrations\201904050506415_initializeQuest.Designer.cs">
       <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904140943033_add-chatroom-tables.cs" />
+    <Compile Include="Migrations\201904140943033_add-chatroom-tables.Designer.cs">
+      <DependentUpon>201904140943033_add-chatroom-tables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
-    <Compile Include="Models\Chatroom.cs" />
     <Compile Include="Models\ChatStorage.cs" />
     <Compile Include="Models\Claim.cs" />
+    <Compile Include="Models\GameSession.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserGameStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ChatRoomRepository.cs" />
+    <Compile Include="Repositories\GameSessionRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
+    <Compile Include="Repositories\UserGameStorageRepository.cs" />
     <Compile Include="Repositories\UserManagementRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904050506415_initializeQuest.resx">
       <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904140943033_add-chatroom-tables.resx">
+      <DependentUpon>201904140943033_add-chatroom-tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

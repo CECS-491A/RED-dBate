@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KFC.Red.DataAccessLayer.Models;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.ServiceLayer.ChatRoom
 {
     [HubName("DbateChatHub")]
     public class HubService : Hub
     {
-        public void SendMessage(ChatMessage chatItem)
+        public void SendMessage(ChatMessageDTO chatItem)
         {
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext("DbateChatHub");
-            context.Clients.All.pushNewMessage(chatItem.Id, chatItem.UserId, chatItem.Username, chatItem.Message, chatItem.DateTime);
+            context.Clients.All.pushNewMessage(chatItem.Username, chatItem.Message);
         }
 
 

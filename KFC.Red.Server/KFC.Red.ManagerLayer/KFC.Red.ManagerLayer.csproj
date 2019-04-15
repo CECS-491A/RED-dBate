@@ -69,7 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatroomManager\ChatroomManager.cs" />
+    <Compile Include="ChatroomManager\GameSessionManager.cs" />
+    <Compile Include="ChatroomManager\UserGameStorageManager.cs" />
     <Compile Include="Logging\ErrorLoggingManager.cs" />
     <Compile Include="Logging\TelemetryLoggingManager.cs" />
     <Compile Include="Password\HashFunction.cs" />
@@ -79,7 +80,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Password\ValidationManager.cs" />
     <Compile Include="QuestionManagement\QuestionManager.cs" />
-    <Compile Include="UserManagement\UserManagement.cs" />
+    <Compile Include="SessionManagement\SessionManager.cs" />
+    <Compile Include="SSO\LoginManager.cs" />
+    <Compile Include="UserManagement\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KFC.Red.DataAccessLayer\KFC.Red.DataAccessLayer.csproj">
