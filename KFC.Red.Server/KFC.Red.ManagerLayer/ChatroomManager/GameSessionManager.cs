@@ -15,7 +15,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
     public class GameSessionManager
     {
         private ChatStorage _ChatStore;
-        private HubService _HubService;
+        public HubService _HubService;
         private GameSessionService _GSessionService;
 
         public GameSessionManager()
@@ -28,32 +28,6 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
         public GameSessionManager(ChatStorage chatStore)
         {
             _ChatStore = chatStore;
-        }
-
-        private List<UserGameStorage> GetSessionUsers(int gid)
-        {
-            using (var _db = new ApplicationDbContext())
-            {
-                var ugs = _db.UserGameStorages
-                    .Where(s => s.GId == gid)
-                    .ToList();
-
-                return ugs;
-            }
-        }
-
-        public List<string> GetGameUsers(int gid)
-        {
-            UserManager um = new UserManager();
-            List<string> users = new List<string>();
-            List<UserGameStorage> ugs = GetSessionUsers(gid);
-            for(int i = 0; i < ugs.Capacity; i++)
-            {
-                UserGameStorage ug = ugs[i];
-                User u = um.GetUser(ug.UId);
-                users.Add(u.Email);
-            }
-            return users;
         }
 
         public int DeleteGameSession(GameSession gamesession)

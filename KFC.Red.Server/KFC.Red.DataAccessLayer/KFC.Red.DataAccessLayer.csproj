@@ -74,8 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\ErrorLogDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
+    <Compile Include="DTOs\LoginManagerDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
     <Compile Include="DTOs\TelemetryLogDTO.cs" />
     <Compile Include="Migrations\201904032105513_initialize.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Repositories\GameSessionRepository.cs" />
     <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\SessionRepository.cs" />
+    <Compile Include="Repositories\UserGameStorageRepository.cs" />
     <Compile Include="Repositories\UserManagementRepository.cs" />
   </ItemGroup>
   <ItemGroup>

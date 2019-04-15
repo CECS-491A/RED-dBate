@@ -92,7 +92,9 @@
     <Compile Include="ChatRoom\GameSessionService.cs" />
     <Compile Include="ChatRoom\HubService.cs" />
     <Compile Include="ChatRoom\Interface\IGameSession.cs" />
+    <Compile Include="ChatRoom\Interface\IUserGameStorage.cs" />
     <Compile Include="ChatRoom\MessageIDIncrement.cs" />
+    <Compile Include="ChatRoom\UserGameStorageService.cs" />
     <Compile Include="Logging\Interfaces\IErrorLoggingService.cs" />
     <Compile Include="Logging\ErrorLoggingService.cs" />
     <Compile Include="Logging\Interfaces\ITelemetryLoggingService.cs" />

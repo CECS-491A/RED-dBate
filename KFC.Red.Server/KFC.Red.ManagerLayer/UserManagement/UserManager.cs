@@ -28,6 +28,15 @@ namespace KFC.Red.ManagerLayer.UserManagement
             return new ApplicationDbContext();
         }
 
+        public int CreateUser(User u)
+        {
+            using (var _db = CreateDbContext())
+            {
+                var resp = _userService.CreateUser(_db, u);
+                return _db.SaveChanges();
+            }
+        }
+
         public int DeleteUser(User user)
         {
             using (var _db = CreateDbContext())
