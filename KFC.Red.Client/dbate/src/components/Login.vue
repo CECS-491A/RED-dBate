@@ -4,7 +4,7 @@
       <Loading :dialog="loading" :text="loadingText"/>
     </div>
     <div v-if="!validSession">
-      <PopupDialog :dialog="!validSession" :text="popupMessage" redirect=true :redirectUrl="redirectUrl"/>
+      <PopupDialog :dialog="!validSession" :text="popupMessage" redirect=true :redirectUrl="KFCURL"/>
     </div>
   </div>
 </template>
@@ -14,6 +14,8 @@ import axios from 'axios'
 import Loading from '@/components/reusable-components/dialogs/Loading'
 import PopupDialog from '@/components/reusable-components/dialogs/PopupDialog'
 import { GetUser } from '@/services/uMServices'
+import {KFCURL} from '@/services/ConstUrls'
+
 export default {
   name: 'Login',
   components: {
@@ -26,7 +28,6 @@ export default {
     loadingText: '',
     validSession: true,
     popupMessage: '',
-    redirectUrl: 'https://kfc-sso.com'
   }),
   mounted() {
     this.token = this.$route.query.token;

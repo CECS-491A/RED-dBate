@@ -104,6 +104,7 @@
 
 <script>
 import axios from "axios"
+import {URL} from '@/services/ConstUrls'
 
   export default {
     data: () => ({
@@ -154,15 +155,13 @@ import axios from "axios"
     created () {
       this.initializeErrorLogs()
       this.initializeTelemetryLogs()
-      //this.initializeTelemetryLogs()
     },
 
     methods: {
       initializeTelemetryLogs () {
           var ldata
           var size
-          const url = `http://localhost:5000/api/telemetrylog/displaylogs`;
-          axios.get(url).then(logData =>{
+          axios.get(URL.displayTelLogsURL).then(logData =>{
             ldata = logData.data
             size = ldata.length    
             for(var i = 0; i<size;i++){
@@ -185,8 +184,7 @@ import axios from "axios"
       initializeErrorLogs () {
           var ldata
           var size
-          const url = `http://localhost:5000/api/errorlog/displaylogs`;
-          axios.get(url).then(logData =>{
+          axios.get(URL.displayErrorLogsURL).then(logData =>{
             ldata = logData.data
             size = ldata.length           
             for(var i = 0; i<size;i++){
@@ -205,9 +203,8 @@ import axios from "axios"
       },
       deleteLogError (item) {
         const index = this.logs.indexOf(item)
-        const url = 'http://localhost:5000/api/errorlog/deletelog'
         console.log(item.logObjectID)
-        axios.post(url,
+        axios.post(URL.deleteErrorLogsURL,
         {
           id: item.logObjectID
         }).then(q =>{console.log(q.data + "ff")})

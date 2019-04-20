@@ -59,6 +59,8 @@
 
 <script>
 import axios from "axios"
+import {URL} from '@/services/ConstUrls'
+
   export default {
     data: () => ({
       dialog: false,
@@ -99,9 +101,7 @@ import axios from "axios"
       initialize () {
           var qdata
           var size
-          const url = `http://localhost:5000/api/question/getquestions`;
-          //const url = `https://thedbate.azurewebsites.net/backend/api/question/getquestions`;
-          axios.get(url).then(questData =>{
+          axios.get(URL.getQuestsURL).then(questData =>{
             qdata = questData.data
             size = qdata.length           
             for(var i = 0; i<size;i++){
@@ -116,9 +116,7 @@ import axios from "axios"
       },
       deleteItem (item) {
         const index = this.questions.indexOf(item)
-          const url = 'http://localhost:5000/api/question/delete'
-          //const url = `https://thedbate.azurewebsites.net/backend/api/question/delete`
-          axios.post(url,
+          axios.post(URL.deleteQuestURL,
           {
             QuestionString: item.question
           }).then(q =>{console.log(q.data)})
@@ -136,9 +134,7 @@ import axios from "axios"
         }
 
         console.log(this.editedItem.questionID + " " + this.editedItem.question)
-          const url = 'http://localhost:5000/api/question/add'
-          //const url = `https://thedbate.azurewebsites.net/backend/api/question/add`
-          axios.post(url,
+          axios.post(URL.addQuestURL,
           {
             QuestionString: this.editedItem.question
           }).then(q =>{console.log(q.data)})

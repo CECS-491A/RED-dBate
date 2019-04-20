@@ -73,6 +73,8 @@
 
 <script>
 import axios from 'axios'
+import {URL} from '@/services/ConstUrls'
+
 export default {
   data () {
     return {
@@ -92,8 +94,7 @@ export default {
         this.error = "Fields Cannot Be Left Blank.";
       }
       if (this.error) return;
-      const url = 'https://api.kfc-sso.com/api/applications/publish'
-      axios.post(url, {
+      axios.post(URL.publishAppURL, {
         key: document.getElementById('key').value,
         title: document.getElementById('title').value,
         description: document.getElementById('description').value,

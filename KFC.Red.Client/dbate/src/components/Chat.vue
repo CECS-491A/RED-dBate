@@ -47,6 +47,7 @@
   import axios from "axios"
   import Players from '@/components/reusable-components/Players.vue'
   import $ from 'jquery'
+  import {URL} from '@/services/ConstUrls'
   import 'ms-signalr-client-jquery-3'
 
   export default {
@@ -79,8 +80,7 @@
     },
     methods: {
       sendMessage (){
-        const url = 'http://localhost:5000/api/chat/postmessage'
-        axios.post(url,{
+        axios.post(URL.sendMsgURL,{
           Username: this.username,
           Message: this.content
         })
@@ -94,19 +94,8 @@
           }
         )
       },
-      /*sendMessage () {
-        const url = 'http://localhost:5000/api/chat/postmessage'
-        this.proxy.invoke('SendMessage', {Username: this.username, Message: this.content})
-        .done(() => { console.log('Invocation of Send succeeded');
-                console.log(this.username, this.content);
-         })
-        .fail(error => { console.log('Invocation of Send failed. Error: ' + error) })
-        this.messages.push({username: this.username, message: this.content })
-        console.log(this.username, this.content);
-      },*/
       randomQuestion_ChatConnection () {
-        const url ='http://localhost:5000/api/question/randomquestion'
-        axios.get(url)
+        axios.get(URL.randQuestURL)
         .then(qst => {this.question = qst.data; console.log(this.question + "ddd")})
         .catch(e => {console.log("error: " + e.data)})
         

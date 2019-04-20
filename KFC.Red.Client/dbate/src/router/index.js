@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 import Chat from '@/components/Chat'
 import About from '@/components/About'
 import Home from '@/components/Home'
 import ChatList from '@/components/ChatList'
-import ChatCredentials from '@/components/ChatCredentials'
 import QuestionManagement from '@/components/QuestionManagement'
 import LogManager from '@/components/LogManager'
 import Login from '@/components/Login'
@@ -24,11 +22,6 @@ export default new Router({
       path: '/chat',
       name: 'Chat',
       component: Chat
-    },
-    {
-      path: '/chat-cred',
-      name: 'ChatCred',
-      component: ChatCredentials
     },
     {
       path: '/about',
