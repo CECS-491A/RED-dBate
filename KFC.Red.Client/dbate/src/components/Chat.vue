@@ -55,7 +55,7 @@
         question: '',
         messages: [],
         content: "",
-        chathub: $.connection.DBateChatHub,
+        //chathub: $.connection.DBateChatHub,
         username: "",
         users: [],
         connection: null,
@@ -64,51 +64,73 @@
     },
     mounted () {
       //this.username = localStorage.getItem('username')
-      //let that = this
+      this.username = "cf2080@gmail.com"
       //this.connection = $.hubConnection('http://localhost:5000/signalr')
       //this.proxy = this.connection.createHubProxy('DBateChatHub')
-      this.connection = $.hubConnection('http://localhost:5000/signalr')
-      this.proxy = this.connection.createHubProxy('DBateChatHub')
-      /*this.proxy.on('messageReceived', (username, message) => {
-        console.log('test')
-        that.messages.push({username:username, message: message })
-      })*/
-      this.connection
+      /*this.connection
         .start({ })
         .done(() => { console.log('Now connected') })
-        .fail(() => { console.log('Could not connect') })
-      this.randomQuestion()
+        .fail(() => { console.log('Could not connect') })*/
+      this.randomQuestion_ChatConnection()
+      //this.ChatCreationConnection()
     },
     components: {
       'players': Players
     },
     methods: {
-      sendMessage () {
+      sendMessage (){
         const url = 'http://localhost:5000/api/chat/postmessage'
-        //const url = ''
-        /*axios.post(url,{
-          Username: "Bill",
-          Message: "hi" 
-        }).then(msg => {
-          this.username = "bill"
-          this.content = "hi"
-          this.messages.push(this.username,this.content)
-          console.log(msg + "h")
+        axios.post(url,{
+          Username: this.username,
+          Message: this.content
         })
-        .catch(e => {console.log("error: " + e)});*/
-        
-        this.proxy.invoke('send', this.username, this.message)
-        .done(() => { console.log('Invocation of Send succeeded') })
-        .fail(error => { console.log('Invocation of Send failed. Error: ' + error) })
-        this.messages.push({username: this.username, message: this.message })
+        .then( m => {
+          console.log(m.data);
+        },
+        this.messages.push(({username: this.username, message: this.content})))
+        .catch(
+          error => {
+            console.log(error.data);
+          }
+        )
       },
-      randomQuestion () {
+      /*sendMessage () {
+        const url = 'http://localhost:5000/api/chat/postmessage'
+        this.proxy.invoke('SendMessage', {Username: this.username, Message: this.content})
+        .done(() => { console.log('Invocation of Send succeeded');
+                console.log(this.username, this.content);
+         })
+        .fail(error => { console.log('Invocation of Send failed. Error: ' + error) })
+        this.messages.push({username: this.username, message: this.content })
+        console.log(this.username, this.content);
+      },*/
+      randomQuestion_ChatConnection () {
         const url ='http://localhost:5000/api/question/randomquestion'
-        //const url = 'https://thedbate.azurewebsites.net/backend/api/question/randomquestion';
         axios.get(url)
         .then(qst => {this.question = qst.data; console.log(this.question + "ddd")})
-        .catch(e => {console.log("error: " + e.data)}) 
+        .catch(e => {console.log("error: " + e.data)})
+        
+        //const url2 = 'http://localhost:5000/api/chat/connection'
+        //console.log("Question2: " + this.question)
+        /*axios.post(url2,{
+          QuestionString: this.question
+        })
+        .then(conn => {
+          console.log("Connection: "  + conn.data)
+        })
+        .catch(e => {console.log("error: " + e.data)})*/
       }
+      /*ChatCreationConnection (){
+        const url = 'http://localhost:5000/api/chat/connection'
+        axios.post(url,{
+          QuestionString: this.question
+        })
+        .then(conn => {
+          console.log("Connection: " + conn.data)
+        })
+        .catch(e => {console.log("error: " + e.data)})
+      }
+      */
     }
   }
 </script>

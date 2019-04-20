@@ -2,6 +2,10 @@
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ServiceLayer.ChatRoom;
+using KFC.Red.ServiceLayer.QuestionManagement;
+using KFC.Red.ServiceLayer.QuestionManagement.Interfaces;
+using KFC.Red.ServiceLayer.TokenService;
+using KFC.Red.ServiceLayer.TokenService.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -25,9 +29,37 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             _GSessionService = new GameSessionService();
         }
 
-        public GameSessionManager(ChatStorage chatStore)
+        public string CreateGameSession(Question question)
         {
-            _ChatStore = chatStore;
+            IToken _tokenService = new TokenService();
+            IQuestionService _questionService = new QuestionService();
+
+            using (var _db = new ApplicationDbContext())
+            {
+                var questionResponse = _questionService.GetQuestion(_db, question.QuestionString);
+                if (questionResponse == null)
+                {
+                    return null;
+                }
+                GameSession session = new GameSession();
+                session.Token = _tokenService.GenerateToken();
+                session.Question = question;
+                session.QuestionID = question.QuestionID;
+
+                var response = _GSessionService.CreateGameSession(_db, session);
+                try
+                {
+                    _db.SaveChanges();
+                    return response.Token;
+                }
+                catch (DbEntityValidationException)
+                {
+                    //catch error
+                    // detach session attempted to be created from the db context - rollback
+                    _db.Entry(response).State = System.Data.Entity.EntityState.Detached;
+                }
+            }
+            return null;
         }
 
         public int DeleteGameSession(GameSession gamesession)

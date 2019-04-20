@@ -79,6 +79,7 @@
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginManagerDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
+    <Compile Include="DTOs\QuestionDTO.cs" />
     <Compile Include="DTOs\TelemetryLogDTO.cs" />
     <Compile Include="Migrations\201904032105513_initialize.cs" />
     <Compile Include="Migrations\201904032105513_initialize.Designer.cs">

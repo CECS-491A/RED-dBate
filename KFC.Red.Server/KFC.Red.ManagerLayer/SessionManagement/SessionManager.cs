@@ -34,6 +34,7 @@ namespace KFC.Red.ManagerLayer.SessionManagement
 
 
             Session session = new Session();
+            session.UId = user.ID;
             session.Token = _tService.GenerateToken();
             return _sService.CreateSession(_db, session);
         }
@@ -46,6 +47,17 @@ namespace KFC.Red.ManagerLayer.SessionManagement
 
                 _db.SaveChanges();
                 return response.Token;
+            }
+        }
+
+        public Session GetSession(string token)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                Session response = _sService.GetSession(_db, token);
+
+                _db.SaveChanges();
+                return response;
             }
         }
     }

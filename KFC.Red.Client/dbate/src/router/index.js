@@ -8,6 +8,8 @@ import ChatList from '@/components/ChatList'
 import ChatCredentials from '@/components/ChatCredentials'
 import QuestionManagement from '@/components/QuestionManagement'
 import LogManager from '@/components/LogManager'
+import Login from '@/components/Login'
+import Publish from '@/components/Publish'
 
 Vue.use(Router)
 
@@ -47,6 +49,16 @@ export default new Router({
       path: '/logmanager',
       name: 'LogManager',
       component: LogManager
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/publish',
+      name: 'Publish',
+      component: Publish
     }
   ]
 })

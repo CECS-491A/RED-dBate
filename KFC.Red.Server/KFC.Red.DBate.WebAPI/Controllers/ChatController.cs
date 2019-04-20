@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.ChatroomManager;
+using KFC.Red.ManagerLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.ChatRoom;
 using KFC.RED.DataAccessLayer.DTOs;
 
@@ -14,18 +15,18 @@ namespace KFC.Red.DBate.WebAPI.Controllers
     public class ChatController : ApiController
     {
         private GameSessionManager _GameSessionManager;
-        private UserGameStorageManager _UGSManager;
+        private UserGameStorageManager _UserGameStoreManager;
         private HubService _ChatHub;
         private MessageIDIncrement _Increment;
 
-        public ChatController(GameSessionManager gamesessionManager)
+        public ChatController()
         {
-            _UGSManager = new UserGameStorageManager();
-            _GameSessionManager = gamesessionManager;
+            _UserGameStoreManager = new UserGameStorageManager();
+            _GameSessionManager = new GameSessionManager();
             _ChatHub = new HubService();
             _Increment = new MessageIDIncrement();
         }
-        
+
         /*
         [HttpGet]
         [Route("api/chat/getmessages")]
@@ -35,6 +36,24 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         }
         */
 
+        public class ConnectionDTO
+        {
+            public string Question { get; set; }
+        }
+
+        //NEEDS WORKS AND TO BE FINISHED!!!
+        [HttpPost]
+        [Route("api/chat/connection")]
+        public IHttpActionResult Connection([FromBody] QuestionDTO req)
+        {
+            QuestionManager questionManager = new QuestionManager();
+            var question = questionManager.GetQuestion(req.QuestionString);
+            _GameSessionManager.CreateGameSession(question);
+
+            return Ok();
+        }
+
+        //WORKS FINE
         [HttpPost]
         [Route("api/chat/postmessage")]
         public IHttpActionResult PostMessage([FromBody] ChatMessageDTO chatMsg)
@@ -42,6 +61,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             //chatMsg.Id = _Increment.IncrementID();
             //chatMsg.DateTime = DateTime.Now;
             //_GameSessionManager.AddMessage(chatMsg);
+            //_UserGameStoreManager.
             _ChatHub.SendMessage(chatMsg);
             return Ok(chatMsg);
         }
@@ -52,8 +72,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         public List<string> GetUsers(int gid)
         {
             //_GameSessionManager.AddUser(username);
-            _ChatHub.SendUserList(_UGSManager.GetGameUsers(gid));
-            return _UGSManager.GetGameUsers(gid);
+            _ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
+            return _UserGameStoreManager.GetGameUsers(gid);
         }
     }
 }

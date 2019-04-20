@@ -1,5 +1,6 @@
 ﻿using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.QuestionManagement;
+using KFC.RED.DataAccessLayer.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class QuestionController : ApiController
     {
-        public class QuestionManagementRequest
-        {
-            public string QuestionString { get; set; }
-        }
 
         [HttpGet]
         [Route("api/question/randomquestion")]
@@ -57,7 +54,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpPost]
         [Route("api/question/add")]
-        public IHttpActionResult AddQuestion([FromBody] QuestionManagementRequest Request)
+        public IHttpActionResult AddQuestion([FromBody] QuestionDTO Request)
         {
             QuestionManager questionM = new QuestionManager();
             bool isExist = questionM.ExistingQuestion(Request.QuestionString);
@@ -74,7 +71,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpPost]
         [Route("api/question/delete")]
-        public IHttpActionResult DeleteQuestion([FromBody] QuestionManagementRequest RequestQuestion)
+        public IHttpActionResult DeleteQuestion([FromBody] QuestionDTO RequestQuestion)
         {
             QuestionManager questionM = new QuestionManager();
             if (questionM.ExistingQuestion(RequestQuestion.QuestionString) == true)
