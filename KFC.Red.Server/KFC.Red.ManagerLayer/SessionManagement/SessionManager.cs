@@ -48,5 +48,16 @@ namespace KFC.Red.ManagerLayer.SessionManagement
                 return response.Token;
             }
         }
+        
+        public Session GetSession(string token)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                Session response = _sService.GetSession(_db, token);
+
+                _db.SaveChanges();
+                return response;
+            }
+        }
     }
 }
