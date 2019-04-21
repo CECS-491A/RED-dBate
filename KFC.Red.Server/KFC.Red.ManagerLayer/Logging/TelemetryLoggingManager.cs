@@ -27,24 +27,24 @@ namespace KFC.Red.ManagerLayer.Logging
             return documents;
         }
 
-        public void CreateTelemetryLog(Exception ex, string token)
+        public void CreateTelemetryLog(string token, string ip, string loc )
         {
             BsonDocument log = new BsonDocument();
             TelemetryLoggingService tlog = new TelemetryLoggingService();
             IMongoCollection<BsonDocument> myDoc = tlog.GetCollection("CustomLog");
 
             var session = GetLogInfo(token);
-            var logouttime = session.DeleteTime;
-            var logintime = session.CreateTime;
+            var logouttime = "12/15/1996";//session.DeleteTime;
+            var logintime = "12/15/1996"; //session.CreateTime;
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement userlogin = new BsonElement("userLogin", session.CreateTime);
-                BsonElement userlogout = new BsonElement("userLogout", session.DeleteTime);
-                BsonElement functionalityexecution = new BsonElement("functionalityExecution", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement userlogin = new BsonElement("userLogin", logouttime);
+                BsonElement userlogout = new BsonElement("userLogout", logintime);
+                BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement ipaddress = new BsonElement("IPAddress", "some ip");
-                BsonElement location = new BsonElement("location", "some location");
+                BsonElement ipaddress = new BsonElement("IPAddress", ip);
+                BsonElement location = new BsonElement("location", loc);
 
                 myDoc.InsertOne(log);
 

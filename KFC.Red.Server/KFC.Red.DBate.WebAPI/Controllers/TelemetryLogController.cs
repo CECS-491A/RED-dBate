@@ -9,16 +9,23 @@ using System.Web.Http.Cors;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TelemetryLogController : ApiController
     {
+        public  class LocationRequest
+        {
+            public string Token { get; set; }
+            public string Ip { get; set; }
+            public string Location { get; set; }
+        }
 
         //MIGHT NOT BE NEEDED
-        [HttpGet]
+        [HttpPost]
         [Route("api/telemetrylog/createtelemetrylog")]
-        public IHttpActionResult CreateTelemetryLog()
+        public IHttpActionResult CreateTelemetryLog([FromBody] LocationRequest req)
         {
-            TelemetryLoggingService ls = new TelemetryLoggingService();
-            //ls.CreateTelemetryLog();
+            TelemetryLoggingManager tlm = new TelemetryLoggingManager();
+            tlm.CreateTelemetryLog(req.Token, req.Ip, req.Location);
             return Ok("telemetry log created");
         }
 
