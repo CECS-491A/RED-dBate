@@ -10,7 +10,8 @@ const URL = {
     publishAppURL: KFCURL + '/api/applications/publish',
     getQuestsURL: apiURL + 'question/getquestions',
     deleteQuestURL: apiURL + 'question/delete',
-    addQuestURL: apiURL + 'question/add'
+    addQuestURL: apiURL + 'question/add',
+    getUserURL: apiURL + 'user/getuser'
 }
 
 export {

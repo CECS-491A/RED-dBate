@@ -48,9 +48,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         {
             QuestionManager questionManager = new QuestionManager();
             var question = questionManager.GetQuestion(req.QuestionString);
-            _GameSessionManager.CreateGameSession(question);
+            var info = _GameSessionManager.CreateGameSession(question);
 
-            return Ok();
+            return Ok(info);
         }
 
         //WORKS FINE
