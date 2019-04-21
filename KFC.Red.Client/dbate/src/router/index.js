@@ -3,11 +3,11 @@ import Router from 'vue-router'
 import Chat from '@/components/Chat'
 import About from '@/components/About'
 import Home from '@/components/Home'
-import ChatList from '@/components/ChatList'
 import QuestionManagement from '@/components/QuestionManagement'
 import LogManager from '@/components/LogManager'
 import Login from '@/components/Login'
 import Publish from '@/components/Publish'
+import Lobby from '@/components/Lobby'
 
 Vue.use(Router)
 
@@ -29,11 +29,6 @@ export default new Router({
       component: About
     },
     {
-      path: '/chat-list',
-      name: 'ChatList',
-      component: ChatList
-    },
-    {
       path: '/questmanagement',
       name: 'QuestManagement',
       component: QuestionManagement
@@ -52,6 +47,11 @@ export default new Router({
       path: '/publish',
       name: 'Publish',
       component: Publish
+    },
+    {
+      path: '/lobby',
+      name: 'Lobby',
+      component: Lobby
     }
   ]
 })

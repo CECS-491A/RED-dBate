@@ -7,7 +7,7 @@
 
     <v-btn to="home"  flat><strong class="white--text text--lighten-1">Home</strong></v-btn>
     <v-btn to="about" flat><strong class="white--text text--lighten-1">About</strong></v-btn>
-    <v-btn to="chat-cred" flat><strong class="white--text text--lighten-1">Chat</strong></v-btn>
+    <v-btn to="lobby" flat><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
     <v-btn to="logmanager"  flat><strong class="white--text text--lighten-1">Log Man</strong></v-btn>
     <v-btn to="questmanagement" flat><strong class="white--text text--lighten-1">QAM</strong></v-btn>
 
