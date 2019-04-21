@@ -95,6 +95,16 @@
       </template>
     </v-data-table>
 
+    <v-alert
+          :value="success"
+          type="success"
+          transition="scale-transition"
+      >
+          {{response}}
+      </v-alert>
+
+      <br />
+
   </div>
 
 </template>
@@ -140,7 +150,8 @@ import {URL} from '@/services/ConstUrls'
       defaultItem: {
         logID: 0,
         log: '',
-      }
+      },
+      response: ""
     }),
 
     watch: {
@@ -202,8 +213,8 @@ import {URL} from '@/services/ConstUrls'
         const index = this.logs.indexOf(item)
         confirm('Are you sure you want to delete this item?') && this.logs.splice(index, 1)
         axios.delete(URL.deleteErrorLogsURL +'?id=' + item.logObjectID)
-        .then(q =>{console.log(q.data + "ff")})
-        .catch(e => {alert(e.data)})
+        .then(q =>{this.response = "Successfuly Deleted!"})
+        .catch(e => {this.response = e.data})
       }
     }
   }
