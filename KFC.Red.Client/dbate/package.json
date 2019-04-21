@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "bulma": "^0.7.2",
     "moment": "^2.24.0",
+    "mongoose": "^5.5.2",
     "ms-signalr-client-jquery-3": "^2.2.10",
     "signalr": "^2.4.0",
     "vue": "^2.6.10",
