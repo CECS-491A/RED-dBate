@@ -54,6 +54,7 @@ namespace KFC.Red.ServiceLayer.Logging
             myDoc.InsertOne(telemetryLog);
         }
 
+        /*
         public void CreateTelemetryLog(Exception ex)
         {
             BsonDocument log = new BsonDocument();
@@ -107,7 +108,7 @@ namespace KFC.Red.ServiceLayer.Logging
                     failedLogs = 0;
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// From mongo shell, this will print client IP:port, along with connection ID:

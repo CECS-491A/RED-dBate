@@ -85,6 +85,7 @@ namespace KFC.Red.ServiceLayer.Logging
             myDoc.InsertOne(errorLog);
         }
 
+        /*
         public void CreateErrorLog(Exception ex)
         {
             BsonDocument log = new BsonDocument();
@@ -131,7 +132,7 @@ namespace KFC.Red.ServiceLayer.Logging
                     failedLogs = 0;
                 }
             }
-        }
+        }*/
 
         public void DeleteErrorLog(BsonDocument log)
         {
