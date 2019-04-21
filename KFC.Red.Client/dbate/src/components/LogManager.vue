@@ -93,9 +93,6 @@
 
         </td>
       </template>
-      <!--<template v-slot:no-data>
-        <v-btn color="primary" @click="initializeTelemetryLogs">Reset</v-btn>
-      </template>-->
     </v-data-table>
 
   </div>
@@ -203,13 +200,10 @@ import {URL} from '@/services/ConstUrls'
       },
       deleteLogError (item) {
         const index = this.logs.indexOf(item)
-        console.log(item.logObjectID)
-        axios.post(URL.deleteErrorLogsURL,
-        {
-          id: item.logObjectID
-        }).then(q =>{console.log(q.data + "ff")})
-        .catch(e => {alert(e.data)})
         confirm('Are you sure you want to delete this item?') && this.logs.splice(index, 1)
+        axios.delete(URL.deleteErrorLogsURL +'?id=' + item.logObjectID)
+        .then(q =>{console.log(q.data + "ff")})
+        .catch(e => {alert(e.data)})
       }
     }
   }

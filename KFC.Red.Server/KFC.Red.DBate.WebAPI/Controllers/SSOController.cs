@@ -8,9 +8,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SSOController : ApiController
     {
         [HttpPost]
@@ -52,7 +54,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                 LoginResponseDTO response = new LoginResponseDTO
                 {
-                    RedirectURI = "http://localhost:8080/#/login?token=" + loginAttempt.Token
+                    //RedirectURI = "http://localhost:8080/#/login?token=" + loginAttempt.Token
+                    RedirectURI = "https://thedbateproject.azurewebsites.net/#/login?token=" + loginAttempt.Token
                 };
 
                 return Ok(response);

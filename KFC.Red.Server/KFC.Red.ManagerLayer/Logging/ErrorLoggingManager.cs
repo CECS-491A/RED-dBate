@@ -86,18 +86,7 @@ namespace KFC.Red.ManagerLayer.Logging
         public void DeleteLog(string id)
         {
             ErrorLoggingService ls = new ErrorLoggingService();
-            //try
-            //{
-                var objId = ObjectId.Parse(id);
-                var doc = ls._logCollection.Find(x => x.Id == objId).SingleAsync();
-                var bsonDoc = doc.ToBsonDocument();
-                ls.DeleteErrorLog(bsonDoc);
-                //return 1;
-            //}
-            //catch (MongoException e)
-            //{
-                //return 0;
-            //}
+            ls._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
         }
 
         public Session GetLogInfo(string token)
