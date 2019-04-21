@@ -1,4 +1,5 @@
-const apiURL = 'http://localhost:5000/api/'
+//const apiURL = 'http://localhost:5000/api/'
+const apiURL = 'https://thedbateproject.azurewebsites.net/backend/api'
 const KFCURL = 'https://api.kfc-sso.com'
 
 const URL = {

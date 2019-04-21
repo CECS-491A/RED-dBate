@@ -10,7 +10,7 @@ namespace KFC.Red.ServiceLayer.TokenService
 {
     public class TokenService : IToken
     {
-        private const string APISecret = "B5B9F1B7B083546AE82BD0A57FB916341C3AF4A2A430EF4DE15B4FF813171DD6";
+        private const string APISecret = "55083F27BBAE9685079F170BD0B9C418E09ABB90EA0AB92D406A94F13ADA4A4F";
 
         public string GenerateSignature(string text)
         {

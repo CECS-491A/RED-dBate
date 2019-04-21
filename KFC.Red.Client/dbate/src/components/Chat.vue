@@ -56,7 +56,6 @@
         question: '',
         messages: [],
         content: "",
-        //chathub: $.connection.DBateChatHub,
         username: "",
         users: [],
         connection: null,
@@ -66,12 +65,6 @@
     mounted () {
       //this.username = localStorage.getItem('username')
       this.username = "cf2080@gmail.com"
-      //this.connection = $.hubConnection('http://localhost:5000/signalr')
-      //this.proxy = this.connection.createHubProxy('DBateChatHub')
-      /*this.connection
-        .start({ })
-        .done(() => { console.log('Now connected') })
-        .fail(() => { console.log('Could not connect') })*/
       this.randomQuestion_ChatConnection()
       //this.ChatCreationConnection()
     },
