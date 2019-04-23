@@ -87,6 +87,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Archiving\ArchivingService.cs" />
+    <Compile Include="Archiving\Interfaces\IArchivingService.cs" />
     <Compile Include="Authorization\Authorization.cs" />
     <Compile Include="Authorization\IAuthorize.cs" />
     <Compile Include="ChatRoom\GameSessionService.cs" />
