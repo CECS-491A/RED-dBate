@@ -1,5 +1,5 @@
 const apiURL = 'http://localhost:5000/api/'
-//onst apiURL = 'https://thedbateproject.azurewebsites.net/backend/api/'
+//const apiURL = 'https://thedbateproject.azurewebsites.net/backend/api/'
 const KFCURL = 'https://kfc-sso.com'
 
 const URL = {
@@ -12,7 +12,8 @@ const URL = {
     getQuestsURL: apiURL + 'question/getquestions',
     deleteQuestURL: apiURL + 'question/delete',
     addQuestURL: apiURL + 'question/add',
-    getUserURL: apiURL + 'user/getuser'
+    getUserURL: apiURL + 'user/getuser',
+    createChatURL: apiURL + 'chat/createchat'
 }
 
 export {
