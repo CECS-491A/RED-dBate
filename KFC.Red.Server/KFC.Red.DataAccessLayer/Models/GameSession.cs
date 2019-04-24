@@ -21,5 +21,7 @@ namespace KFC.Red.DataAccessLayer.Models
         [ForeignKey("Question")]
         public int QuestionID { get; set; }
         public Question Question { get; set; }
+
+        public bool isSessionUsed = false;
     }
 }

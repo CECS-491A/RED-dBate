@@ -1,6 +1,7 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.UserManagement;
+using KFC.Red.ServiceLayer;
 using KFC.Red.ServiceLayer.ChatRoom;
 using KFC.Red.ServiceLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.QuestionManagement.Interfaces;
@@ -29,7 +30,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             _GSessionService = new GameSessionService();
         }
 
-        public string CreateGameSession(Question question)
+        public GameSession CreateGameSession(Question question)
         {
             IToken _tokenService = new TokenService();
             IQuestionService _questionService = new QuestionService();
@@ -46,17 +47,17 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
                 session.Question = question;
                 session.QuestionID = question.QuestionID;
 
-                var response = _GSessionService.CreateGameSession(_db, session);
+                _GSessionService.CreateGameSession(_db, session);
                 try
                 {
                     _db.SaveChanges();
-                    return response.Token;
+                    return session;
                 }
                 catch (DbEntityValidationException)
                 {
                     //catch error
                     // detach session attempted to be created from the db context - rollback
-                    _db.Entry(response).State = System.Data.Entity.EntityState.Detached;
+                    _db.Entry(session).State = System.Data.Entity.EntityState.Detached;
                 }
             }
             return null;
@@ -97,6 +98,20 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             }
         }
 
+        //STILL HAVE TO FIX BECAUSE IT'S ALSO GRABBING EXPIRED GAME SESSIONS
+        public GameSession GetRandomGameSession()
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                GameSession gameSession = new GameSession();
+                ReusableServices reusableServices = new ReusableServices();
+                var index = reusableServices.GetNumberForRandomization(MinGameSessionSize(),MaxGameSessionSize());
+                gameSession = _GSessionService.GetGameSession(_db, index);
+                return gameSession;
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////
+        
         public bool ExistingGameSession(int id)
         {
             using (var _db = new ApplicationDbContext())
@@ -111,6 +126,26 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             {
                 return _GSessionService.ExistingGameSession(_db, gs);
             }
+        }
+
+        private int MaxGameSessionSize()
+        {
+            int maxSize;
+            using (var _db = new ApplicationDbContext())
+            {
+                maxSize = _db.GameSessions.Max(p => p.Id);
+            }
+            return maxSize;
+        }
+
+        private int MinGameSessionSize()
+        {
+            int minSize;
+            using (var _db = new ApplicationDbContext())
+            {
+                minSize = _db.GameSessions.Min(p => p.Id);
+            }
+            return minSize;
         }
     }
 }

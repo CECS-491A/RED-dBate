@@ -72,9 +72,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     var question = questionManager.RandomizeQuestion();
                     var questionObj = questionManager.GetQuestion(question);
 
-                    gameSession = _GameSessionManager.CreateGameSession(questionObj);
-                    
-                    _db.SaveChanges();
+                    gameSession = _GameSessionManager.CreateGameSession(questionObj);                    
                 }
                 catch (ArgumentException)
                 {
@@ -94,6 +92,27 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 {
                     _db.Entry(gameSession).State = System.Data.Entity.EntityState.Detached;
                     return InternalServerError(e);
+                }
+
+                return Ok(gameSession.Token);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/chat/joinrandomchat")]
+        public IHttpActionResult JoinRandomChat()
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                GameSession gameSession = new GameSession();
+
+                try
+                {
+                    gameSession = _GameSessionManager.GetRandomGameSession();
+                }
+                catch (Exception e)
+                {
+                    return Content(HttpStatusCode.BadRequest, e.ToString());
                 }
 
                 return Ok(gameSession.Token);
