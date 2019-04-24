@@ -20,10 +20,10 @@ namespace KFC.Red.ManagerLayer.Logging
         public int failedLogs;
         public async Task<List<ErrorLogDTO>> DisplayErrorLogsAsync()
         {
-            ErrorLoggingService ls = new ErrorLoggingService();
-            var collection = ls.GetCollection("CustomLog1");
+            ErrorLoggingService elogService = new ErrorLoggingService();
+            var collection = elogService.GetCollection("CustomLog1");
             var count = await collection.CountDocumentsAsync(new BsonDocument());
-            var documents = await ls._logCollection.Find(new BsonDocument()).ToListAsync();
+            var documents = await elogService._logCollection.Find(new BsonDocument()).ToListAsync();
 
 
             return documents;
@@ -85,14 +85,14 @@ namespace KFC.Red.ManagerLayer.Logging
 
         public void DeleteLog(string id)
         {
-            ErrorLoggingService ls = new ErrorLoggingService();
-            ls._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
+            ErrorLoggingService elogService = new ErrorLoggingService();
+            elogService._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
         }
 
         public Session GetLogInfo(string token)
         {
-            SessionManager sm = new SessionManager();
-            var session = sm.GetSession(token);
+            SessionManager sessman = new SessionManager();
+            var session = sessman.GetSession(token);
             return session;
         }
     }

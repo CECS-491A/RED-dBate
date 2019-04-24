@@ -19,10 +19,10 @@ namespace KFC.Red.ManagerLayer.Logging
         public int failedLogs;
         public async Task<List<TelemetryLogDTO>> DisplayTelemetryLogsAsync()
         {
-            TelemetryLoggingService ls = new TelemetryLoggingService();
-            var collection = ls.GetCollection("CustomLog");
+            TelemetryLoggingService tlogService = new TelemetryLoggingService();
+            var collection = tlogService.GetCollection("CustomLog");
             var count = await collection.CountDocumentsAsync(new BsonDocument());
-            var documents = await ls._tlogCollection.Find(new BsonDocument()).ToListAsync();
+            var documents = await tlogService._tlogCollection.Find(new BsonDocument()).ToListAsync();
 
             return documents;
         }
@@ -88,8 +88,8 @@ namespace KFC.Red.ManagerLayer.Logging
 
         public Session GetLogInfo(string token)
         {
-            SessionManager sm = new SessionManager();
-            var session = sm.GetSession(token);
+            SessionManager sessman = new SessionManager();
+            var session = sessman.GetSession(token);
             return session;
         }
     }
