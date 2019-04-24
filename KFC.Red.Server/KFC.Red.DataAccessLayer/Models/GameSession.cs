@@ -10,7 +10,7 @@ namespace KFC.Red.DataAccessLayer.Models
     public class GameSession
     {
         //BRD said b/w 18-35 minutes
-        public static readonly int MINUTES_UNTIL_EXPIRATION = 50;
+        public static readonly int MINUTES_UNTIL_EXPIRATION = 35;
 
         public int Id { get; set; }
         public string Token { get; set; }

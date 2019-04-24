@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.ChatroomManager;
 using KFC.Red.ManagerLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.ChatRoom;
-using KFC.Red.ServiceLayer.TokenService;
 using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
@@ -39,10 +36,32 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         }
         */
 
+        public class ConnectionDTO
+        {
+            public string Question { get; set; }
+        }
+
+        //NEEDS WORKS AND TO BE FINISHED!!!
+        [HttpPost]
+        [Route("api/chat/connection")]
+        public IHttpActionResult Connection([FromBody] QuestionDTO req)
+        {
+            QuestionManager questionManager = new QuestionManager();
+            var question = questionManager.GetQuestion(req.QuestionString);
+            var info = _GameSessionManager.CreateGameSession(question);
+
+            return Ok(info);
+        }
+
+        //WORKS FINE
         [HttpPost]
         [Route("api/chat/postmessage")]
         public IHttpActionResult PostMessage([FromBody] ChatMessageDTO chatMsg)
         {
+            //chatMsg.Id = _Increment.IncrementID();
+            //chatMsg.DateTime = DateTime.Now;
+            //_GameSessionManager.AddMessage(chatMsg);
+            //_UserGameStoreManager.
             _ChatHub.SendMessage(chatMsg);
             return Ok(chatMsg);
         }
@@ -52,52 +71,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/getusers")]
         public List<string> GetUsers(int gid)
         {
+            //_GameSessionManager.AddUser(username);
             _ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
             return _UserGameStoreManager.GetGameUsers(gid);
-        }
-
-        [HttpGet]
-        [Route("api/chat/createchat")]
-        public IHttpActionResult CreateChat()
-        {
-            using(var _db = new ApplicationDbContext())
-            {
-                GameSession gameSession = new GameSession();
-
-                try
-                {
-                    //TokenService tokenService = new TokenService();
-                    QuestionManager questionManager = new QuestionManager();
-
-                    var question = questionManager.RandomizeQuestion();
-                    var questionObj = questionManager.GetQuestion(question);
-
-                    gameSession = _GameSessionManager.CreateGameSession(questionObj);
-                    
-                    _db.SaveChanges();
-                }
-                catch (ArgumentException)
-                {
-                    return Conflict();
-                }
-                catch (Exception e)
-                {
-                    return Content(HttpStatusCode.BadRequest, e.ToString());
-                }
-
-
-                try
-                {
-                    _db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    _db.Entry(gameSession).State = System.Data.Entity.EntityState.Detached;
-                    return InternalServerError(e);
-                }
-
-                return Ok(gameSession.Token);
-            }
         }
     }
 }
