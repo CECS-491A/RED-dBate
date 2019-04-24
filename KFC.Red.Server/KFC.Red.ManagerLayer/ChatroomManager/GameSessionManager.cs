@@ -98,19 +98,19 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             }
         }
 
-        //STILL HAVE TO FIX BECAUSE IT'S ALSO GRABBING EXPIRED GAME SESSIONS
         public GameSession GetRandomGameSession()
         {
             using (var _db = new ApplicationDbContext())
             {
-                GameSession gameSession = new GameSession();
                 ReusableServices reusableServices = new ReusableServices();
-                var index = reusableServices.GetNumberForRandomization(MinGameSessionSize(),MaxGameSessionSize());
-                gameSession = _GSessionService.GetGameSession(_db, index);
+                GameSession gameSession = new GameSession();
+                var gameSessionsList = _db.GameSessions.Where(c => c.isSessionUsed == false);
+                var maxSize = gameSessionsList.Count();
+                var index = reusableServices.GetNumberForRandomization(0,maxSize-1);
+                gameSession = gameSessionsList.ElementAt(index);
                 return gameSession;
             }
         }
-        /////////////////////////////////////////////////////////////////////////
         
         public bool ExistingGameSession(int id)
         {
@@ -126,26 +126,6 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             {
                 return _GSessionService.ExistingGameSession(_db, gs);
             }
-        }
-
-        private int MaxGameSessionSize()
-        {
-            int maxSize;
-            using (var _db = new ApplicationDbContext())
-            {
-                maxSize = _db.GameSessions.Max(p => p.Id);
-            }
-            return maxSize;
-        }
-
-        private int MinGameSessionSize()
-        {
-            int minSize;
-            using (var _db = new ApplicationDbContext())
-            {
-                minSize = _db.GameSessions.Min(p => p.Id);
-            }
-            return minSize;
         }
     }
 }
