@@ -96,8 +96,8 @@
     </v-data-table>
 
     <v-alert
-          :value="success"
-          type="success"
+          :value="false"
+          type="info"
           transition="scale-transition"
       >
           {{response}}
@@ -151,7 +151,8 @@ import {URL} from '@/services/ConstUrls'
         logID: 0,
         log: '',
       },
-      response: ""
+      response: "",
+      
     }),
 
     watch: {

@@ -3,28 +3,59 @@ using System.Web.Http;
 using KFC.Red.ManagerLayer.Logging;
 using System.Threading.Tasks;
 using KFC.RED.DataAccessLayer.DTOs;
+using KFC.Red.DataAccessLayer.DTOs;
+using MongoDB.Bson;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class LogController : ApiController
     {
-        [HttpGet]
-        [Route("api/log/displaylogs")]
-        public async Task<List<LogDTO>> DisplayLogsAsync()
+        [HttpPost]
+        [Route("api/log/createerrorlogs")]
+        public IHttpActionResult CreateErrorLog()
         {
-            LoggingManager elm = new LoggingManager();
-            var documents = elm.DisplayLogsAsync();
+            LoggingManager<TelemetryLogDTO> errorlogman = new LoggingManager<TelemetryLogDTO>();
+            errorlogman.CreateErrorLog();
+            return Ok("error log created");
+        }
+
+        [HttpPost]
+        [Route("api/log/createtelemetrylogs")]
+        public IHttpActionResult CreateTelemetryLog()
+        {
+            LoggingManager<TelemetryLogDTO> telelogman = new LoggingManager<TelemetryLogDTO>();
+            telelogman.CreateTelemetryLog();
+            return Ok("telemetry log created");
+        }
+
+        [HttpGet]
+        [Route("api/log/displayerrorlogs")]
+        public async Task<List<ErrorLogDTO>> DisplayLogsAsync()
+        {
+            LoggingManager<ErrorLogDTO> elm =  new LoggingManager<ErrorLogDTO>();
+            var documents = elm.DisplayLogsAsync("ErrorLogs");
             return await documents;
         }
 
+        [HttpGet]
+        [Route("api/log/displaytelemetrylogs")]
+        public async Task<List<TelemetryLogDTO>> DisplayLogsAsyncTelemetry()
+        {
+            LoggingManager<TelemetryLogDTO> elm = new LoggingManager<TelemetryLogDTO>();
+            var documents = elm.DisplayLogsAsync("TelemetryLogs");
+            return await documents;
+        }
+
+        
         [HttpDelete]
         [Route("api/log/deletelog")]
-        public IHttpActionResult DeleteErrorLog(string id)
+        public IHttpActionResult DeleteLog(string id)
         {
-            LoggingManager elm = new LoggingManager();
+            string collectionName = "ErrorLogs";
+            LoggingManager<BsonDocument> elm = new LoggingManager<BsonDocument>();
             try
             {
-                elm.DeleteLog(id);
+                elm.DeleteLog(id,collectionName);
                 return Ok();
             }
             catch
@@ -32,7 +63,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 return NotFound();
             }
         }
-
 
     }
 }

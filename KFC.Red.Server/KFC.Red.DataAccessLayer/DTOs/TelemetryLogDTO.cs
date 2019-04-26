@@ -30,9 +30,5 @@ namespace KFC.Red.DataAccessLayer.DTOs
 
         [BsonElement("IPAddress")]
         public string IPAddress { get; set; }
-
-        [BsonElement("location")]
-        public string Location { get; set; }
-
     }
 }
