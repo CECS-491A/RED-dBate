@@ -32,10 +32,10 @@ namespace KFC.Red.ManagerLayer.Logging
         public void CreateErrorLog(Exception ex, string token)
         {
             UserManager userman = new UserManager();
-            ErrorLoggingService logService = new ErrorLoggingService();
+            LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = logService.GetCollection("ErrorLogs");
+            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
 
             var session = GetLogInfo(token);
             var user = userman.GetUser(session.UId);
@@ -86,10 +86,10 @@ namespace KFC.Red.ManagerLayer.Logging
         public void CreateErrorLog()
         {
             UserManager userman = new UserManager();
-            ErrorLoggingService logService = new ErrorLoggingService();
+            LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = logService.GetCollection("ErrorLogs");
+            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
 
             //var session = GetLogInfo(token);
             //var user = userman.GetUser(session.UId);
@@ -97,9 +97,9 @@ namespace KFC.Red.ManagerLayer.Logging
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement error = new BsonElement("error", "fail to create session");
+                BsonElement error = new BsonElement("error", "fail to join session");
                 BsonElement target = new BsonElement("target", "chat");
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "deivsleung027@gmail.com");
+                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "leung027@gmail.com");
                 BsonElement userRequest = new BsonElement("userRequest", "join session");
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
 
@@ -142,8 +142,8 @@ namespace KFC.Red.ManagerLayer.Logging
             public void CreateTelemetryLog(string token, string ip, string loc)
         {
             BsonDocument log = new BsonDocument();
-            TelemetryLoggingService logger = new TelemetryLoggingService();
-            IMongoCollection<BsonDocument> myDoc = logger.GetCollection("TelemetryLogs");
+            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
 
             var session = GetLogInfo(token);
             var logouttime = "12/15/1996";//session.DeleteTime;
@@ -156,12 +156,10 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement ipaddress = new BsonElement("IPAddress", ip);
-                BsonElement location = new BsonElement("location", loc);
 
                 myDoc.InsertOne(log);
 
                 log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
-                log.Add(location);
 
                 myDoc.InsertOne(log);
             }

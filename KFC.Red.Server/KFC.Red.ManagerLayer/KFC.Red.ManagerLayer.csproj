@@ -72,9 +72,7 @@
     <Compile Include="ArchivingManager\ArchivingManager.cs" />
     <Compile Include="ChatroomManager\GameSessionManager.cs" />
     <Compile Include="ChatroomManager\UserGameStorageManager.cs" />
-    <Compile Include="Logging\ErrorLoggingManager.cs" />
     <Compile Include="Logging\LoggingManager.cs" />
-    <Compile Include="Logging\TelemetryLoggingManager.cs" />
     <Compile Include="Password\HashFunction.cs" />
     <Compile Include="Password\Interfaces\IHashFunction.cs" />
     <Compile Include="Password\Models\PasswordStatus.cs" />

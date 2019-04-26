@@ -23,19 +23,6 @@ namespace KFC.Red.ManagerLayer.ArchivingManager
         {
             try
             {
-                ErrorLoggingManager em = new ErrorLoggingManager();
-                TelemetryLoggingManager tm = new TelemetryLoggingManager();
-                var errorfile = em.DisplayErrorLogsAsync().ToString();
-                var telemetryfile = tm.DisplayTelemetryLogsAsync().ToString();
-                using (StreamWriter w = File.AppendText("log.txt"))
-                {
-                }
-
-                using (StreamReader r = File.OpenText("log.txt"))
-                {
-                    DumpLog(r);
-                }
-
             }
             catch (Exception e)
             {
