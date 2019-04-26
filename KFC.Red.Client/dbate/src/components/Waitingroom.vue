@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     playerCount () {
-      return this.$store.getters.getPlayerAmount;
+      return 1;//this.$store.getters.getPlayerAmount;
     }
   },
   watch: {

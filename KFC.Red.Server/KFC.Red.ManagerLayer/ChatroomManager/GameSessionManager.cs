@@ -104,10 +104,10 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             {
                 ReusableServices reusableServices = new ReusableServices();
                 GameSession gameSession = new GameSession();
-                var gameSessionsList = _db.GameSessions.Where(c => c.isSessionUsed == false);
+                var gameSessionsList = _db.GameSessions.Where(c => c.isSessionUsed == false).ToList();
                 var maxSize = gameSessionsList.Count();
-                var index = reusableServices.GetNumberForRandomization(0,maxSize-1);
-                gameSession = gameSessionsList.ElementAt(index);
+                var index = reusableServices.GetNumberForRandomization(0,maxSize);
+                gameSession = gameSessionsList[index];
                 return gameSession;
             }
         }

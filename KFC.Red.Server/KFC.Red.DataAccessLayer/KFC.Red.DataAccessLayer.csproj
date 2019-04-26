@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201904262125474_isSessionUsed.Designer.cs">
       <DependentUpon>201904262125474_isSessionUsed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904262154023_refactoring.cs" />
+    <Compile Include="Migrations\201904262154023_refactoring.Designer.cs">
+      <DependentUpon>201904262154023_refactoring.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatStorage.cs" />
@@ -124,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904262125474_isSessionUsed.resx">
       <DependentUpon>201904262125474_isSessionUsed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904262154023_refactoring.resx">
+      <DependentUpon>201904262154023_refactoring.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

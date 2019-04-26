@@ -1,7 +1,8 @@
 <template>
   <v-list subheader>
   <v-subheader>uuu</v-subheader>
-    <v-list-tile avatar v-for="(user) in users" v-bind:key="user.name">
+    <v-list-tile>
+      {{users}}
     </v-list-tile>
   </v-list>
 </template>
@@ -18,7 +19,7 @@
     },
     computed: {
       users () {
-        return this.$store.getters.getPlayerList;
+        return ["Christian","Luis"];//this.$store.getters.getPlayerList;
       }
     },
     watch: {
@@ -26,7 +27,7 @@
         axios.get()
         .then(resp => {
           let newPlayer = resp.data;
-          this.$store.dispatch('actGetPlayerList',{});
+          //this.$store.dispatch('actGetPlayerList',{});
         })
         .catch(error => {
 

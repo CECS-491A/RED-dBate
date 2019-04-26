@@ -27,7 +27,7 @@ namespace KFC.Red.DataAccessLayer.Models
 
         public string PasswordSalt { get; set; }
 
-        [Required]
+        //[Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateOfBirth { get; set; }
