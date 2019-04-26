@@ -5,7 +5,7 @@
      <v-layout justify-center>
         <div class="text-xs-center">
           <div>
-            <v-btn color="blue" dark large>Join Random Room</v-btn>
+            <v-btn id="joinRandomChat" color="blue" v-on:click="joinRandomChat" dark large>Join Random Room</v-btn>
           </div>
         </div>
         <div class="text-xs-center">
@@ -41,12 +41,26 @@ export default {
         createChat(){
             axios.get(URL.createChatURL)
             .then(t => {
-                console.log(t.data);
-                alert(t.data);
+              let key = t.data;
+              localStorage.setItem('gameSessionToken',t.data);
+              console.log(t.data);
+              this.$router.push('/waitingroom/' + key)
+              //alert(t.data);
             })
             .catch(e => {
-                this.error = e.response.data;
+                this.error = e.response;
             })
+        },
+        joinRandomChat(){
+          axios.get(URL.joinRandomChatURL)
+          .then(t => {
+            let key = t.data;
+            localStorage.setItem('gameSessionToken', t.data);
+            this.$router.push('/waitingroom/' + key)
+          })
+          .catch(e => {
+            this.error = e.response;
+          })
         }
     }
 }

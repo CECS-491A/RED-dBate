@@ -1,59 +1,48 @@
-
 const state = {
-    username: '',
+    email: '',
     token: '',
-    isLogin: false,
-    isPlaying: false
-}
-
-const mutations = {
-    mutateusername (state, payload) {
-        state.username = payload.Username
+    isLogin: false
+  }
+  
+  const getters = {
+    getEmail: function (state) {
+      return state.email
     },
-    mutatetoken (state, payload) {
-        state.token = payload.Token
+    getToken: function (state) {
+      return state.token
     },
-    mutateisPlaying (state, payload) {
-        state.isPlaying = payload.isplaying
-    },
-    mutateisLogin (state, payload) {
-        state.isLogin = payload.islogin
+    getIsLogin: function (state) {
+      return state.isLogin
     }
-}
-
-const actions = {
-    actusername (context, payload) {
-        context.commit('mutateusername', payload)
+  }
+  
+  const actions = {
+    actEmail (context, payload) {
+      context.commit('mutateEMail', payload)
     },
-    acttoken (context, payload) {
-        context.commit('mutatetoken', payload)
+    actToken (context, payload) {
+      context.commit('mutateToken', payload)
     },
-    actisLogin (context, payload) {
-        context.commit('mutateisLogin', payload)
-    },
-    actisPlaying (context, payload) {
-        context.commit('mutateisPlaying', payload)
+    actIsLogin (context, payload) {
+      context.commit('mutateIsLogin', payload)
     }
-}
-
-const getters = {
-    getusername: function (state) {
-        return state.username
+  }
+  
+  const mutations = {
+    mutateEmail (state, payload) {
+      state.email = payload.Email
     },
-    gettoken: function (state) {
-        return state.token
+    mutateToken (state, payload) {
+      state.token = payload.Token
     },
-    getisLogin: function (state) {
-        return state.isLogin
-    },
-    getisPlayinh: function (state) {
-        return state.isPlaying
+    mutateIsLogin (state, payload) {
+      state.isLogin = payload.Islogin
     }
-}
-
-export default {
+  }
+  
+  export default {
     state,
     getters,
     actions,
     mutations
-}
+  }

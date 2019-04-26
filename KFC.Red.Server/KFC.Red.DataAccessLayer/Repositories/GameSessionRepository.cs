@@ -43,7 +43,8 @@ namespace KFC.Red.DataAccessLayer.Repositories
 
         public GameSession GetGameSession(ApplicationDbContext _db, string token)
         {
-            return _db.GameSessions.Find(token);
+            var gameSession = _db.GameSessions.Where(t => t.Token == token).FirstOrDefault();
+            return gameSession;
         }
 
         public UserGameStorage GetUserGameStorage(ApplicationDbContext _db, int id)

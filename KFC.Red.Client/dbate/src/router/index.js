@@ -8,6 +8,7 @@ import LogManager from '@/components/LogManager'
 import Login from '@/components/Login'
 import Publish from '@/components/Publish'
 import Lobby from '@/components/Lobby'
+import Waitingroom from '@/components/Waitingroom'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/chat/:id',
       name: 'Chat',
       component: Chat
+    },
+    {
+      path: '/waitingroom/:id',
+      name: 'Waitingroom',
+      component: Waitingroom
     },
     {
       path: '/about',

@@ -30,15 +30,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             _Increment = new MessageIDIncrement();
         }
 
-        /*
-        [HttpGet]
-        [Route("api/chat/getmessages")]
-        public List<ChatMessage> GetMessages()
-        {
-            return _GameSessionManager.GetSessionMessages();
-        }
-        */
-
         [HttpPost]
         [Route("api/chat/postmessage")]
         public IHttpActionResult PostMessage([FromBody] ChatMessageDTO chatMsg)
@@ -117,6 +108,15 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                 return Ok(gameSession.Token);
             }
+        }
+
+        [HttpDelete]
+        [Route("api/chat/deletegame")]
+        public IHttpActionResult DeleteGameSession(string gameSessionToken)
+        {
+            var gameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+            _GameSessionManager.DeleteGameSession(gameSession);
+            return Ok();
         }
     }
 }

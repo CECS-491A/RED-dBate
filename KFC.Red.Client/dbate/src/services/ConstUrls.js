@@ -13,7 +13,9 @@ const URL = {
     deleteQuestURL: apiURL + 'question/delete',
     addQuestURL: apiURL + 'question/add',
     getUserURL: apiURL + 'user/getuser',
-    createChatURL: apiURL + 'chat/createchat'
+    createChatURL: apiURL + 'chat/createchat',
+    joinRandomCharURL: apiURL + 'chat/joinrandomchat',
+    deleteGameSessionURL: apiURL + 'chat/deletegame'
 }
 
 export {
