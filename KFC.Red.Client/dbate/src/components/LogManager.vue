@@ -96,8 +96,8 @@
     </v-data-table>
 
     <v-alert
-          :value="success"
-          type="success"
+          :value="true"
+          type="info"
           transition="scale-transition"
       >
           {{response}}
@@ -112,7 +112,6 @@
 <script>
 import axios from "axios"
 import {URL} from '@/services/ConstUrls'
-
   export default {
     data: () => ({
       headers: [
@@ -127,7 +126,6 @@ import {URL} from '@/services/ConstUrls'
         { text: 'User', value: 'user' },
         { text: 'UserRequest', value: 'userrequest' },
       ],
-
       headers2: [
         {
           text: 'TLog',
@@ -153,18 +151,15 @@ import {URL} from '@/services/ConstUrls'
       },
       response: ""
     }),
-
     watch: {
       dialog (val) {
         val || this.close()
       }
     },
-
     created () {
       this.initializeErrorLogs()
       this.initializeTelemetryLogs()
     },
-
     methods: {
       initializeTelemetryLogs () {
           var ldata
@@ -188,7 +183,6 @@ import {URL} from '@/services/ConstUrls'
             }
           })
       },
-
       initializeErrorLogs () {
           var ldata
           var size

@@ -2,27 +2,35 @@
   <v-list subheader>
   <v-subheader>uuu</v-subheader>
     <v-list-tile avatar v-for="(user) in users" v-bind:key="user.name">
-      <v-list-tile-content>
-        <v-list-tile-title v-html="chat.name"></v-list-tile-title>
-      </v-list-tile-content>
-      <v-list-tile-action>
-        <v-icon>user_bubble</v-icon>
-      </v-list-tile-action>
     </v-list-tile>
   </v-list>
 </template>
 
 <script>
+  import axios from "axios"
+  import {URL} from '@/services/ConstUrls'
+
   export default{
     data () {
       return {
         userPlaying: 'users playing'
       }
     },
-    created () {
-    },
     computed: {
       users () {
+        return this.$store.getters.getPlayerList;
+      }
+    },
+    watch: {
+      users (oldList, newList) {
+        axios.get()
+        .then(resp => {
+          let newPlayer = resp.data;
+          this.$store.dispatch('actGetPlayerList',{});
+        })
+        .catch(error => {
+
+        })
       }
     }
   }

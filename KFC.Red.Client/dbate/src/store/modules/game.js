@@ -4,7 +4,8 @@ const gameSessionToken = localStorage.getItem('gameSessionToken')
 // initial state
 const state = {
   playerAmount: 0,
-  isPlayerMinimumMet: false
+  isPlayerMinimumMet: false,
+  playerList = []
 }
 
 // getters
@@ -14,6 +15,9 @@ const getters = {
   },
   getIsPlayerMinimumMet(state){
     return state.isPlayerMinimumMet;
+  },
+  getPlayerList(state){
+    return state.playerList;
   }
 }
 
@@ -24,16 +28,23 @@ const actions = {
   },
   actGetPlayerAmount (context, payload) {
     context.commit('mutatePlayerAmount', payload)
+  },
+  actGetPlayerList (context, payload) {
+    context.commit('mutateAddPlayerList',payload)
   }
+
 }
 
 // mutations
 const mutations = {
   mutateisPlayerMinimumMet (state, payload) {
-    state.viewprofile = payload.ViewProfile
+    state.isPlayerMinimumMet = payload.IsPlayerMinimumMet
   },
   mutatePlayerAmount (state, payload) {
-    state.isLogin = payload.islogin
+    state.playerAmount = payload.PlayerAmount
+  },
+  mutateAddPlayerList (state, player) {
+    state.playerList.push(player)
   }
 }
 

@@ -2,6 +2,7 @@
   <v-layout row wrap>
     <v-flex sm3 offset-xs1 class="scrollable">
       <h1>Players in the Game</h1>
+      <h1>Count: {{playerCount}}</h1>
       <players></players>
     </v-flex>
     <v-flex sm3 offset-xs1>
@@ -46,12 +47,26 @@ export default {
     response: ''
   }),
   mounted (){
-    axios.get()
-    .then(resp => {console.log(resp.data)})
-    .catch(e => {console.log("Error: " + e.data)})
+
+  },
+  computed: {
+    playerCount () {
+      return this.$store.getters.getPlayerAmount;
+    }
+  },
+  watch: {
+    playerCount (newCount, oldCount) {
+      console.log("count: " + newCount);
+      if(newCount === 3 ){
+        this.isMinPlayersMet = true;
+        this.loadingText = 'Minimum Amount of Players is met, you may start now';
+      }
+    }
   },
   methods: {
     startGame(){
+      let gameSession = localStorage.getItem('gameSessionToken');
+      this.$router.push('/chat/' + gameSession);
     },
     endWait(){
       let gameSession = localStorage.getItem('gameSessionToken');
