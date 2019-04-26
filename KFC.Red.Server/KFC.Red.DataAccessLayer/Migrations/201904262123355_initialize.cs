@@ -1,4 +1,4 @@
-namespace KFC.red.DataAccessLayer.Migrations
+namespace KFC.RED.DataAccessLayer.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -7,26 +7,6 @@ namespace KFC.red.DataAccessLayer.Migrations
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.Chatrooms",
-                c => new
-                    {
-                        ChatroomID = c.Int(nullable: false, identity: true),
-                        QuestionID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ChatroomID)
-                .ForeignKey("dbo.Questions", t => t.QuestionID, cascadeDelete: true)
-                .Index(t => t.QuestionID);
-            
-            CreateTable(
-                "dbo.Questions",
-                c => new
-                    {
-                        QuestionID = c.Int(nullable: false, identity: true),
-                        QuestionString = c.String(),
-                    })
-                .PrimaryKey(t => t.QuestionID);
-            
             CreateTable(
                 "dbo.Claims",
                 c => new
@@ -38,6 +18,30 @@ namespace KFC.red.DataAccessLayer.Migrations
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Users", t => t.User_ID)
                 .Index(t => t.User_ID);
+            
+            CreateTable(
+                "dbo.GameSessions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Token = c.String(),
+                        CreateTime = c.DateTime(nullable: false),
+                        DeleteTime = c.DateTime(nullable: false),
+                        QuestionID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Questions", t => t.QuestionID, cascadeDelete: true)
+                .Index(t => t.QuestionID);
+            
+            CreateTable(
+                "dbo.Questions",
+                c => new
+                    {
+                        QuestionID = c.Int(nullable: false, identity: true),
+                        QuestionString = c.String(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                    })
+                .PrimaryKey(t => t.QuestionID);
             
             CreateTable(
                 "dbo.Sessions",
@@ -71,29 +75,43 @@ namespace KFC.red.DataAccessLayer.Migrations
                         Role = c.String(),
                         IsAccountActivated = c.Boolean(nullable: false),
                         IsUserPlaying = c.Boolean(nullable: false),
-                        ChatroomID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Chatrooms", t => t.ChatroomID, cascadeDelete: true)
-                .Index(t => t.ChatroomID);
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.UserGameStorages",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        GId = c.Int(nullable: false),
+                        UId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.GameSessions", t => t.GId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UId, cascadeDelete: true)
+                .Index(t => t.GId)
+                .Index(t => t.UId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.UserGameStorages", "UId", "dbo.Users");
+            DropForeignKey("dbo.UserGameStorages", "GId", "dbo.GameSessions");
             DropForeignKey("dbo.Sessions", "UId", "dbo.Users");
             DropForeignKey("dbo.Claims", "User_ID", "dbo.Users");
-            DropForeignKey("dbo.Users", "ChatroomID", "dbo.Chatrooms");
-            DropForeignKey("dbo.Chatrooms", "QuestionID", "dbo.Questions");
-            DropIndex("dbo.Users", new[] { "ChatroomID" });
+            DropForeignKey("dbo.GameSessions", "QuestionID", "dbo.Questions");
+            DropIndex("dbo.UserGameStorages", new[] { "UId" });
+            DropIndex("dbo.UserGameStorages", new[] { "GId" });
             DropIndex("dbo.Sessions", new[] { "UId" });
+            DropIndex("dbo.GameSessions", new[] { "QuestionID" });
             DropIndex("dbo.Claims", new[] { "User_ID" });
-            DropIndex("dbo.Chatrooms", new[] { "QuestionID" });
+            DropTable("dbo.UserGameStorages");
             DropTable("dbo.Users");
             DropTable("dbo.Sessions");
-            DropTable("dbo.Claims");
             DropTable("dbo.Questions");
-            DropTable("dbo.Chatrooms");
+            DropTable("dbo.GameSessions");
+            DropTable("dbo.Claims");
         }
     }
 }

@@ -82,21 +82,13 @@
     <Compile Include="DTOs\PrivateMessageDTO.cs" />
     <Compile Include="DTOs\QuestionDTO.cs" />
     <Compile Include="DTOs\TelemetryLogDTO.cs" />
-    <Compile Include="Migrations\201904032105513_initialize.cs" />
-    <Compile Include="Migrations\201904032105513_initialize.Designer.cs">
-      <DependentUpon>201904032105513_initialize.cs</DependentUpon>
+    <Compile Include="Migrations\201904262123355_initialize.cs" />
+    <Compile Include="Migrations\201904262123355_initialize.Designer.cs">
+      <DependentUpon>201904262123355_initialize.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904050003334_QuestionRowVersion.cs" />
-    <Compile Include="Migrations\201904050003334_QuestionRowVersion.Designer.cs">
-      <DependentUpon>201904050003334_QuestionRowVersion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904050506415_initializeQuest.cs" />
-    <Compile Include="Migrations\201904050506415_initializeQuest.Designer.cs">
-      <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904140943033_add-chatroom-tables.cs" />
-    <Compile Include="Migrations\201904140943033_add-chatroom-tables.Designer.cs">
-      <DependentUpon>201904140943033_add-chatroom-tables.cs</DependentUpon>
+    <Compile Include="Migrations\201904262125474_isSessionUsed.cs" />
+    <Compile Include="Migrations\201904262125474_isSessionUsed.Designer.cs">
+      <DependentUpon>201904262125474_isSessionUsed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
@@ -127,17 +119,11 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904032105513_initialize.resx">
-      <DependentUpon>201904032105513_initialize.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904262123355_initialize.resx">
+      <DependentUpon>201904262123355_initialize.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904050003334_QuestionRowVersion.resx">
-      <DependentUpon>201904050003334_QuestionRowVersion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904050506415_initializeQuest.resx">
-      <DependentUpon>201904050506415_initializeQuest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904140943033_add-chatroom-tables.resx">
-      <DependentUpon>201904140943033_add-chatroom-tables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904262125474_isSessionUsed.resx">
+      <DependentUpon>201904262125474_isSessionUsed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
