@@ -42,6 +42,9 @@ export default {
         .then( response => {
           switch(response.status){
             case 200:
+              axios.post(URL.postURL,Ninja)
+              .then(console.log(Ninja.data))
+              .catch(e => {console.log(e.data)})
               var user = response.data;
               localStorage.setItem('token', this.token);
               this.loading = false;

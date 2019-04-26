@@ -8,19 +8,6 @@
         vertical
       ></v-divider>
       <v-spacer></v-spacer>
-      <v-dialog v-model="dialog" max-width="500px">
-        <v-card>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.log" label="Log"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
     </v-toolbar>
     <v-data-table
       :headers="headers"
@@ -58,19 +45,6 @@
         vertical
       ></v-divider>
       <v-spacer></v-spacer>
-      <v-dialog v-model="dialog" max-width="500px">
-        <v-card>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.log" label="Log"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
     </v-toolbar>
 
     <v-data-table
@@ -88,7 +62,6 @@
         <td class="text-xs-center">{{ props.item.tDateUserPageVisit }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserFunctionalityExecution }}</td>
         <td class="text-xs-center">{{ props.item.tIPAddress }}</td>
-        <td class="text-xs-center">{{ props.item.tLocation   }}</td>
         <td class="justify-center layout px-0">
 
         </td>
@@ -96,7 +69,7 @@
     </v-data-table>
 
     <v-alert
-          :value="true"
+          :value="false"
           type="info"
           transition="scale-transition"
       >
@@ -116,7 +89,7 @@ import {URL} from '@/services/ConstUrls'
     data: () => ({
       headers: [
         {
-          text: 'Log',
+          text: 'ErrorLogs#',
           align: 'left',
           value: 'name'
         },
@@ -128,15 +101,16 @@ import {URL} from '@/services/ConstUrls'
       ],
       headers2: [
         {
-          text: 'TLog',
+          text: 'TelemetryLogs#',
           align: 'left',
           value: 'name'
         },
         { text: 'Date', value: 'date' }, 
+        { text: 'DateUserLogin', value: 'dateuserlogin' },
         { text: 'DateUserLogout', value: 'dateuserlogout' },
         { text: 'DateUserPagevisit', value: 'dateuserpagevisit' },
-        { text: 'IPAddress', value: 'ipaddress' },
-        { text: 'Location', value: 'location' }
+        { text: 'DateExecution', value: 'datefunctionalityexecution' },
+        { text: 'IPAddress', value: 'ipaddress' }
       ],
       
       logs: [],
@@ -149,12 +123,10 @@ import {URL} from '@/services/ConstUrls'
         logID: 0,
         log: '',
       },
-      response: ""
+      response: "",
+      
     }),
     watch: {
-      dialog (val) {
-        val || this.close()
-      }
     },
     created () {
       this.initializeErrorLogs()
@@ -176,8 +148,7 @@ import {URL} from '@/services/ConstUrls'
                 tDateUserLogout: ldata[i].UserLogout,
                 tDateUserPageVisit: ldata[i].PageVisit,
                 tDateUserFunctionalityExecution: ldata[i].FunctionalityExecution,
-                tIPAddress: ldata[i].IPAddress,
-                tLocation: ldata[i].Location
+                tIPAddress: ldata[i].IPAddress
               }
               this.tlogs.push(logItem)
             }

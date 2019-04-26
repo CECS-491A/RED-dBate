@@ -6,10 +6,23 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace KFC.Red.DataAccessLayer.DTOs
+namespace KFC.RED.DataAccessLayer.DTOs
 {
-    public class TelemetryLogDTO
+    public class LogDTO
     {
+
+        [BsonElement("error")]
+        public string Error { get; set; }
+
+        [BsonElement("target")]
+        public string LineofCode { get; set; }
+
+        [BsonElement("loggedInUser")]
+        public string CurrentLoggedInUser { get; set; }
+
+        [BsonElement("userRequest")]
+        public string UserRequest { get; set; }
+
         [BsonId]
         public ObjectId Id { get; set; }
 
@@ -22,13 +35,8 @@ namespace KFC.Red.DataAccessLayer.DTOs
         [BsonElement("userLogout")]
         public string UserLogout { get; set; }
 
-        [BsonElement("pageVisit")]
-        public string PageVisit { get; set; }
-
-        [BsonElement("clickevent")]
-        public string FunctionalityExecution { get; set; }
-
         [BsonElement("IPAddress")]
         public string IPAddress { get; set; }
+
     }
 }

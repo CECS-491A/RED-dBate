@@ -76,6 +76,7 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\ErrorLogDTO.cs" />
+    <Compile Include="DTOs\LogDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginManagerDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
