@@ -16,6 +16,7 @@ const URL = {
     createChatURL: apiURL + 'chat/createchat',
     joinRandomChatURL: apiURL + 'chat/joinrandomchat',
     deleteGameSessionURL: apiURL + 'chat/deletegame',
+    createTelemetryLogURL: apiURL + 'log/createtelemetrylogs',
     postIPURL: apiURL + ''
 }
 
