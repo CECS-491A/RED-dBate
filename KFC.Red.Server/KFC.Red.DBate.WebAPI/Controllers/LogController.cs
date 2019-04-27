@@ -19,6 +19,15 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok("error log created");
         }
 
+        [HttpGet]
+        [Route("api/log/ipaddress")]
+        public IHttpActionResult IpAddress()
+        {
+            LoggingManager<TelemetryLogDTO> errorlogman = new LoggingManager<TelemetryLogDTO>();
+            errorlogman.CreateErrorLog();
+            return Ok("ip address retrieved");
+        }
+
         [HttpPost]
         [Route("api/log/createtelemetrylogs")]
         public IHttpActionResult CreateTelemetryLog()
