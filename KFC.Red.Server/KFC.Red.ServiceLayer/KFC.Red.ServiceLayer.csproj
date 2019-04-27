@@ -90,6 +90,8 @@
     <Compile Include="Archiving\ArchivingService.cs" />
     <Compile Include="Archiving\Interface\IArchivingService.cs" />
     <Compile Include="Authorization\Authorization.cs" />
+    <Compile Include="Authorization\ClaimsList.cs" />
+    <Compile Include="Authorization\ConstantClaims.cs" />
     <Compile Include="Authorization\IAuthorize.cs" />
     <Compile Include="ChatRoom\GameSessionService.cs" />
     <Compile Include="ChatRoom\HubService.cs" />
