@@ -104,10 +104,5 @@ namespace KFC.Red.ServiceLayer.Logging
                     }
                 }
             }*/
-
-            public void CountLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
-            {
-                myDoc.CountDocumentsAsync(log);
-            }
         }
 }
