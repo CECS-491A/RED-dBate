@@ -188,13 +188,19 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
 
             using (var _db = CreateDbContext())
             {
-                var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
-                question = _questionService.GetQuestion(_db, index);
+                try
+                {
+                    var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
+                    question = _questionService.GetQuestion(_db, index+100);
+                    quest = question.QuestionString;
+
+                    return quest;
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
-
-            quest = question.QuestionString;
-
-            return quest;
         }
     }
 }
