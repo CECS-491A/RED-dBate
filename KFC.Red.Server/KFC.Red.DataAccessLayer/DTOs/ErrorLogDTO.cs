@@ -6,8 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// This class contains the error log format method
+/// </summary>
 namespace KFC.Red.DataAccessLayer.DTOs
 {
+    /// <summary>
+    /// Error Log Data Transfer Format Method
+    /// </summary>
     public class ErrorLogDTO
     {
         [BsonId]

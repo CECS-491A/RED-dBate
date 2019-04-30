@@ -23,9 +23,6 @@ namespace KFC.Red.UnitTest
         {
             // Arrange
             var ls = new LoggingService<ErrorLogDTO>("logCollection");
-            bool result;
-
-
 
 
             //using ()
@@ -49,7 +46,7 @@ namespace KFC.Red.UnitTest
             //using ()
             {
                 // Act 
-
+                
 
                 // Assert
 
@@ -60,20 +57,20 @@ namespace KFC.Red.UnitTest
         public void LoggingCreateErrorLog_Success_ReturnTrue()
         {
             // Arrange
-            var lm = new LoggingManager<ErrorLogDTO>();
+            var ls = new LoggingService<ErrorLogDTO>("logCollection");
+            BsonDocument log = new BsonDocument();
+            IMongoCollection<BsonDocument> myDoc = ls.GetCollection("ErrorLogs");
             bool result;
             BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement error = new BsonElement("error", "fail to join session");
+            BsonElement target = new BsonElement("target", "chat");
+            BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
+            BsonElement userRequest = new BsonElement("userRequest", "join session");
+            //Act
+            //result = ls.CreateLog();
+            //Assert
+            //Assert.IsTrue(result);
 
-
-
-            //using ()
-            {
-                // Act 
-
-
-                // Assert
-
-            }
         }
 
         [TestMethod]

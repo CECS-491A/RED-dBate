@@ -2,12 +2,6 @@
   <div>
     <v-toolbar flat color="gray">
       <v-toolbar-title>Log Errors</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
-      <v-spacer></v-spacer>
     </v-toolbar>
     <v-data-table
       :headers="headers"
@@ -39,12 +33,6 @@
     
     <v-toolbar flat color="gray">
       <v-toolbar-title>Log Telemetry</v-toolbar-title>
-      <v-divider
-        class="mx-2"
-        inset
-        vertical
-      ></v-divider>
-      <v-spacer></v-spacer>
     </v-toolbar>
 
     <v-data-table
@@ -95,7 +83,7 @@ import {URL} from '@/services/ConstUrls'
         },
         { text: 'Date', value: 'date' },
         { text: 'Error', value: 'error' },
-        { text: 'Target', value: 'target' },
+        { text: 'LineofCode', value: 'target' },
         { text: 'User', value: 'user' },
         { text: 'UserRequest', value: 'userrequest' },
       ],

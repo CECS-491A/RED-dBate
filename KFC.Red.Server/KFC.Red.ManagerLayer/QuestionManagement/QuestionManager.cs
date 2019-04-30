@@ -196,8 +196,10 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
 
                     return quest;
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
+                    var lm = new LoggingManager<ErrorLogDTO>();
+                    lm.CreateErrorLog(ex, "");
                     return null;
                 }
             }
