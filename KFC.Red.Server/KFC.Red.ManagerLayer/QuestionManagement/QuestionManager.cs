@@ -12,6 +12,8 @@ using KFC.Red.ServiceLayer.QuestionManagement.Interfaces;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
+using KFC.Red.ManagerLayer.Logging;
+using KFC.Red.DataAccessLayer.DTOs;
 
 namespace KFC.Red.ManagerLayer.QuestionManagement
 {
@@ -114,6 +116,8 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
+                    var lm = new LoggingManager<ErrorLogDTO>();
+                    lm.CreateErrorLog(ex,"");
                     return 0;
                 }
             }
