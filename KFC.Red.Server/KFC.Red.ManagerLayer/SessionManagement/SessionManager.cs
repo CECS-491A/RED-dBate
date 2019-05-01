@@ -1,13 +1,8 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.SessionService;
-using KFC.Red.ServiceLayer.TokenService;
+using KFC.Red.ServiceLayer.Token;
 using KFC.Red.ServiceLayer.UserManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KFC.Red.ManagerLayer.SessionManagement
 {
@@ -24,19 +19,16 @@ namespace KFC.Red.ManagerLayer.SessionManagement
             _sService = new SessionServ();
         }
 
-        public Session CreateSession(ApplicationDbContext _db, User user)
+        public Session CreateSession(User user)
         {
-            var userResp = _uService.GetUser(_db, user.Email);
-            if (userResp == null)
+            using (var _db = new ApplicationDbContext())
             {
-                return null;
+                Session session = new Session();
+                session.UId = user.ID;
+                session.Token = _tService.GenerateToken();
+                _db.SaveChanges();
+                return _sService.CreateSession(_db, session);
             }
-
-
-            Session session = new Session();
-            session.UId = user.ID;
-            session.Token = _tService.GenerateToken();
-            return _sService.CreateSession(_db, session);
         }
 
         public string DeleteSession(string token)

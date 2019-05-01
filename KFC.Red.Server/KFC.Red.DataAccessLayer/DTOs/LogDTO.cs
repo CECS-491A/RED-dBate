@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace KFC.RED.DataAccessLayer.DTOs
+namespace KFC.Red.DataAccessLayer.DTOs
 {
     public class LogDTO
     {

@@ -75,6 +75,8 @@
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="DTOs\ChatMessageDTO.cs" />
+    <Compile Include="DTOs\DeleteUserDTO.cs" />
+    <Compile Include="DTOs\DeleteUserFromSSO_DTO.cs" />
     <Compile Include="DTOs\ErrorLogDTO.cs" />
     <Compile Include="DTOs\LogDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
@@ -94,6 +96,10 @@
     <Compile Include="Migrations\201904262154023_refactoring.cs" />
     <Compile Include="Migrations\201904262154023_refactoring.Designer.cs">
       <DependentUpon>201904262154023_refactoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905010519198_deleteBirthdayUser.cs" />
+    <Compile Include="Migrations\201905010519198_deleteBirthdayUser.Designer.cs">
+      <DependentUpon>201905010519198_deleteBirthdayUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
@@ -126,12 +132,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904262123355_initialize.resx">
       <DependentUpon>201904262123355_initialize.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904262125474_isSessionUsed.resx">
       <DependentUpon>201904262125474_isSessionUsed.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904262154023_refactoring.resx">
       <DependentUpon>201904262154023_refactoring.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905010519198_deleteBirthdayUser.resx">
+      <DependentUpon>201905010519198_deleteBirthdayUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

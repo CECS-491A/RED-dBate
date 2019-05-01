@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.Red.ServiceLayer.TokenService.Interface
+namespace KFC.Red.ServiceLayer.Token.Interface
 {
     public interface IToken
     {
         string GenerateToken();
-        bool isValidSignature(string preSig, string sig);
-        string GenerateSignature(string text);
     }
 }

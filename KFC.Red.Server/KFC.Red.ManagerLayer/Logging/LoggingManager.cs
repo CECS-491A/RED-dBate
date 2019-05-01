@@ -5,14 +5,11 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using KFC.Red.ManagerLayer.SessionManagement;
 using System.Net.Mail;
 using System.Net;
 using KFC.Red.ManagerLayer.UserManagement;
-using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.ManagerLayer.Logging
 {
@@ -51,7 +48,7 @@ namespace KFC.Red.ManagerLayer.Logging
 
                 myDoc.InsertOne(log);
             }
-            catch (MongoConnectionException e)
+            catch (MongoConnectionException)
             {
                 if (failedLogs <= 100)
                 {
@@ -105,7 +102,7 @@ namespace KFC.Red.ManagerLayer.Logging
 
                 myDoc.InsertOne(log);
             }
-            catch (MongoConnectionException e)
+            catch (MongoConnectionException)
             {
                 if (failedLogs <= 100)
                 {
@@ -163,7 +160,7 @@ namespace KFC.Red.ManagerLayer.Logging
 
                 myDoc.InsertOne(log);
             }
-            catch (MongoConnectionException e)
+            catch (MongoConnectionException)
             {
                 failedLogs++;
                 if (failedLogs <= 100)
@@ -218,7 +215,7 @@ namespace KFC.Red.ManagerLayer.Logging
 
                 myDoc.InsertOne(log);
             }
-            catch (MongoConnectionException e)
+            catch (MongoConnectionException)
             {
                 failedLogs++;
                 if (failedLogs <= 100)

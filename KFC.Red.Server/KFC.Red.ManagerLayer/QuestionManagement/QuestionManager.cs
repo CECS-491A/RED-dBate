@@ -112,7 +112,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
                     return 0;
                 }
-                catch (DbUpdateConcurrencyException ex)
+                catch (DbUpdateConcurrencyException)
                 {
                     return 0;
                 }

@@ -1,13 +1,9 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using KFC.Red.DataAccessLayer.Models;
-using KFC.RED.DataAccessLayer.DTOs;
+using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ServiceLayer.UserManagement;
 
 namespace KFC.Red.ServiceLayer.ChatRoom

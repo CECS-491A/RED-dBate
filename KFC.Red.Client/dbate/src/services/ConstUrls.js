@@ -1,6 +1,7 @@
 const apiURL = 'http://localhost:5000/api/'
 //const apiURL = 'https://thedbateproject.azurewebsites.net/backend/api/'
-const KFCURL = 'https://kfc-sso.com'
+//const KFCURL = 'https://kfc-sso.com'
+const KFCURL = 'http://localhost:61348'
 
 const URL = {
     randQuestURL: apiURL + 'question/randomquestion',

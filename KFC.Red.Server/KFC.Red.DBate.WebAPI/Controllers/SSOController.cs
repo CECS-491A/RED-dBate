@@ -1,12 +1,8 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.SSO;
-using KFC.RED.DataAccessLayer.DTOs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -19,47 +15,35 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/sso/login")]
         public IHttpActionResult SsoLogin([FromBody] LoginDTO request)
         {
-            if (!ModelState.IsValid || request == null)
-            {
-                return Content((HttpStatusCode)412, ModelState);
-            }
-            var lm = new LoginManager();
-
-            Guid userSSOID;
-            try
-            {
-                // check if valid SSO ID format
-                userSSOID = Guid.Parse(request.SSOUId);
-            }
-            catch (Exception)
-            {
-                return Content((HttpStatusCode)400, "Invalid SSO ID");
-            }
+            string redirectURL = "http://localhost:8080/#/login/?token=";
             using (var _db = new ApplicationDbContext())
             {
-                LoginManagerDTO loginAttempt;
                 try
                 {
-                    loginAttempt = lm.LoginFromSSO(
-                        _db,
+                    var ssoLoginManager = new LoginManager();
+                    var ssoId = new Guid(request.SSOUserId);
+                    // user will get logged in or registered
+                    var loginSession = ssoLoginManager.LoginFromSSO(
                         request.Email,
-                        userSSOID,
-                        request.Signature,
-                        request.PreSignatureString());
+                        ssoId,
+                        request.Timestamp,
+                        request.Signature);
+                    redirectURL = "http://localhost:8080/#/login/?token=" + loginSession.Token;
+                    return Redirect(redirectURL);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    return Content(HttpStatusCode.Conflict, e.Message);
+                    return Content(HttpStatusCode.Conflict, "An Error Occured");
                 }
-
-                LoginResponseDTO response = new LoginResponseDTO
-                {
-                    //RedirectURI = "http://localhost:8080/#/login?token=" + loginAttempt.Token
-                    RedirectURI = "https://thedbateproject.azurewebsites.net/#/login?token=" + loginAttempt.Token
-                };
-
-                return Ok(response);
             }
+        }
+
+        //still have to implement
+        [HttpGet]
+        [Route("api/sso/logout")]
+        public IHttpActionResult Logout()
+        {
+            return null;
         }
     }
 }

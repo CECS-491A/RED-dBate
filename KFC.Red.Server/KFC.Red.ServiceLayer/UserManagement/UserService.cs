@@ -43,6 +43,11 @@ namespace KFC.Red.ServiceLayer.UserManagement
             return _UserManagementRepo.GetUser(_db, Id);
         }
 
+        public User GetUser(ApplicationDbContext _db, Guid ssoId)
+        {
+            return _UserManagementRepo.GetUser(_db,ssoId);
+        }
+
         public User UpdateUser(ApplicationDbContext _db, User user)
         {
             return _UserManagementRepo.UpdateUser(_db, user);
