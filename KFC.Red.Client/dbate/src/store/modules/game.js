@@ -5,7 +5,7 @@ const gameSessionToken = localStorage.getItem('gameSessionToken')
 const state = {
   playerAmount: 0,
   isPlayerMinimumMet: false,
-  playerList = []
+  playerList: []
 }
 
 // getters

@@ -6,6 +6,7 @@ import router from './router'
 import Vuetify from 'vuetify'
 import './../node_modules/bulma/css/bulma.css';
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+import Vuex from 'vuex'
 
 Vue.use(Vuetify, {
   theme: {
@@ -15,6 +16,8 @@ Vue.use(Vuetify, {
     error: '#b71c1c'
   }
 })
+
+Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
