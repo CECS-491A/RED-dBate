@@ -104,7 +104,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatStorage.cs" />
-    <Compile Include="Models\Claim.cs" />
+    <Compile Include="Models\Claims.cs" />
     <Compile Include="Models\GameSession.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Session.cs" />

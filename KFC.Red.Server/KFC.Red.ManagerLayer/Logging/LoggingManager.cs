@@ -11,75 +11,78 @@ using System.Net.Mail;
 using System.Net;
 using KFC.Red.ManagerLayer.UserManagement;
 
+/// <summary>
+/// This Manager Layer class contains the Logger method.
+/// </summary>
 namespace KFC.Red.ManagerLayer.Logging
 {
     public class LoggingManager<T>
     {
+        //Method failed logs is used if the system fails to log
         public int failedLogs;
+        
+        /// <summary>
+        /// DisplayLogsAsync return a list of the displayment of the logs in BSON  format.
+        /// </summary>
+        /// <param name="collectionName"></param>
+        /// <returns></returns>
         public async Task<List<T>> DisplayLogsAsync(string collectionName)
         {
+            //Created LoggingService object.
             LoggingService<T> logService = new LoggingService<T>(collectionName);
+            //GetCollection is a built in mongo method to retrieve information.
             var collection = logService.GetCollection(collectionName);
+            //
             var count = await collection.CountDocumentsAsync(new BsonDocument());
+            //
             var documents = await logService._logCollection.Find(new BsonDocument()).ToListAsync();
 
             return documents;
         }
 
+        /// <summary>
+        /// Logger method to create an error log
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="token"></param>
         public void CreateErrorLog(Exception ex, string token)
         {
             UserManager userman = new UserManager();
+            //Logging service type to be ErrorLogDTO
             LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
             BsonDocument log = new BsonDocument();
             IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
 
-            var session = GetLogInfo(token);
-            var user = userman.GetUser(session.UId);
+            //Getting token to log users.
+            var session = GetLogInfo(token); 
+            //var user = userman.GetUser(session.UId);
 
             try
             {
-                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement error = new BsonElement("error", ex.Message.ToString());
-                BsonElement target = new BsonElement("target", ex.TargetSite.ToString());
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", user.Email);
-                BsonElement userRequest = new BsonElement("userRequest", ex.Source.ToString());
+                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")); //display date
+                BsonElement error = new BsonElement("error", ex.Message.ToString()); //display message
+                BsonElement target = new BsonElement("target", ex.TargetSite.ToString()); // display the method
+                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "user1"); // display user email
+                BsonElement userRequest = new BsonElement("userRequest", ex.Source.ToString()); //display the request
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
 
-                myDoc.InsertOne(log);
+                myDoc.InsertOne(log); //builtin mongo method to insert inton the cluster
             }
             catch (MongoConnectionException)
             {
                 if (failedLogs <= 100)
                 {
-                    //Email Notification
-                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    MailMessage mail = new MailMessage();
-
-                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-                    smtp.Host = "smtp.mail.yahoo.com";
-
-                    //Replace with admin address
-                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
-
-                    mail.IsBodyHtml = true;
-                    mail.Subject = "Test Subject";
-                    mail.Body = "Test Message";
-                    smtp.Send(mail);
-
+                    elogger.EmailNotification();
                     //Reset counter
                     failedLogs = 0;
                 }
             }
         }
 
+        /// <summary>
+        /// Mock Data errorlog creator
+        /// </summary>
         public void CreateErrorLog()
         {
             UserManager userman = new UserManager();
@@ -96,7 +99,7 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement error = new BsonElement("error", "fail to join session");
                 BsonElement target = new BsonElement("target", "chat");
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "leung027@gmail.com");
+                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
                 BsonElement userRequest = new BsonElement("userRequest", "join session");
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
 
@@ -106,37 +109,20 @@ namespace KFC.Red.ManagerLayer.Logging
             {
                 if (failedLogs <= 100)
                 {
-                    //Email Notification
-                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    MailMessage mail = new MailMessage();
-
-                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-                    smtp.Host = "smtp.mail.yahoo.com";
-
-                    //Replace with admin address
-                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
-
-                    mail.IsBodyHtml = true;
-                    mail.Subject = "Test Subject";
-                    mail.Body = "Test Message";
-                    smtp.Send(mail);
-
-                    //Reset counter
+                    elogger.EmailNotification();
                     failedLogs = 0;
                 }
             }
         }
 
 
-
-            public void CreateTelemetryLog(string token, string ip, string loc)
+        /// <summary>
+        /// Logger method to create an telemetry log
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="ip"></param>
+        /// <param name="loc"></param>
+        public void CreateTelemetryLog(string token, string ip, string loc)
         {
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
@@ -166,26 +152,7 @@ namespace KFC.Red.ManagerLayer.Logging
                 if (failedLogs <= 100)
                 {
                     //Email Notification
-                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    MailMessage mail = new MailMessage();
-
-                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-                    smtp.Host = "smtp.mail.yahoo.com";
-
-                    //Replace with admin address
-                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
-
-                    mail.IsBodyHtml = true;
-                    mail.Subject = "Test Subject";
-                    mail.Body = "Test Message";
-                    smtp.Send(mail);
+                    tlogger.EmailNotification();
 
                     //Reset counter
                     failedLogs = 0;
@@ -193,11 +160,14 @@ namespace KFC.Red.ManagerLayer.Logging
             }
         }
 
+        /// <summary>
+        /// Mock Data errorlog creator
+        /// </summary>
         public void CreateTelemetryLog()
         {
             BsonDocument log = new BsonDocument();
-            LoggingService<TelemetryLogDTO> tlog = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
-            IMongoCollection<BsonDocument> myDoc = tlog.GetCollection("TelemetryLogs");
+            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
 
             //var session = GetLogInfo();
             var logouttime = "12/15/1996";//session.DeleteTime;
@@ -222,25 +192,7 @@ namespace KFC.Red.ManagerLayer.Logging
                 {
                     //Email Notification
                     //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    MailMessage mail = new MailMessage();
-
-                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-                    smtp.Host = "smtp.mail.yahoo.com";
-
-                    //Replace with admin address
-                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
-
-                    mail.IsBodyHtml = true;
-                    mail.Subject = "Test Subject";
-                    mail.Body = "Test Message";
-                    smtp.Send(mail);
+                    tlogger.EmailNotification();
 
                     //Reset counter
                     failedLogs = 0;
@@ -248,12 +200,24 @@ namespace KFC.Red.ManagerLayer.Logging
             }
         }
 
+        /// <summary>
+        /// Method to delete error logs from the collection
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collectionName"></param>
         public void DeleteLog(string id,string collectionName)
         {
-            LoggingService<T> loggerService = new LoggingService<T>(collectionName);
+            LoggingService<T> loggerService = new LoggingService<T>(collectionName); //Built in method from 
             loggerService._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
         }
 
+
+        /// <summary>
+        /// Method to get the token from the session class. 
+        /// This method is used to get the token to keep track of user login/logout.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public Session GetLogInfo(string token)
         {
             SessionManager sessman = new SessionManager();
