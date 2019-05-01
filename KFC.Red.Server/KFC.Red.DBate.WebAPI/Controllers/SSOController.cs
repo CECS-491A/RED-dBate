@@ -37,8 +37,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
             }
         }
-
-        //still have to implement
+        
         [HttpGet]
         [Route("api/sso/logout")]
         public IHttpActionResult Logout()
