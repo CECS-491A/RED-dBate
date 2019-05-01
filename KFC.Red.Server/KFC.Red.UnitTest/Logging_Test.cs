@@ -47,15 +47,15 @@ namespace KFC.Red.UnitTest
             LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
             BsonDocument log = new BsonDocument();
             IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
-                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement error = new BsonElement("error", "fail to join session");
-                BsonElement target = new BsonElement("target", "chat");
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
-                BsonElement userRequest = new BsonElement("userRequest", "join session");
+            BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement error = new BsonElement("error", "fail to join session");
+            BsonElement target = new BsonElement("target", "chat");
+            BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
+            BsonElement userRequest = new BsonElement("userRequest", "join session");
             //Act
-                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
-                myDoc.InsertOne(log);
-
+            log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+            myDoc.InsertOne(log);
+            //Assert
             Assert.AreEqual(myDoc, log);
 
         }
@@ -66,7 +66,7 @@ namespace KFC.Red.UnitTest
             //Arrange
             LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
+            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs"); //changed to err?
             BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
             BsonElement error = new BsonElement("error", "fail to join session");
             BsonElement target = new BsonElement("target", "chat");
@@ -82,35 +82,54 @@ namespace KFC.Red.UnitTest
         [TestMethod]
         public void LoggingCreateTelemetryLog_Success_ReturnTrue()
         {
-            // Arrange
-            var lm = new LoggingManager<ErrorLogDTO>();
-            bool result;
+            //Arrange
+            BsonDocument log = new BsonDocument();
+            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
 
-            //using ()
-            {
-                // Act 
+            //var session = GetLogInfo();
+            var logouttime = "12/15/1996";//session.DeleteTime;
+            var logintime = "12/15/1996"; //session.CreateTime;
+            
+            //Act
+            BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement userlogin = new BsonElement("userLogin", logouttime);
+            BsonElement userlogout = new BsonElement("userLogout", logintime);
+            BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
+            log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
+            myDoc.InsertOne(log);
 
-
-                // Assert
-
-            }
+            //Assert
+            Assert.AreEqual(myDoc, log);
         }
+        
 
         [TestMethod]
         public void LoggingCreateTelemetryLog_Fail_ReturnTrue()
         {
-            // Arrange
-            var lm = new LoggingManager<ErrorLogDTO>();
-            bool result;
+            //Arrange
+            BsonDocument log = new BsonDocument();
+            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
 
-            //using ()
-            {
-                // Act 
+            //var session = GetLogInfo();
+            var logouttime = "12/15/1996";//session.DeleteTime;
+            var logintime = "12/15/1996"; //session.CreateTime;
 
+            //Act
+            BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement userlogin = new BsonElement("userLogin", logouttime);
+            BsonElement userlogout = new BsonElement("userLogout", logintime);
+            BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
+            log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
+            myDoc.InsertOne(log);
 
-                // Assert
-
-            }
+            //Assert
+            Assert.AreEqual(myDoc, log);
         }
 
         [TestMethod]
