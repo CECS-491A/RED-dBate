@@ -23,6 +23,7 @@ namespace KFC.Red.ManagerLayer.Logging
     {
         //Method failed logs is used if the system fails to log
         public int failedLogs;
+        
         /// <summary>
         /// DisplayLogsAsync return a list of the displayment of the logs in BSON  format.
         /// </summary>
@@ -75,28 +76,7 @@ namespace KFC.Red.ManagerLayer.Logging
             {
                 if (failedLogs <= 100)
                 {
-                    //Email Notification
-                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    MailMessage mail = new MailMessage();
-
-                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-                    smtp.Host = "smtp.mail.yahoo.com";
-
-                    //Replace with admin address
-                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
-
-                    mail.IsBodyHtml = true;
-                    mail.Subject = "Test Subject";
-                    mail.Body = "Test Message";
-                    smtp.Send(mail);
-
+                    elogger.EmailNotification();
                     //Reset counter
                     failedLogs = 0;
                 }
@@ -132,29 +112,7 @@ namespace KFC.Red.ManagerLayer.Logging
             {
                 if (failedLogs <= 100)
                 {
-                    //Email Notification
-                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    MailMessage mail = new MailMessage();
-
-                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-                    smtp.Host = "smtp.mail.yahoo.com";
-
-                    //Replace with admin address
-                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
-
-                    mail.IsBodyHtml = true;
-                    mail.Subject = "Test Subject";
-                    mail.Body = "Test Message";
-                    smtp.Send(mail);
-
-                    //Reset counter
+                    elogger.EmailNotification();
                     failedLogs = 0;
                 }
             }
@@ -197,26 +155,7 @@ namespace KFC.Red.ManagerLayer.Logging
                 if (failedLogs <= 100)
                 {
                     //Email Notification
-                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    MailMessage mail = new MailMessage();
-
-                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-                    smtp.Host = "smtp.mail.yahoo.com";
-
-                    //Replace with admin address
-                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
-
-                    mail.IsBodyHtml = true;
-                    mail.Subject = "Test Subject";
-                    mail.Body = "Test Message";
-                    smtp.Send(mail);
+                    tlogger.EmailNotification();
 
                     //Reset counter
                     failedLogs = 0;
@@ -230,8 +169,8 @@ namespace KFC.Red.ManagerLayer.Logging
         public void CreateTelemetryLog()
         {
             BsonDocument log = new BsonDocument();
-            LoggingService<TelemetryLogDTO> tlog = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
-            IMongoCollection<BsonDocument> myDoc = tlog.GetCollection("TelemetryLogs");
+            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
 
             //var session = GetLogInfo();
             var logouttime = "12/15/1996";//session.DeleteTime;
@@ -256,25 +195,7 @@ namespace KFC.Red.ManagerLayer.Logging
                 {
                     //Email Notification
                     //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    MailMessage mail = new MailMessage();
-
-                    mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!");
-                    smtp.Host = "smtp.mail.yahoo.com";
-
-                    //Replace with admin address
-                    mail.To.Add(new MailAddress("caytkid1@gmail.com"));
-
-                    mail.IsBodyHtml = true;
-                    mail.Subject = "Test Subject";
-                    mail.Body = "Test Message";
-                    smtp.Send(mail);
+                    tlogger.EmailNotification();
 
                     //Reset counter
                     failedLogs = 0;

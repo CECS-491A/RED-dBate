@@ -10,6 +10,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net.Mail;
 
 namespace KFC.Red.UnitTest
 {
@@ -19,38 +20,26 @@ namespace KFC.Red.UnitTest
 
 
         [TestMethod]
-        public void LoggingGetLogAsync_Success_ReturnTrue()
+        public void EmailNotification_Success_ReturnTrue()
         {
-            // Arrange
-            var ls = new LoggingService<ErrorLogDTO>("logCollection");
-
-
-            //using ()
-            {
-                // Act 
-
-
-                // Assert
-
-            }
+            /*
+            //Mock<SmtpClient> smtpClient = new Mock<SmtpClient>();
+            //SmtpProvider smtpProvider = new SmtpProvider(smtpClient.Object);
+            string @from = "from@from.com";
+            string to = "to@to.com";
+            bool send = smtpProvider.Send(@from, to);
+            Assert.IsTrue(send);*/
         }
 
-
         [TestMethod]
-        public void LoggingGetLogAsync_Fail_ReturnTrue()
-        {
-            // Arrange
-            var ls = new LoggingService<ErrorLogDTO>("logCollection");
-            bool result;
-
-            //using ()
-            {
-                // Act 
-                
-
-                // Assert
-
-            }
+        public void EmailNotification_Success_ReturnFalse()
+        {/*
+            //Mock<SmtpClient> smtpClient = new Mock<SmtpClient>();
+            //SmtpProvider smtpProvider = new SmtpProvider(smtpClient.Object);
+            string @from = "to@to.com";
+            string to = "from@from.com";
+            bool send = smtpProvider.Send(@from, to);
+            Assert.IsTrue(send);*/
         }
 
         [TestMethod]

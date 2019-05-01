@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using KFC.Red.ServiceLayer.Logging.Interfaces;
+using System.Net.Mail;
+using System.Net;
 
 namespace KFC.Red.ServiceLayer.Logging
 {
@@ -51,7 +53,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <summary>
         /// Mongo method to return a view of the collection.
         /// </summary>
-        /// <param name="collectionName"></param>
+        /// <param name="collectionName">name of the collecction being stored</param>
         /// <returns></returns>
         public IMongoCollection<BsonDocument> GetCollection(string collectionName)
         {
@@ -73,8 +75,8 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <summary>
         /// Mongo method that inserts a document into a collection.
         /// </summary>
-        /// <param name="myDoc"></param>
-        /// <param name="Log"></param>
+        /// <param name="myDoc">bson document format</param>
+        /// <param name="log">the logs getting store into the document</param>
         public void CreateLog(IMongoCollection<BsonDocument> myDoc, BsonDocument Log)
             {
                 myDoc.InsertOne(Log);
@@ -83,11 +85,43 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <summary>
         /// Mongo method that counts the number of documents in the collection.
         /// </summary>
-        /// <param name="myDoc"></param>
-        /// <param name="log"></param>
+        /// <param name="myDoc">bson document format</param>
+        /// <param name="log">the logs getting store into the document</param>
         public void CountLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
         {
                 myDoc.CountDocumentsAsync(log);
+        }
+        
+        /// <summary>
+        /// Method to email admin
+        /// </summary>
+        public void EmailNotification()
+        {
+            //Email Notification
+            //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
+            //System.NetMail. Represents and email Message that can be sent using SmtpClient
+            MailMessage mail = new MailMessage();
+
+            mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
+
+            //Allows applications to send email by using the Simple Mail Transfer Protocol (SMTP).
+            SmtpClient smtp = new SmtpClient();
+            smtp.Port = 587; //Gets the port used for SMTP transactions.
+            smtp.EnableSsl = true; //Encrypt the connection using SSl.
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network; //Specifies how outgoing email messages will be handled.
+            smtp.UseDefaultCredentials = false; //Gets or sets a Boolean value that controls whether the DefaultCredentials are sent with requests
+            smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!"); //Gets the credentials used to authenticate the sender.
+            smtp.Host = "smtp.mail.yahoo.com"; //Gets the name or IP address of the host.
+
+            //Mail to the recepient address
+            mail.To.Add(new MailAddress("deivisleung027@gmail.com"));
+
+            //Mail format
+            mail.IsBodyHtml = true;
+            mail.Subject = "Test Subject";
+            mail.Body = "Test Message";
+            smtp.Send(mail); //Send mail to an Smtp Server
+
         }
     }
 }
