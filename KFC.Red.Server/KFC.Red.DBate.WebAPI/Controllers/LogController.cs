@@ -10,6 +10,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class LogController : ApiController
     {
+        /// <summary>
+        /// Controller for creating the error logs
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/log/createerrorlogs")]
         public IHttpActionResult CreateErrorLog()
@@ -19,6 +23,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok("error log created");
         }
 
+        /// <summary>
+        /// Controller for getting the IP Adrress from the front end.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/log/ipaddress")]
         public IHttpActionResult IpAddress()
@@ -28,6 +36,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok("ip address retrieved");
         }
 
+        /// <summary>
+        ///  Controller for creating the telemetry logs
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/log/createtelemetrylogs")]
         public IHttpActionResult CreateTelemetryLog()
@@ -37,6 +49,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok("telemetry log created");
         }
 
+        /// <summary>
+        ///  Controller for display the error logs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/log/displayerrorlogs")]
         public async Task<List<ErrorLogDTO>> DisplayLogsAsync()
@@ -46,6 +62,11 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return await documents;
         }
 
+
+        /// <summary>
+        ///  Controller for display the telemeytry logs
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/log/displaytelemetrylogs")]
         public async Task<List<TelemetryLogDTO>> DisplayLogsAsyncTelemetry()
@@ -55,7 +76,11 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return await documents;
         }
 
-        
+        /// <summary>
+        /// Controller to delete error logs
+        /// </summary>
+        /// <param name="id">log id</param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("api/log/deletelog")]
         public IHttpActionResult DeleteLog(string id)
