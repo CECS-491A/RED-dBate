@@ -1,8 +1,12 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.SSO;
+using KFC.RED.DataAccessLayer.DTOs;
 using System;
 using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -20,7 +24,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             {
                 try
                 {
-                    var ssoLoginManager = new LoginManager();
+                    var ssoLoginManager = new SSO_Manager();
                     var ssoId = new Guid(request.SSOUserId);
                     // user will get logged in or registered
                     var loginSession = ssoLoginManager.LoginFromSSO(
@@ -38,12 +42,25 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             }
         }
         
-        [HttpGet]
+        [HttpPost]
         [Route("api/sso/logout")]
-        public IHttpActionResult Logout()
+        public IHttpActionResult Logout([FromBody] LogoutDTO req)
         {
+            using (var _db = new ApplicationDbContext())
+            {
+                SessionManager sessionManager = new SessionManager();
+                try
+                {
+                    sessionManager.DeleteSession(req.Token);
+                    _db.SaveChanges();
 
-            return null;
+                    return Ok();
+                }
+                catch (Exception e)
+                {
+                    return Content(HttpStatusCode.Conflict, e.Message);
+                }
+            }
         }
     }
 }

@@ -10,9 +10,48 @@
     <v-btn to="lobby" flat><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
     <v-btn to="logmanager"  flat><strong class="white--text text--lighten-1">Log Man</strong></v-btn>
     <v-btn to="questmanagement" flat><strong class="white--text text--lighten-1">QAM</strong></v-btn>
-
+    <v-btn v-on:click="logout" v-if="isSessionStored===true">Logout</v-btn>
   </v-toolbar>
 </template>
+
+<script>
+import axios from "axios"
+import {URL} from '@/services/ConstUrls'
+
+export default {
+  name: 'Navbar',
+  data() {
+    return {
+    }
+  },
+  computed: {
+    isSessionStored: function(){
+      if(localStorage.getItem('token') !== null){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+  },
+  methods: {
+    logout(){
+      console.log(localStorage.getItem('token'));
+      alert("You will now logout" + localStorage.getItem('token'));
+      axios.post(URL.logoutURL,{
+        Token: localStorage.getItem('token')
+      })
+      .then(resp => {
+        localStorage.removeItem('token');
+        window.location.href = sso_login_url;
+      })
+      .catch(e => {
+        console.log(e.data);
+      })
+    }
+  }
+}
+</script>
 
 <style>
 body {

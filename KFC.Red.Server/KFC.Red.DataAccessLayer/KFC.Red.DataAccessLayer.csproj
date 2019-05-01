@@ -81,6 +81,7 @@
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginManagerDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
+    <Compile Include="DTOs\LogoutDTO.cs" />
     <Compile Include="DTOs\PrivateMessageDTO.cs" />
     <Compile Include="DTOs\QuestionDTO.cs" />
     <Compile Include="DTOs\TelemetryLogDTO.cs" />
