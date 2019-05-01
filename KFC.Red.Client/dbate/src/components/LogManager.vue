@@ -1,8 +1,10 @@
 <template>
   <div>
+        <!--Header for Error Log -->
     <v-toolbar flat color="gray">
       <v-toolbar-title>Log Errors</v-toolbar-title>
     </v-toolbar>
+        <!--Table for Error Log -->
     <v-data-table
       :headers="headers"
       :items="logs"

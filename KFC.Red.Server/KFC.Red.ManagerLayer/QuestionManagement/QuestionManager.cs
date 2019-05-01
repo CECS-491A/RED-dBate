@@ -114,7 +114,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
                     return 0;
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
                     var lm = new LoggingManager<ErrorLogDTO>();
                     lm.CreateErrorLog(ex,"");
@@ -191,7 +191,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 try
                 {
                     var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
-                    question = _questionService.GetQuestion(_db, index+100);
+                    question = _questionService.GetQuestion(_db, index);
                     quest = question.QuestionString;
 
                     return quest;
