@@ -45,7 +45,6 @@ export default {
               localStorage.setItem('gameSessionToken',t.data);
               console.log(t.data);
               this.$router.push('/waitingroom/' + key)
-              //alert(t.data);
             })
             .catch(e => {
                 this.error = e.response;

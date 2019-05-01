@@ -18,6 +18,7 @@ const URL = {
     joinRandomChatURL: apiURL + 'chat/joinrandomchat',
     deleteGameSessionURL: apiURL + 'chat/deletegame',
     createTelemetryLogURL: apiURL + 'log/createtelemetrylogs',
+    logoutURL: apiURL + 'sso/logout',
     postIPURL: apiURL + ''
 }
 
