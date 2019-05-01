@@ -191,7 +191,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 try
                 {
                     var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
-                    question = _questionService.GetQuestion(_db, index+100);
+                    question = _questionService.GetQuestion(_db, index);
                     quest = question.QuestionString;
 
                     return quest;

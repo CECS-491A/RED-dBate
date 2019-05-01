@@ -8,9 +8,9 @@ using KFC.Red.ManagerLayer.Logging;
 using KFC.Red.ServiceLayer.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Mail;
+using static KFC.Red.ServiceLayer.Logging.EmailTest;
 
 namespace KFC.Red.UnitTest
 {
@@ -18,99 +18,118 @@ namespace KFC.Red.UnitTest
     public class Logging_Test
     {
 
-
         [TestMethod]
         public void EmailNotification_Success_ReturnTrue()
         {
-            /*
-            //Mock<SmtpClient> smtpClient = new Mock<SmtpClient>();
-            //SmtpProvider smtpProvider = new SmtpProvider(smtpClient.Object);
-            string @from = "from@from.com";
-            string to = "to@to.com";
-            bool send = smtpProvider.Send(@from, to);
-            Assert.IsTrue(send);*/
+            FakeSmtpClient fakeClient = new FakeSmtpClient();
+            EmailHelper helper = new EmailHelper(fakeClient);
+
+            helper.SendSupportMail("your mail address");
+
+            Assert.IsFalse(fakeClient.MailSent);
         }
 
         [TestMethod]
         public void EmailNotification_Success_ReturnFalse()
-        {/*
-            //Mock<SmtpClient> smtpClient = new Mock<SmtpClient>();
-            //SmtpProvider smtpProvider = new SmtpProvider(smtpClient.Object);
-            string @from = "to@to.com";
-            string to = "from@from.com";
-            bool send = smtpProvider.Send(@from, to);
-            Assert.IsTrue(send);*/
+        {
+            FakeSmtpClient fakeClient = new FakeSmtpClient();
+            EmailHelper helper = new EmailHelper(fakeClient);
+
+            helper.SendSupportMail("your mail address");
+
+            Assert.IsFalse(fakeClient.MailSent);
         }
 
         [TestMethod]
         public void LoggingCreateErrorLog_Success_ReturnTrue()
         {
-            // Arrange
-            var ls = new LoggingService<ErrorLogDTO>("logCollection");
+            //Arrange
+            LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = ls.GetCollection("ErrorLogs");
-            bool result;
+            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
             BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
             BsonElement error = new BsonElement("error", "fail to join session");
             BsonElement target = new BsonElement("target", "chat");
             BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
             BsonElement userRequest = new BsonElement("userRequest", "join session");
             //Act
-            //result = ls.CreateLog();
+            log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+            myDoc.InsertOne(log);
             //Assert
-            //Assert.IsTrue(result);
+            Assert.AreEqual(myDoc, log);
 
         }
 
         [TestMethod]
         public void LoggingCreateErrorLog_Fail_ReturnTrue()
         {
-            // Arrange
-            var lm = new LoggingManager<ErrorLogDTO>();
-            bool result;
+            //Arrange
+            LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
+            BsonDocument log = new BsonDocument();
+            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs"); //changed to err?
+            BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement error = new BsonElement("error", "fail to join session");
+            BsonElement target = new BsonElement("target", "chat");
+            BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
+            BsonElement userRequest = new BsonElement("userRequest", "join session");
+            //Act
+            log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+            myDoc.InsertOne(log);
 
-            //using ()
-            {
-                // Act 
-
-
-                // Assert
-
-            }
+            Assert.AreEqual(myDoc, log);
         }
 
         [TestMethod]
         public void LoggingCreateTelemetryLog_Success_ReturnTrue()
         {
-            // Arrange
-            var lm = new LoggingManager<ErrorLogDTO>();
-            bool result;
+            //Arrange
+            BsonDocument log = new BsonDocument();
+            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
 
-            //using ()
-            {
-                // Act 
+            //var session = GetLogInfo();
+            var logouttime = "12/15/1996";//session.DeleteTime;
+            var logintime = "12/15/1996"; //session.CreateTime;
+            
+            //Act
+            BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement userlogin = new BsonElement("userLogin", logouttime);
+            BsonElement userlogout = new BsonElement("userLogout", logintime);
+            BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
+            log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
+            myDoc.InsertOne(log);
 
-
-                // Assert
-
-            }
+            //Assert
+            Assert.AreEqual(myDoc, log);
         }
+        
 
         [TestMethod]
         public void LoggingCreateTelemetryLog_Fail_ReturnTrue()
         {
-            // Arrange
-            var lm = new LoggingManager<ErrorLogDTO>();
-            bool result;
+            //Arrange
+            BsonDocument log = new BsonDocument();
+            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
 
-            //using ()
-            {
-                // Act 
+            //var session = GetLogInfo();
+            var logouttime = "12/15/1996";//session.DeleteTime;
+            var logintime = "12/15/1996"; //session.CreateTime;
 
+            //Act
+            BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement userlogin = new BsonElement("userLogin", logouttime);
+            BsonElement userlogout = new BsonElement("userLogout", logintime);
+            BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+            BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
+            log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
+            myDoc.InsertOne(log);
 
-                // Assert
-
-            }
+            //Assert
+            Assert.AreEqual(myDoc, log);
         }
 
         [TestMethod]

@@ -5,7 +5,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using KFC.Red.ServiceLayer.Logging.Interfaces;
 using System.Net.Mail;
-using System.Net;
+using System;
 
 namespace KFC.Red.ServiceLayer.Logging
 {
@@ -97,6 +97,30 @@ namespace KFC.Red.ServiceLayer.Logging
         /// </summary>
         public void EmailNotification()
         {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("smtp.yahoo.com");
+
+                mail.From = new MailAddress("teamred533@yahoo.com");
+                mail.To.Add("deivisleung027@gmail.com");
+                mail.Subject = "Test Mail";
+                mail.Body = "This is for testing SMTP log failures";
+
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("teamred533@yahoo.com", "dbate2019!");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+                Console.WriteLine("Message Send");
+                //MessageBox.Show("mail Send");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                //MessageBox.Show(ex.ToString());
+            }
+            /*
             //Email Notification
             //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
             //System.NetMail. Represents and email Message that can be sent using SmtpClient
@@ -120,7 +144,7 @@ namespace KFC.Red.ServiceLayer.Logging
             mail.IsBodyHtml = true;
             mail.Subject = "Test Subject";
             mail.Body = "Test Message";
-            smtp.Send(mail); //Send mail to an Smtp Server
+            smtp.Send(mail); //Send mail to an Smtp Server*/
 
         }
     }
