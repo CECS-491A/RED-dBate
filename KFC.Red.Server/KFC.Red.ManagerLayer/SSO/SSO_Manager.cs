@@ -5,7 +5,7 @@ using System;
 
 namespace KFC.Red.ManagerLayer.SSO
 {
-    public class LoginManager
+    public class SSO_Manager
     {
         public Session LoginFromSSO(string email, Guid ssoID, long timestamp, string signature)
         {
@@ -26,13 +26,19 @@ namespace KFC.Red.ManagerLayer.SSO
                 }
 
                 SessionManager sessionManager = new SessionManager();
-                Session session = sessionManager.CreateSession(user);
+                var session = sessionManager.CreateSession(user);
+
                 return session;
             }
             catch (Exception)
             {
                 return null;
             }
+        }
+
+        public void Logout()
+        {
+
         }
     }
 }

@@ -23,11 +23,24 @@ namespace KFC.Red.ManagerLayer.SessionManagement
         {
             using (var _db = new ApplicationDbContext())
             {
-                Session session = new Session();
-                session.UId = user.ID;
-                session.Token = _tService.GenerateToken();
+                Session session = new Session
+                {
+                    UId = user.ID,
+                    Token = _tService.GenerateToken()
+                };
+
+                var createdSession = _sService.CreateSession(_db, session);
                 _db.SaveChanges();
-                return _sService.CreateSession(_db, session);
+                return createdSession;
+            }
+        }
+
+        public int CreateSession(Session session)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                var resp = _sService.CreateSession(_db, session);
+                return _db.SaveChanges();
             }
         }
 

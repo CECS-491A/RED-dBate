@@ -13,5 +13,6 @@ namespace KFC.Red.ServiceLayer.Logging.Interfaces
         List<BsonDocument> GetListOfCollections();
         IMongoCollection<BsonDocument> GetCollection(string collection);
         Task<List<BsonDocument>> GetAllLogsAsync();
+        void CreateLog(IMongoCollection<BsonDocument> myDoc, BsonDocument Log);
     }
 }
