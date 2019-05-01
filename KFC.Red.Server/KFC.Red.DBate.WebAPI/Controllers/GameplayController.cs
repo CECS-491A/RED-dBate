@@ -4,36 +4,41 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using KFC.Red.ManagerLayer.ChatroomManager;
+using KFC.Red.ManagerLayer.UserManagement;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class GameplayController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        private GameplayManager _GameMan;
+
+        public GameplayController()
         {
-            return new string[] { "value1", "value2" };
+            _GameMan = new GameplayManager();
+
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        [HttpGet]
+        [Route("api/gameplay/assignhost")]
+        public IHttpActionResult AssignHost([FromBody]GameRoleDTO grDto)
         {
-            return "value";
+            var userManager = new UserManager();
+            var u =  _GameMan.AssignHost(grDto.SsoId);
+            var user = userManager.GetUser(grDto.SsoId);
+            return Ok(user.Role);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        [HttpGet]
+        [Route("api/gameplay/assignplayer")]
+        public IHttpActionResult AssignPlayer([FromBody]GameRoleDTO grDto)
         {
+            var userManager = new UserManager();
+            var u = _GameMan.AssignPlayer(grDto.SsoId);
+            var user = userManager.GetUser(grDto.SsoId);
+            return Ok(user.Role);
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }

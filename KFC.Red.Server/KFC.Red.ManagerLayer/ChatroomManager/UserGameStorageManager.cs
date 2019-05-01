@@ -51,18 +51,32 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             }
         }
 
-        public List<string> GetGameUsers(int gid)
+        public List<string> GetGameUsernames(int gid)
         {
-            UserManager um = new UserManager();
-            List<string> users = new List<string>();
-            List<UserGameStorage> ugs = GetSessionUsers(gid);
-            for (int i = 0; i < ugs.Capacity; i++)
+            UserManager uManager = new UserManager();
+            List<string> usernameList = new List<string>();
+            List<UserGameStorage> ugsList = GetSessionUsers(gid);
+            for (int i = 0; i < ugsList.Capacity; i++)
             {
-                UserGameStorage ug = ugs[i];
-                User u = um.GetUser(ug.UId);
-                users.Add(u.Email);
+                UserGameStorage ugs = ugsList[i];
+                User user = uManager.GetUser(ugs.UId);
+                usernameList.Add(user.Email);
+            }
+            return usernameList;
+        }
+
+        public List<User> GetGameUsers(int gid)
+        {
+            UserManager uManager = new UserManager();
+            List<UserGameStorage> ugsList = GetSessionUsers(gid);
+            List<User> users = new List<User>();
+            for(int i = 0; i < ugsList.Capacity; i++)
+            {
+                UserGameStorage ugs = ugsList[i];
+                users.Add(uManager.GetUser(ugs.UId));
             }
             return users;
         }
+
     }
 }

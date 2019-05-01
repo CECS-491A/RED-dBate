@@ -76,6 +76,7 @@
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="DTOs\ChatMessageDTO.cs" />
     <Compile Include="DTOs\ErrorLogDTO.cs" />
+    <Compile Include="DTOs\GameRoleDTO.cs" />
     <Compile Include="DTOs\LogDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginManagerDTO.cs" />
@@ -94,6 +95,10 @@
     <Compile Include="Migrations\201904262154023_refactoring.cs" />
     <Compile Include="Migrations\201904262154023_refactoring.Designer.cs">
       <DependentUpon>201904262154023_refactoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905012154167_Order.cs" />
+    <Compile Include="Migrations\201905012154167_Order.Designer.cs">
+      <DependentUpon>201905012154167_Order.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
@@ -132,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904262154023_refactoring.resx">
       <DependentUpon>201904262154023_refactoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905012154167_Order.resx">
+      <DependentUpon>201905012154167_Order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
