@@ -198,8 +198,8 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 }
                 catch (Exception ex)
                 {
-                    var lm = new LoggingManager<ErrorLogDTO>();
-                    lm.CreateErrorLog(ex, "");
+                    //var lm = new LoggingManager<ErrorLogDTO>();
+                    //lm.CreateErrorLog(ex, "");
                     return null;
                 }
             }
