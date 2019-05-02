@@ -39,6 +39,22 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             }
         }
 
+        public int GetGameId(int userId)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                var ugs = _db.UserGameStorages
+                    .Where(user => user.UId == userId)
+                    .FirstOrDefault<UserGameStorage>();
+                if (ugs == null)
+                {
+                    return 0;
+                }
+                return ugs.GId;
+            }
+        }
+
+
         private List<UserGameStorage> GetSessionUsers(int gid)
         {
             using (var _db = new ApplicationDbContext())
