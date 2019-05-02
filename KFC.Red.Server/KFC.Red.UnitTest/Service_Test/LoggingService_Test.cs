@@ -16,12 +16,13 @@ namespace KFC.Red.UnitTest.Service_Test
         public void FailCountEmail_Success_ReturnTrue()
         {
             //Arrange
-            //LoggingService<ErrorLogDTO> logserv = new LoggingService<ErrorLogDTO>(collectionName);
+            LoggingService<ErrorLogDTO> logserv = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
             //Act
             bool expectedResultTrue = true;
-            //var actualResult = logserv.FailCountEmail();
+            var actualResult = logserv.FailCountEmail(1);
             //Assert
+            Assert.AreEqual(expectedResultTrue, actualResult);
 
 
         }
@@ -30,10 +31,13 @@ namespace KFC.Red.UnitTest.Service_Test
         public void FailCountEmail_Success_ReturnFalse()
         {
             //Arrange
+            LoggingService<ErrorLogDTO> logserv = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
             //Act
-
+            bool expectedResultTrue = false;
+            var actualResult = logserv.FailCountEmail(1);
             //Assert
+            Assert.AreNotEqual(expectedResultTrue, actualResult);
 
         }
     }
