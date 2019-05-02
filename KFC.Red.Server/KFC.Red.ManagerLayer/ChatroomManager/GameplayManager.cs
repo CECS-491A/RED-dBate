@@ -29,31 +29,37 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
         public int AssignPlayer(Guid ssoId)
         {
             var user = uManager.GetUser(ssoId);
-            if (string.IsNullOrEmpty(user.Role))
+            var gameId = ugsManager.GetGameId(user.ID);
+            if (string.IsNullOrEmpty(user.Role) && gameId > 0)
             {
-                var sessionUsers = ugsManager.GetGameUsers(user.ID)
+                var sessionUsers = ugsManager.GetGameUsers(gameId)
                     .Where(sUser => string.IsNullOrEmpty(sUser.Role) == false)
                     .ToList();
                 int t1Count = 0, t2Count = 0;
                 for (int i = 0; i < sessionUsers.Count(); i++)
                 {
-                    if(String.Equals(sessionUsers[i].Role, "Team1"))
+                    if (String.Equals(sessionUsers[i].Role, "Team1"))
                     {
                         t1Count++;
                     }
-                    else if(String.Equals(sessionUsers[i].Role, "Team2"))
+                    else if (String.Equals(sessionUsers[i].Role, "Team2"))
                     {
                         t2Count++;
                     }
                 }
-                if(t1Count <= t2Count)
+                if (t1Count <= t2Count)
                 {
                     user.Role = "Team1";
+                    var teamOrder = ugsManager.GetGameUsers(gameId)
+                        .Where(tUser => String.Equals(tUser.Role, "Team1"))
+                        .ToList();
                 }
                 else
                 {
                     user.Role = "Team2";
                 }
+                uManager.UpdateUser(user);
+
                 return uManager.UpdateUser(user);
             }
             else
