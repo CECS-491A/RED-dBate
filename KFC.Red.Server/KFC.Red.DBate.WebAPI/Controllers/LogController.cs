@@ -2,7 +2,6 @@
 using System.Web.Http;
 using KFC.Red.ManagerLayer.Logging;
 using System.Threading.Tasks;
-using KFC.RED.DataAccessLayer.DTOs;
 using KFC.Red.DataAccessLayer.DTOs;
 using MongoDB.Bson;
 
