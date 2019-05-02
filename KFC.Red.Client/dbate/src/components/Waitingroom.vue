@@ -42,7 +42,7 @@ export default {
     loadingText: 'Gathering More Players...',
     validSession: true,
     popupMessage: '',
-    isMinPlayersMet: false, //placeholder for now might work or not 
+    isMinPlayersMet: true, //placeholder for now might work or not 
                             //MIGHT NEED CENTRAL STORE MANAGEMENT HINT: VUEX!
     response: ''
   }),

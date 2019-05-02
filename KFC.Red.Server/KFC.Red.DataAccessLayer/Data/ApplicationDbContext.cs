@@ -7,9 +7,7 @@ namespace KFC.Red.DataAccessLayer.Data
     {
         public ApplicationDbContext()
         {
-            //this.Database.Connection.ConnectionString = "Server=tcp:thedbateprojectserver.database.windows.net,1433;Initial Catalog=DBate;Persist Security Info=False;User ID=redsqladmin;Password=RedSP!LB19;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             this.Database.Connection.ConnectionString = "Data Source=localhost;Initial Catalog=DBate;Integrated Security=True";
-            //Database.SetInitializer();
         }
 
         public static ApplicationDbContext Create()
