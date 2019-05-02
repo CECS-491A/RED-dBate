@@ -5,8 +5,8 @@ using KFC.Red.ServiceLayer;
 using KFC.Red.ServiceLayer.ChatRoom;
 using KFC.Red.ServiceLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.QuestionManagement.Interfaces;
-using KFC.Red.ServiceLayer.TokenService;
-using KFC.Red.ServiceLayer.TokenService.Interface;
+using KFC.Red.ServiceLayer.Token;
+using KFC.Red.ServiceLayer.Token.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -106,7 +106,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
                 GameSession gameSession = new GameSession();
                 var gameSessionsList = _db.GameSessions.Where(c => c.isSessionUsed == false).ToList();
                 var maxSize = gameSessionsList.Count();
-                var index = reusableServices.GetNumberForRandomization(0,maxSize);
+                var index = reusableServices.GetNumberForRandomization(0,maxSize-1);
                 gameSession = gameSessionsList[index];
                 return gameSession;
             }

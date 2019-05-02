@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KFC.Red.DataAccessLayer.Models
 {
@@ -26,11 +23,6 @@ namespace KFC.Red.DataAccessLayer.Models
         public string PasswordHash { get; set; }
 
         public string PasswordSalt { get; set; }
-
-        //[Required]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime DateOfBirth { get; set; }
 
         public string City { get; set; }
 

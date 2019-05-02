@@ -12,6 +12,8 @@ using KFC.Red.ServiceLayer.QuestionManagement.Interfaces;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
+using KFC.Red.ManagerLayer.Logging;
+using KFC.Red.DataAccessLayer.DTOs;
 
 namespace KFC.Red.ManagerLayer.QuestionManagement
 {
@@ -114,6 +116,8 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
+                    var lm = new LoggingManager<ErrorLogDTO>();
+                    lm.CreateErrorLog(ex,"");
                     return 0;
                 }
             }
@@ -184,13 +188,21 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
 
             using (var _db = CreateDbContext())
             {
-                var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
-                question = _questionService.GetQuestion(_db, index);
+                try
+                {
+                    var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
+                    question = _questionService.GetQuestion(_db, index);
+                    quest = question.QuestionString;
+
+                    return quest;
+                }
+                catch (Exception ex)
+                {
+                    var lm = new LoggingManager<ErrorLogDTO>();
+                    lm.CreateErrorLog(ex, "");
+                    return null;
+                }
             }
-
-            quest = question.QuestionString;
-
-            return quest;
         }
     }
 }

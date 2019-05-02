@@ -41,7 +41,6 @@ namespace KFC.Red.DataAccessLayer.Repositories
             return _db.Users.Find(Id);
         }
 
-        
         public User GetUser(ApplicationDbContext _db, Guid SSOId)
         {
             var user = _db.Users.Where(c => c.SsoId == SSOId)
