@@ -47,10 +47,10 @@ namespace KFC.Red.ManagerLayer.Logging
         {
             UserManager userman = new UserManager();
             //Logging service type to be ErrorLogDTO
-            LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
+            LoggingService<ErrorLogDTO> elogService = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
+            IMongoCollection<BsonDocument> myDoc = elogService.GetCollection("ErrorLogs");
 
             //Getting token to log users.
             var session = GetLogInfo(token); 
@@ -67,9 +67,9 @@ namespace KFC.Red.ManagerLayer.Logging
 
                 myDoc.InsertOne(log); //builtin mongo method to insert inton the cluster
             }
-            catch (MongoConnectionException)
+            catch (MongoException)
             {
-                elogger.FailCountEmail(failedLogs);
+                elogService.FailCountEmail(failedLogs);
             }
         }
 
@@ -79,10 +79,10 @@ namespace KFC.Red.ManagerLayer.Logging
         public bool CreateErrorLog()
         {
             UserManager userman = new UserManager();
-            LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
+            LoggingService<ErrorLogDTO> elogService = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
+            IMongoCollection<BsonDocument> myDoc = elogService.GetCollection("ErrorLogs");
 
             //var session = GetLogInfo(token);
             //var user = userman.GetUser(session.UId);
@@ -99,9 +99,9 @@ namespace KFC.Red.ManagerLayer.Logging
                 myDoc.InsertOne(log);
                 return true;
             }
-            catch (MongoConnectionException)
+            catch (MongoException)
             {
-                elogger.FailCountEmail(failedLogs);
+                elogService.FailCountEmail(failedLogs);
                 return false;
             }
         }
@@ -116,8 +116,8 @@ namespace KFC.Red.ManagerLayer.Logging
         public void CreateTelemetryLog(string token, string ip, string loc)
         {
             BsonDocument log = new BsonDocument();
-            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
-            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
+            LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogService.GetCollection("TelemetryLogs");
 
             var session = GetLogInfo(token);
             var logouttime = "12/15/1996";//session.DeleteTime;
@@ -139,7 +139,7 @@ namespace KFC.Red.ManagerLayer.Logging
             }
             catch (MongoException)
             {
-                tlogger.FailCountEmail(failedLogs);
+                tlogService.FailCountEmail(failedLogs);
             }
         }
 
@@ -149,8 +149,8 @@ namespace KFC.Red.ManagerLayer.Logging
         public bool CreateTelemetryLog()
         {
             BsonDocument log = new BsonDocument();
-            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
-            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
+            LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> myDoc = tlogService.GetCollection("TelemetryLogs");
 
             //var session = GetLogInfo();
             var logouttime = "12/15/1996";//session.DeleteTime;
@@ -169,9 +169,9 @@ namespace KFC.Red.ManagerLayer.Logging
                 myDoc.InsertOne(log);
                 return true;
             }
-            catch (MongoConnectionException)
+            catch (MongoException)
             {
-                tlogger.FailCountEmail(failedLogs);
+                tlogService.FailCountEmail(failedLogs);
                 return false;
             }
         }
@@ -181,10 +181,19 @@ namespace KFC.Red.ManagerLayer.Logging
         /// </summary>
         /// <param name="id"></param>
         /// <param name="collectionName"></param>
-        public void DeleteLog(string id,string collectionName)
+        public bool DeleteLog(string id,string collectionName)
         {
-            LoggingService<T> loggerService = new LoggingService<T>(collectionName); //Built in method from 
-            loggerService._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
+            LoggingService<ErrorLogDTO> loggerService = new LoggingService<ErrorLogDTO>(collectionName); //Built in method from 
+            try
+            {
+                loggerService._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
+                return true;
+            }
+            catch(MongoException)
+            {
+                Console.WriteLine("Failed to delete logs");
+                return false;
+            }
         }
 
 

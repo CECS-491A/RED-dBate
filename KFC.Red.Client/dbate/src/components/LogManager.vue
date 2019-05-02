@@ -10,6 +10,7 @@
       :items="logs"
       class="elevation-1"
     >
+    <!-- Header Table Data for Error Log -->
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td class="text-xs-right">{{ props.item.logID }}</td>
@@ -21,7 +22,7 @@
         <td class="text-xs-right">{{ props.item.loggedUserRequest }}</td>
         
         <td class="justify-center layout px-0">
-
+          <!--Button to delete for Error Log -->
           <v-icon
             small
             @click="deleteLogError(props.item)"
@@ -32,17 +33,18 @@
       </template>
     </v-data-table>
     
-    
+    <!--Header for Telemetry Log -->
     <v-toolbar flat color="gray">
       <v-toolbar-title>Log Telemetry</v-toolbar-title>
     </v-toolbar>
-
+    
+    <!--Table for Telemetry Log -->
     <v-data-table
       :headers="headers2"
       :items="tlogs"
       class="elevation-1"
     >
-    
+    <!--Table for Telemetry Log -->
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td class="text-xs-center">{{ props.item.tlogID }}</td>
@@ -53,11 +55,11 @@
         <td class="text-xs-center">{{ props.item.tDateUserFunctionalityExecution }}</td>
         <td class="text-xs-center">{{ props.item.tIPAddress }}</td>
         <td class="justify-center layout px-0">
-
         </td>
       </template>
     </v-data-table>
 
+<!--Component to convey an important message -->
     <v-alert
           :value="false"
           type="info"
@@ -72,6 +74,7 @@
 
 </template>
 
+<!--Retrieving Data from the backend to Error/Telemetry Log -->
 <script>
 import axios from "axios"
 import {URL} from '@/services/ConstUrls'

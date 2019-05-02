@@ -1,4 +1,6 @@
-﻿using KFC.Red.DataAccessLayer.Models;
+﻿using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.DataAccessLayer.Models;
+using KFC.Red.ManagerLayer.Logging;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.UserManagement;
 using System;
@@ -30,8 +32,10 @@ namespace KFC.Red.ManagerLayer.SSO
 
                 return session;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var lm = new LoggingManager<ErrorLogDTO>();
+                lm.CreateErrorLog(ex, "");
                 return null;
             }
         }

@@ -133,12 +133,14 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                     
                     return _db.SaveChanges();
                 }
-                catch (DbEntityValidationException)
+                catch (DbEntityValidationException ex)
                 {
                     // catch error
                     // rollback changes
                     _db.Entry(response).CurrentValues.SetValues(_db.Entry(response).OriginalValues);
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
+                    var lm = new LoggingManager<ErrorLogDTO>();
+                    lm.CreateErrorLog(ex, "");
                     return 0;
                 }
             }
@@ -198,8 +200,8 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 }
                 catch (Exception ex)
                 {
-                    //var lm = new LoggingManager<ErrorLogDTO>();
-                    //lm.CreateErrorLog(ex, "");
+                    var lm = new LoggingManager<ErrorLogDTO>();
+                    lm.CreateErrorLog(ex, "");
                     return null;
                 }
             }
