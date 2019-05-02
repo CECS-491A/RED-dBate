@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace KFC.Red.UnitTest
 {
+    /*
     [TestClass]
     public class ArchivingTest
     {
         ArchivingManager archiveCheck = new ArchivingManager();
-    }
+    }*/
 }

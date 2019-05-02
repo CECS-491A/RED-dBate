@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using KFC.Red.ManagerLayer.SessionManagement;
-using System.Net.Mail;
-using System.Net;
 using KFC.Red.ManagerLayer.UserManagement;
 
 /// <summary>
@@ -71,19 +69,14 @@ namespace KFC.Red.ManagerLayer.Logging
             }
             catch (MongoConnectionException)
             {
-                if (failedLogs <= 100)
-                {
-                    elogger.EmailNotification();
-                    //Reset counter
-                    failedLogs = 0;
-                }
+                elogger.FailCountEmail(failedLogs);
             }
         }
 
         /// <summary>
         /// Mock Data errorlog creator
         /// </summary>
-        public void CreateErrorLog()
+        public bool CreateErrorLog()
         {
             UserManager userman = new UserManager();
             LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
@@ -104,14 +97,12 @@ namespace KFC.Red.ManagerLayer.Logging
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
 
                 myDoc.InsertOne(log);
+                return true;
             }
             catch (MongoConnectionException)
             {
-                if (failedLogs <= 100)
-                {
-                    elogger.EmailNotification();
-                    failedLogs = 0;
-                }
+                elogger.FailCountEmail(failedLogs);
+                return false;
             }
         }
 
@@ -146,24 +137,16 @@ namespace KFC.Red.ManagerLayer.Logging
 
                 myDoc.InsertOne(log);
             }
-            catch (MongoConnectionException)
+            catch (MongoException)
             {
-                failedLogs++;
-                if (failedLogs <= 100)
-                {
-                    //Email Notification
-                    tlogger.EmailNotification();
-
-                    //Reset counter
-                    failedLogs = 0;
-                }
+                tlogger.FailCountEmail(failedLogs);
             }
         }
 
         /// <summary>
         /// Mock Data errorlog creator
         /// </summary>
-        public void CreateTelemetryLog()
+        public bool CreateTelemetryLog()
         {
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
@@ -184,19 +167,12 @@ namespace KFC.Red.ManagerLayer.Logging
                 log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
 
                 myDoc.InsertOne(log);
+                return true;
             }
             catch (MongoConnectionException)
             {
-                failedLogs++;
-                if (failedLogs <= 100)
-                {
-                    //Email Notification
-                    //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-                    tlogger.EmailNotification();
-
-                    //Reset counter
-                    failedLogs = 0;
-                }
+                tlogger.FailCountEmail(failedLogs);
+                return false;
             }
         }
 

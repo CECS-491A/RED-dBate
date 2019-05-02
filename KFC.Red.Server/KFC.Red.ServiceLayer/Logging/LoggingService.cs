@@ -6,6 +6,7 @@ using MongoDB.Bson;
 using KFC.Red.ServiceLayer.Logging.Interfaces;
 using System.Net.Mail;
 using System;
+using System.Net;
 
 namespace KFC.Red.ServiceLayer.Logging
 {
@@ -99,53 +100,57 @@ namespace KFC.Red.ServiceLayer.Logging
         {
             try
             {
+                //Email Notification
+                //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
+                //System.NetMail. Represents and email Message that can be sent using SmtpClient
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("smtp.yahoo.com");
 
-                mail.From = new MailAddress("teamred533@yahoo.com");
-                mail.To.Add("deivisleung027@gmail.com");
-                mail.Subject = "Test Mail";
-                mail.Body = "This is for testing SMTP log failures";
+                mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
 
-                SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("teamred533@yahoo.com", "dbate2019!");
-                SmtpServer.EnableSsl = true;
+                //Allows applications to send email by using the Simple Mail Transfer Protocol (SMTP).
+                SmtpClient smtp = new SmtpClient();
+                smtp.Port = 587; //Gets the port used for SMTP transactions.
+                smtp.EnableSsl = true; //Encrypt the connection using SSl.
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network; //Specifies how outgoing email messages will be handled.
+                smtp.UseDefaultCredentials = false; //Gets or sets a Boolean value that controls whether the DefaultCredentials are sent with requests
+                smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!"); //Gets the credentials used to authenticate the sender.
+                smtp.Host = "smtp.mail.yahoo.com"; //Gets the name or IP address of the host.
 
-                SmtpServer.Send(mail);
-                Console.WriteLine("Message Send");
-                //MessageBox.Show("mail Send");
+                //Mail to the recepient address
+                mail.To.Add(new MailAddress("deivisleung027@gmail.com"));
+
+                //Mail format
+                mail.IsBodyHtml = true;
+                mail.Subject = "Test Subject";
+                mail.Body = "Test Message";
+                smtp.Send(mail); //Send mail to an Smtp Server
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 //MessageBox.Show(ex.ToString());
             }
-            /*
-            //Email Notification
-            //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
-            //System.NetMail. Represents and email Message that can be sent using SmtpClient
-            MailMessage mail = new MailMessage();
-
-            mail.From = new System.Net.Mail.MailAddress("teamred533@yahoo.com");
-
-            //Allows applications to send email by using the Simple Mail Transfer Protocol (SMTP).
-            SmtpClient smtp = new SmtpClient();
-            smtp.Port = 587; //Gets the port used for SMTP transactions.
-            smtp.EnableSsl = true; //Encrypt the connection using SSl.
-            smtp.DeliveryMethod = SmtpDeliveryMethod.Network; //Specifies how outgoing email messages will be handled.
-            smtp.UseDefaultCredentials = false; //Gets or sets a Boolean value that controls whether the DefaultCredentials are sent with requests
-            smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!"); //Gets the credentials used to authenticate the sender.
-            smtp.Host = "smtp.mail.yahoo.com"; //Gets the name or IP address of the host.
-
-            //Mail to the recepient address
-            mail.To.Add(new MailAddress("deivisleung027@gmail.com"));
-
-            //Mail format
-            mail.IsBodyHtml = true;
-            mail.Subject = "Test Subject";
-            mail.Body = "Test Message";
-            smtp.Send(mail); //Send mail to an Smtp Server*/
 
         }
+
+        public bool FailCountEmail(int failedLogs)
+        {
+            failedLogs++;
+            if (failedLogs <= 100)
+            {
+                //Email Notification
+                //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
+                EmailNotification();
+
+                //Reset counter
+                failedLogs = 0;
+
+                //If Returned true, then email notoifcation was sent and counter is resetted
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

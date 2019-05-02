@@ -15,5 +15,6 @@ namespace KFC.Red.ServiceLayer.Logging.Interfaces
         Task<List<BsonDocument>> GetAllLogsAsync();
         void CreateLog(IMongoCollection<BsonDocument> myDoc, BsonDocument Log);
         void EmailNotification();
+        bool FailCountEmail(int failedLogs);
     }
 }
