@@ -40,8 +40,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/getusers")]
         public List<string> GetUsers(int gid)
         {
-            _ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
-            return _UserGameStoreManager.GetGameUsers(gid);
+            _ChatHub.SendUserList(_UserGameStoreManager.GetGameUsernames(gid));
+            return _UserGameStoreManager.GetGameUsernames(gid);
         }
 
         [HttpGet]

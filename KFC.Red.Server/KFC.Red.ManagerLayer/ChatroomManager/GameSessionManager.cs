@@ -106,7 +106,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
                 GameSession gameSession = new GameSession();
                 var gameSessionsList = _db.GameSessions.Where(c => c.isSessionUsed == false).ToList();
                 var maxSize = gameSessionsList.Count();
-                var index = reusableServices.GetNumberForRandomization(0,maxSize);
+                var index = reusableServices.GetNumberForRandomization(0,maxSize-1);
                 gameSession = gameSessionsList[index];
                 return gameSession;
             }

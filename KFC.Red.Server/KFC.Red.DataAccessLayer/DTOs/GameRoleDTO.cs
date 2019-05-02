@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.Red.ServiceLayer.Authorization
+namespace KFC.RED.DataAccessLayer.DTOs
 {
-    class ClaimsList
+    public class GameRoleDTO
     {
-
+        public Guid SsoId { get; set; }
     }
 }

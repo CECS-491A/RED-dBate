@@ -50,10 +50,10 @@ namespace KFC.Red.ManagerLayer.UserManagement
                 return _db.SaveChanges();
             }
         }
-
+        
         public User GetUser(Guid ssoId)
         {
-            using (var _db = CreateDbContext())
+            using(var _db = CreateDbContext())
             {
                 return _userService.GetUser(_db, ssoId);
             }

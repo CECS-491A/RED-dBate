@@ -26,7 +26,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 {
                     var ssoLoginManager = new SSO_Manager();
                     var ssoId = new Guid(request.SSOUserId);
-                    // user will get logged in or registered
+
                     var loginSession = ssoLoginManager.LoginFromSSO(
                         request.Email,
                         ssoId,
