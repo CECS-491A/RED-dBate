@@ -1,5 +1,5 @@
 const state = {
-    isSessionStored: true,
+    isSessionStored: false,
     adminPage: 0
   }
   
