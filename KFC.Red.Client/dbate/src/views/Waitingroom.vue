@@ -27,7 +27,7 @@
 
 <script>
 import Loading from '@/components/dialogs/Loading'
-import Players from '@/components/Players'
+import Players from '@/components/chatroom/Players'
 import axios from "axios"
 import {URL} from '@/services/ConstUrls'
 
