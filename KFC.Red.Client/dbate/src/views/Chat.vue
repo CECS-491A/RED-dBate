@@ -46,7 +46,7 @@
 
 <script>
   import axios from "axios"
-  import Players from '@/components/reusable-components/Players.vue'
+  import Players from '@/components/Players.vue'
   import $ from 'jquery'
   import {URL} from '@/services/ConstUrls'
   import 'ms-signalr-client-jquery-3'

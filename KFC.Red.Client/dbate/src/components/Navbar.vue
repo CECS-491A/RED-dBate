@@ -22,7 +22,7 @@
 <script>
 import axios from "axios"
 import {URL} from '@/services/ConstUrls'
-import PopupDialog from '@/components/reusable-components/dialogs/PopupDialog.vue'
+import PopupDialog from '@/components/dialogs/PopupDialog.vue'
 import {KFC_LoginURL} from '@/services/ConstUrls'
 import { EventBus } from '@/services/EventBus'
 
@@ -90,7 +90,7 @@ body {
 
 main {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 0px;
 }
 
 header {

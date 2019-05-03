@@ -1,22 +1,32 @@
 const state = {
-    isSessionStored: true
+    isSessionStored: true,
+    adminPage: 0
   }
   
   const getters = {
-    getIsSessionStored: function(){
-        if(localStorage.getItem('token') !== null){
-            this.getIsSessionStored = true;
-            return true;
-        }
-        else{
-          this.getIsSessionStored = false;
-          return false;
-        }
-    }
+    getAdminPage: function(state){
+      return state.adminPage;
+    },
   }
-  
-  
-  export default {
-    state,
-    getters
+
+  // actions
+const actions = {
+  actAdminPage (context, payload) {
+    context.commit('mutateAdminPage', payload)
   }
+
+}
+
+// mutations
+const mutations = {
+  mutateAdminPage (state, payload) {
+    state.adminPage = payload.AdminPage
+  }
+}
+
+export default {
+  state,
+  getters,
+  actions,
+  mutations
+}

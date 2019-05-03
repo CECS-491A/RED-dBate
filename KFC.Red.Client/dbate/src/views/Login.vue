@@ -11,8 +11,8 @@
 
 <script>
 import axios from 'axios'
-import Loading from '@/components/reusable-components/dialogs/Loading'
-import PopupDialog from '@/components/reusable-components/dialogs/PopupDialog'
+import Loading from '@/components/dialogs/Loading'
+import PopupDialog from '@/components/dialogs/PopupDialog'
 import {KFCURL} from '@/services/ConstUrls'
 
 export default {
