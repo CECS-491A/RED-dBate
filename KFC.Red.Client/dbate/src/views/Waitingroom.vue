@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import Loading from '@/components/reusable-components/dialogs/Loading'
-import Players from '@/components/reusable-components/Players'
+import Loading from '@/components/dialogs/Loading'
+import Players from '@/components/chatroom/Players'
 import axios from "axios"
 import {URL} from '@/services/ConstUrls'
 

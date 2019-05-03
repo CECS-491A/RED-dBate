@@ -7,9 +7,8 @@
 
     <v-btn to="home"  flat><strong class="white--text text--lighten-1">Home</strong></v-btn>
     <v-btn to="about" flat><strong class="white--text text--lighten-1">About</strong></v-btn>
-    <v-btn to="lobby" flat v-if="isSessionStored===true"><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
-    <v-btn to="logmanager"  flat v-if="isSessionStored===true"><strong class="white--text text--lighten-1">Log Man</strong></v-btn>
-    <v-btn to="questmanagement" flat v-if="isSessionStored===true" ><strong class="white--text text--lighten-1">QAM</strong></v-btn>
+    <v-btn to="lobby" flat v-if="isSessionStored===false"><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
+    <v-btn to="admindashboard" flat v-if="isSessionStored===false"><strong class="white--text text--lighten-1">Admin Portal</strong></v-btn>
     <v-btn v-on:click="logout" v-if="isSessionStored===true">Logout</v-btn>
     <v-btn v-on:click="login" v-if="isSessionStored===false">Login</v-btn>
     <div v-if="showPopup">
@@ -22,7 +21,7 @@
 <script>
 import axios from "axios"
 import {URL} from '@/services/ConstUrls'
-import PopupDialog from '@/components/reusable-components/dialogs/PopupDialog.vue'
+import PopupDialog from '@/components/dialogs/PopupDialog.vue'
 import {KFC_LoginURL} from '@/services/ConstUrls'
 import { EventBus } from '@/services/EventBus'
 
@@ -90,7 +89,7 @@ body {
 
 main {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 0px;
 }
 
 header {
