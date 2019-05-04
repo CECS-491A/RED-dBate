@@ -46,7 +46,7 @@
 
 <script>
   import axios from "axios"
-  import Players from '@/components/reusable-components/Players.vue'
+  import Players from '@/components/chatroom/Players.vue'
   import $ from 'jquery'
   import {URL} from '@/services/ConstUrls'
   import 'ms-signalr-client-jquery-3'
@@ -54,7 +54,10 @@
   export default {
     data () {
       return {
-        ChatHub: $.connection.MyChatHub,
+        //chatServerUrl = "http://localhost:5000/signalr",
+        /*connection = $.hubConnection(chatServerUrl, {
+            useDefaultPath: false
+        }),*/
         question: '',
         messages: [],
         content: "",
@@ -66,8 +69,8 @@
     },
     mounted () {
         console.log(this.ChatHub);
-        this.ChatHub.client.pushNewMessage = this.pushNewMessage;
-        this.ChatHub.client.pushUserList = this.pushUserList;
+        this.ChatHub. //.client.pushNewMessage = this.pushNewMessage;
+        this.ChatHub //.client.pushUserList = this.pushUserList;
         $.connection.hub.start().done(function () { 
             console.log('SignalR Hub Started!');
         });

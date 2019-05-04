@@ -7,8 +7,6 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-const debug = process.env.NODE_ENV !== 'production'
-
 export default new Vuex.Store({
   //...initialization
   modules: {
@@ -17,5 +15,4 @@ export default new Vuex.Store({
     GeneralService,
   },
   plugins: [createPersistedState()],
-  strict: debug
 })

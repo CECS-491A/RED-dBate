@@ -11,8 +11,8 @@
 
 <script>
 import axios from 'axios'
-import Loading from '@/components/reusable-components/dialogs/Loading'
-import PopupDialog from '@/components/reusable-components/dialogs/PopupDialog'
+import Loading from '@/components/dialogs/Loading'
+import PopupDialog from '@/components/dialogs/PopupDialog'
 import {KFCURL} from '@/services/ConstUrls'
 
 export default {
@@ -31,6 +31,7 @@ export default {
   mounted() {
     this.token = this.$route.query.token;
     localStorage.setItem('token', this.token);
+    this.$store.dispatch('actIsSessionStored', {IsSessionStored: true});
     this.CheckUser(this.token);
   },
   methods: {
@@ -43,6 +44,7 @@ export default {
           case 200:
             var user = resp.data;
             localStorage.setItem('token', this.token);
+            this.$store.dispatch('actIsSessionStored', {IsSessionStored: true});
             this.loading = false;
             this.loadingText = '';
             this.$router.push('/lobby');
