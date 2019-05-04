@@ -62,5 +62,20 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
             }
         }
+
+        [HttpGet]
+        [Route("api/sso/health")]
+        public IHttpActionResult HealthCheck()
+        {
+            using(var _db = new ApplicationDbContext())
+            {
+                if (_db.Database.Exists())
+                {
+                    return Ok("DBate is working properly");
+                }
+
+                return Content(HttpStatusCode.InternalServerError, "An Error has been encountered");
+            }
+        }
     }
 }
