@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.UserManagement;
+using KFC.Red.ManagerLayer.ChatroomManager;
 
 /// <summary>
 /// This Manager Layer class contains the Logger method.
@@ -113,7 +114,7 @@ namespace KFC.Red.ManagerLayer.Logging
         /// <param name="token"></param>
         /// <param name="ip"></param>
         /// <param name="loc"></param>
-        public void CreateTelemetryLog(string token, string ip, string loc)
+        public void CreateTelemetryLog(string token, string gametoken, string ip)
         {
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
@@ -122,15 +123,17 @@ namespace KFC.Red.ManagerLayer.Logging
             var session = GetLogInfo(token);
             var logouttime = session.DeleteTime;
             var logintime = session.CreateTime;
-            var ipAddr = tlogService.GetIPAddress();
+            var gamesession = GetGameLogInfo(gametoken);
+            var gamefunctionality = gamesession.CreateTime;
+           //var ipAddr = tlogService.GetIPAddress();
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userlogin = new BsonElement("userLogin", logouttime);
                 BsonElement userlogout = new BsonElement("userLogout", logintime);
-                BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement functionalityexecution = new BsonElement("clickevent", gamefunctionality);
                 BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement ipaddress = new BsonElement("IPAddress", );
+                BsonElement ipaddress = new BsonElement("IPAddress", "192.51.255");
 
                 myDoc.InsertOne(log);
 
@@ -200,6 +203,18 @@ namespace KFC.Red.ManagerLayer.Logging
             SessionManager sessman = new SessionManager();
             var session = sessman.GetSession(token);
             return session;
+        }
+        /// <summary>
+        /// Method to get the token from the game session class. 
+        /// This method is used to get the token to keep track of user game sessions.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public GameSession GetGameLogInfo(string gametoken)
+        {
+            GameSessionManager gamesessman = new GameSessionManager();
+            var gamesession = gamesessman.GetGameSession(gametoken);
+            return gamesession;
         }
     }
 }

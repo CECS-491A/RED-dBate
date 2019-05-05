@@ -1,5 +1,6 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.ManagerLayer.Logging;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.SSO;
 using KFC.RED.DataAccessLayer.DTOs;
@@ -53,6 +54,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 {
                     sessionManager.DeleteSession(req.Token);
                     _db.SaveChanges();
+                    var lm = new LoggingManager<TelemetryLogDTO>();
+                    lm.CreateTelemetryLog("", "");
 
                     return Ok();
                 }
