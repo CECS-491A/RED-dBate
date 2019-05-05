@@ -1,14 +1,14 @@
 <template>
   <v-layout row wrap>
     <v-flex sm3 offset-xs1 class="scrollable">
-      <h1>Players in the Game</h1>
-      <h1>Count: {{playerCount}}</h1>
+      <br/>
+      <h1>Players in the Game: {{this.$store.getters.getPlayerAmount}}</h1>
       <players></players>
     </v-flex>
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
-          <v-btn id="startGame" color="blue" v-on:click="startGame" dark large v-if="isMinPlayersMet">Start Game</v-btn>
+          <v-btn id="startGame" color="blue" v-on:click="startGame" dark large v-if="this.$store.getters.getIsPlayerMinimumMet">Start Game</v-btn>
         </div>
       </div>
     </v-flex>
@@ -42,17 +42,10 @@ export default {
     loadingText: 'Gathering More Players...',
     validSession: true,
     popupMessage: '',
-    isMinPlayersMet: true, //placeholder for now might work or not 
-                            //MIGHT NEED CENTRAL STORE MANAGEMENT HINT: VUEX!
     response: ''
   }),
   mounted (){
 
-  },
-  computed: {
-    playerCount () {
-      return 1;//this.$store.getters.getPlayerAmount;
-    }
   },
   watch: {
     playerCount (newCount, oldCount) {
