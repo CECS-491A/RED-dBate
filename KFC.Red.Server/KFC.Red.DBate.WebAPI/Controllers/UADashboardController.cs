@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
-    public class DashboardController : ApiController
+    public class UADashboardController : ApiController
     {
         [HttpPost]
         [Route("api/uad/dashboard")]
@@ -15,6 +15,14 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         {
 
             return Ok("usage analysis dashboard is displayed");
+        }
+
+        [HttpPost]
+        [Route("api/uad/dashboard")]
+        public IHttpActionResult UADashboardFormat()
+        {
+
+            return Ok("usage analysis dashboard adjusted");
         }
     }
 }

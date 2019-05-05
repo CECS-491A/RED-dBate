@@ -109,12 +109,12 @@ namespace KFC.Red.ServiceLayer.Logging
 
                 //Allows applications to send email by using the Simple Mail Transfer Protocol (SMTP).
                 SmtpClient smtp = new SmtpClient();
-                smtp.Port = 587; //Gets the port used for SMTP transactions.
-                smtp.EnableSsl = true; //Encrypt the connection using SSl.
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network; //Specifies how outgoing email messages will be handled.
-                smtp.UseDefaultCredentials = false; //Gets or sets a Boolean value that controls whether the DefaultCredentials are sent with requests
-                smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!"); //Gets the credentials used to authenticate the sender.
-                smtp.Host = "smtp.mail.yahoo.com"; //Gets the name or IP address of the host.
+                smtp.Port = 587; 
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.UseDefaultCredentials = false; 
+                smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!"); 
+                smtp.Host = "smtp.mail.yahoo.com";
 
                 //Mail to the recepient address
                 mail.To.Add(new MailAddress("deivisleung027@gmail.com"));
@@ -123,12 +123,11 @@ namespace KFC.Red.ServiceLayer.Logging
                 mail.IsBodyHtml = true;
                 mail.Subject = "Test Subject";
                 mail.Body = "Test Message";
-                smtp.Send(mail); //Send mail to an Smtp Server
+                smtp.Send(mail);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                //MessageBox.Show(ex.ToString());
             }
 
         }
@@ -141,11 +140,8 @@ namespace KFC.Red.ServiceLayer.Logging
                 //Email Notification
                 //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
                 EmailNotification();
-
-                //Reset counter
                 failedLogs = 0;
-
-                //If Returned true, then email notoifcation was sent and counter is resetted
+                
                 return true;
             }
 

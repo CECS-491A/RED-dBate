@@ -7,22 +7,17 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Bson;
 using KFC.Red.ServiceLayer.Dashboard.Interface;
+using KFC.Red.ServiceLayer.Logging;
 
 namespace KFC.Red.ServiceLayer
 {
     public class UADashboardService<T> : IUADashboardService
     {
-        public MongoClient Client { get; set; }
-        private readonly IMongoCollection<T> _logCollection;
-        public IMongoDatabase documents { get; set; }
-        private string Collection { get; set; }
-
         public UADashboardService(string collectionName)
         {
-            Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
-            documents = Client.GetDatabase("Logging");
-            _logCollection = documents.GetCollection<T>(collectionName);
-            Collection = collectionName;
+            LoggingService<T> logService = new LoggingService<T>(collectionName);
+
         }
+
     }
 }

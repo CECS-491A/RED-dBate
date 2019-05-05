@@ -55,7 +55,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     sessionManager.DeleteSession(req.Token);
                     _db.SaveChanges();
                     var lm = new LoggingManager<TelemetryLogDTO>();
-                    lm.CreateTelemetryLog("", "");
+                    lm.CreateTelemetryLog("", "", "");
 
                     return Ok();
                 }
