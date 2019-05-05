@@ -66,38 +66,5 @@ namespace KFC.Red.UnitTest
             //Assert
             Assert.AreNotEqual(expectedResultFalse, actualResult);
         }
-
-        [TestMethod]
-        public void LoggingDeleteErrorLog_Success_ReturnTrue()
-        {
-            // Arrange
-            LoggingManager<ErrorLogDTO> logman = new LoggingManager<ErrorLogDTO>();
-
-            // Act 
-            bool expectedResultFalse = false;
-           // var actualResult = logman.DeleteLog();
-
-
-            // Assert
-            //Assert.AreNotEqual(expectedResultFalse, actualResult);
-        }
-
-        [TestMethod]
-        public void LoggingDeleteErrorLog_Fail_ReturnTrue()
-        {
-            // Arrange
-
-            var lm = new LoggingManager<ErrorLogDTO>();
-            bool result;
-
-            //using ()
-            {
-                // Act 
-
-
-                // Assert
-
-            }
-        }
     }
 }

@@ -181,19 +181,10 @@ namespace KFC.Red.ManagerLayer.Logging
         /// </summary>
         /// <param name="id"></param>
         /// <param name="collectionName"></param>
-        public bool DeleteLog(string id,string collectionName)
+        public void DeleteLog(string id,string collectionName)
         {
             LoggingService<ErrorLogDTO> loggerService = new LoggingService<ErrorLogDTO>(collectionName); //Built in method from 
-            try
-            {
-                loggerService._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
-                return true;
-            }
-            catch(MongoException)
-            {
-                Console.WriteLine("Failed to delete logs");
-                return false;
-            }
+            loggerService._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
         }
 
 
