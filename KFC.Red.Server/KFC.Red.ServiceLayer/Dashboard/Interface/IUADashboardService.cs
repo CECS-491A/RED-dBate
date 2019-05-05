@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KFC.Red.ServiceLayer.Dashboard.Interface
 {
-    public interface IDashboardService
+    public interface IUADashboardService
     {
     }
 }

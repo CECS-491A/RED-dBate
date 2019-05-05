@@ -172,6 +172,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\GameplayController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\SSOController.cs" />
