@@ -39,7 +39,8 @@
         { icon: 'info', text: 'User Dashboard', num: 1 },
         { icon: 'widgets', text: 'Quesion Management', num: 2 },
         { icon: 'folder_open', text: 'Logging Management', num: 3 },
-        { icon: 'featured_play_list', text: 'User Management', num: 4 }
+        { icon: 'featured_play_list', text: 'User Management', num: 4 },
+        { icon: 'edit', text: 'Publish/Edit App', num: 5 }
       ]
     }),
     methods: {
@@ -55,6 +56,9 @@
         }
         if(item === 4){
           this.$store.dispatch('actAdminPage', {AdminPage: 4})
+        }
+        if(item === 5){
+          this.$store.dispatch('actAdminPage', {AdminPage: 5})
         }
       }
     }
