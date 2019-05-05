@@ -120,8 +120,9 @@ namespace KFC.Red.ManagerLayer.Logging
             IMongoCollection<BsonDocument> myDoc = tlogService.GetCollection("TelemetryLogs");
 
             var session = GetLogInfo(token);
-            var logouttime = "12/15/1996";//session.DeleteTime;
-            var logintime = "12/15/1996"; //session.CreateTime;
+            var logouttime = session.DeleteTime;
+            var logintime = session.CreateTime;
+            var ipAddr = tlogService.GetIPAddress();
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
@@ -129,7 +130,7 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement userlogout = new BsonElement("userLogout", logintime);
                 BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement ipaddress = new BsonElement("IPAddress", ip);
+                BsonElement ipaddress = new BsonElement("IPAddress", );
 
                 myDoc.InsertOne(log);
 

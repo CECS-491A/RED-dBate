@@ -17,5 +17,6 @@ namespace KFC.Red.ServiceLayer.Logging.Interfaces
         void CountLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log);
         void EmailNotification();
         bool FailCountEmail(int failedLogs);
+        string GetIPAddress();
     }
 }
