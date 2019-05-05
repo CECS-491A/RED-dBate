@@ -1,18 +1,22 @@
 const state = {
     email: '',
     token: '',
-    isLogin: false
+    isLogin: false,
+    userPage: 0
   }
   
   const getters = {
     getEmail: function (state) {
-      return state.email
+      return state.email;
     },
     getToken: function (state) {
-      return state.token
+      return state.token;
     },
     getIsLogin: function (state) {
-      return state.isLogin
+      return state.isLogin;
+    },
+    getUserPage: function (state) {
+      return state.userPage;
     }
   }
   
@@ -25,7 +29,10 @@ const state = {
     },
     actIsLogin (context, payload) {
       context.commit('mutateIsLogin', payload)
-    }
+    },
+    actUserPage (context, payload) {
+      context.commit('mutateUserPage', payload)
+    } 
   }
   
   const mutations = {
@@ -37,6 +44,9 @@ const state = {
     },
     mutateIsLogin (state, payload) {
       state.isLogin = payload.Islogin
+    },
+    mutateUserPage (state,payload){
+      state.userPage = payload.UserPage
     }
   }
   

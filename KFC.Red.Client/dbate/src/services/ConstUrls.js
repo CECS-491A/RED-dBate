@@ -21,6 +21,7 @@ const URL = {
     deleteGameSessionURL: apiURL + 'chat/deletegame',
     createTelemetryLogURL: apiURL + 'log/createtelemetrylogs',
     logoutURL: apiURL + 'sso/logout',
+    deleteSSOURL: apiURL + 'user/delete',
     postIPURL: apiURL + ''
 }
 

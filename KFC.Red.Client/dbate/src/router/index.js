@@ -7,6 +7,7 @@ import Login from '@/views/Login'
 import Lobby from '@/views/Lobby'
 import Waitingroom from '@/views/Waitingroom'
 import AdminDashboard from '@/views/AdminDashboard'
+import UserDashboard from '@/views/UserDashboard'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/admindashboard',
       name: 'AdminDashboard',
       component: AdminDashboard
+    },
+    {
+      path: '/userdashboard',
+      name: 'UserDashboard',
+      component: UserDashboard
     }
   ]
 })
