@@ -22,7 +22,7 @@ const state = {
   
   const actions = {
     actEmail (context, payload) {
-      context.commit('mutateEMail', payload)
+      context.commit('mutateEmail', payload)
     },
     actToken (context, payload) {
       context.commit('mutateToken', payload)

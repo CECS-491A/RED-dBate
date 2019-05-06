@@ -13,27 +13,17 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class UserController : ApiController
     {
-        public string GetHeader(object request, string header)
-        {
-            IEnumerable<string> headerValues;
-            var nameFilter = string.Empty;
-            if (Request.Headers.TryGetValues(header, out headerValues))
-            {
-                nameFilter = headerValues.FirstOrDefault();
-            }
-            return nameFilter;
-        }
 
         [HttpGet]
-        [Route("api/user/getuser")]
-        public IHttpActionResult GetUserEmail([FromBody] LoginManagerDTO request)
+        [Route("api/user/getuseremail/{token}")]
+        public IHttpActionResult GetUserEmail(string token)
         {
             using (var _db = new ApplicationDbContext())
             {
                 SessionServ _sessionService = new SessionServ();
                 try
                 {
-                    var session = _sessionService.GetSession(_db,request.Token);
+                    var session = _sessionService.GetSession(_db,token);
                     if (session == null)
                     {
                         return Content(HttpStatusCode.NotFound, "Session is no longer available.");

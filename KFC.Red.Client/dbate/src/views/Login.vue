@@ -39,14 +39,15 @@ export default {
     CheckUser(token) {
       this.loading = true;
       this.loadingText = 'Logging In...';
-      axios.get(URL.getUserURL, {
-        Token: this.token
+      axios.get(URL.getUserEmailURL + `${token}`, {
+          params: {
+          token: this.token
+        }
       })
       .then(resp => {
-            var user = resp.data;
+            var userEmail = resp.data;
             localStorage.setItem('token', this.token);
-            this.$store.dispatch('actEmail', {Email: user.Email});
-            alert(user.Email);
+            this.$store.dispatch('actEmail', {Email: userEmail});
             this.$store.dispatch('actIsSessionStored', {IsSessionStored: true});
             this.loading = false;
             this.loadingText = '';

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Chat from '@/views/Chat'
-import About from '@/views/About'
+import FAQ from '@/views/FAQ'
 import Home from '@/views/Home'
 import Login from '@/views/Login'
 import Lobby from '@/views/Lobby'
@@ -19,6 +19,11 @@ export default new Router({
       component: Home
     },
     {
+      path: '/home',
+      name: 'Home',
+      component: Home
+    },
+    {
       //path: '/chat',
       path: '/chat/:id',
       name: 'Chat',
@@ -30,9 +35,9 @@ export default new Router({
       component: Waitingroom
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
+      path: '/faq',
+      name: 'FAQ',
+      component: FAQ
     },
     {
       path: '/login',
