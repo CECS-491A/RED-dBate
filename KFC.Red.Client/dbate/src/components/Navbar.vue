@@ -6,9 +6,10 @@
     <v-spacer></v-spacer>
 
     <v-btn to="home"  flat><strong class="white--text text--lighten-1">Home</strong></v-btn>
-    <v-btn to="about" flat><strong class="white--text text--lighten-1">About</strong></v-btn>
+    <v-btn to="about" flat><strong class="white--text text--lighten-1">FAQ</strong></v-btn>
     <v-btn to="lobby" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
     <v-btn to="admindashboard" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">Admin Portal</strong></v-btn>
+    <v-btn to="userdashboard" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">User Portal</strong></v-btn>
     <v-btn v-on:click="logout" v-if="this.$store.getters.getIsSessionStored">Logout</v-btn>
     <v-btn v-on:click="login" v-if="!this.$store.getters.getIsSessionStored">Login</v-btn>
     <div v-if="showPopup">
@@ -39,8 +40,6 @@ export default {
   },
   methods: {
     logout(){
-      console.log(localStorage.getItem('token'));
-      alert("You will now logout" + localStorage.getItem('token'));
       axios.post(URL.logoutURL,{
         Token: localStorage.getItem('token')
       })
@@ -49,7 +48,7 @@ export default {
         this.popupMessage = 'User has logged out';
         localStorage.removeItem('token');
         this.$store.dispatch('actIsSessionStored', {IsSessionStored: false});
-        //window.location.href = KFC_LoginURL;
+        this.$router.push('/home');
       })
       .catch(e => {
         console.log(e.data);
@@ -57,7 +56,7 @@ export default {
         this.popupMessage = 'User has logged out';
         localStorage.removeItem('token');
         this.$store.dispatch('actIsSessionStored', {IsSessionStored: false});
-        //window.location.href = KFC_LoginURL;
+        this.$router.push('/home');
       })
     },
     login(){

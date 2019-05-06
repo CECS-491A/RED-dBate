@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar'
+import Sidebar from '@/components/admin-components/AdminSidebar'
 import QuestionManager from '@/components/admin-components/QuestionManagement'
 import LogManager from '@/components/admin-components/LogManager'
 import Publish from '@/components/admin-components/Publish'

@@ -1,4 +1,5 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
+using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ServiceLayer.SessionService;
 using System;
@@ -12,26 +13,11 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class UserController : ApiController
     {
-        public string GetHeader(object request, string header)
-        {
-            IEnumerable<string> headerValues;
-            var nameFilter = string.Empty;
-            if (Request.Headers.TryGetValues(header, out headerValues))
-            {
-                nameFilter = headerValues.FirstOrDefault();
-            }
-            return nameFilter;
-        }
 
         [HttpGet]
-        [Route("api/user/getuser")]
-        public IHttpActionResult GetUser()
+        [Route("api/user/getuseremail/{token}")]
+        public IHttpActionResult GetUserEmail(string token)
         {
-            var token = GetHeader(Request, "Token");
-            if (token.Length < 1)
-            {
-                return Content(HttpStatusCode.Unauthorized, "No token provided.");
-            }
             using (var _db = new ApplicationDbContext())
             {
                 SessionServ _sessionService = new SessionServ();
@@ -45,12 +31,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     UserManager _userManager = new UserManager();
 
                     var user = _userManager.GetUser(session.UId);
-                    return Ok(new
-                    {
-                        id = user.ID,
-                        username = user.Email,
-                        disabled = user.IsAccountActivated,
-                    });
+                    return Ok(user.Email);
                 }
                 catch (Exception ex)
                 {

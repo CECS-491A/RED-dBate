@@ -33,5 +33,9 @@ namespace KFC.Red.ServiceLayer.ChatRoom
             return _UGSRepo.DeleteUGS(_db, id);
         }
 
+        public UserGameStorage UpdateUGS(ApplicationDbContext _db, UserGameStorage userGameStorage)
+        {
+            return _UGSRepo.UpdateUGS(_db, userGameStorage);
+        }
     }
 }

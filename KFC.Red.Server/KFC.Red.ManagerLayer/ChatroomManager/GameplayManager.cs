@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.ManagerLayer.UserManagement;
+using KFC.Red.ServiceLayer.ChatRoom;
 
 namespace KFC.Red.ManagerLayer.ChatroomManager
 {
@@ -12,6 +13,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
     {
         private UserManager uManager;
         private UserGameStorageManager ugsManager;
+        private GameplayService gameService;
 
         public GameplayManager()
         {
@@ -30,37 +32,37 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
         {
             var user = uManager.GetUser(ssoId);
             var gameId = ugsManager.GetGameId(user.ID);
+            List<int> orders = new List<int>();
+
             if (string.IsNullOrEmpty(user.Role) && gameId > 0)
             {
                 var sessionUsers = ugsManager.GetGameUsers(gameId)
                     .Where(sUser => string.IsNullOrEmpty(sUser.Role) == false)
                     .ToList();
-                int t1Count = 0, t2Count = 0;
-                for (int i = 0; i < sessionUsers.Count(); i++)
-                {
-                    if (String.Equals(sessionUsers[i].Role, "Team1"))
-                    {
-                        t1Count++;
-                    }
-                    else if (String.Equals(sessionUsers[i].Role, "Team2"))
-                    {
-                        t2Count++;
-                    }
-                }
-                if (t1Count <= t2Count)
+
+                var teamNumber = gameService.AssignTeam(sessionUsers);
+                if (teamNumber == 1)
                 {
                     user.Role = "Team1";
-                    var teamOrder = ugsManager.GetGameUsers(gameId)
-                        .Where(tUser => String.Equals(tUser.Role, "Team1"))
-                        .ToList();
+                    uManager.UpdateUser(user);
                 }
                 else
                 {
                     user.Role = "Team2";
+                    uManager.UpdateUser(user);
                 }
-                uManager.UpdateUser(user);
 
-                return uManager.UpdateUser(user);
+                var currentTeam = ugsManager.GetGameUsers(gameId)
+                        .Where(tUser => String.Equals(tUser.Role, user.Role) && tUser.SsoId != user.SsoId) 
+                        .ToList();
+
+                var ugs = ugsManager.GetUserGameStorages(gameId);
+                var orderNumber = gameService.AssignOrder(currentTeam, ugs);
+
+                var currentUGS = ugsManager.GetUserGameStorage(user.ID);
+                currentUGS.Order = orderNumber;
+
+                return ugsManager.UpdateUGS(currentUGS);
             }
             else
             {

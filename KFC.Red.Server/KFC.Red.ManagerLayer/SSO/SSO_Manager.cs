@@ -3,7 +3,9 @@ using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.Logging;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.UserManagement;
+using KFC.Red.ServiceLayer.SSO_Services;
 using System;
+using System.Threading.Tasks;
 
 namespace KFC.Red.ManagerLayer.SSO
 {
@@ -45,9 +47,18 @@ namespace KFC.Red.ManagerLayer.SSO
             }
         }
 
-        public void Logout()
+        public async Task<bool> DeleteAccountSSO(User user)
         {
+            var SSO_API = new SSO_APIService();
+            var deletedUser = await SSO_API.DeleteUserFromSSO(user);
 
+            if (deletedUser.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
+            return false;
         }
+
     }
 }

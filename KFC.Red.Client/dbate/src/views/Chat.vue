@@ -74,8 +74,7 @@
         $.connection.hub.start().done(function () { 
             console.log('SignalR Hub Started!');
         });
-      //this.username = localStorage.getItem('username')
-      this.username = "cf2080@gmail.com"
+      this.username = this.$store.getters.getEmail
       this.randomQuestion_ChatConnection()
     },
     components: {
