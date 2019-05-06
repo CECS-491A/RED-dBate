@@ -114,13 +114,13 @@ namespace KFC.Red.ManagerLayer.Logging
         /// <param name="token"></param>
         /// <param name="ip"></param>
         /// <param name="loc"></param>
-        public void CreateTelemetryLog(string token, string gametoken, string ip)
+        public void CreateTelemetryLog(string sesstoken, string gametoken, string ip)
         {
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
             IMongoCollection<BsonDocument> myDoc = tlogService.GetCollection("TelemetryLogs");
 
-            var session = GetLogInfo(token);
+            var session = GetLogInfo(sesstoken);
             var logouttime = session.DeleteTime;
             var logintime = session.CreateTime;
             var gamesession = GetGameLogInfo(gametoken);
@@ -128,6 +128,7 @@ namespace KFC.Red.ManagerLayer.Logging
            //var ipAddr = tlogService.GetIPAddress();
             try
             {
+                BsonElement Token = new BsonElement("token", sesstoken);
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userlogin = new BsonElement("userLogin", logouttime);
                 BsonElement userlogout = new BsonElement("userLogout", logintime);

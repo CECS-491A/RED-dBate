@@ -9,6 +9,8 @@ using KFC.Red.ManagerLayer.ChatroomManager;
 using KFC.Red.ManagerLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.ChatRoom;
 using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.ManagerLayer.Logging;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
@@ -88,7 +90,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/chat/joinrandomchat")]
-        public IHttpActionResult JoinRandomChat()
+        public IHttpActionResult JoinRandomChat([FromBody] LogoutDTO requestloginToken)
         {
             using (var _db = new ApplicationDbContext())
             {
@@ -97,6 +99,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 try
                 {
                     gameSession = _GameSessionManager.GetRandomGameSession();
+                    var lm = new LoggingManager<TelemetryLogDTO>();
+                    lm.CreateTelemetryLog(requestloginToken.Token, gameSession.Token, "IP NULL");
                 }
                 catch (Exception e)
                 {

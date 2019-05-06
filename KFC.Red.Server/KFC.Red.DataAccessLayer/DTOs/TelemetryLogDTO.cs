@@ -20,6 +20,9 @@ namespace KFC.Red.DataAccessLayer.DTOs
         [BsonId]
         public ObjectId Id { get; set; }
 
+        [BsonElement]
+        public string Token { get; set; }
+
         [BsonElement("date")]
         public string Date { get; set; }
 
