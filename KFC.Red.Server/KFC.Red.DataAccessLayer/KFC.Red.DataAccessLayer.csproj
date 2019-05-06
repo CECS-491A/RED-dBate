@@ -75,11 +75,14 @@
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="DTOs\ChatMessageDTO.cs" />
+    <Compile Include="DTOs\DeleteUserDTO.cs" />
+    <Compile Include="DTOs\DeleteUserFromSSO_DTO.cs" />
     <Compile Include="DTOs\ErrorLogDTO.cs" />
-    <Compile Include="DTOs\LogDTO.cs" />
+    <Compile Include="DTOs\GameRoleDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginManagerDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />
+    <Compile Include="DTOs\LogoutDTO.cs" />
     <Compile Include="DTOs\PrivateMessageDTO.cs" />
     <Compile Include="DTOs\QuestionDTO.cs" />
     <Compile Include="DTOs\TelemetryLogDTO.cs" />
@@ -96,10 +99,22 @@
     <Compile Include="Migrations\201904262154023_refactoring.Designer.cs">
       <DependentUpon>201904262154023_refactoring.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905012154167_Order.cs" />
+    <Compile Include="Migrations\201905012154167_Order.Designer.cs">
+      <DependentUpon>201905012154167_Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905010519198_deleteBirthdayUser.cs" />
+    <Compile Include="Migrations\201905010519198_deleteBirthdayUser.Designer.cs">
+      <DependentUpon>201905010519198_deleteBirthdayUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905020442145_dummyMigration.cs" />
+    <Compile Include="Migrations\201905020442145_dummyMigration.Designer.cs">
+      <DependentUpon>201905020442145_dummyMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatStorage.cs" />
-    <Compile Include="Models\Claim.cs" />
+    <Compile Include="Models\Claims.cs" />
     <Compile Include="Models\GameSession.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Session.cs" />
@@ -127,12 +142,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904262123355_initialize.resx">
       <DependentUpon>201904262123355_initialize.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904262125474_isSessionUsed.resx">
       <DependentUpon>201904262125474_isSessionUsed.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904262154023_refactoring.resx">
       <DependentUpon>201904262154023_refactoring.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905010519198_deleteBirthdayUser.resx">
+      <DependentUpon>201905010519198_deleteBirthdayUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905012154167_Order.resx">
+      <DependentUpon>201905012154167_Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905020442145_dummyMigration.resx">
+      <DependentUpon>201905020442145_dummyMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

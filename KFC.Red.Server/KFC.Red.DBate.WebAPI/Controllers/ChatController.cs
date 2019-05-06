@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.ChatroomManager;
 using KFC.Red.ManagerLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.ChatRoom;
-using KFC.Red.ServiceLayer.TokenService;
-using KFC.RED.DataAccessLayer.DTOs;
+using KFC.Red.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
@@ -43,8 +40,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/getusers")]
         public List<string> GetUsers(int gid)
         {
-            _ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
-            return _UserGameStoreManager.GetGameUsers(gid);
+            _ChatHub.SendUserList(_UserGameStoreManager.GetGameUsernames(gid));
+            return _UserGameStoreManager.GetGameUsernames(gid);
         }
 
         [HttpGet]

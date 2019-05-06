@@ -1,6 +1,9 @@
 const apiURL = 'http://localhost:5000/api/'
 //const apiURL = 'https://thedbateproject.azurewebsites.net/backend/api/'
-const KFCURL = 'https://kfc-sso.com'
+//const KFCURL = 'https://kfc-sso.com'
+const KFCURL = 'http://localhost:61348'
+//const KFC_LoginURL = '"https://kfc-sso.com/#/login"'
+const KFC_LoginURL = 'http://localhost:8081/#/login';
 
 const URL = {
     randQuestURL: apiURL + 'question/randomquestion',
@@ -16,10 +19,13 @@ const URL = {
     createChatURL: apiURL + 'chat/createchat',
     joinRandomChatURL: apiURL + 'chat/joinrandomchat',
     deleteGameSessionURL: apiURL + 'chat/deletegame',
+    createTelemetryLogURL: apiURL + 'log/createtelemetrylogs',
+    logoutURL: apiURL + 'sso/logout',
     postIPURL: apiURL + ''
 }
 
 export {
     URL,
-    KFCURL
+    KFCURL,
+    KFC_LoginURL
 }

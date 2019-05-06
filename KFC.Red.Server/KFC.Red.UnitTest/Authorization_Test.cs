@@ -23,7 +23,6 @@ namespace KFC.Red.UnitTest
             bool expected = true;
             bool actual;
 
-            aM.user.Name = "Bob";
             aM.user.CollectionClaims.Add(claim);
 
             actual = aM.CheckAccess(claim);
@@ -48,7 +47,6 @@ namespace KFC.Red.UnitTest
             bool expected = false;
             bool actual;
 
-            aM.user.Name = "Bob";
             aM.user.CollectionClaims.Add(claim);
 
             actual = aM.CheckAccess(invalidClaim);
@@ -91,11 +89,9 @@ namespace KFC.Red.UnitTest
             claim2.ClaimName = "CreateRegUserAccount";
 
 
-            aM.user.Name = "Luis";
             aM.user.Role = "System Admin";
             aM.user.CollectionClaims.Add(claim2);
 
-            aM2.user.Name = "Alexander";
             aM2.user.Role = "Registered User";
             aM2.user.CollectionClaims.Add(claim);
 
@@ -136,11 +132,9 @@ namespace KFC.Red.UnitTest
             claim2.ClaimName = "CreateRegUserAccount";
 
 
-            aM.user.Name = "Luis";
             aM.user.Role = "Registered User";
             aM.user.CollectionClaims.Add(claim2);
 
-            aM2.user.Name = "Alexander";
             aM2.user.Role = "System Admin";
             aM2.user.CollectionClaims.Add(claim);
 

@@ -1,13 +1,7 @@
 ﻿using KFC.Red.ServiceLayer.Archiving;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using KFC.Red.ManagerLayer.Logging;
 using System.IO;
 
 namespace KFC.Red.ManagerLayer.ArchivingManager
@@ -23,8 +17,10 @@ namespace KFC.Red.ManagerLayer.ArchivingManager
         {
             try
             {
+                string g = "";
+                //
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 failedArchives++;
                 if (failedArchives < 3)

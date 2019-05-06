@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
+/// <summary>
+/// This class contains the telemetry data transfer method
+/// </summary>
 namespace KFC.Red.DataAccessLayer.DTOs
 {
+
+    /// <summary>
+    /// Telemetry data transfer method
+    /// </summary>
     public class TelemetryLogDTO
     {
         [BsonId]

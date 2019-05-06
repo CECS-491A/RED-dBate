@@ -172,6 +172,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\GameplayController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\SSOController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
@@ -218,7 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KFC.Red.DataAccessLayer\KFC.Red.DataAccessLayer.csproj">
-      <Project>{0cad09c9-11e0-4eee-ad4b-7cc77e305bec}</Project>
+      <Project>{0CAD09C9-11E0-4EEE-AD4B-7CC77E305BEC}</Project>
       <Name>KFC.Red.DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\KFC.Red.ManagerLayer\KFC.Red.ManagerLayer.csproj">

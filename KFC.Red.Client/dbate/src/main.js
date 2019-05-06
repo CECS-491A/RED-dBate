@@ -7,6 +7,8 @@ import Vuetify from 'vuetify'
 import './../node_modules/bulma/css/bulma.css';
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
+import store from './store/index'
+
 Vue.use(Vuetify, {
   theme: {
     primary: '#2c3e50',
@@ -23,5 +25,6 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  store
 })

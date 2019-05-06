@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchivingManager\ArchivingManager.cs" />
+    <Compile Include="ChatroomManager\GameplayManager.cs" />
     <Compile Include="ChatroomManager\GameSessionManager.cs" />
     <Compile Include="ChatroomManager\UserGameStorageManager.cs" />
     <Compile Include="Logging\LoggingManager.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Password\ValidationManager.cs" />
     <Compile Include="QuestionManagement\QuestionManager.cs" />
     <Compile Include="SessionManagement\SessionManager.cs" />
-    <Compile Include="SSO\LoginManager.cs" />
+    <Compile Include="SSO\SSO_Manager.cs" />
     <Compile Include="UserManagement\UserManager.cs" />
     <Compile Include="UserProfile\UserProfileManager.cs" />
   </ItemGroup>
