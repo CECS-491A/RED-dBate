@@ -83,6 +83,7 @@
     <Compile Include="DTOs\PrivateMessageDTO.cs" />
     <Compile Include="DTOs\QuestionDTO.cs" />
     <Compile Include="DTOs\TelemetryLogDTO.cs" />
+    <Compile Include="DTOs\UserProfileDTO.cs" />
     <Compile Include="Migrations\201904262123355_initialize.cs" />
     <Compile Include="Migrations\201904262123355_initialize.Designer.cs">
       <DependentUpon>201904262123355_initialize.cs</DependentUpon>
