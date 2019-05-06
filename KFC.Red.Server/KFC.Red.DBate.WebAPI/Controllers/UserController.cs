@@ -1,4 +1,5 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
+using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ServiceLayer.SessionService;
 using System;
@@ -25,19 +26,14 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/user/getuser")]
-        public IHttpActionResult GetUser()
+        public IHttpActionResult GetUserEmail([FromBody] LoginManagerDTO request)
         {
-            var token = GetHeader(Request, "Token");
-            if (token.Length < 1)
-            {
-                return Content(HttpStatusCode.Unauthorized, "No token provided.");
-            }
             using (var _db = new ApplicationDbContext())
             {
                 SessionServ _sessionService = new SessionServ();
                 try
                 {
-                    var session = _sessionService.GetSession(_db,token);
+                    var session = _sessionService.GetSession(_db,request.Token);
                     if (session == null)
                     {
                         return Content(HttpStatusCode.NotFound, "Session is no longer available.");
@@ -45,12 +41,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     UserManager _userManager = new UserManager();
 
                     var user = _userManager.GetUser(session.UId);
-                    return Ok(new
-                    {
-                        id = user.ID,
-                        username = user.Email,
-                        disabled = user.IsAccountActivated,
-                    });
+                    return Ok(user.Email);
                 }
                 catch (Exception ex)
                 {

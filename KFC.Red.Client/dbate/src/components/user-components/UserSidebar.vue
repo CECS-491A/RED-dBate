@@ -9,7 +9,7 @@
           <v-spacer></v-spacer>
           <v-flex shrink>
             <div class="subheading">{{name}}</div>
-            <div class="body-1">{{email}}</div>
+            <div class="body-1">{{this.$store.getters.getEmail}}</div>
           </v-flex>
         </v-layout>
       </v-img>
