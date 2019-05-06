@@ -3,7 +3,6 @@
     <v-toolbar flat color="white">
       <v-toolbar-title>Question Management</v-toolbar-title>
       <v-divider
-        class="mx-2"
         inset
         vertical
       ></v-divider>

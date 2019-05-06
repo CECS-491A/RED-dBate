@@ -1,8 +1,7 @@
 <template>
   <v-list subheader>
-  <v-subheader>uuu</v-subheader>
     <v-list-tile>
-      {{users}}
+      {{this.$store.getters.getPlayerList}}
     </v-list-tile>
   </v-list>
 </template>
@@ -15,11 +14,6 @@
     data () {
       return {
         userPlaying: 'users playing'
-      }
-    },
-    computed: {
-      users () {
-        return ["Christian","Luis"];//this.$store.getters.getPlayerList;
       }
     },
     watch: {

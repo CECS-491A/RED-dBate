@@ -6,7 +6,8 @@ import router from './router'
 import Vuetify from 'vuetify'
 import './../node_modules/bulma/css/bulma.css';
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
-import Vuex from 'vuex'
+
+import store from './store/index'
 
 Vue.use(Vuetify, {
   theme: {
@@ -17,8 +18,6 @@ Vue.use(Vuetify, {
   }
 })
 
-Vue.use(Vuex)
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -26,5 +25,6 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  store
 })

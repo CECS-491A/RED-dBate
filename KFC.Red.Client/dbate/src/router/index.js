@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Chat from '@/components/Chat'
-import About from '@/components/About'
-import Home from '@/components/Home'
-import QuestionManagement from '@/components/QuestionManagement'
-import LogManager from '@/components/LogManager'
-import Login from '@/components/Login'
-import Publish from '@/components/Publish'
-import Lobby from '@/components/Lobby'
-import Waitingroom from '@/components/Waitingroom'
+import Chat from '@/views/Chat'
+import FAQ from '@/views/FAQ'
+import Home from '@/views/Home'
+import Login from '@/views/Login'
+import Lobby from '@/views/Lobby'
+import Waitingroom from '@/views/Waitingroom'
+import AdminDashboard from '@/views/AdminDashboard'
+import UserDashboard from '@/views/UserDashboard'
 
 Vue.use(Router)
 
@@ -16,6 +15,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/home',
       name: 'Home',
       component: Home
     },
@@ -31,19 +35,9 @@ export default new Router({
       component: Waitingroom
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
-    },
-    {
-      path: '/questmanagement',
-      name: 'QuestManagement',
-      component: QuestionManagement
-    },
-    {
-      path: '/logmanager',
-      name: 'LogManager',
-      component: LogManager
+      path: '/faq',
+      name: 'FAQ',
+      component: FAQ
     },
     {
       path: '/login',
@@ -51,14 +45,19 @@ export default new Router({
       component: Login
     },
     {
-      path: '/publish',
-      name: 'Publish',
-      component: Publish
-    },
-    {
       path: '/lobby',
       name: 'Lobby',
       component: Lobby
+    },
+    {
+      path: '/admindashboard',
+      name: 'AdminDashboard',
+      component: AdminDashboard
+    },
+    {
+      path: '/userdashboard',
+      name: 'UserDashboard',
+      component: UserDashboard
     }
   ]
 })
