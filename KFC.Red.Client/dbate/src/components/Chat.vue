@@ -43,6 +43,7 @@
   </v-layout>
    </v-container>
 </template>
+
 <script>
   import axios from "axios"
   import Players from '@/components/reusable-components/Players.vue'
@@ -53,6 +54,10 @@
   export default {
     data () {
       return {
+        //chatServerUrl = "http://localhost:5000/signalr",
+        /*connection = $.hubConnection(chatServerUrl, {
+            useDefaultPath: false
+        }),*/
         question: '',
         messages: [],
         content: "",
@@ -63,10 +68,15 @@
       }
     },
     mounted () {
+        console.log(this.ChatHub);
+        this.ChatHub. //.client.pushNewMessage = this.pushNewMessage;
+        this.ChatHub //.client.pushUserList = this.pushUserList;
+        $.connection.hub.start().done(function () { 
+            console.log('SignalR Hub Started!');
+        });
       //this.username = localStorage.getItem('username')
       this.username = "cf2080@gmail.com"
       this.randomQuestion_ChatConnection()
-      //this.ChatCreationConnection()
     },
     components: {
       'players': Players
@@ -89,30 +99,9 @@
       },
       randomQuestion_ChatConnection () {
         axios.get(URL.randQuestURL)
-        .then(qst => {this.question = qst.data; console.log(this.question + "ddd")})
-        .catch(e => {console.log("error: " + e.data)})
-        
-        //const url2 = 'http://localhost:5000/api/chat/connection'
-        //console.log("Question2: " + this.question)
-        /*axios.post(url2,{
-          QuestionString: this.question
-        })
-        .then(conn => {
-          console.log("Connection: "  + conn.data)
-        })
-        .catch(e => {console.log("error: " + e.data)})*/
+        .then(qst => {this.question = qst.data; console.log(this.question)})
+        .catch(e => {console.log("error: " + e.data)})        
       }
-      /*ChatCreationConnection (){
-        const url = 'http://localhost:5000/api/chat/connection'
-        axios.post(url,{
-          QuestionString: this.question
-        })
-        .then(conn => {
-          console.log("Connection: " + conn.data)
-        })
-        .catch(e => {console.log("error: " + e.data)})
-      }
-      */
     }
   }
 </script>

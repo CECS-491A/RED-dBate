@@ -82,7 +82,7 @@
     <Compile Include="Password\ValidationManager.cs" />
     <Compile Include="QuestionManagement\QuestionManager.cs" />
     <Compile Include="SessionManagement\SessionManager.cs" />
-    <Compile Include="SSO\LoginManager.cs" />
+    <Compile Include="SSO\SSO_Manager.cs" />
     <Compile Include="UserManagement\UserManager.cs" />
   </ItemGroup>
   <ItemGroup>

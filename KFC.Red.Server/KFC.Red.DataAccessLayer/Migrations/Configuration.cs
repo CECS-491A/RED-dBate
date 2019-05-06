@@ -2,9 +2,7 @@ namespace KFC.RED.DataAccessLayer.Migrations
 {
     using KFC.Red.DataAccessLayer.Models;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<KFC.Red.DataAccessLayer.Data.ApplicationDbContext>
     {
@@ -33,7 +31,6 @@ namespace KFC.RED.DataAccessLayer.Migrations
                     Email = "1@gmail.com",
                     PasswordHash = "",
                     PasswordSalt = "",
-                    DateOfBirth = DateTime.UtcNow,
                     City = "Long Beach",
                     State = "CA",
                     Country = "United States",
@@ -47,7 +44,6 @@ namespace KFC.RED.DataAccessLayer.Migrations
                     Email = "2@gmail.com",
                     PasswordHash = "",
                     PasswordSalt = "",
-                    DateOfBirth = DateTime.UtcNow,
                     City = "Long Beach",
                     State = "CA",
                     Country = "United States",
@@ -61,7 +57,6 @@ namespace KFC.RED.DataAccessLayer.Migrations
                     Email = "3@gmail.com",
                     PasswordHash = "",
                     PasswordSalt = "",
-                    DateOfBirth = DateTime.UtcNow,
                     City = "Long Beach",
                     State = "CA",
                     Country = "United States",

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFC.Red.DataAccessLayer.DTOs
+namespace KFC.RED.DataAccessLayer.DTOs
 {
-    public class QuestionDTO
+    public class LogoutDTO
     {
-        public string QuestionString { get; set; }
+        public string Token { get; set; }
     }
 }

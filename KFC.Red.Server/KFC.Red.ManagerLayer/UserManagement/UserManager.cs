@@ -1,15 +1,10 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
-using KFC.Red.ServiceLayer;
 using KFC.Red.ServiceLayer.UserManagement;
 using KFC.Red.ServiceLayer.UserManagement.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KFC.Red.ManagerLayer.UserManagement
 {
@@ -118,7 +113,7 @@ namespace KFC.Red.ManagerLayer.UserManagement
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
                     return 0;
                 }
-                catch (DbUpdateConcurrencyException ex)
+                catch (DbUpdateConcurrencyException)
                 {
                     return 0;
                 }

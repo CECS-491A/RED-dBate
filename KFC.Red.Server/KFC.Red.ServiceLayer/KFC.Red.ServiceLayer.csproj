@@ -109,8 +109,10 @@
     <Compile Include="ReusableServices.cs" />
     <Compile Include="SessionService\ISession.cs" />
     <Compile Include="SessionService\SessionServ.cs" />
-    <Compile Include="TokenService\Interface\IToken.cs" />
-    <Compile Include="TokenService\TokenService.cs" />
+    <Compile Include="SSO_Services\SignatureService.cs" />
+    <Compile Include="SSO_Services\SSO_APIService.cs" />
+    <Compile Include="Token\Interface\IToken.cs" />
+    <Compile Include="Token\TokenService.cs" />
     <Compile Include="UserManagement\Interfaces\IUserService.cs" />
     <Compile Include="UserManagement\UserService.cs" />
   </ItemGroup>

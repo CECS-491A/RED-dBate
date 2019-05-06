@@ -13,7 +13,6 @@
 import axios from 'axios'
 import Loading from '@/components/reusable-components/dialogs/Loading'
 import PopupDialog from '@/components/reusable-components/dialogs/PopupDialog'
-import { GetUser } from '@/services/uMServices'
 import {KFCURL} from '@/services/ConstUrls'
 
 export default {
@@ -38,40 +37,22 @@ export default {
     CheckUser(token) {
       this.loading = true;
       this.loadingText = 'Logging In...';
-      GetUser()
-        .then( response => {
-          switch(response.status){
-            case 200:
-              axios.post(URL.postURL,Ninja)
-              .then(console.log(Ninja.data))
-              .catch(e => {console.log(e.data)})
-              var user = response.data;
-              localStorage.setItem('token', this.token);
-              this.loading = false;
-              this.loadingText = '';
-              this.$router.push('/questmanagement');
-            default:
-          }
-        })
-        .catch( err => {
-          this.loading = false;
-          this.loadingText = '';
-          if (err.response){
-            switch(err.response.status){
-              case 404:
-                this.loading = false;
-                this.popupMessage = 'The session has expired...';
-                this.validSession = false;
-                break;
-              default:
-            }
-          } 
-          else{
+      axios.get('http://localhost:5000/api/user/getuser')
+      .then(resp => {
+        switch(resp.response.status){
+          case 200:
+            var user = resp.data;
+            localStorage.setItem('token', this.token);
             this.loading = false;
-            this.popupMessage = 'This application has encounted a problem...';
-            this.validSession = false;
-          }
-        })
+            this.loadingText = '';
+            this.$router.push('/lobby');
+          default:
+        }
+      })
+      .catch( e => {
+        this.loading = false;
+        this.loadingText = '';
+      })
     }
   }
 }

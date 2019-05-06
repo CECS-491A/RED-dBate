@@ -115,7 +115,7 @@ export default {
         this.error = "Fields Cannot Be Left Blank.";
       }
       if (this.error) return;
-      const url = 'https://api.kfc-sso.com/api/applications/publish'
+      const url = 'http://localhost:61348/api/applications/publish'; //'https://api.kfc-sso.com/api/applications/publish'
       this.loading = true;
       axios.post(url, {
         key: document.getElementById('key').value,
