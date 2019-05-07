@@ -9,9 +9,13 @@ using KFC.Red.ManagerLayer.ChatroomManager;
 using KFC.Red.ManagerLayer.QuestionManagement;
 using KFC.Red.ServiceLayer.ChatRoom;
 using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.ManagerLayer.UserManagement;
+using KFC.Red.ManagerLayer.SessionManagement;
+using System.Web.Http.Cors;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ChatController : ApiController
     {
         private GameSessionManager _GameSessionManager;
@@ -46,21 +50,35 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/chat/createchat")]
-        public IHttpActionResult CreateChat()
+        public IHttpActionResult CreateChat(string token)
         {
-            using(var _db = new ApplicationDbContext())
+            using (var _db = new ApplicationDbContext())
             {
+                UserGameStorage userGameStorage = new UserGameStorage();
+                UserManager userManager = new UserManager();
                 GameSession gameSession = new GameSession();
+                SessionManager sessionManager = new SessionManager();
+
+                QuestionManager questionManager = new QuestionManager();
+                
 
                 try
                 {
-                    //TokenService tokenService = new TokenService();
-                    QuestionManager questionManager = new QuestionManager();
-
                     var question = questionManager.RandomizeQuestion();
                     var questionObj = questionManager.GetQuestion(question);
 
-                    gameSession = _GameSessionManager.CreateGameSession(questionObj);                    
+                    gameSession = _GameSessionManager.CreateGameSession(questionObj);
+                    var session = sessionManager.GetSession(token);
+                    var user = userManager.GetUser(session.UId);
+
+                    userGameStorage.UId = user.ID;
+                    userGameStorage.User = user;
+                    userGameStorage.GId = gameSession.Id;
+                    userGameStorage.GameSession = gameSession;
+                    userGameStorage.Order = 0;
+
+                    var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
+
                 }
                 catch (ArgumentException)
                 {
@@ -68,7 +86,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Content(HttpStatusCode.BadRequest, e.ToString());
+                    return Content(HttpStatusCode.BadRequest, e.ToString() + userGameStorage.UId);
                 }
 
 
@@ -88,15 +106,28 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
         [HttpGet]
         [Route("api/chat/joinrandomchat")]
-        public IHttpActionResult JoinRandomChat()
+        public IHttpActionResult JoinRandomChat(string token)
         {
             using (var _db = new ApplicationDbContext())
             {
+                UserGameStorage userGameStorage = new UserGameStorage();
+                UserManager userManager = new UserManager();
                 GameSession gameSession = new GameSession();
+                SessionManager sessionManager = new SessionManager();
 
                 try
                 {
                     gameSession = _GameSessionManager.GetRandomGameSession();
+                    var session = sessionManager.GetSession(token);
+                    var user = userManager.GetUser(session.UId);
+
+                    userGameStorage.UId = user.ID;
+                    userGameStorage.User = user;
+                    userGameStorage.GId = gameSession.Id;
+                    userGameStorage.GameSession = gameSession;
+                    userGameStorage.Order = 0;
+
+                    var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
                 }
                 catch (Exception e)
                 {

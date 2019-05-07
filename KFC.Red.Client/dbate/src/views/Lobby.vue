@@ -39,7 +39,11 @@ export default {
     },
     methods:{
         createChat(){
-            axios.get(URL.createChatURL)
+            axios.get(URL.createChatURL,{
+              params: {
+                token: localStorage.getItem('token')
+              }
+            })
             .then(t => {
               let key = t.data;
               localStorage.setItem('gameSessionToken',t.data);
@@ -51,7 +55,11 @@ export default {
             })
         },
         joinRandomChat(){
-          axios.get(URL.joinRandomChatURL)
+          axios.get(URL.joinRandomChatURL,{
+            params: {
+                token: localStorage.getItem('token')
+            }
+          })
           .then(t => {
             let key = t.data;
             localStorage.setItem('gameSessionToken', t.data);

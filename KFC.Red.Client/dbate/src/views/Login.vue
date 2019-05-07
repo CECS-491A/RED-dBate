@@ -14,6 +14,7 @@ import axios from 'axios'
 import Loading from '@/components/dialogs/Loading'
 import PopupDialog from '@/components/dialogs/PopupDialog'
 import {KFCURL} from '@/services/ConstUrls'
+import {URL} from '@/services/ConstUrls'
 
 export default {
   name: 'Login',
@@ -31,23 +32,27 @@ export default {
   mounted() {
     this.token = this.$route.query.token;
     localStorage.setItem('token', this.token);
+    this.$store.dispatch('actIsSessionStored', {IsSessionStored: true});
     this.CheckUser(this.token);
   },
   methods: {
     CheckUser(token) {
       this.loading = true;
       this.loadingText = 'Logging In...';
-      axios.get('http://localhost:5000/api/user/getuser')
+      axios.get(URL.getUserEmailURL + `${token}`, {
+          params: {
+          token: this.token
+        }
+      })
       .then(resp => {
-        switch(resp.response.status){
-          case 200:
-            var user = resp.data;
+            var userEmail = resp.data;
             localStorage.setItem('token', this.token);
+            console.log(localStorage.getItem('token'));
+            this.$store.dispatch('actEmail', {Email: userEmail});
+            this.$store.dispatch('actIsSessionStored', {IsSessionStored: true});
             this.loading = false;
             this.loadingText = '';
             this.$router.push('/lobby');
-          default:
-        }
       })
       .catch( e => {
         this.loading = false;

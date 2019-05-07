@@ -93,6 +93,7 @@
     <Compile Include="Authorization\ClaimsList.cs" />
     <Compile Include="Authorization\ConstantClaims.cs" />
     <Compile Include="Authorization\IAuthorize.cs" />
+    <Compile Include="ChatRoom\GameplayService.cs" />
     <Compile Include="ChatRoom\GameSessionService.cs" />
     <Compile Include="ChatRoom\HubService.cs" />
     <Compile Include="ChatRoom\Interface\IGameSession.cs" />

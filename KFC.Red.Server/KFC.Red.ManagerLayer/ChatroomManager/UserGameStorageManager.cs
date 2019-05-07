@@ -23,7 +23,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
         {
             using (var _db = new ApplicationDbContext())
             {
-                var response = _UGSService.CreateUGS(_db,ugs);
+                var response = _UGSService.CreateUGS(_db, ugs);
                 // will return null if ugs does not exist
                 return _db.SaveChanges();
             }
@@ -33,8 +33,17 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
         {
             using (var _db = new ApplicationDbContext())
             {
-                var response = _UGSService.DeleteUGS(_db,id);
+                var response = _UGSService.DeleteUGS(_db, id);
                 // will return null if ugs does not exist
+                return _db.SaveChanges();
+            }
+        }
+
+        public int UpdateUGS(UserGameStorage ugs)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                var respone = _UGSService.UpdateUGS(_db, ugs);
                 return _db.SaveChanges();
             }
         }
@@ -63,6 +72,22 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
                     .Where(s => s.GId == gid)
                     .ToList();
 
+                return ugs;
+            }
+        }
+
+        public List<UserGameStorage> GetUserGameStorages(int gid)
+        {
+            return GetSessionUsers(gid);
+        }
+
+        public UserGameStorage GetUserGameStorage(int uid)
+        {
+            using(var _db = new ApplicationDbContext())
+            {
+                var ugs = _db.UserGameStorages
+                    .Where(user => user.UId == uid)
+                    .Single();
                 return ugs;
             }
         }

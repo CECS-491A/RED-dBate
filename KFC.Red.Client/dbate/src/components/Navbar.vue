@@ -6,12 +6,12 @@
     <v-spacer></v-spacer>
 
     <v-btn to="home"  flat><strong class="white--text text--lighten-1">Home</strong></v-btn>
-    <v-btn to="about" flat><strong class="white--text text--lighten-1">About</strong></v-btn>
-    <v-btn to="lobby" flat v-if="isSessionStored===true"><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
-    <v-btn to="logmanager"  flat v-if="isSessionStored===true"><strong class="white--text text--lighten-1">Log Man</strong></v-btn>
-    <v-btn to="questmanagement" flat v-if="isSessionStored===true" ><strong class="white--text text--lighten-1">QAM</strong></v-btn>
-    <v-btn v-on:click="logout" v-if="isSessionStored===true">Logout</v-btn>
-    <v-btn v-on:click="login" v-if="isSessionStored===false">Login</v-btn>
+    <v-btn to="about" flat><strong class="white--text text--lighten-1">FAQ</strong></v-btn>
+    <v-btn to="lobby" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
+    <v-btn to="admindashboard" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">Admin Portal</strong></v-btn>
+    <v-btn to="userdashboard" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">User Portal</strong></v-btn>
+    <v-btn v-on:click="logout" v-if="this.$store.getters.getIsSessionStored">Logout</v-btn>
+    <v-btn v-on:click="login" v-if="!this.$store.getters.getIsSessionStored">Login</v-btn>
     <div v-if="showPopup">
       <PopupDialog :dialog="showPopup" :text="popupMessage" :redirect="false"/>
     </div>
@@ -38,20 +38,8 @@ export default {
       routeTo: '/home'
     }
   },
-  computed: {
-    isSessionStored: function(){
-      if(localStorage.getItem('token') !== null){
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-  },
   methods: {
     logout(){
-      console.log(localStorage.getItem('token'));
-      alert("You will now logout" + localStorage.getItem('token'));
       axios.post(URL.logoutURL,{
         Token: localStorage.getItem('token')
       })
@@ -59,14 +47,16 @@ export default {
         this.showPopup = true;
         this.popupMessage = 'User has logged out';
         localStorage.removeItem('token');
-        //window.location.href = KFC_LoginURL;
+        this.$store.dispatch('actIsSessionStored', {IsSessionStored: false});
+        this.$router.push('/home');
       })
       .catch(e => {
         console.log(e.data);
         this.showPopup = true;
         this.popupMessage = 'User has logged out';
         localStorage.removeItem('token');
-        //window.location.href = KFC_LoginURL;
+        this.$store.dispatch('actIsSessionStored', {IsSessionStored: false});
+        this.$router.push('/home');
       })
     },
     login(){

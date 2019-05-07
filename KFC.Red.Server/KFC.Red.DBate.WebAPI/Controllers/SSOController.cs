@@ -2,11 +2,11 @@
 using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.SSO;
+using KFC.Red.ManagerLayer.UserManagement;
 using KFC.RED.DataAccessLayer.DTOs;
 using System;
 using System.Net;
-using System.Net.Http;
-using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -48,7 +48,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         {
             using (var _db = new ApplicationDbContext())
             {
-                SessionManager sessionManager = new SessionManager();
+                var sessionManager = new SessionManager();
                 try
                 {
                     sessionManager.DeleteSession(req.Token);
@@ -59,6 +59,67 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 catch (Exception e)
                 {
                     return Content(HttpStatusCode.Conflict, e.Message);
+                }
+            }
+        }
+
+        //NEED TO FIX
+        [HttpDelete]
+        [Route("api/user/delete")]
+        public async Task<IHttpActionResult> DeleteFromSSO(string token)
+        {
+
+            try
+            {
+                var sessionManager = new SessionManager();
+                var ssoManager = new SSO_Manager();
+                var userManager = new UserManager();
+
+                var session = sessionManager.GetSession(token);
+                var userId = session.Id;
+                var user = userManager.GetUser(userId);
+
+                if (user == null)
+                {
+                    return Content(HttpStatusCode.NotFound, "User does not exist");
+                }
+
+                var deleteResult = await ssoManager.DeleteAccountSSO(user);
+
+                if (deleteResult)
+                {
+                    var sessionDeleted = sessionManager.DeleteSession(token);
+                    var userDeleted = userManager.DeleteUser(user);
+                    return Ok();
+                }
+
+                return Content(HttpStatusCode.NotImplemented,"User not able to delete");
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.NotImplemented, e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/sso/health")]
+        public IHttpActionResult HealthCheck()
+        {
+            using(var _db = new ApplicationDbContext())
+            {
+                try
+                {
+                    if (_db.Database.Exists())
+                    {
+                        return Ok("DBate is working properly");
+                    }
+
+                    return Content(HttpStatusCode.InternalServerError, "An Error has been encountered");
+
+                }
+                catch (Exception e)
+                {
+                    return Content(HttpStatusCode.InternalServerError, e.Message);
                 }
             }
         }
