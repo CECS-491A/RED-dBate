@@ -47,6 +47,7 @@ export default {
       .then(resp => {
             var userEmail = resp.data;
             localStorage.setItem('token', this.token);
+            console.log(localStorage.getItem('token'));
             this.$store.dispatch('actEmail', {Email: userEmail});
             this.$store.dispatch('actIsSessionStored', {IsSessionStored: true});
             this.loading = false;
