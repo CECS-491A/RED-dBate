@@ -99,9 +99,9 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement userLogin = new BsonElement("userLogin", loginTime);
                 BsonElement userLogout = new BsonElement("userLogout", logoutTime);
                 BsonElement functionalityExecution = new BsonElement("clickevent", gameFunctionality);
-               // BsonElement ipaAdress = new BsonElement("IPAddress", tlogService.GetIPAddress);
+                BsonElement ipAddress = new BsonElement("IPAddress", "tlogService.GetIPAddress");
 
-                log.Add(date); log.Add(userLogin); log.Add(userLogout); log.Add(functionalityExecution); log.Add(ipaAdress);
+                log.Add(date); log.Add(userLogin); log.Add(userLogout); log.Add(functionalityExecution); log.Add(ipAddress);
 
                 collection.InsertOne(log);
             }
