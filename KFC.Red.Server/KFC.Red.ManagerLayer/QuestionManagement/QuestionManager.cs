@@ -104,6 +104,8 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 try
                 {
                     _questionService.UpdateQuestion(_db, question);
+                    var logTelemetryman = new LoggingManager<TelemetryLogDTO>();
+                    logTelemetryman.CreateTelemetryLog("");
                     return _db.SaveChanges();
                 }
                 catch (DbEntityValidationException)
@@ -195,14 +197,16 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                     var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
                     question = _questionService.GetQuestion(_db, index);
                     quest = question.QuestionString;
+                    var logTelemetryman = new LoggingManager<TelemetryLogDTO>();
+                    logTelemetryman.CreateTelemetryLog("");
 
                     return quest;
                 }
                 catch (Exception ex)
                 {
                     var lm = new LoggingManager<ErrorLogDTO>();
-                    lm.CreateErrorLog(ex, "");
-                    return null;
+                    //lm.CreateErrorLog(ex, "");
+                    return ex.Message + ex.TargetSite;
                 }
             }
         }

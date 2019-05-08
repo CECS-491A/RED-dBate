@@ -80,7 +80,7 @@ namespace KFC.Red.ManagerLayer.Logging
         /// <param name="token"></param>
         /// <param name="ip"></param>
         /// <param name="loc"></param>
-        public void CreateTelemetryLog(string sesstoken, string gametoken)
+        public void CreateTelemetryLog(string sesstoken)
         {
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
@@ -89,8 +89,8 @@ namespace KFC.Red.ManagerLayer.Logging
             var session = GetLogInfo(sesstoken);
             var logoutTime = session.DeleteTime;
             var loginTime = session.CreateTime;
-            var gameSession = GetGameLogInfo(gametoken);
-            var gameFunctionality = gameSession.CreateTime;
+            //var gameSession = GetGameLogInfo(gametoken);
+            //var gameFunctionality = gameSession.CreateTime;
             //var ipAddr = tlogService.GetIPAddress();
             try
             {
@@ -98,10 +98,11 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userLogin = new BsonElement("userLogin", loginTime);
                 BsonElement userLogout = new BsonElement("userLogout", logoutTime);
-                BsonElement functionalityExecution = new BsonElement("clickevent", gameFunctionality);
-                BsonElement ipAddress = new BsonElement("IPAddress", "tlogService.GetIPAddress");
+                //BsonElement functionalityExecution = new BsonElement("clickevent", gameFunctionality);
+                BsonElement ipAddress = new BsonElement("IPAddress", tlogService.GetIPAddress().ToBsonDocument());
 
-                log.Add(date); log.Add(userLogin); log.Add(userLogout); log.Add(functionalityExecution); log.Add(ipAddress);
+                log.Add(date); log.Add(userLogin); log.Add(userLogout); //log.Add(functionalityExecution);
+                log.Add(ipAddress);
 
                 collection.InsertOne(log);
             }

@@ -35,6 +35,7 @@ namespace KFC.Red.ManagerLayer.SSO
                 var session = sessionManager.CreateSession(user);
                 successLogin++;
 
+
                 return session;
             }
             catch (Exception ex)

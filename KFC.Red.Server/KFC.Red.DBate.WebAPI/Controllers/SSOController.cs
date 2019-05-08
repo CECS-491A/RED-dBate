@@ -1,5 +1,6 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.ManagerLayer.Logging;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.SSO;
 using KFC.Red.ManagerLayer.UserManagement;
@@ -51,14 +52,17 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 var sessionManager = new SessionManager();
                 try
                 {
+                    var lm = new LoggingManager<TelemetryLogDTO>();
+                    lm.CreateTelemetryLog(req.Token);
                     sessionManager.DeleteSession(req.Token);
                     _db.SaveChanges();
+
 
                     return Ok();
                 }
                 catch (Exception e)
                 {
-                    return Content(HttpStatusCode.Conflict, e.Message);
+                    return Content(HttpStatusCode.Conflict, e.Message + e.TargetSite + e.Source + e.StackTrace + e.InnerException);
                 }
             }
         }
