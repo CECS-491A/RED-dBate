@@ -32,8 +32,8 @@ namespace KFC.Red.DataAccessLayer.DTOs
         [BsonElement("userLogout")]
         public string UserLogout { get; set; }
 
-        [BsonElement("pageVisit")]
-        public string PageVisit { get; set; }
+       // [BsonElement("pageVisit")]
+       // public string PageVisit { get; set; }
 
         [BsonElement("clickevent")]
         public string FunctionalityExecution { get; set; }
