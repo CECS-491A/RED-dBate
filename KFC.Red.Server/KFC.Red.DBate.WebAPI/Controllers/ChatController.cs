@@ -100,7 +100,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 {
                     gameSession = _GameSessionManager.GetRandomGameSession();
                     var lm = new LoggingManager<TelemetryLogDTO>();
-                    lm.CreateTelemetryLog(requestloginToken.Token, gameSession.Token, "IP NULL");
+                    lm.CreateTelemetryLog(requestloginToken.Token, gameSession.Token);
                 }
                 catch (Exception e)
                 {

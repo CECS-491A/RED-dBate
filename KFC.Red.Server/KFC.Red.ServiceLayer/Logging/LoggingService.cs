@@ -148,7 +148,7 @@ namespace KFC.Red.ServiceLayer.Logging
             return false;
         }
 
-        protected string GetIPAddress()
+        public string GetIPAddress()
         {
             System.Web.HttpContext context = System.Web.HttpContext.Current;
             string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
@@ -163,6 +163,5 @@ namespace KFC.Red.ServiceLayer.Logging
             }
             return context.Request.ServerVariables["REMOTE_ADDR"];
         }
-
     }
 }

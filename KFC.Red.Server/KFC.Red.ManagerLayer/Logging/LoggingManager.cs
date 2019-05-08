@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ManagerLayer.ChatroomManager;
+using System.Web;
 
 /// <summary>
 /// This Manager Layer class contains the Logger method.
@@ -19,7 +20,7 @@ namespace KFC.Red.ManagerLayer.Logging
     {
         //Method failed logs is used if the system fails to log
         public int failedLogs;
-        
+
         /// <summary>
         /// DisplayLogsAsync return a list of the displayment of the logs in BSON  format.
         /// </summary>
@@ -79,7 +80,7 @@ namespace KFC.Red.ManagerLayer.Logging
         /// <param name="token"></param>
         /// <param name="ip"></param>
         /// <param name="loc"></param>
-        public void CreateTelemetryLog(string sesstoken, string gametoken, string ip)
+        public void CreateTelemetryLog(string sesstoken, string gametoken)
         {
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
@@ -90,7 +91,7 @@ namespace KFC.Red.ManagerLayer.Logging
             var loginTime = session.CreateTime;
             var gameSession = GetGameLogInfo(gametoken);
             var gameFunctionality = gameSession.CreateTime;
-           //var ipAddr = tlogService.GetIPAddress();
+            //var ipAddr = tlogService.GetIPAddress();
             try
             {
                 BsonElement Token = new BsonElement("token", sesstoken);
@@ -98,7 +99,7 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement userLogin = new BsonElement("userLogin", loginTime);
                 BsonElement userLogout = new BsonElement("userLogout", logoutTime);
                 BsonElement functionalityExecution = new BsonElement("clickevent", gameFunctionality);
-                BsonElement ipaAdress = new BsonElement("IPAddress", "192.51.255");
+               // BsonElement ipaAdress = new BsonElement("IPAddress", tlogService.GetIPAddress);
 
                 log.Add(date); log.Add(userLogin); log.Add(userLogout); log.Add(functionalityExecution); log.Add(ipaAdress);
 
@@ -107,6 +108,39 @@ namespace KFC.Red.ManagerLayer.Logging
             catch (MongoException)
             {
                 tlogService.FailCountEmail(failedLogs);
+            }
+        }
+
+        /// <summary>
+        /// Mock Data errorlog creator
+        /// </summary>
+        public bool CreateErrorLog()
+        {
+            UserManager userman = new UserManager();
+            LoggingService<ErrorLogDTO> elogService = new LoggingService<ErrorLogDTO>("ErrorLogs");
+
+            BsonDocument log = new BsonDocument();
+            IMongoCollection<BsonDocument> collection = elogService.GetCollection("ErrorLogs");
+
+            //var session = GetLogInfo(token);
+            //var user = userman.GetUser(session.UId);
+
+            try
+            {
+                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement error = new BsonElement("error", "fail to join session");
+                BsonElement target = new BsonElement("target", "chat");
+                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
+                BsonElement userRequest = new BsonElement("userRequest", "testRequest");
+                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+
+                collection.InsertOne(log);
+                return true;
+            }
+            catch (MongoException)
+            {
+                elogService.FailCountEmail(failedLogs);
+                return false;
             }
         }
 
