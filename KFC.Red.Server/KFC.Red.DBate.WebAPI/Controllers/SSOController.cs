@@ -19,9 +19,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/sso/login")]
         public IHttpActionResult SsoLogin([FromBody] LoginDTO request)
         {
-            string redirectURL = "http://localhost:8080/#/login/?token=";
-            using (var _db = new ApplicationDbContext())
-            {
                 try
                 {
                     var ssoLoginManager = new SSO_Manager();
@@ -29,30 +26,24 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     var loginSession = ssoLoginManager.LoginFromSSO(
                         request.Email,
-                        ssoId,
-                        request.Timestamp,
-                        request.Signature);
-                    redirectURL = "http://localhost:8080/#/login/?token=" + loginSession.Token;
+                        ssoId);
+                    var redirectURL = "http://localhost:8080/#/login/?token=" + loginSession.Token;
                     return Redirect(redirectURL);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return Content(HttpStatusCode.Conflict, "An Error Occured");
+                    return Content(HttpStatusCode.Conflict, "An Error Occured: " + e.Message + e.TargetSite + e.Source);
                 }
-            }
         }
         
         [HttpPost]
         [Route("api/sso/logout")]
         public IHttpActionResult Logout([FromBody] LogoutDTO req)
-        {
-            using (var _db = new ApplicationDbContext())
-            {
+        {   
                 var sessionManager = new SessionManager();
                 try
                 {
                     sessionManager.DeleteSession(req.Token);
-                    _db.SaveChanges();
 
                     return Ok();
                 }
@@ -60,7 +51,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 {
                     return Content(HttpStatusCode.Conflict, e.Message);
                 }
-            }
         }
 
         //NEED TO FIX
@@ -76,12 +66,12 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 var userManager = new UserManager();
 
                 var session = sessionManager.GetSession(token);
-                var userId = session.Id;
+                var userId = session.UId;
                 var user = userManager.GetUser(userId);
 
                 if (user == null)
                 {
-                    return Content(HttpStatusCode.NotFound, "User does not exist");
+                    return Content(HttpStatusCode.NotFound, "User does not exist: " + session + "/n" + userId + "/n" + user);
                 }
 
                 var deleteResult = await ssoManager.DeleteAccountSSO(user);

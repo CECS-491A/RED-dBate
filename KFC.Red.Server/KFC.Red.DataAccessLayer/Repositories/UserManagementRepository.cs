@@ -1,11 +1,8 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KFC.Red.DataAccessLayer.Repositories
 {
@@ -44,7 +41,7 @@ namespace KFC.Red.DataAccessLayer.Repositories
         public User GetUser(ApplicationDbContext _db, Guid SSOId)
         {
             var user = _db.Users.Where(c => c.SsoId == SSOId)
-                .FirstOrDefault<User>();
+                .FirstOrDefault();
             return user;
         }
         

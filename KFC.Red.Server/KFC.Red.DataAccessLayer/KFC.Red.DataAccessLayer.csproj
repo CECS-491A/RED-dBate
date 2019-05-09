@@ -111,6 +111,10 @@
     <Compile Include="Migrations\201905020442145_dummyMigration.Designer.cs">
       <DependentUpon>201905020442145_dummyMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905090420164_addPlayerCount.cs" />
+    <Compile Include="Migrations\201905090420164_addPlayerCount.Designer.cs">
+      <DependentUpon>201905090420164_addPlayerCount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatStorage.cs" />
@@ -160,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905020442145_dummyMigration.resx">
       <DependentUpon>201905020442145_dummyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905090420164_addPlayerCount.resx">
+      <DependentUpon>201905090420164_addPlayerCount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

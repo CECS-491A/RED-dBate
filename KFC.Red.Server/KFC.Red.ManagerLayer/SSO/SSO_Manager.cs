@@ -9,7 +9,7 @@ namespace KFC.Red.ManagerLayer.SSO
 {
     public class SSO_Manager
     {
-        public Session LoginFromSSO(string email, Guid ssoID, long timestamp, string signature)
+        public Session LoginFromSSO(string email, Guid ssoID)
         {
             try
             {

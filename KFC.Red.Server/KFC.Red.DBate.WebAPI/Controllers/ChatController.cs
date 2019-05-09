@@ -12,6 +12,7 @@ using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ManagerLayer.SessionManagement;
 using System.Web.Http.Cors;
+using System.Linq;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
@@ -52,14 +53,12 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/createchat")]
         public IHttpActionResult CreateChat(string token)
         {
-            using (var _db = new ApplicationDbContext())
-            {
-                UserGameStorage userGameStorage = new UserGameStorage();
-                UserManager userManager = new UserManager();
-                GameSession gameSession = new GameSession();
-                SessionManager sessionManager = new SessionManager();
+                var userGameStorage = new UserGameStorage();
+                var userManager = new UserManager();
+                var gameSession = new GameSession();
+                var sessionManager = new SessionManager();
 
-                QuestionManager questionManager = new QuestionManager();
+                var questionManager = new QuestionManager();
                 
 
                 try
@@ -79,6 +78,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
+                    return Ok(gameSession.Token);
                 }
                 catch (ArgumentException)
                 {
@@ -88,28 +88,12 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 {
                     return Content(HttpStatusCode.BadRequest, e.ToString() + userGameStorage.UId);
                 }
-
-
-                try
-                {
-                    _db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    _db.Entry(gameSession).State = System.Data.Entity.EntityState.Detached;
-                    return InternalServerError(e);
-                }
-
-                return Ok(gameSession.Token);
-            }
         }
 
         [HttpGet]
         [Route("api/chat/joinrandomchat")]
         public IHttpActionResult JoinRandomChat(string token)
         {
-            using (var _db = new ApplicationDbContext())
-            {
                 UserGameStorage userGameStorage = new UserGameStorage();
                 UserManager userManager = new UserManager();
                 GameSession gameSession = new GameSession();
@@ -118,6 +102,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 try
                 {
                     gameSession = _GameSessionManager.GetRandomGameSession();
+                    ++gameSession.PlayerCount;
+                    _GameSessionManager.UpdateGameSession(gameSession);
                     var session = sessionManager.GetSession(token);
                     var user = userManager.GetUser(session.UId);
 
@@ -135,7 +121,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
 
                 return Ok(gameSession.Token);
-            }
         }
 
         [HttpDelete]
@@ -145,6 +130,15 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             var gameSession = _GameSessionManager.GetGameSession(gameSessionToken);
             _GameSessionManager.DeleteGameSession(gameSession);
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("api/chat/playercount")]
+        public IHttpActionResult GetPlayerCount(string gameSessionToken)
+        {
+            var gameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+
+            return Ok(gameSession.PlayerCount);
         }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
 using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.DataAccessLayer.Repositories;
@@ -21,10 +17,6 @@ namespace KFC.Red.ServiceLayer.UserManagement
 
         public User CreateUser(ApplicationDbContext _db, User user)
         {
-            if (_UserManagementRepo.ExistingUser(_db, user.Username))
-            {
-                throw new ArgumentException("A user with that email address already exists");
-            }
             return _UserManagementRepo.CreateNewUser(_db, user);
         }
 
