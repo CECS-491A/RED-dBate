@@ -19,7 +19,6 @@
         <td class="text-xs-right">{{ props.item.logTarget }}</td>
         <td class="text-xs-right">{{ props.item.loggedUser }}</td>
         <td class="text-xs-right">{{ props.item.CurrentLoggedInUser }}</td>
-        <td class="text-xs-right">{{ props.item.loggedUserRequest }}</td>
         
         <td class="justify-center layout px-0">
           <!--Button to delete for Error Log -->
@@ -51,9 +50,7 @@
         <td class="text-xs-center">{{ props.item.tDate }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserLogin }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserLogout }}</td>
-        <td class="text-xs-center">{{ props.item.tDateUserPageVisit }}</td>
-        <td class="text-xs-center">{{ props.item.tDateUserFunctionalityExecution }}</td>
-        <td class="text-xs-center">{{ props.item.tIPAddress }}</td>
+        <!--<td class="text-xs-center">{{ props.item.tIPAddress }}</td>-->
         <td class="justify-center layout px-0">
         </td>
       </template>
@@ -101,9 +98,6 @@ import {URL} from '@/services/ConstUrls'
         { text: 'Date', value: 'date' }, 
         { text: 'DateUserLogin', value: 'dateuserlogin' },
         { text: 'DateUserLogout', value: 'dateuserlogout' },
-        { text: 'DateUserPagevisit', value: 'dateuserpagevisit' },
-        { text: 'DateExecution', value: 'datefunctionalityexecution' },
-        { text: 'IPAddress', value: 'ipaddress' }
       ],
       
       logs: [],
@@ -139,10 +133,7 @@ import {URL} from '@/services/ConstUrls'
                 tlogObjectID: ldata[i].Id,
                 tDate: ldata[i].Date,
                 tDateUserLogin: ldata[i].UserLogin, 
-                tDateUserLogout: ldata[i].UserLogout,
-                tDateUserPageVisit: ldata[i].PageVisit,
-                tDateUserFunctionalityExecution: ldata[i].FunctionalityExecution,
-                tIPAddress: ldata[i].IPAddress
+                tDateUserLogout: ldata[i].UserLogout
               }
               this.tlogs.push(logItem)
             }

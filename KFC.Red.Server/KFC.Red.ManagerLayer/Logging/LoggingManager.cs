@@ -87,8 +87,7 @@ namespace KFC.Red.ManagerLayer.Logging
             IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs");
 
             var session = GetLogInfo(sesstoken);
-            var logoutTime = session.DeleteTime;
-            var loginTime = session.CreateTime;
+            var loginTime = session.CreateTime.ToString();
             //var gameSession = GetGameLogInfo(gametoken);
             //var gameFunctionality = gameSession.CreateTime;
             //var ipAddr = tlogService.GetIPAddress();
@@ -97,12 +96,12 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement Token = new BsonElement("token", sesstoken);
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userLogin = new BsonElement("userLogin", loginTime);
-                BsonElement userLogout = new BsonElement("userLogout", logoutTime);
+                BsonElement userLogout = new BsonElement("userLogout", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 //BsonElement functionalityExecution = new BsonElement("clickevent", gameFunctionality);
-                BsonElement ipAddress = new BsonElement("IPAddress", tlogService.GetIPAddress().ToBsonDocument());
+               // BsonElement ipAddress = new BsonElement("IPAddress", tlogService.GetIPAddress().ToBsonDocument());
 
                 log.Add(date); log.Add(userLogin); log.Add(userLogout); //log.Add(functionalityExecution);
-                log.Add(ipAddress);
+                //log.Add(ipAddress);
 
                 collection.InsertOne(log);
             }
@@ -162,11 +161,9 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userlogin = new BsonElement("userLogin", logintime);
                 BsonElement userlogout = new BsonElement("userLogout", logouttime);
-                BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
+                //BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
 
-                log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
+                log.Add(date); log.Add(userlogin); log.Add(userlogout); //log.Add(ipaddress);
 
                 collection.InsertOne(log);
                 return true;
