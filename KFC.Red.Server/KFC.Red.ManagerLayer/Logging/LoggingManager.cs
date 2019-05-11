@@ -60,7 +60,7 @@ namespace KFC.Red.ManagerLayer.Logging
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")); 
                 BsonElement error = new BsonElement("error", ex.Message.ToString()); 
-                BsonElement target = new BsonElement("target", ex.TargetSite.ToString()); 
+                BsonElement target = new BsonElement("target", ex.StackTrace.ToString()); 
                 BsonElement currentLoggedUser = new BsonElement("loggedInUser", user.Email); 
                 BsonElement userRequest = new BsonElement("userRequest", ex.Source.ToString());
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
