@@ -4,24 +4,12 @@ using KFC.Red.ManagerLayer.Logging;
 using System.Threading.Tasks;
 using KFC.Red.DataAccessLayer.DTOs;
 using MongoDB.Bson;
+using System;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class LogController : ApiController
     {
-        /// <summary>
-        /// Controller for creating the error logs
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("api/log/createerrorlogs")]
-        public IHttpActionResult CreateErrorLog()
-        {
-            LoggingManager<TelemetryLogDTO> loggermanager = new LoggingManager<TelemetryLogDTO>();
-            loggermanager.CreateErrorLog();
-            return Ok("error log created");
-        }
-
         /// <summary>
         /// Controller for getting the IP Adrress from the front end.
         /// </summary>
@@ -30,8 +18,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/log/ipaddress")]
         public IHttpActionResult IpAddress()
         {
-            LoggingManager<TelemetryLogDTO> loggermanager = new LoggingManager<TelemetryLogDTO>();
-            loggermanager.CreateErrorLog();
+            LoggingManager<TelemetryLogDTO> loggerManager = new LoggingManager<TelemetryLogDTO>();
+            loggerManager.CreateTelemetryLog();
             return Ok("ip address retrieved");
         }
 
@@ -43,8 +31,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/log/createtelemetrylogs")]
         public IHttpActionResult CreateTelemetryLog()
         {
-            LoggingManager<TelemetryLogDTO> loggermanager = new LoggingManager<TelemetryLogDTO>();
-            loggermanager.CreateTelemetryLog();
+            LoggingManager<TelemetryLogDTO> loggerManager = new LoggingManager<TelemetryLogDTO>();
+            loggerManager.CreateTelemetryLog();
             return Ok("telemetry log created");
         }
 
@@ -56,8 +44,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/log/displayerrorlogs")]
         public async Task<List<ErrorLogDTO>> DisplayLogsAsync()
         {
-            LoggingManager<ErrorLogDTO> loggermanager =  new LoggingManager<ErrorLogDTO>();
-            var documents = loggermanager.DisplayLogsAsync("ErrorLogs");
+            LoggingManager<ErrorLogDTO> loggerManager =  new LoggingManager<ErrorLogDTO>();
+            var documents = loggerManager.DisplayLogsAsync("ErrorLogs");
             return await documents;
         }
 
@@ -70,8 +58,8 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/log/displaytelemetrylogs")]
         public async Task<List<TelemetryLogDTO>> DisplayLogsAsyncTelemetry()
         {
-            LoggingManager<TelemetryLogDTO> loggermanager = new LoggingManager<TelemetryLogDTO>();
-            var documents = loggermanager.DisplayLogsAsync("TelemetryLogs");
+            LoggingManager<TelemetryLogDTO> loggerManager = new LoggingManager<TelemetryLogDTO>();
+            var documents = loggerManager.DisplayLogsAsync("TelemetryLogs");
             return await documents;
         }
 
@@ -85,10 +73,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         public IHttpActionResult DeleteLog(string id)
         {
             string collectionName = "ErrorLogs";
-            LoggingManager<BsonDocument> loggermanager = new LoggingManager<BsonDocument>();
+            LoggingManager<BsonDocument> loggerManager = new LoggingManager<BsonDocument>();
             try
             {
-                loggermanager.DeleteLog(id,collectionName);
+                loggerManager.DeleteLog(id,collectionName);
                 return Ok();
             }
             catch
