@@ -2,11 +2,6 @@
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.ChatRoom.Interface;
 using KFC.RED.DataAccessLayer.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KFC.Red.ServiceLayer.ChatRoom
 {

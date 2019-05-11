@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Net;
 using System.Web.Http;
-using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.ChatroomManager;
 using KFC.Red.ManagerLayer.QuestionManagement;
@@ -12,7 +10,6 @@ using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ManagerLayer.SessionManagement;
 using System.Web.Http.Cors;
-using System.Linq;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
@@ -22,14 +19,12 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         private GameSessionManager _GameSessionManager;
         private UserGameStorageManager _UserGameStoreManager;
         private HubService _ChatHub;
-        private MessageIDIncrement _Increment;
 
         public ChatController()
         {
             _UserGameStoreManager = new UserGameStorageManager();
             _GameSessionManager = new GameSessionManager();
             _ChatHub = new HubService();
-            _Increment = new MessageIDIncrement();
         }
 
         [HttpPost]
@@ -78,7 +73,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
-                    return Ok(gameSession.Token);
+                    return Ok(gameSession);
                 }
                 catch (ArgumentException)
                 {
@@ -90,6 +85,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
         }
 
+        //When joining random room another game session is created MUST BE FIXED!!!!!
         [HttpGet]
         [Route("api/chat/joinrandomchat")]
         public IHttpActionResult JoinRandomChat(string token)
@@ -120,7 +116,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     return Content(HttpStatusCode.BadRequest, e.ToString());
                 }
 
-                return Ok(gameSession.Token);
+                return Ok(gameSession);
         }
 
         [HttpDelete]
@@ -128,6 +124,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         public IHttpActionResult DeleteGameSession(string gameSessionToken)
         {
             var gameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+            _UserGameStoreManager.DeleteGameSessionUsers(gameSessionToken);
             _GameSessionManager.DeleteGameSession(gameSession);
             return Ok();
         }
