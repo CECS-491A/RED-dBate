@@ -38,7 +38,7 @@ namespace KFC.Red.DataAccessLayer.DTOs
        // [BsonElement("clickevent")]
        // public string FunctionalityExecution { get; set; }
 
-       // [BsonElement("IPAddress")]
-       // public string IPAddress { get; set; }
+       [BsonElement("IPAddress")]
+       public string IPAddress { get; set; }
     }
 }

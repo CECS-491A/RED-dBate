@@ -20,41 +20,39 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/sso/login")]
         public IHttpActionResult SsoLogin([FromBody] LoginDTO request)
         {
-                try
-                {
-                    var ssoLoginManager = new SSO_Manager();
-                    var ssoId = new Guid(request.SSOUserId);
+            try
+            {
+                var ssoLoginManager = new SSO_Manager();
+                var ssoId = new Guid(request.SSOUserId);
 
-                    var loginSession = ssoLoginManager.LoginFromSSO(
-                        request.Email,
-                        ssoId);
-                    var redirectURL = "http://localhost:8080/#/login/?token=" + loginSession.Token;
-                    return Redirect(redirectURL);
-                }
-                catch (Exception e)
-                {
-                    return Content(HttpStatusCode.Conflict, "An Error Occured: " + e.Message + e.TargetSite + e.Source);
-                }
+                var loginSession = ssoLoginManager.LoginFromSSO(request.Email,ssoId);
+                var redirectURL = "http://localhost:8080/#/login/?token=" + loginSession.Token;
+                return Redirect(redirectURL);
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, "An Error Occured: " + e.Message + e.TargetSite + e.Source);
+            }
         }
-        
+
         [HttpPost]
         [Route("api/sso/logout")]
         public IHttpActionResult Logout([FromBody] LogoutDTO req)
-        {   
-                var sessionManager = new SessionManager();
-                try
-                {
-                    var lm = new LoggingManager<TelemetryLogDTO>();
-                    lm.CreateTelemetryLog(req.Token);
-                    sessionManager.DeleteSession(req.Token);
+        {
+            var sessionManager = new SessionManager();
+            try
+            {
+                var lm = new LoggingManager<TelemetryLogDTO>();
+                lm.CreateTelemetryLog(req.Token);
+                sessionManager.DeleteSession(req.Token);
 
 
-                    return Ok();
-                }
-                catch (Exception e)
-                {
-                    return Content(HttpStatusCode.Conflict, e.Message + e.TargetSite + e.Source + e.StackTrace + e.InnerException);
-                }
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message + e.TargetSite + e.Source + e.StackTrace + e.InnerException);
+            }
         }
 
         //NEED TO FIX
@@ -87,7 +85,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     return Ok();
                 }
 
-                return Content(HttpStatusCode.NotImplemented,"User not able to delete");
+                return Content(HttpStatusCode.NotImplemented, "User not able to delete");
             }
             catch (Exception e)
             {
@@ -99,7 +97,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/sso/health")]
         public IHttpActionResult HealthCheck()
         {
-            using(var _db = new ApplicationDbContext())
+            using (var _db = new ApplicationDbContext())
             {
                 try
                 {

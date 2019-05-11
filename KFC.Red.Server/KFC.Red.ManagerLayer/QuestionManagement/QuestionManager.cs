@@ -104,8 +104,6 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 try
                 {
                     _questionService.UpdateQuestion(_db, question);
-                    var logTelemetryman = new LoggingManager<TelemetryLogDTO>();
-                    logTelemetryman.CreateTelemetryLog("");
                     return _db.SaveChanges();
                 }
                 catch (DbEntityValidationException)

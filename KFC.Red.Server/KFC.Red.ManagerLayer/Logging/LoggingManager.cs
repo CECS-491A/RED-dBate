@@ -10,6 +10,8 @@ using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ManagerLayer.ChatroomManager;
 using System.Web;
+using System.Net;
+
 
 /// <summary>
 /// This Manager Layer class contains the Logger method.
@@ -78,7 +80,6 @@ namespace KFC.Red.ManagerLayer.Logging
         /// Logger method to create an telemetry log
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="ip"></param>
         /// <param name="loc"></param>
         public void CreateTelemetryLog(string sesstoken)
         {
@@ -98,10 +99,10 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement userLogin = new BsonElement("userLogin", loginTime);
                 BsonElement userLogout = new BsonElement("userLogout", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 //BsonElement functionalityExecution = new BsonElement("clickevent", gameFunctionality);
-               // BsonElement ipAddress = new BsonElement("IPAddress", tlogService.GetIPAddress().ToBsonDocument());
+                BsonElement ipAddress = new BsonElement("IPAddress", HttpContext.Current.Request.UserHostAddress);
 
                 log.Add(date); log.Add(userLogin); log.Add(userLogout); //log.Add(functionalityExecution);
-                //log.Add(ipAddress);
+                log.Add(ipAddress);
 
                 collection.InsertOne(log);
             }
