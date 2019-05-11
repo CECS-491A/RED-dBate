@@ -50,7 +50,7 @@
         <td class="text-xs-center">{{ props.item.tDate }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserLogin }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserLogout }}</td>
-        <!--<td class="text-xs-center">{{ props.item.tIPAddress }}</td>-->
+        <td class="text-xs-center">{{ props.item.tIPAddress }}</td>
         <td class="justify-center layout px-0">
         </td>
       </template>
@@ -98,6 +98,7 @@ import {URL} from '@/services/ConstUrls'
         { text: 'Date', value: 'date' }, 
         { text: 'DateUserLogin', value: 'dateuserlogin' },
         { text: 'DateUserLogout', value: 'dateuserlogout' },
+        { text: 'IPAddress', value: 'ipaddress' },
       ],
       
       logs: [],
@@ -133,7 +134,8 @@ import {URL} from '@/services/ConstUrls'
                 tlogObjectID: ldata[i].Id,
                 tDate: ldata[i].Date,
                 tDateUserLogin: ldata[i].UserLogin, 
-                tDateUserLogout: ldata[i].UserLogout
+                tDateUserLogout: ldata[i].UserLogout,
+                tIPAddress: ldata[i].IPAddress
               }
               this.tlogs.push(logItem)
             }
