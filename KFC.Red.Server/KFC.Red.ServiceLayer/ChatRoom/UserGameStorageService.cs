@@ -21,10 +21,6 @@ namespace KFC.Red.ServiceLayer.ChatRoom
 
         public UserGameStorage CreateUGS(ApplicationDbContext _db, UserGameStorage userGameStorage)
         {
-            if (_UGSRepo.ExistingUGS(_db, userGameStorage.Id))
-            {
-                throw new ArgumentException("A userGameStorage with that ID already exists");
-            }
             return _UGSRepo.CreateNewUGS(_db, userGameStorage);
         }
 

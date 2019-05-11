@@ -39,22 +39,49 @@ export default {
     },
     methods:{
         createChat(){
-            axios.get(URL.createChatURL)
+            axios.get(URL.createChatURL,{
+              params: {
+                token: localStorage.getItem('token')
+              }
+            })
             .then(t => {
               let key = t.data;
+              let playerAmount = this.$store.getters.getPlayerAmount;
               localStorage.setItem('gameSessionToken',t.data);
               console.log(t.data);
-              this.$router.push('/waitingroom/' + key)
+              getPlayerCount();
+              //this.$store.dispatch('actPlayerAmount', {PlayerAmount: playerAmount + 1});
+              this.$router.push('/waitingroom/' + key);
             })
             .catch(e => {
                 this.error = e.response;
             })
         },
+        getPlayerCount(){
+          axios.get(URL.getPlayerCountURL, {
+            params: {
+              gameSessionToken: localStorage.getItem('gameSessionToken')
+            }
+          })
+          .then( resp => {
+            let playerCount = resp.data;
+            this.$store.dispatch('actPlayerAmount', {PlayerAmount: playerCount});
+          })
+          .catch(e => {
+            this.error = e.response;
+          })
+        },
         joinRandomChat(){
-          axios.get(URL.joinRandomChatURL)
+          axios.get(URL.joinRandomChatURL,{
+            params: {
+                token: localStorage.getItem('token')
+            }
+          })
           .then(t => {
             let key = t.data;
-            localStorage.setItem('gameSessionToken', t.data);
+            let playerAmount = this.$store.getters.getPlayerAmount;
+            localStorage.setItem('gameSessionToken',t.data);
+            this.$store.dispatch('actPlayerAmount', {PlayerAmount: playerAmount + 1});
             this.$router.push('/waitingroom/' + key)
           })
           .catch(e => {

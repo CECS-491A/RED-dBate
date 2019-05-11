@@ -19,10 +19,13 @@ const URL = {
     createChatURL: apiURL + 'chat/createchat',
     joinRandomChatURL: apiURL + 'chat/joinrandomchat',
     deleteGameSessionURL: apiURL + 'chat/deletegame',
+    deleteUserGameURL: apiURL + 'chat/deleteuser',
     createTelemetryLogURL: apiURL + 'log/createtelemetrylogs',
+    createUserGameLogURL: apiURL + 'chat/createusergame',
     logoutURL: apiURL + 'sso/logout',
     deleteSSOURL: apiURL + 'user/delete',
-    postIPURL: apiURL + ''
+    postIPURL: apiURL + '',
+    getPlayerCountURL: apiURL + 'chat/playercount'
 }
 
 export {

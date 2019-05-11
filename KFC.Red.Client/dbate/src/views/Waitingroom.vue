@@ -63,6 +63,7 @@ export default {
     },
     endWait(){
       let gameSession = localStorage.getItem('gameSessionToken');
+
       axios.delete(URL.deleteGameSessionURL + '?gameSessionToken=' + gameSession)
       .then(resp => {
         this.loading = false;
@@ -72,6 +73,7 @@ export default {
       .catch(e => {
           this.response = e.data;
       })
+
     }
   }
 

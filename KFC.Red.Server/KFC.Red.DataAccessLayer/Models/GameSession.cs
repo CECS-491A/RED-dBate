@@ -23,5 +23,7 @@ namespace KFC.Red.DataAccessLayer.Models
         public Question Question { get; set; }
 
         public bool isSessionUsed { get; set; } = false;
+
+        public int PlayerCount { get; set; } = 0;
     }
 }

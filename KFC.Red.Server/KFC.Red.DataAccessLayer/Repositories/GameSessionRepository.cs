@@ -21,7 +21,7 @@ namespace KFC.Red.DataAccessLayer.Repositories
         {
             var gamesession = _db.GameSessions
                 .Where(c => c.Id == Id)
-                .FirstOrDefault<GameSession>();
+                .FirstOrDefault();
             if (gamesession == null)
                 return null;
             _db.Entry(gamesession).State = EntityState.Deleted;
@@ -70,6 +70,12 @@ namespace KFC.Red.DataAccessLayer.Repositories
                 return true;
             }
             return false;
+        }
+
+        public GameSession UpdateGameSession(ApplicationDbContext _db, GameSession gameSession)
+        {
+            _db.Entry(gameSession).State = EntityState.Modified;
+            return gameSession;
         }
 
         public List<UserGameStorage> GetGameStorages(ApplicationDbContext _db, int gid)
