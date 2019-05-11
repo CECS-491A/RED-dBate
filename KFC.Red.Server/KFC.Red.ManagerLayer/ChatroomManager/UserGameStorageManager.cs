@@ -2,11 +2,8 @@
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ServiceLayer.ChatRoom;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KFC.Red.ManagerLayer.ChatroomManager
 {
@@ -29,12 +26,32 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             }
         }
 
-        public int DeleteUGS(int id)
+        //Delete one user stored in User Game Storage
+        public int DeleteGameUser(int id)
         {
             using (var _db = new ApplicationDbContext())
             {
                 var response = _UGSService.DeleteUGS(_db, id);
                 // will return null if ugs does not exist
+                return _db.SaveChanges();
+            }
+        }
+
+        //Delete all users associated with gamesession token
+        public int DeleteGameSessionUsers(string gamesessionToken)
+        {
+            GameSessionManager gameSessionManager = new GameSessionManager();
+            using (var _db = new ApplicationDbContext())
+            {
+                var gameSession = gameSessionManager.GetGameSession(gamesessionToken);
+                var listOfUGS = _db.UserGameStorages.Where(w => w.GId == gameSession.Id);
+                
+                for(int i = 0; i < listOfUGS.Count(); i++)
+                {
+                    var gameUser = listOfUGS.ToList().ElementAt(i);
+                    var response = _UGSService.DeleteUGS(_db, gameUser.Id);
+                }
+
                 return _db.SaveChanges();
             }
         }

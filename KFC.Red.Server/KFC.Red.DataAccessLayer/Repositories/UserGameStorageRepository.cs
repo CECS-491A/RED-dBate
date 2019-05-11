@@ -1,11 +1,7 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KFC.RED.DataAccessLayer.Repositories
 {
@@ -20,8 +16,8 @@ namespace KFC.RED.DataAccessLayer.Repositories
         public UserGameStorage DeleteUGS(ApplicationDbContext _db, int Id)
         {
             var ugs = _db.UserGameStorages
-                .Where(c => c.GId == Id)
-                .FirstOrDefault<UserGameStorage>();
+                .Where(c => c.Id == Id)
+                .FirstOrDefault();
             if (ugs == null)
                 return null;
             _db.Entry(ugs).State = EntityState.Deleted;
