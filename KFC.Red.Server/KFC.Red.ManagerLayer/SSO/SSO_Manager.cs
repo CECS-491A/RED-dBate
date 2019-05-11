@@ -13,7 +13,7 @@ namespace KFC.Red.ManagerLayer.SSO
     {
         private int successLogin;
         private int failLogin;
-        public Session LoginFromSSO(string email, Guid ssoID, long timestamp, string signature)
+        public Session LoginFromSSO(string email, Guid ssoID)
         {
             try
             {

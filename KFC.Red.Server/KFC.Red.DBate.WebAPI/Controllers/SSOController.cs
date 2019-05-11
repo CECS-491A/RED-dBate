@@ -25,7 +25,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 var ssoLoginManager = new SSO_Manager();
                 var ssoId = new Guid(request.SSOUserId);
 
-                var loginSession = ssoLoginManager.LoginFromSSO(request.Email,ssoId);
+                var loginSession = ssoLoginManager.LoginFromSSO(
+                    request.Email,
+                    ssoId);
                 var redirectURL = "http://localhost:8080/#/login/?token=" + loginSession.Token;
                 return Redirect(redirectURL);
             }
