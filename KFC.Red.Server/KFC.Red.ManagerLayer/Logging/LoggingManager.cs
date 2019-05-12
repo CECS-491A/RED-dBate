@@ -177,6 +177,34 @@ namespace KFC.Red.ManagerLayer.Logging
         }
 
         /// <summary>
+        /// Logger method to create an telemetry log
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="loc"></param>
+        public void CreateTelemetryLog2()
+        {
+            BsonDocument log = new BsonDocument();
+            LoggingService<TelemetryLog2DTO> tlogService = new LoggingService<TelemetryLog2DTO>("TelemetryLogs2");
+            IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs2");
+            UserManager userMan = new UserManager();
+
+            try
+            {
+                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "deivis@gmail.com");
+                BsonElement pagevisit = new BsonElement("page visit", "page");
+                BsonElement functionalityExecution = new BsonElement("clickevent", "execution");
+                log.Add(date); log.Add(currentLoggedUser); log.Add(pagevisit); log.Add(functionalityExecution);
+
+                collection.InsertOne(log);
+            }
+            catch (MongoException)
+            {
+                tlogService.FailCountEmail(failedLogs);
+            }
+        }
+
+        /// <summary>
         /// Mock Data errorlog creator
         /// </summary>
         public bool CreateTelemetryLog()
