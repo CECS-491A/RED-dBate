@@ -81,28 +81,58 @@ namespace KFC.Red.ManagerLayer.Logging
         /// </summary>
         /// <param name="token"></param>
         /// <param name="loc"></param>
-        public void CreateTelemetryLog(string sesstoken)
+        public void CreateTelemetryLog(string sessToken)
         {
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
             IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs");
 
-            var session = GetLogInfo(sesstoken);
+            var session = GetLogInfo(sessToken);
             var loginTime = session.CreateTime.ToString();
             //var gameSession = GetGameLogInfo(gametoken);
             //var gameFunctionality = gameSession.CreateTime;
             //var ipAddr = tlogService.GetIPAddress();
             try
             {
-                BsonElement Token = new BsonElement("token", sesstoken);
+                BsonElement Token = new BsonElement("token", sessToken);
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userLogin = new BsonElement("userLogin", loginTime);
                 BsonElement userLogout = new BsonElement("userLogout", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                //BsonElement functionalityExecution = new BsonElement("clickevent", gameFunctionality);
+                BsonElement pagevisit = new BsonElement("page visit", HttpContext.Current.Request.Url.AbsoluteUri);
+                BsonElement functionalityExecution = new BsonElement("clickevent", HttpContext.Current.Request.Url.Host);
                 BsonElement ipAddress = new BsonElement("IPAddress", HttpContext.Current.Request.UserHostAddress);
 
-                log.Add(date); log.Add(userLogin); log.Add(userLogout); //log.Add(functionalityExecution);
+                log.Add(date); log.Add(userLogin); log.Add(userLogout); log.Add(pagevisit); log.Add(functionalityExecution);
                 log.Add(ipAddress);
+
+                collection.InsertOne(log);
+            }
+            catch (MongoException)
+            {
+                tlogService.FailCountEmail(failedLogs);
+            }
+        }
+
+        /// <summary>
+        /// Logger method to create an telemetry log
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="loc"></param>
+        public void CreateTelemetryLog2(string sessToken)
+        {
+            BsonDocument log = new BsonDocument();
+            LoggingService<TelemetryLog2DTO> tlogService = new LoggingService<TelemetryLog2DTO>("TelemetryLogs2");
+            IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs2");
+            UserManager userMan = new UserManager();
+            var session = GetLogInfo(sessToken);
+            var user = userMan.GetUser(session.UId);
+            try
+            {
+                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement currentLoggedUser = new BsonElement("loggedInUser", user.Email);
+                BsonElement pagevisit = new BsonElement("page visit", HttpContext.Current.Request.Url.AbsoluteUri);
+                BsonElement functionalityExecution = new BsonElement("clickevent", HttpContext.Current.Request.Url.Host);
+                log.Add(date); log.Add(currentLoggedUser); log.Add(pagevisit); log.Add(functionalityExecution);
 
                 collection.InsertOne(log);
             }
@@ -133,7 +163,8 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement target = new BsonElement("target", "chat");
                 BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
                 BsonElement userRequest = new BsonElement("userRequest", "testRequest");
-                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+
+                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest); log.Add(currentLoggedUser); log.Add(userRequest);
 
                 collection.InsertOne(log);
                 return true;
@@ -162,9 +193,12 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userlogin = new BsonElement("userLogin", logintime);
                 BsonElement userlogout = new BsonElement("userLogout", logouttime);
-                //BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
+                BsonElement pagevisit = new BsonElement("page visit", "Chat room");
+                BsonElement functionalityExecution = new BsonElement("clickevent", "Join session");
+                BsonElement ipAddress = new BsonElement("IPAddress", "192:000:000");
 
-                log.Add(date); log.Add(userlogin); log.Add(userlogout); //log.Add(ipaddress);
+                log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(pagevisit); log.Add(functionalityExecution);
+                log.Add(ipAddress);
 
                 collection.InsertOne(log);
                 return true;

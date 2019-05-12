@@ -15,30 +15,21 @@ namespace KFC.Red.DataAccessLayer.DTOs
     /// <summary>
     /// Telemetry data transfer method
     /// </summary>
-    public class TelemetryLogDTO
+    public class TelemetryLog2DTO
     {
         [BsonId]
         public ObjectId Id { get; set; }
 
-        [BsonElement]
-        public string Token { get; set; }
-
         [BsonElement("date")]
         public string Date { get; set; }
 
-        [BsonElement("userLogin")]
-        public string UserLogin { get; set; }
+        [BsonElement("loggedInUser")]
+        public string CurrentLoggedInUser { get; set; }
 
-        [BsonElement("userLogout")]
-        public string UserLogout { get; set; }
-
-       [BsonElement("pageVisit")]
+        [BsonElement("pageVisit")]
        public string PageVisit { get; set; }
 
        [BsonElement("clickevent")]
        public string FunctionalityExecution { get; set; }
-
-       [BsonElement("IPAddress")]
-       public string IPAddress { get; set; }
     }
 }
