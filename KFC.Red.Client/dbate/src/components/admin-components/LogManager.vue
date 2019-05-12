@@ -18,7 +18,8 @@
         <td class="text-xs-right">{{ props.item.logError }}</td>
         <td class="text-xs-right">{{ props.item.logTarget }}</td>
         <td class="text-xs-right">{{ props.item.loggedUser }}</td>
-        <td class="text-xs-right">{{ props.item.CurrentLoggedInUser }}</td>
+        <td class="text-xs-right">{{ props.item.loggedInUser }}</td>
+        <td class="text-xs-right">{{ props.item.loggedUserRequest }}</td>
         
         <td class="justify-center layout px-0">
           <!--Button to delete for Error Log -->
@@ -50,6 +51,8 @@
         <td class="text-xs-center">{{ props.item.tDate }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserLogin }}</td>
         <td class="text-xs-center">{{ props.item.tDateUserLogout }}</td>
+        <td class="text-xs-center">{{ props.item.tPageVisit }}</td>
+        <td class="text-xs-center">{{ props.item.tFunctionalityExecution }}</td>
         <td class="text-xs-center">{{ props.item.tIPAddress }}</td>
         <td class="justify-center layout px-0">
         </td>
@@ -98,6 +101,8 @@ import {URL} from '@/services/ConstUrls'
         { text: 'Date', value: 'date' }, 
         { text: 'DateUserLogin', value: 'dateuserlogin' },
         { text: 'DateUserLogout', value: 'dateuserlogout' },
+        { text: 'PageVisit', value: 'pagevisit' },
+        { text: 'FunctionalityExecution', value: 'functionalityexecution' },
         { text: 'IPAddress', value: 'ipaddress' },
       ],
       
@@ -135,7 +140,9 @@ import {URL} from '@/services/ConstUrls'
                 tDate: ldata[i].Date,
                 tDateUserLogin: ldata[i].UserLogin, 
                 tDateUserLogout: ldata[i].UserLogout,
-                tIPAddress: ldata[i].IPAddress
+                tPageVisit: ldata[i].PageVisit,
+                tFunctionalityExecution: ldata[i].FunctionalityExecution,
+                tIPAddress: ldata[i].IPAddress    
               }
               this.tlogs.push(logItem)
             }
@@ -154,7 +161,7 @@ import {URL} from '@/services/ConstUrls'
                 logDate: ldata[i].Date, 
                 logError: ldata[i].Error,
                 logTarget: ldata[i].LineofCode,
-                loggedUser: ldata[i].CurrentLoggedInUser,
+                loggedUser: ldata[i].LoggedInUser,
                 loggedUserRequest: ldata[i].UserRequest
               }
               this.logs.push(logItem)

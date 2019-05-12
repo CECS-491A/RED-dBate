@@ -195,15 +195,13 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                     var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
                     question = _questionService.GetQuestion(_db, index);
                     quest = question.QuestionString;
-                    var logTelemetryman = new LoggingManager<TelemetryLogDTO>();
-                    logTelemetryman.CreateTelemetryLog("");
 
                     return quest;
                 }
                 catch (Exception ex)
                 {
                     var lm = new LoggingManager<ErrorLogDTO>();
-                    //lm.CreateErrorLog(ex, "");
+                    lm.CreateErrorLog(ex, "");
                     return ex.Message + ex.TargetSite;
                 }
             }

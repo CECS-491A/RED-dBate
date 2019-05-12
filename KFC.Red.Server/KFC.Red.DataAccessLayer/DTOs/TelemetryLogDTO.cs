@@ -33,9 +33,9 @@ namespace KFC.Red.DataAccessLayer.DTOs
         public string UserLogout { get; set; }
 
        [BsonElement("pageVisit")]
-       public string PageVisit { get; set; }
+        public string PageVisit { get; set; }
 
-       [BsonElement("clickevent")]
+       [BsonElement("functionalityExecution")]
        public string FunctionalityExecution { get; set; }
 
        [BsonElement("IPAddress")]

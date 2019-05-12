@@ -9,7 +9,6 @@ const URL = {
     randQuestURL: apiURL + 'question/randomquestion',
     sendMsgURL: apiURL + 'chat/postmessage',
     displayTelLogsURL: apiURL + 'log/displaytelemetrylogs',
-    displayTelLogs2URL: apiURL + 'log/displaytelemetrylogs2',
     displayErrorLogsURL: apiURL + 'log/displayerrorlogs',
     deleteErrorLogsURL: apiURL + 'log/deletelog',
     publishAppURL: KFCURL + '/api/applications/publish',

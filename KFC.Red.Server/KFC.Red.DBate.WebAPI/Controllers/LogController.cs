@@ -10,18 +10,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 {
     public class LogController : ApiController
     {
-        /// <summary>
-        /// Controller for getting the IP Adrress from the front end.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("api/log/createtelemetrylogs2")]
-        public IHttpActionResult IpAddress()
-        {
-            LoggingManager<TelemetryLog2DTO> loggerManager = new LoggingManager<TelemetryLog2DTO>();
-            loggerManager.CreateTelemetryLog2();
-            return Ok("tlog 2 created");
-        }
 
         /// <summary>
         ///  Controller for creating the telemetry logs
@@ -46,20 +34,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         {
             LoggingManager<ErrorLogDTO> loggerManager =  new LoggingManager<ErrorLogDTO>();
             var documents = loggerManager.DisplayLogsAsync("ErrorLogs");
-            return await documents;
-        }
-
-
-        /// <summary>
-        ///  Controller for display the telemeytry logs
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("api/log/displaytelemetrylogs2")]
-        public async Task<List<TelemetryLog2DTO>> DisplayLogsAsyncTelemetry2()
-        {
-            LoggingManager<TelemetryLog2DTO> loggerManager = new LoggingManager<TelemetryLog2DTO>();
-            var documents = loggerManager.DisplayLogsAsync("TelemetryLogs2");
             return await documents;
         }
 

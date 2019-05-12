@@ -81,25 +81,25 @@ namespace KFC.Red.ManagerLayer.Logging
         /// </summary>
         /// <param name="token"></param>
         /// <param name="loc"></param>
-        public void CreateTelemetryLog(string sessToken)
+        public void CreateTelemetryLog(string sesstoken)
         {
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
             IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs");
 
-            var session = GetLogInfo(sessToken);
+            var session = GetLogInfo(sesstoken);
             var loginTime = session.CreateTime.ToString();
             //var gameSession = GetGameLogInfo(gametoken);
             //var gameFunctionality = gameSession.CreateTime;
             //var ipAddr = tlogService.GetIPAddress();
             try
             {
-                BsonElement Token = new BsonElement("token", sessToken);
+                BsonElement Token = new BsonElement("token", sesstoken);
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userLogin = new BsonElement("userLogin", loginTime);
                 BsonElement userLogout = new BsonElement("userLogout", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement pagevisit = new BsonElement("page visit", HttpContext.Current.Request.Url.AbsoluteUri);
-                BsonElement functionalityExecution = new BsonElement("clickevent", HttpContext.Current.Request.Url.Host);
+                BsonElement pagevisit = new BsonElement("pageVisit", HttpContext.Current.Request.Url.AbsoluteUri);
+                BsonElement functionalityExecution = new BsonElement("functionalityExecution", HttpContext.Current.Request.Url.AbsolutePath);
                 BsonElement ipAddress = new BsonElement("IPAddress", HttpContext.Current.Request.UserHostAddress);
 
                 log.Add(date); log.Add(userLogin); log.Add(userLogout); log.Add(pagevisit); log.Add(functionalityExecution);
@@ -113,34 +113,6 @@ namespace KFC.Red.ManagerLayer.Logging
             }
         }
 
-        /// <summary>
-        /// Logger method to create an telemetry log
-        /// </summary>
-        /// <param name="token"></param>
-        /// <param name="loc"></param>
-        public void CreateTelemetryLog2(string sessToken)
-        {
-            BsonDocument log = new BsonDocument();
-            LoggingService<TelemetryLog2DTO> tlogService = new LoggingService<TelemetryLog2DTO>("TelemetryLogs2");
-            IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs2");
-            UserManager userMan = new UserManager();
-            var session = GetLogInfo(sessToken);
-            var user = userMan.GetUser(session.UId);
-            try
-            {
-                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", user.Email);
-                BsonElement pagevisit = new BsonElement("page visit", HttpContext.Current.Request.Url.AbsoluteUri);
-                BsonElement functionalityExecution = new BsonElement("clickevent", HttpContext.Current.Request.Url.Host);
-                log.Add(date); log.Add(currentLoggedUser); log.Add(pagevisit); log.Add(functionalityExecution);
-
-                collection.InsertOne(log);
-            }
-            catch (MongoException)
-            {
-                tlogService.FailCountEmail(failedLogs);
-            }
-        }
 
         /// <summary>
         /// Mock Data errorlog creator
@@ -177,34 +149,6 @@ namespace KFC.Red.ManagerLayer.Logging
         }
 
         /// <summary>
-        /// Logger method to create an telemetry log
-        /// </summary>
-        /// <param name="token"></param>
-        /// <param name="loc"></param>
-        public void CreateTelemetryLog2()
-        {
-            BsonDocument log = new BsonDocument();
-            LoggingService<TelemetryLog2DTO> tlogService = new LoggingService<TelemetryLog2DTO>("TelemetryLogs2");
-            IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs2");
-            UserManager userMan = new UserManager();
-
-            try
-            {
-                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "deivis@gmail.com");
-                BsonElement pagevisit = new BsonElement("page visit", "page");
-                BsonElement functionalityExecution = new BsonElement("clickevent", "execution");
-                log.Add(date); log.Add(currentLoggedUser); log.Add(pagevisit); log.Add(functionalityExecution);
-
-                collection.InsertOne(log);
-            }
-            catch (MongoException)
-            {
-                tlogService.FailCountEmail(failedLogs);
-            }
-        }
-
-        /// <summary>
         /// Mock Data errorlog creator
         /// </summary>
         public bool CreateTelemetryLog()
@@ -221,8 +165,8 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userlogin = new BsonElement("userLogin", logintime);
                 BsonElement userlogout = new BsonElement("userLogout", logouttime);
-                BsonElement pagevisit = new BsonElement("page visit", "Chat room");
-                BsonElement functionalityExecution = new BsonElement("clickevent", "Join session");
+                BsonElement pagevisit = new BsonElement("pageVisit", "Chat room");
+                BsonElement functionalityExecution = new BsonElement("functionalityExecution", "Join session");
                 BsonElement ipAddress = new BsonElement("IPAddress", "192:000:000");
 
                 log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(pagevisit); log.Add(functionalityExecution);
