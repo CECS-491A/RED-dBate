@@ -42,7 +42,7 @@ namespace KFC.Red.ManagerLayer.SSO
             {
                 
                 var lm = new LoggingManager<ErrorLogDTO>();
-                lm.CreateErrorLog(ex, "");
+                lm.CreateErrorLog(ex);
                 failLogin++;
                 return null;
             }

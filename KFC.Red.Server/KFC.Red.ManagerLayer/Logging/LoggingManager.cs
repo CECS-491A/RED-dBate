@@ -47,7 +47,7 @@ namespace KFC.Red.ManagerLayer.Logging
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="token"></param>
-        public void CreateErrorLog(Exception ex, string sessToken)
+        public void CreateErrorLog(Exception ex)
         {
             UserManager userMan = new UserManager();
             //Logging service type to be ErrorLogDTO
@@ -56,16 +56,17 @@ namespace KFC.Red.ManagerLayer.Logging
             BsonDocument log = new BsonDocument();
             IMongoCollection<BsonDocument> collection = elogService.GetCollection("ErrorLogs");
 
-            var session = GetLogInfo(sessToken);
-            var user = userMan.GetUser(session.UId);
+            //var session = GetLogInfo(sessToken);
+            //var user = userMan.GetUser(session.UId);
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")); 
                 BsonElement error = new BsonElement("error", ex.Message.ToString()); 
                 BsonElement target = new BsonElement("target", ex.StackTrace.ToString()); 
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", user.Email); 
+                //BsonElement currentLoggedUser = new BsonElement("loggedInUser", user.Email); 
                 BsonElement userRequest = new BsonElement("userRequest", ex.Source.ToString());
-                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+                log.Add(date); log.Add(error); log.Add(target); //log.Add(currentLoggedUser);
+                log.Add(userRequest);
 
                 collection.InsertOne(log); 
             }
@@ -131,12 +132,12 @@ namespace KFC.Red.ManagerLayer.Logging
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement error = new BsonElement("error", "fail to join session");
-                BsonElement target = new BsonElement("target", "chat");
+                BsonElement error = new BsonElement("error", "test error message");
+                BsonElement target = new BsonElement("target", "test target");
                 BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
                 BsonElement userRequest = new BsonElement("userRequest", "testRequest");
 
-                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest); log.Add(currentLoggedUser); log.Add(userRequest);
+                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
 
                 collection.InsertOne(log);
                 return true;
@@ -158,15 +159,15 @@ namespace KFC.Red.ManagerLayer.Logging
             IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs");
 
             //var session = GetLogInfo();
-            var logouttime = "12/16/1996";//session.DeleteTime;
-            var logintime = "12/15/1996"; //session.CreateTime;
+            var logouttime = "05/02/2019";//session.DeleteTime;
+            var logintime = "05/01/2019"; //session.CreateTime;
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement userlogin = new BsonElement("userLogin", logintime);
                 BsonElement userlogout = new BsonElement("userLogout", logouttime);
-                BsonElement pagevisit = new BsonElement("pageVisit", "Chat room");
-                BsonElement functionalityExecution = new BsonElement("functionalityExecution", "Join session");
+                BsonElement pagevisit = new BsonElement("pageVisit", "test visit");
+                BsonElement functionalityExecution = new BsonElement("functionalityExecution", "test session");
                 BsonElement ipAddress = new BsonElement("IPAddress", "192:000:000");
 
                 log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(pagevisit); log.Add(functionalityExecution);

@@ -117,7 +117,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 catch (DbUpdateConcurrencyException ex)
                 {
                     var lm = new LoggingManager<ErrorLogDTO>();
-                    lm.CreateErrorLog(ex,"");
+                    lm.CreateErrorLog(ex);
                     return 0;
                 }
             }
@@ -140,7 +140,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                     _db.Entry(response).CurrentValues.SetValues(_db.Entry(response).OriginalValues);
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
                     var lm = new LoggingManager<ErrorLogDTO>();
-                    lm.CreateErrorLog(ex, "");
+                    lm.CreateErrorLog(ex);
                     return 0;
                 }
             }
@@ -192,7 +192,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             {
                 try
                 {
-                    var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
+                    var index = _questionService.GetNumberForRandomization(MinQuestionSize(), 100);
                     question = _questionService.GetQuestion(_db, index);
                     quest = question.QuestionString;
 
@@ -201,7 +201,7 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 catch (Exception ex)
                 {
                     var lm = new LoggingManager<ErrorLogDTO>();
-                    lm.CreateErrorLog(ex, "");
+                    lm.CreateErrorLog(ex);
                     return ex.Message + ex.TargetSite;
                 }
             }

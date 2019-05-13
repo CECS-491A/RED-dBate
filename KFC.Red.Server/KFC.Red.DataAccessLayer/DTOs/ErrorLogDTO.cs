@@ -28,8 +28,8 @@ namespace KFC.Red.DataAccessLayer.DTOs
         [BsonElement("target")]
         public string LineofCode { get; set; }
 
-        [BsonElement("loggedInUser")]
-        public string CurrentLoggedInUser { get; set; }
+        //[BsonElement("loggedInUser")]
+        //public string CurrentLoggedInUser { get; set; }
 
         [BsonElement("userRequest")]
         public string UserRequest { get; set; }

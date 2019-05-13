@@ -17,8 +17,6 @@
         <td class="text-xs-right">{{ props.item.logDate }}</td>
         <td class="text-xs-right">{{ props.item.logError }}</td>
         <td class="text-xs-right">{{ props.item.logTarget }}</td>
-        <td class="text-xs-right">{{ props.item.loggedUser }}</td>
-        <td class="text-xs-right">{{ props.item.loggedInUser }}</td>
         <td class="text-xs-right">{{ props.item.loggedUserRequest }}</td>
         
         <td class="justify-center layout px-0">
@@ -89,7 +87,6 @@ import {URL} from '@/services/ConstUrls'
         { text: 'Date', value: 'date' },
         { text: 'Error', value: 'error' },
         { text: 'LineofCode', value: 'target' },
-        { text: 'User', value: 'user' },
         { text: 'UserRequest', value: 'userrequest' },
       ],
       headers2: [
@@ -132,7 +129,7 @@ import {URL} from '@/services/ConstUrls'
           var size
           axios.get(URL.displayTelLogsURL).then(logData =>{
             ldata = logData.data
-            size = ldata.length    
+            size = ldata.length
             for(var i = 0; i<size;i++){
               var logItem = {
                 tlogID: i+1,
@@ -161,7 +158,6 @@ import {URL} from '@/services/ConstUrls'
                 logDate: ldata[i].Date, 
                 logError: ldata[i].Error,
                 logTarget: ldata[i].LineofCode,
-                loggedUser: ldata[i].LoggedInUser,
                 loggedUserRequest: ldata[i].UserRequest
               }
               this.logs.push(logItem)
