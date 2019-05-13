@@ -35,9 +35,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     redirectURL = "http://localhost:8080/#/login/?token=" + loginSession.Token;
                     return Redirect(redirectURL);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return Content(HttpStatusCode.Conflict, "An Error Occured");
+                    return Content(HttpStatusCode.Conflict, "An Error Occured" + e.Message + e.Source);
                 }
             }
         }

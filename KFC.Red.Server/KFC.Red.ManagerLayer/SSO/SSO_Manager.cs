@@ -32,8 +32,9 @@ namespace KFC.Red.ManagerLayer.SSO
 
                 return session;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                throw new Exception(e.Message + e.Source);
                 return null;
             }
         }
