@@ -49,7 +49,7 @@ export default {
               localStorage.setItem('gameSessionToken',key.Token);
               console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
               this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
-              this.$router.push('/waitingroom/' + key);
+              this.$router.push('/waitingroom/' + key.Token);
             })
             .catch(e => {
                 this.error = e.response;
@@ -63,10 +63,11 @@ export default {
           })
           .then(t => {
             let key = t.data;
+            console.log(key.Id)
             localStorage.setItem('gameSessionToken',key.Token);
             console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
             this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
-            this.$router.push('/waitingroom/' + key)
+            this.$router.push('/waitingroom/' + key.Token)
           })
           .catch(e => {
             this.error = e.response;

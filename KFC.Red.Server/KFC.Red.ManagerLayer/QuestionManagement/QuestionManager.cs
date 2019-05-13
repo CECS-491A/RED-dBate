@@ -185,28 +185,22 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             return minSize;
         }
 
-        public string RandomizeQuestion()
+        public Question RandomizeQuestion()
         {
-            Question question;
-            string quest;
-
             using (var _db = CreateDbContext())
             {
                 try
                 {
                     var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
-                    question = _questionService.GetQuestion(_db, index);
-                    quest = question.QuestionString;
-                    var logTelemetryman = new LoggingManager<TelemetryLogDTO>();
-                    logTelemetryman.CreateTelemetryLog("");
+                   //var question = _questionService.GetQuestion(_db, index);
 
-                    return quest;
+                    return _questionService.GetQuestion(_db, index);
                 }
                 catch (Exception ex)
                 {
-                    var lm = new LoggingManager<ErrorLogDTO>();
+                    //var lm = new LoggingManager<ErrorLogDTO>();
                     //lm.CreateErrorLog(ex, "");
-                    return ex.Message + ex.TargetSite;
+                    return null;
                 }
             }
         }

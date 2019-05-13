@@ -10,13 +10,11 @@ namespace KFC.Red.DataAccessLayer.Models
 {
     public class Question
     {
+        [Key]
         [Column(Order = 0)]
+        [Required]
         public int QuestionID { get; set; }
         public string QuestionString{ get; set; }
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
     }
 
 }

@@ -48,29 +48,27 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/createchat")]
         public IHttpActionResult CreateChat(string token)
         {
-                var userGameStorage = new UserGameStorage();
                 var userManager = new UserManager();
                 var gameSession = new GameSession();
                 var sessionManager = new SessionManager();
-
                 var questionManager = new QuestionManager();
                 
 
                 try
                 {
                     var question = questionManager.RandomizeQuestion();
-                    var questionObj = questionManager.GetQuestion(question);
 
-                    gameSession = _GameSessionManager.CreateGameSession(questionObj);
+                    gameSession = _GameSessionManager.CreateGameSession(question);
                     var session = sessionManager.GetSession(token);
                     var user = userManager.GetUser(session.UId);
 
-                    userGameStorage.UId = user.ID;
-                    userGameStorage.User = user;
-                    userGameStorage.GId = gameSession.Id;
-                    userGameStorage.GameSession = gameSession;
-                    userGameStorage.Order = 0;
+                    var userGameStorage = new UserGameStorage()
+                    {
+                        UId = user.ID,
+                        GId = gameSession.Id
+                    };
 
+                    //questionManager.DeleteQuestion();
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
                     return Ok(gameSession);
@@ -81,7 +79,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Content(HttpStatusCode.BadRequest, e.ToString() + userGameStorage.UId);
+                    return Content(HttpStatusCode.BadRequest, e.ToString());
                 }
         }
 
@@ -90,7 +88,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/joinrandomchat")]
         public IHttpActionResult JoinRandomChat(string token)
         {
-                UserGameStorage userGameStorage = new UserGameStorage();
                 UserManager userManager = new UserManager();
                 GameSession gameSession = new GameSession();
                 SessionManager sessionManager = new SessionManager();
@@ -103,20 +100,20 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     var session = sessionManager.GetSession(token);
                     var user = userManager.GetUser(session.UId);
 
-                    userGameStorage.UId = user.ID;
-                    userGameStorage.User = user;
-                    userGameStorage.GId = gameSession.Id;
-                    userGameStorage.GameSession = gameSession;
-                    userGameStorage.Order = 0;
+                    var userGameStorage = new UserGameStorage()
+                    {
+                        UId = user.ID,
+                        GId = gameSession.Id
+                    };
 
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
+
+                    return Ok(gameSession);
                 }
                 catch (Exception e)
-                {
-                    return Content(HttpStatusCode.BadRequest, e.ToString());
-                }
-
-                return Ok(gameSession);
+                    {
+                        return Content(HttpStatusCode.BadRequest, e.ToString());
+                    }
         }
 
         [HttpDelete]
