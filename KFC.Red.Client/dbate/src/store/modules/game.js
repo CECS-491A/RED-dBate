@@ -26,10 +26,10 @@ const actions = {
   actIsPlayerMinimumMet (context, payload) {
     context.commit('mutateisPlayerMinimumMet', payload)
   },
-  actGetPlayerAmount (context, payload) {
+  actPlayerAmount (context, payload) {
     context.commit('mutatePlayerAmount', payload)
   },
-  actGetPlayerList (context, payload) {
+  actPlayerList (context, payload) {
     context.commit('mutateAddPlayerList',payload)
   }
 

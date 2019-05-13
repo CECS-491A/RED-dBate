@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.UserManagement;
+using KFC.Red.ManagerLayer.ChatroomManager;
+using System.Web;
 
 /// <summary>
 /// This Manager Layer class contains the Logger method.
@@ -18,7 +20,7 @@ namespace KFC.Red.ManagerLayer.Logging
     {
         //Method failed logs is used if the system fails to log
         public int failedLogs;
-        
+
         /// <summary>
         /// DisplayLogsAsync return a list of the displayment of the logs in BSON  format.
         /// </summary>
@@ -33,9 +35,9 @@ namespace KFC.Red.ManagerLayer.Logging
             //
             var count = await collection.CountDocumentsAsync(new BsonDocument());
             //
-            var documents = await logService._logCollection.Find(new BsonDocument()).ToListAsync();
+            var _database = await logService._logCollection.Find(new BsonDocument()).ToListAsync();
 
-            return documents;
+            return _database;
         }
 
         /// <summary>
@@ -43,66 +45,31 @@ namespace KFC.Red.ManagerLayer.Logging
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="token"></param>
-        public void CreateErrorLog(Exception ex, string token)
+        public void CreateErrorLog(Exception ex, string sessToken)
         {
-            UserManager userman = new UserManager();
+            UserManager userMan = new UserManager();
             //Logging service type to be ErrorLogDTO
-            LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
+            LoggingService<ErrorLogDTO> elogService = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
             BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
+            IMongoCollection<BsonDocument> collection = elogService.GetCollection("ErrorLogs");
 
-            //Getting token to log users.
-            var session = GetLogInfo(token); 
-            //var user = userman.GetUser(session.UId);
-
+            var session = GetLogInfo(sessToken);
+            var user = userMan.GetUser(session.UId);
             try
             {
-                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")); //display date
-                BsonElement error = new BsonElement("error", ex.Message.ToString()); //display message
-                BsonElement target = new BsonElement("target", ex.TargetSite.ToString()); // display the method
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "user1"); // display user email
-                BsonElement userRequest = new BsonElement("userRequest", ex.Source.ToString()); //display the request
+                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")); 
+                BsonElement error = new BsonElement("error", ex.Message.ToString()); 
+                BsonElement target = new BsonElement("target", ex.StackTrace.ToString()); 
+                BsonElement currentLoggedUser = new BsonElement("loggedInUser", user.Email); 
+                BsonElement userRequest = new BsonElement("userRequest", ex.Source.ToString());
                 log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
 
-                myDoc.InsertOne(log); //builtin mongo method to insert inton the cluster
+                collection.InsertOne(log); 
             }
-            catch (MongoConnectionException)
+            catch (MongoException)
             {
-                elogger.FailCountEmail(failedLogs);
-            }
-        }
-
-        /// <summary>
-        /// Mock Data errorlog creator
-        /// </summary>
-        public bool CreateErrorLog()
-        {
-            UserManager userman = new UserManager();
-            LoggingService<ErrorLogDTO> elogger = new LoggingService<ErrorLogDTO>("ErrorLogs");
-
-            BsonDocument log = new BsonDocument();
-            IMongoCollection<BsonDocument> myDoc = elogger.GetCollection("ErrorLogs");
-
-            //var session = GetLogInfo(token);
-            //var user = userman.GetUser(session.UId);
-
-            try
-            {
-                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement error = new BsonElement("error", "fail to join session");
-                BsonElement target = new BsonElement("target", "chat");
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
-                BsonElement userRequest = new BsonElement("userRequest", "join session");
-                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
-
-                myDoc.InsertOne(log);
-                return true;
-            }
-            catch (MongoConnectionException)
-            {
-                elogger.FailCountEmail(failedLogs);
-                return false;
+                elogService.FailCountEmail(failedLogs);
             }
         }
 
@@ -113,33 +80,67 @@ namespace KFC.Red.ManagerLayer.Logging
         /// <param name="token"></param>
         /// <param name="ip"></param>
         /// <param name="loc"></param>
-        public void CreateTelemetryLog(string token, string ip, string loc)
+        public void CreateTelemetryLog(string sesstoken)
         {
             BsonDocument log = new BsonDocument();
-            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
-            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
+            LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs");
 
-            var session = GetLogInfo(token);
-            var logouttime = "12/15/1996";//session.DeleteTime;
-            var logintime = "12/15/1996"; //session.CreateTime;
+            var session = GetLogInfo(sesstoken);
+            var loginTime = session.CreateTime.ToString();
+            //var gameSession = GetGameLogInfo(gametoken);
+            //var gameFunctionality = gameSession.CreateTime;
+            //var ipAddr = tlogService.GetIPAddress();
             try
             {
+                BsonElement Token = new BsonElement("token", sesstoken);
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement userlogin = new BsonElement("userLogin", logouttime);
-                BsonElement userlogout = new BsonElement("userLogout", logintime);
-                BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement ipaddress = new BsonElement("IPAddress", ip);
+                BsonElement userLogin = new BsonElement("userLogin", loginTime);
+                BsonElement userLogout = new BsonElement("userLogout", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                //BsonElement functionalityExecution = new BsonElement("clickevent", gameFunctionality);
+               // BsonElement ipAddress = new BsonElement("IPAddress", tlogService.GetIPAddress().ToBsonDocument());
 
-                myDoc.InsertOne(log);
+                log.Add(date); log.Add(userLogin); log.Add(userLogout); //log.Add(functionalityExecution);
+                //log.Add(ipAddress);
 
-                log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
-
-                myDoc.InsertOne(log);
+                collection.InsertOne(log);
             }
             catch (MongoException)
             {
-                tlogger.FailCountEmail(failedLogs);
+                tlogService.FailCountEmail(failedLogs);
+            }
+        }
+
+        /// <summary>
+        /// Mock Data errorlog creator
+        /// </summary>
+        public bool CreateErrorLog()
+        {
+            UserManager userman = new UserManager();
+            LoggingService<ErrorLogDTO> elogService = new LoggingService<ErrorLogDTO>("ErrorLogs");
+
+            BsonDocument log = new BsonDocument();
+            IMongoCollection<BsonDocument> collection = elogService.GetCollection("ErrorLogs");
+
+            //var session = GetLogInfo(token);
+            //var user = userman.GetUser(session.UId);
+
+            try
+            {
+                BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                BsonElement error = new BsonElement("error", "fail to join session");
+                BsonElement target = new BsonElement("target", "chat");
+                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
+                BsonElement userRequest = new BsonElement("userRequest", "testRequest");
+                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+
+                collection.InsertOne(log);
+                return true;
+            }
+            catch (MongoException)
+            {
+                elogService.FailCountEmail(failedLogs);
+                return false;
             }
         }
 
@@ -149,29 +150,27 @@ namespace KFC.Red.ManagerLayer.Logging
         public bool CreateTelemetryLog()
         {
             BsonDocument log = new BsonDocument();
-            LoggingService<TelemetryLogDTO> tlogger = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
-            IMongoCollection<BsonDocument> myDoc = tlogger.GetCollection("TelemetryLogs");
+            LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
+            IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs");
 
             //var session = GetLogInfo();
-            var logouttime = "12/15/1996";//session.DeleteTime;
+            var logouttime = "12/16/1996";//session.DeleteTime;
             var logintime = "12/15/1996"; //session.CreateTime;
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement userlogin = new BsonElement("userLogin", logouttime);
-                BsonElement userlogout = new BsonElement("userLogout", logintime);
-                BsonElement functionalityexecution = new BsonElement("clickevent", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement pagevisit = new BsonElement("pageVisit", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
+                BsonElement userlogin = new BsonElement("userLogin", logintime);
+                BsonElement userlogout = new BsonElement("userLogout", logouttime);
+                //BsonElement ipaddress = new BsonElement("IPAddress", "255.255.255.0");
 
-                log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(functionalityexecution); log.Add(pagevisit); log.Add(ipaddress);
+                log.Add(date); log.Add(userlogin); log.Add(userlogout); //log.Add(ipaddress);
 
-                myDoc.InsertOne(log);
+                collection.InsertOne(log);
                 return true;
             }
-            catch (MongoConnectionException)
+            catch (MongoException)
             {
-                tlogger.FailCountEmail(failedLogs);
+                tlogService.FailCountEmail(failedLogs);
                 return false;
             }
         }
@@ -183,7 +182,7 @@ namespace KFC.Red.ManagerLayer.Logging
         /// <param name="collectionName"></param>
         public void DeleteLog(string id,string collectionName)
         {
-            LoggingService<T> loggerService = new LoggingService<T>(collectionName); //Built in method from 
+            LoggingService<ErrorLogDTO> loggerService = new LoggingService<ErrorLogDTO>(collectionName); //Built in method from 
             loggerService._logCollection.FindOneAndDelete(new BsonDocument { { "_id", new ObjectId(id) } });
         }
 
@@ -196,9 +195,22 @@ namespace KFC.Red.ManagerLayer.Logging
         /// <returns></returns>
         public Session GetLogInfo(string token)
         {
-            SessionManager sessman = new SessionManager();
-            var session = sessman.GetSession(token);
+            SessionManager sessMan = new SessionManager();
+            var session = sessMan.GetSession(token);
             return session;
+        }
+
+        /// <summary>
+        /// Method to get the token from the game session class. 
+        /// This method is used to get the token to keep track of user game sessions.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public GameSession GetGameLogInfo(string gametoken)
+        {
+            GameSessionManager gameSessman = new GameSessionManager();
+            var gameSession = gameSessman.GetGameSession(gametoken);
+            return gameSession;
         }
     }
 }

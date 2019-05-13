@@ -12,7 +12,7 @@ namespace KFC.Red.ServiceLayer.SSO_Services
     {
         const string API_URL = "http://localhost:5000";
         const string APP_ID = "41e0f825-e40e-4ecb-9a8c-64c5a77eb6a1";
-        public static readonly string APISecret = "DF20A067B8910BBA29885E695A85AF9A4D7B46DD92FBA82BC95046A06C426A45";
+        public static readonly string APISecret = "60AAEF3DD3582DBACF82E8CDA92851E23575C669CA138EF57BEF628EDFA9A41C";
 
         //const string APP_ID = "138036b0-7c86-45ae-8e0c-4b5ebef5c2b1";
         //public static readonly string APISecret = "1A458CEBA91E3C75CEF787E68734C3E9E5490FAF66BC510C0BECF1F68608B3ED";

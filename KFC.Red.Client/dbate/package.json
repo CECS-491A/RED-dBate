@@ -16,6 +16,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.5.2",
     "ms-signalr-client-jquery-3": "^2.2.10",
+    "puppeteer": "^1.15.0",
     "signalr": "^2.4.0",
     "vue": "^2.6.10",
     "vue-chartjs": "^3.4.2",

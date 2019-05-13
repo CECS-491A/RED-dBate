@@ -2,11 +2,6 @@
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.DataAccessLayer.Repositories;
 using KFC.Red.ServiceLayer.ChatRoom.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KFC.Red.ServiceLayer.ChatRoom
 {
@@ -21,10 +16,6 @@ namespace KFC.Red.ServiceLayer.ChatRoom
 
         public GameSession CreateGameSession(ApplicationDbContext _db, GameSession gamesession)
         {
-            if (_GameSessionRepo.ExistingGameSession(_db, gamesession.Id))
-            {
-                throw new ArgumentException("A gamesession with that ID already exists");
-            }
             return _GameSessionRepo.CreateNewGameSession(_db, gamesession);
         }
 
@@ -57,5 +48,11 @@ namespace KFC.Red.ServiceLayer.ChatRoom
         {
             return _GameSessionRepo.ExistingGameSession(_db, id);
         }
+
+        public GameSession UpdateGameSession(ApplicationDbContext _db, GameSession gameSession)
+        {
+            return _GameSessionRepo.UpdateGameSession(_db, gameSession);
+        }
+
     }
 }

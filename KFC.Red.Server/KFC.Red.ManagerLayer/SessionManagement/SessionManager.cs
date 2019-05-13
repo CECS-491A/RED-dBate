@@ -61,7 +61,6 @@ namespace KFC.Red.ManagerLayer.SessionManagement
             {
                 Session response = _sService.GetSession(_db, token);
 
-                _db.SaveChanges();
                 return response;
             }
         }

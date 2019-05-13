@@ -104,6 +104,8 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 try
                 {
                     _questionService.UpdateQuestion(_db, question);
+                    var logTelemetryman = new LoggingManager<TelemetryLogDTO>();
+                    logTelemetryman.CreateTelemetryLog("");
                     return _db.SaveChanges();
                 }
                 catch (DbEntityValidationException)
@@ -133,12 +135,14 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                     
                     return _db.SaveChanges();
                 }
-                catch (DbEntityValidationException)
+                catch (DbEntityValidationException ex)
                 {
                     // catch error
                     // rollback changes
                     _db.Entry(response).CurrentValues.SetValues(_db.Entry(response).OriginalValues);
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
+                    var lm = new LoggingManager<ErrorLogDTO>();
+                    lm.CreateErrorLog(ex, "");
                     return 0;
                 }
             }
@@ -181,20 +185,16 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             return minSize;
         }
 
-        public string RandomizeQuestion()
+        public Question RandomizeQuestion()
         {
-            Question question;
-            string quest;
-
             using (var _db = CreateDbContext())
             {
                 try
                 {
                     var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
-                    question = _questionService.GetQuestion(_db, index);
-                    quest = question.QuestionString;
+                   //var question = _questionService.GetQuestion(_db, index);
 
-                    return quest;
+                    return _questionService.GetQuestion(_db, index);
                 }
                 catch (Exception ex)
                 {

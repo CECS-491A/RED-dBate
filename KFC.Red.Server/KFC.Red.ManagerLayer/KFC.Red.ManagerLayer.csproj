@@ -73,6 +73,7 @@
     <Compile Include="ChatroomManager\GameplayManager.cs" />
     <Compile Include="ChatroomManager\GameSessionManager.cs" />
     <Compile Include="ChatroomManager\UserGameStorageManager.cs" />
+    <Compile Include="Dashboard\UADashboardManager.cs" />
     <Compile Include="Logging\LoggingManager.cs" />
     <Compile Include="Password\HashFunction.cs" />
     <Compile Include="Password\Interfaces\IHashFunction.cs" />

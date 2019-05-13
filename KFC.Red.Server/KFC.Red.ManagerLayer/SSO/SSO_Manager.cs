@@ -1,4 +1,6 @@
-﻿using KFC.Red.DataAccessLayer.Models;
+﻿using KFC.Red.DataAccessLayer.DTOs;
+using KFC.Red.DataAccessLayer.Models;
+using KFC.Red.ManagerLayer.Logging;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ServiceLayer.SSO_Services;
@@ -9,7 +11,9 @@ namespace KFC.Red.ManagerLayer.SSO
 {
     public class SSO_Manager
     {
-        public Session LoginFromSSO(string email, Guid ssoID, long timestamp, string signature)
+        private int successLogin;
+        private int failLogin;
+        public Session LoginFromSSO(string email, Guid ssoID)
         {
             try
             {
@@ -29,12 +33,17 @@ namespace KFC.Red.ManagerLayer.SSO
 
                 SessionManager sessionManager = new SessionManager();
                 var session = sessionManager.CreateSession(user);
+                successLogin++;
+
 
                 return session;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message + e.Source);
+                
+                var lm = new LoggingManager<ErrorLogDTO>();
+                lm.CreateErrorLog(ex, "");
+                failLogin++;
                 return null;
             }
         }

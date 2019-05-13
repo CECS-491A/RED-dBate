@@ -16,7 +16,7 @@ const URL = {
     deleteQuestURL: apiURL + 'question/delete',
     addQuestURL: apiURL + 'question/add',
     getUserEmailURL: apiURL + 'user/getuseremail/',
-    createChatURL: apiURL + 'chat/createchat/',
+    createChatURL: apiURL + 'chat/createchat',
     joinRandomChatURL: apiURL + 'chat/joinrandomchat',
     deleteGameSessionURL: apiURL + 'chat/deletegame',
     deleteUserGameURL: apiURL + 'chat/deleteuser',
@@ -24,7 +24,8 @@ const URL = {
     createUserGameLogURL: apiURL + 'chat/createusergame',
     logoutURL: apiURL + 'sso/logout',
     deleteSSOURL: apiURL + 'user/delete',
-    postIPURL: apiURL + ''
+    postIPURL: apiURL + '',
+    getPlayerCountURL: apiURL + 'chat/playercount'
 }
 
 export {

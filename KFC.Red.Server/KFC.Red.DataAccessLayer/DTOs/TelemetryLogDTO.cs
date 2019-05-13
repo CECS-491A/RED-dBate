@@ -20,6 +20,9 @@ namespace KFC.Red.DataAccessLayer.DTOs
         [BsonId]
         public ObjectId Id { get; set; }
 
+        [BsonElement]
+        public string Token { get; set; }
+
         [BsonElement("date")]
         public string Date { get; set; }
 
@@ -29,13 +32,13 @@ namespace KFC.Red.DataAccessLayer.DTOs
         [BsonElement("userLogout")]
         public string UserLogout { get; set; }
 
-        [BsonElement("pageVisit")]
-        public string PageVisit { get; set; }
+       // [BsonElement("pageVisit")]
+       // public string PageVisit { get; set; }
 
-        [BsonElement("clickevent")]
-        public string FunctionalityExecution { get; set; }
+       // [BsonElement("clickevent")]
+       // public string FunctionalityExecution { get; set; }
 
-        [BsonElement("IPAddress")]
-        public string IPAddress { get; set; }
+       // [BsonElement("IPAddress")]
+       // public string IPAddress { get; set; }
     }
 }

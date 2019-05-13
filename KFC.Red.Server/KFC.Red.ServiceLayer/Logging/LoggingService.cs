@@ -19,7 +19,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <summary>
         /// Built in mongodb method of the mongo database
         /// </summary>
-        public IMongoDatabase documents { get; set; }
+        public IMongoDatabase db { get; set; }
         /// <summary>
         /// Built in mongodb generic mong
         /// </summary>
@@ -36,8 +36,8 @@ namespace KFC.Red.ServiceLayer.Logging
         public LoggingService(string collectionName)
         {
                 Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
-                documents = Client.GetDatabase("Logging");
-                _logCollection = documents.GetCollection<T>(collectionName);
+                db = Client.GetDatabase("Logging");
+                _logCollection = db.GetCollection<T>(collectionName);
                 Collection = collectionName;
         }
 
@@ -47,7 +47,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <returns></returns>
         public List<BsonDocument> GetListOfCollections()
         {
-            var collectionList = documents.ListCollections().ToList();
+            var collectionList = db.ListCollections().ToList();
             return collectionList;
         }
 
@@ -58,7 +58,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <returns></returns>
         public IMongoCollection<BsonDocument> GetCollection(string collectionName)
         {
-            return documents.GetCollection<BsonDocument>(Collection);
+            return db.GetCollection<BsonDocument>(Collection);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <returns></returns>
         public Task<List<BsonDocument>> GetAllLogsAsync()
         {
-            IMongoCollection<BsonDocument> SpeCollection = this.documents.GetCollection<BsonDocument>(Collection);
+            IMongoCollection<BsonDocument> SpeCollection = this.db.GetCollection<BsonDocument>(Collection);
             //var documents = await SpeCollection.Find(Builders<BsonDocument>.Filter.Empty).ToListAsync();
             var documents = SpeCollection.AsQueryable();
             return null;
@@ -76,21 +76,21 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <summary>
         /// Mongo method that inserts a document into a collection.
         /// </summary>
-        /// <param name="myDoc">bson document format</param>
+        /// <param name="collection">bson document format</param>
         /// <param name="log">the logs getting store into the document</param>
-        public void CreateLog(IMongoCollection<BsonDocument> myDoc, BsonDocument Log)
+        public void CreateLog(IMongoCollection<BsonDocument> collection, BsonDocument Log)
             {
-                myDoc.InsertOne(Log);
+                collection.InsertOne(Log);
             }
 
         /// <summary>
         /// Mongo method that counts the number of documents in the collection.
         /// </summary>
-        /// <param name="myDoc">bson document format</param>
+        /// <param name="collection">bson document format</param>
         /// <param name="log">the logs getting store into the document</param>
-        public void CountLog(IMongoCollection<BsonDocument> myDoc, BsonDocument log)
+        public void CountLog(IMongoCollection<BsonDocument> collection, BsonDocument log)
         {
-                myDoc.CountDocumentsAsync(log);
+                collection.CountDocumentsAsync(log);
         }
         
         /// <summary>
@@ -109,12 +109,12 @@ namespace KFC.Red.ServiceLayer.Logging
 
                 //Allows applications to send email by using the Simple Mail Transfer Protocol (SMTP).
                 SmtpClient smtp = new SmtpClient();
-                smtp.Port = 587; //Gets the port used for SMTP transactions.
-                smtp.EnableSsl = true; //Encrypt the connection using SSl.
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network; //Specifies how outgoing email messages will be handled.
-                smtp.UseDefaultCredentials = false; //Gets or sets a Boolean value that controls whether the DefaultCredentials are sent with requests
-                smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!"); //Gets the credentials used to authenticate the sender.
-                smtp.Host = "smtp.mail.yahoo.com"; //Gets the name or IP address of the host.
+                smtp.Port = 587; 
+                smtp.EnableSsl = true;
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.UseDefaultCredentials = false; 
+                smtp.Credentials = new NetworkCredential(mail.From.ToString(), "dbate2019!"); 
+                smtp.Host = "smtp.mail.yahoo.com";
 
                 //Mail to the recepient address
                 mail.To.Add(new MailAddress("deivisleung027@gmail.com"));
@@ -123,12 +123,11 @@ namespace KFC.Red.ServiceLayer.Logging
                 mail.IsBodyHtml = true;
                 mail.Subject = "Test Subject";
                 mail.Body = "Test Message";
-                smtp.Send(mail); //Send mail to an Smtp Server
+                smtp.Send(mail);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                //MessageBox.Show(ex.ToString());
             }
 
         }
@@ -141,16 +140,28 @@ namespace KFC.Red.ServiceLayer.Logging
                 //Email Notification
                 //https://stackoverflow.com/questions/4677258/send-email-using-system-net-mail-through-gmail/4677382
                 EmailNotification();
-
-                //Reset counter
                 failedLogs = 0;
-
-                //If Returned true, then email notoifcation was sent and counter is resetted
+                
                 return true;
             }
 
             return false;
         }
 
+        public string GetIPAddress()
+        {
+            System.Web.HttpContext context = System.Web.HttpContext.Current;
+            string ipAddress = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (!string.IsNullOrEmpty(ipAddress))
+            {
+                string[] addresses = ipAddress.Split(',');
+                if (addresses.Length != 0)
+                {
+                    return addresses[0];
+                }
+            }
+            return context.Request.ServerVariables["REMOTE_ADDR"];
+        }
     }
 }

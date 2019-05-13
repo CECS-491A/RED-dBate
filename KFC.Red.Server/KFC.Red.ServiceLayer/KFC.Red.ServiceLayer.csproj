@@ -100,6 +100,8 @@
     <Compile Include="ChatRoom\Interface\IUserGameStorage.cs" />
     <Compile Include="ChatRoom\MessageIDIncrement.cs" />
     <Compile Include="ChatRoom\UserGameStorageService.cs" />
+    <Compile Include="Dashboard\UADashboardService.cs" />
+    <Compile Include="Dashboard\Interface\IUADashboardService.cs" />
     <Compile Include="Logging\Interfaces\ILoggingService.cs" />
     <Compile Include="Logging\LoggingService.cs" />
     <Compile Include="Password\PasswordValidationService.cs" />

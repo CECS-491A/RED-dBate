@@ -46,9 +46,10 @@ export default {
             })
             .then(t => {
               let key = t.data;
-              localStorage.setItem('gameSessionToken',t.data);
-              console.log(t.data);
-              this.$router.push('/waitingroom/' + key)
+              localStorage.setItem('gameSessionToken',key.Token);
+              console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
+              this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
+              this.$router.push('/waitingroom/' + key.Token);
             })
             .catch(e => {
                 this.error = e.response;
@@ -62,8 +63,11 @@ export default {
           })
           .then(t => {
             let key = t.data;
-            localStorage.setItem('gameSessionToken', t.data);
-            this.$router.push('/waitingroom/' + key)
+            console.log(key.Id)
+            localStorage.setItem('gameSessionToken',key.Token);
+            console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
+            this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
+            this.$router.push('/waitingroom/' + key.Token)
           })
           .catch(e => {
             this.error = e.response;

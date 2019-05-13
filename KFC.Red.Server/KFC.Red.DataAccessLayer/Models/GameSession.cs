@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -12,16 +13,21 @@ namespace KFC.Red.DataAccessLayer.Models
         //BRD said b/w 18-35 minutes
         public static readonly int MINUTES_UNTIL_EXPIRATION = 50;
 
+        [Key]
+        [Column(Order = 0)]
+        [Required]
         public int Id { get; set; }
         public string Token { get; set; }
 
-        public DateTime CreateTime { get; set; } = DateTime.UtcNow;
-        public DateTime DeleteTime { get; set; } = DateTime.UtcNow.AddMinutes(MINUTES_UNTIL_EXPIRATION);
+        public DateTime CreateTime { get; set; } = DateTime.Now;
+        public DateTime DeleteTime { get; set; } = DateTime.Now.AddMinutes(MINUTES_UNTIL_EXPIRATION);
 
         [ForeignKey("Question")]
         public int QuestionID { get; set; }
         public Question Question { get; set; }
 
         public bool isSessionUsed { get; set; } = false;
+
+        public int PlayerCount { get; set; } = 0;
     }
 }
