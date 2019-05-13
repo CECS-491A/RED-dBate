@@ -134,10 +134,11 @@ namespace KFC.Red.ManagerLayer.Logging
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
                 BsonElement error = new BsonElement("error", "test error message");
                 BsonElement target = new BsonElement("target", "test target");
-                BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
+                //BsonElement currentLoggedUser = new BsonElement("loggedInUser", "testemail@gmail.com");
                 BsonElement userRequest = new BsonElement("userRequest", "testRequest");
 
-                log.Add(date); log.Add(error); log.Add(target); log.Add(currentLoggedUser); log.Add(userRequest);
+                log.Add(date); log.Add(error); log.Add(target); //log.Add(currentLoggedUser); 
+                log.Add(userRequest);
 
                 collection.InsertOne(log);
                 return true;
