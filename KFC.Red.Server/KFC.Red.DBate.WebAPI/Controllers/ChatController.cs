@@ -19,12 +19,14 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         private GameSessionManager _GameSessionManager;
         private UserGameStorageManager _UserGameStoreManager;
         private HubService _ChatHub;
+        private SessionManager _SessionManager;
 
         public ChatController()
         {
             _UserGameStoreManager = new UserGameStorageManager();
             _GameSessionManager = new GameSessionManager();
             _ChatHub = new HubService();
+            _SessionManager = new SessionManager();
         }
 
         [HttpPost]
@@ -124,6 +126,27 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             _UserGameStoreManager.DeleteGameSessionUsers(gameSessionToken);
             _GameSessionManager.DeleteGameSession(gameSession);
             return Ok();
+        }
+
+        [HttpDelete]
+        [Route("api/chat/leavegame")]
+        public IHttpActionResult LeaveGame(string sessionToken)
+        {
+            try
+            {
+                var userSession = _SessionManager.GetSession(sessionToken);
+                var userID = userSession.UId;
+                var currentUserGameStore = _UserGameStoreManager.GetUserGameStorage(userID);
+                var gameSession = _GameSessionManager.GetGameSession(currentUserGameStore.GId);
+                --gameSession.PlayerCount;
+                _GameSessionManager.UpdateGameSession(gameSession);
+                _UserGameStoreManager.DeleteGameUser(userID);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+            }
         }
 
         [HttpGet]

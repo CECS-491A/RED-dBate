@@ -25,7 +25,8 @@ const URL = {
     logoutURL: apiURL + 'sso/logout',
     deleteSSOURL: apiURL + 'user/delete',
     postIPURL: apiURL + '',
-    getPlayerCountURL: apiURL + 'chat/playercount'
+    getPlayerCountURL: apiURL + 'chat/playercount',
+    leaveGameURL: apiURL + 'chat/leavegame'
 }
 
 export {

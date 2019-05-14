@@ -15,6 +15,13 @@
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
+          <v-btn id="leaveGame" color="blue" v-on:click="leaveGame" dark large>Leave Game</v-btn>
+        </div>
+      </div>
+    </v-flex>    
+    <v-flex sm3 offset-xs1>
+      <div class="text-xs-center">
+        <div>
           <v-btn id="endWait" color="blue" v-on:click="endWait" dark large>End Game</v-btn>
         </div>
       </div>
@@ -42,9 +49,11 @@ export default {
     loadingText: 'Gathering More Players...',
     validSession: true,
     popupMessage: '',
-    response: ''
+    response: '',
+    test: null
   }),
   mounted (){
+    
 
   },
   watch: {
@@ -74,8 +83,42 @@ export default {
           this.response = e.data;
       })
 
-    }
+    },
+    leaveGame(){
+      let session = localStorage.getItem('token');
+      axios.delete(URL.leaveGameURL + '?sessionToken=' + session)
+      .then(resp => {
+        this.loading = false;
+        this.response = resp.data;
+        this.$router.push('/lobby');
+      })
+      .catch(e =>{
+        this.response = e.data;
+      })
+
+
+    },
+    getPlayerCount(){
+        axios.get(URL.getPlayerCountURL,{
+          params: {
+            token: localStorage.getItem('gameSessionToken')
+          }
+        })
+        .then(t => {
+          let key = t.data;
+          this.$store.dispatch('actPlayerAmount', {PlayerAmount: key});
+        })
+        .catch(e =>{
+          this.error = e.response;
+        })
+    },
+    
+  },
+  created(){
+    this.test = setInterval(getPlayerCount, 3000);
+
   }
+
 
 }
 </script>
