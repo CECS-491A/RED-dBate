@@ -10,6 +10,7 @@ using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ManagerLayer.SessionManagement;
 using System.Web.Http.Cors;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
@@ -33,7 +34,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/postmessage")]
         public IHttpActionResult PostMessage([FromBody] ChatMessageDTO chatMsg)
         {
-            _ChatHub.SendMessage(chatMsg);
+            _ChatHub.Send(chatMsg.Username,chatMsg.Message);
             return Ok(chatMsg);
         }
 
@@ -73,7 +74,15 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     //questionManager.DeleteQuestion();
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
-                    return Ok(gameSession);
+                    var gameSessionDTO = new GameSessionDTO()
+                    {
+                        Token = gameSession.Token,
+                        Question = questionManager.GetQuestion(gameSession.QuestionID).QuestionString,
+                        IsSessionUsed = gameSession.isSessionUsed,
+                        PlayerCount = gameSession.PlayerCount
+                    };
+
+                    return Ok(gameSessionDTO);
                 }
                 catch (ArgumentException)
                 {
@@ -90,9 +99,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/joinrandomchat")]
         public IHttpActionResult JoinRandomChat(string token)
         {
-                UserManager userManager = new UserManager();
-                GameSession gameSession = new GameSession();
-                SessionManager sessionManager = new SessionManager();
+                var userManager = new UserManager();
+                var gameSession = new GameSession();
+                var sessionManager = new SessionManager();
+                var questionManager = new QuestionManager();
 
                 try
                 {
@@ -110,7 +120,15 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
-                    return Ok(gameSession);
+                    var gameSessionDTO = new GameSessionDTO()
+                    {
+                        Token = gameSession.Token,
+                        Question = questionManager.GetQuestion(gameSession.QuestionID).QuestionString,
+                        IsSessionUsed = gameSession.isSessionUsed,
+                        PlayerCount = gameSession.PlayerCount
+                    };
+
+                    return Ok(gameSessionDTO);
                 }
                 catch (Exception e)
                     {

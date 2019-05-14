@@ -4,6 +4,7 @@ const apiURL = 'http://localhost:5000/api/'
 const KFCURL = 'http://localhost:61348'
 //const KFC_LoginURL = '"https://kfc-sso.com/#/login"'
 const KFC_LoginURL = 'http://localhost:8081/#/login';
+const chatServerURL = 'http://localhost:5000/signalr';
 
 const URL = {
     randQuestURL: apiURL + 'question/randomquestion',
@@ -32,5 +33,6 @@ const URL = {
 export {
     URL,
     KFCURL,
-    KFC_LoginURL
+    KFC_LoginURL,
+    chatServerURL
 }
