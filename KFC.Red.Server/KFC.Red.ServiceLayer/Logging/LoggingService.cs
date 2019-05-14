@@ -19,7 +19,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <summary>
         /// Built in mongodb method of the mongo database
         /// </summary>
-        public IMongoDatabase db { get; set; }
+        public IMongoDatabase _mongodb { get; set; }
         /// <summary>
         /// Built in mongodb generic mong
         /// </summary>
@@ -36,8 +36,8 @@ namespace KFC.Red.ServiceLayer.Logging
         public LoggingService(string collectionName)
         {
                 Client = new MongoClient("mongodb+srv://RedAdmin:admin123@teamredlogs-r6fsx.azure.mongodb.net/test?retryWrites=true");
-                db = Client.GetDatabase("Logging");
-                _logCollection = db.GetCollection<T>(collectionName);
+            _mongodb = Client.GetDatabase("Logging");
+                _logCollection = _mongodb.GetCollection<T>(collectionName);
                 Collection = collectionName;
         }
 
@@ -47,7 +47,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <returns></returns>
         public List<BsonDocument> GetListOfCollections()
         {
-            var collectionList = db.ListCollections().ToList();
+            var collectionList = _mongodb.ListCollections().ToList();
             return collectionList;
         }
 
@@ -58,7 +58,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <returns></returns>
         public IMongoCollection<BsonDocument> GetCollection(string collectionName)
         {
-            return db.GetCollection<BsonDocument>(Collection);
+            return _mongodb.GetCollection<BsonDocument>(Collection);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace KFC.Red.ServiceLayer.Logging
         /// <returns></returns>
         public Task<List<BsonDocument>> GetAllLogsAsync()
         {
-            IMongoCollection<BsonDocument> SpeCollection = this.db.GetCollection<BsonDocument>(Collection);
+            IMongoCollection<BsonDocument> SpeCollection = this._mongodb.GetCollection<BsonDocument>(Collection);
             //var documents = await SpeCollection.Find(Builders<BsonDocument>.Filter.Empty).ToListAsync();
             var documents = SpeCollection.AsQueryable();
             return null;

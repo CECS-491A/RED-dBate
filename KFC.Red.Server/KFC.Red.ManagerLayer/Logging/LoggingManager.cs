@@ -8,10 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using KFC.Red.ManagerLayer.SessionManagement;
 using KFC.Red.ManagerLayer.UserManagement;
-using KFC.Red.ManagerLayer.ChatroomManager;
 using System.Web;
-using System.Net;
-
 
 /// <summary>
 /// This Manager Layer class contains the Logger method.
@@ -49,7 +46,7 @@ namespace KFC.Red.ManagerLayer.Logging
         /// <param name="token"></param>
         public void CreateErrorLog(Exception ex)
         {
-            UserManager userMan = new UserManager();
+            var userMan = new UserManager();
             //Logging service type to be ErrorLogDTO
             LoggingService<ErrorLogDTO> elogService = new LoggingService<ErrorLogDTO>("ErrorLogs");
 
@@ -87,7 +84,6 @@ namespace KFC.Red.ManagerLayer.Logging
             BsonDocument log = new BsonDocument();
             LoggingService<TelemetryLogDTO> tlogService = new LoggingService<TelemetryLogDTO>("TelemetryLogs");
             IMongoCollection<BsonDocument> collection = tlogService.GetCollection("TelemetryLogs");
-
             var session = GetLogInfo(sesstoken);
             var loginTime = session.CreateTime.ToString();
             //var gameSession = GetGameLogInfo(gametoken);
@@ -165,13 +161,14 @@ namespace KFC.Red.ManagerLayer.Logging
             try
             {
                 BsonElement date = new BsonElement("date", DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
-                BsonElement userlogin = new BsonElement("userLogin", logintime);
-                BsonElement userlogout = new BsonElement("userLogout", logouttime);
-                BsonElement pagevisit = new BsonElement("pageVisit", "test visit");
+                BsonElement user = new BsonElement("loggedInUser", "testemail@gmail.com");
+                BsonElement userLogin = new BsonElement("userLogin", logintime);
+                BsonElement userLogout = new BsonElement("userLogout", logouttime);
+                BsonElement pageVisit = new BsonElement("pageVisit", "test visit");
                 BsonElement functionalityExecution = new BsonElement("functionalityExecution", "test session");
                 BsonElement ipAddress = new BsonElement("IPAddress", "192:000:000");
 
-                log.Add(date); log.Add(userlogin); log.Add(userlogout); log.Add(pagevisit); log.Add(functionalityExecution);
+                log.Add(date); log.Add(user); log.Add(userLogin); log.Add(userLogout); log.Add(pageVisit); log.Add(functionalityExecution);
                 log.Add(ipAddress);
 
                 collection.InsertOne(log);
@@ -207,19 +204,6 @@ namespace KFC.Red.ManagerLayer.Logging
             SessionManager sessMan = new SessionManager();
             var session = sessMan.GetSession(token);
             return session;
-        }
-
-        /// <summary>
-        /// Method to get the token from the game session class. 
-        /// This method is used to get the token to keep track of user game sessions.
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public GameSession GetGameLogInfo(string gametoken)
-        {
-            GameSessionManager gameSessman = new GameSessionManager();
-            var gameSession = gameSessman.GetGameSession(gametoken);
-            return gameSession;
         }
     }
 }
