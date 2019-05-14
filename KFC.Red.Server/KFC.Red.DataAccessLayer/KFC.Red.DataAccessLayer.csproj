@@ -79,6 +79,7 @@
     <Compile Include="DTOs\DeleteUserFromSSO_DTO.cs" />
     <Compile Include="DTOs\ErrorLogDTO.cs" />
     <Compile Include="DTOs\GameRoleDTO.cs" />
+    <Compile Include="DTOs\GameSessionDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\LoginManagerDTO.cs" />
     <Compile Include="DTOs\LoginResponseDTO.cs" />

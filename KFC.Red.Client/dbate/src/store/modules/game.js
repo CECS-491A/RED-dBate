@@ -4,8 +4,10 @@ const gameSessionToken = localStorage.getItem('gameSessionToken')
 // initial state
 const state = {
   playerAmount: 0,
-  isPlayerMinimumMet: false,
-  playerList: []
+  isPlayerMinimumMet: true,//false,
+  playerList: [],
+  messages: [],
+  question: ''
 }
 
 // getters
@@ -18,6 +20,12 @@ const getters = {
   },
   getPlayerList(state){
     return state.playerList;
+  },
+  getQuestion(state){
+    return state.question;
+  },
+  getMessages(state){
+    return state.messages;
   }
 }
 
@@ -31,8 +39,16 @@ const actions = {
   },
   actPlayerList (context, payload) {
     context.commit('mutateAddPlayerList',payload)
+  },
+  actQuestion (context, payload) {
+    context.commit('mutateQuestion', payload)
+  },
+  actMessages (context, payload) {
+    context.commit('mutateMessages', payload)
+  },
+  actDeleteMessages (context) {
+    context.commit('mutateDeleteMessages')
   }
-
 }
 
 // mutations
@@ -45,6 +61,15 @@ const mutations = {
   },
   mutateAddPlayerList (state, player) {
     state.playerList.push(player)
+  },
+  mutateQuestion (state, payload) {
+    state.question = payload.Question
+  },
+  mutateMessages (state, payload) {
+    state.messages.push(payload.Messages)
+  },
+  mutateDeleteMessages (state) {
+    state.messages = []
   }
 }
 

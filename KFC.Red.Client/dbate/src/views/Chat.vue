@@ -30,14 +30,14 @@
     </v-flex>
 
     <v-flex sm8 offset-xs1 style="position: relative;">      
-      <v-toolbar-title>Question: {{this.question}}</v-toolbar-title>
+      <v-toolbar-title>Question: {{this.$store.getters.getQuestion}}</v-toolbar-title>
       <div class="chat-container" ref="chatContainer" >
-        <ul v-if="messages">
-          <li v-for="item in messages"> <strong>{{item.username}}</strong> : {{item.message}}</li>
+        <ul v-if="this.$store.getters.getMessages">
+          <li v-for="item in this.$store.getters.getMessages"> <strong>{{item.username}}</strong> : {{item.message}}</li>
         </ul>
       </div>
       <div class="typer">
-        <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="content">
+        <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="message">
       </div>
     </v-flex>
   </v-layout>
@@ -48,60 +48,57 @@
   import axios from "axios"
   import Players from '@/components/chatroom/Players.vue'
   import $ from 'jquery'
-  import {URL} from '@/services/ConstUrls'
   import 'ms-signalr-client-jquery-3'
+  import {URL} from '@/services/ConstUrls'
+  import {chatServerURL} from '@/services/ConstUrls'
 
   export default {
     data () {
       return {
-        //chatServerUrl = "http://localhost:5000/signalr",
-        /*connection = $.hubConnection(chatServerUrl, {
-            useDefaultPath: false
-        }),*/
-        question: '',
         messages: [],
-        content: "",
-        username: "",
+        message: '',
+        username: '',
         users: [],
         connection: null,
         proxy: null
       }
     },
     mounted () {
-        console.log(this.ChatHub);
-        this.ChatHub. //.client.pushNewMessage = this.pushNewMessage;
-        this.ChatHub //.client.pushUserList = this.pushUserList;
-        $.connection.hub.start().done(function () { 
-            console.log('SignalR Hub Started!');
-        });
-      this.username = this.$store.getters.getEmail
-      this.randomQuestion_ChatConnection()
+      this.username = this.$store.getters.getEmail;
+      this.connection = $.hubConnection(chatServerURL);
+      this.proxy = this.connection.createHubProxy('HubService');
+      
+      this.proxy.on('messageReceived', (username, message) => {
+          console.log("Server message: " + this.message);
+          this.$store.dispatch('actMessages', {Messages: {username: username, message: message}});
+      });
+      
+      this.connection
+        .start({ })
+        .done(() => { console.log('Now connected') })
+        .fail((e) => { console.log('Could not connect' + e.data) })
     },
     components: {
       'players': Players
     },
     methods: {
       sendMessage (){
+        
         axios.post(URL.sendMsgURL,{
           Username: this.username,
-          Message: this.content
+          Message: this.message
         })
         .then( m => {
           console.log(m.data);
-        },
-        this.messages.push(({username: this.username, message: this.content})))
+        }
+        )
         .catch(
           error => {
             console.log(error.data);
           }
         )
-      },
-      randomQuestion_ChatConnection () {
-        axios.get(URL.randQuestURL)
-        .then(qst => {this.question = qst.data; console.log(this.question)})
-        .catch(e => {console.log("error: " + e.data)})        
       }
-    }
+    },
   }
 </script>
 
@@ -144,14 +141,14 @@
   .message.own{
     text-align: right;
   }
-  .message.own .content{
+  .message.own .message{
     background-color: lightskyblue;
   }
   .chat-container .username{
     font-size: 18px;
     font-weight: bold;
   }
-  .chat-container .content{
+  .chat-container .message{
     padding: 8px;
     background-color: lightgreen;
     border-radius: 10px;
@@ -161,7 +158,7 @@
     word-wrap: break-word;
     }
   @media (max-width: 480px) {
-    .chat-container .content{
+    .chat-container .message{
       max-width: 60%;
     }
   }

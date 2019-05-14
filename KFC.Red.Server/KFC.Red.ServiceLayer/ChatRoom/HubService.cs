@@ -8,7 +8,6 @@ using KFC.Red.ServiceLayer.UserManagement;
 
 namespace KFC.Red.ServiceLayer.ChatRoom
 {
-    [HubName("DbateChatHub")]
     public class HubService : Hub
     {
         UserService us;
@@ -18,10 +17,11 @@ namespace KFC.Red.ServiceLayer.ChatRoom
             us = new UserService();
         }
 
-        public void SendMessage(ChatMessageDTO chatItem)
+        //Send Messages in main chatroom
+        public void Send(string username, string message)
         {
-            IHubContext context = GlobalHost.ConnectionManager.GetHubContext("DbateChatHub");
-            context.Clients.All.pushNewMessage(chatItem.Username, chatItem.Message);
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext("HubService");
+            context.Clients.All.messageReceived(username, message);
         }
 
         public void SendPrivateMessage(PrivateMessageDTO privateMessageDTO)
