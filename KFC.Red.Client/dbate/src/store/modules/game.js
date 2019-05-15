@@ -61,8 +61,8 @@ const actions = {
   actDeleteMessages (context) {
     context.commit('mutateDeleteMessages')
   },
-  actGameRole (context) {
-    context.commit('mutateGameRole')
+  actGameRole (context,payload) {
+    context.commit('mutateGameRole',payload)
   },
   actOrder (context) {
     context.commit('mutateOrder')

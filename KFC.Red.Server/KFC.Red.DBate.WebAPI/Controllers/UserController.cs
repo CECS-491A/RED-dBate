@@ -31,7 +31,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     UserManager _userManager = new UserManager();
 
                     var user = _userManager.GetUser(session.UId);
-                    return Ok(user.Email);
+                    return Ok(user);
                 }
                 catch (Exception ex)
                 {

@@ -26,7 +26,7 @@
           <li v-for="item in this.$store.getters.getMessages"> <strong>{{item.username}}</strong> : {{item.message}}</li>
         </ul>
       </div>
-      <div class="typer" v-if="this.$store.getters.getisPlayerTurn===true">
+      <div class="typer">
         <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="message">
       </div>
     </v-flex>

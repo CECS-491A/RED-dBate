@@ -32,8 +32,9 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             var gameId = ugsManager.GetGameId(user.ID);
             List<int> orders = new List<int>();
 
+            /*
             if (string.IsNullOrEmpty(user.Role) && gameId > 0)
-            {
+            {*/
                 var sessionUsers = ugsManager.GetGameUsers(gameId)
                     .Where(sUser => string.IsNullOrEmpty(sUser.Role) == false)
                     .ToList();
@@ -61,11 +62,12 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
                 currentUGS.Order = orderNumber;
 
                 return ugsManager.UpdateUGS(currentUGS);
-            }
+/*            }
             else
             {
                 return 0;
             }
+            */
         }
 
     }

@@ -8,8 +8,8 @@
     <v-btn to="home"  flat><strong class="white--text text--lighten-1">Home</strong></v-btn>
     <v-btn to="about" flat><strong class="white--text text--lighten-1">FAQ</strong></v-btn>
     <v-btn to="lobby" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
-    <v-btn to="admindashboard" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">Admin Portal</strong></v-btn>
-    <v-btn to="userdashboard" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">User Portal</strong></v-btn>
+    <v-btn to="admindashboard" flat v-if="this.$store.getters.getisAdmin === true"><strong class="white--text text--lighten-1">Admin Portal</strong></v-btn>
+    <v-btn to="userdashboard" flat v-if="this.$store.getters.getisAdmin === false"><strong class="white--text text--lighten-1">User Portal</strong></v-btn>
     <v-btn v-on:click="logout" v-if="this.$store.getters.getIsSessionStored">Logout</v-btn>
     <v-btn v-on:click="login" v-if="!this.$store.getters.getIsSessionStored">Login</v-btn>
     <div v-if="showPopup">
@@ -48,6 +48,7 @@ export default {
         this.popupMessage = 'User has logged out';
         localStorage.removeItem('token');
         this.$store.dispatch('actIsSessionStored', {IsSessionStored: false});
+        this.$store.dispatch('actIsAdmin', {IsUserAdmin: null});
         this.$router.push('/home');
       })
       .catch(e => {
@@ -56,6 +57,7 @@ export default {
         this.popupMessage = 'User has logged out';
         localStorage.removeItem('token');
         this.$store.dispatch('actIsSessionStored', {IsSessionStored: false});
+        this.$store.dispatch('actIsAdmin', {IsUserAdmin: null});
         this.$router.push('/home');
       })
     },

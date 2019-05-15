@@ -55,6 +55,7 @@ export default {
               console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
               this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
               this.$store.dispatch('actQuestion', {Question: key.Question });
+              this.$store.dispatch('actGameRole',{GameRole: key.GameRole});
               this.$router.push('/waitingroom/' + key.Token)
 
             })
@@ -73,6 +74,7 @@ export default {
             localStorage.setItem('gameSessionToken',key.Token);
             this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
             this.$store.dispatch('actQuestion', {Question: key.Question });
+            this.$store.dispatch('actGameRole',{GameRole: key.GameRole});
             this.$router.push('/waitingroom/' + key.Token)
           })
           .catch(e => {

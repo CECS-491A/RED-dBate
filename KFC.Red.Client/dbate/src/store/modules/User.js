@@ -2,7 +2,8 @@ const state = {
     email: '',
     token: '',
     isLogin: false,
-    userPage: 0
+    userPage: 0,
+    isAdmin: null
   }
   
   const getters = {
@@ -17,6 +18,9 @@ const state = {
     },
     getUserPage: function (state) {
       return state.userPage;
+    },
+    getisAdmin: function (state) {
+      return state.isAdmin;
     }
   }
   
@@ -32,7 +36,10 @@ const state = {
     },
     actUserPage (context, payload) {
       context.commit('mutateUserPage', payload)
-    } 
+    },
+    actIsAdmin (context, payload) {
+      context.commit('mutateIsAdmin', payload)
+    }
   }
   
   const mutations = {
@@ -47,6 +54,9 @@ const state = {
     },
     mutateUserPage (state,payload){
       state.userPage = payload.UserPage
+    },
+    mutateIsAdmin (state, payload){
+      state.isAdmin = payload.IsAdmin
     }
   }
   

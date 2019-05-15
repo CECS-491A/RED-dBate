@@ -8,7 +8,7 @@
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
-          <v-btn id="runGame" color="blue" v-on:click="runGame" dark large v-if="this.$store.getters.getIsPlayerMinimumMet">Start Game</v-btn>
+          <v-btn id="runGame" color="blue" v-on:click="runGame" dark large v-if="this.$store.getters.getGameRole==='Host'">Start Game</v-btn>
         </div>
       </div>
     </v-flex>
@@ -22,7 +22,7 @@
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
-          <v-btn id="endWait" color="blue" v-on:click="endWait" dark large>End Game</v-btn>
+          <v-btn id="endWait" color="blue" v-on:click="endWait" dark large v-if="this.$store.getters.getGameRole==='Host'">End Game</v-btn>
         </div>
       </div>
     </v-flex>
@@ -46,6 +46,7 @@ export default {
   },
   data: () => ({
     loading: true,
+    users: [],
     loadingText: 'Gathering More Players...',
     validSession: true,
     popupMessage: '',
@@ -141,8 +142,7 @@ export default {
         this.$router.push('/lobby');
         clearInterval(this.interval);
       })
-
-    }
+    },
   }
   
 

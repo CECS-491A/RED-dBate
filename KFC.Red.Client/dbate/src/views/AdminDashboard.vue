@@ -7,7 +7,7 @@
       <UAD v-if="this.$store.getters.getAdminPage === 1"></UAD>  
       <QuestionManager v-if="this.$store.getters.getAdminPage === 2"></QuestionManager>  
       <LogManager v-if="this.$store.getters.getAdminPage === 3"></LogManager>  
-      <UserManager v-if="this.$store.getters.getAdminPage === 4"></UserManager>  
+      <!--<UserManager v-if="this.$store.getters.getAdminPage === 4"></UserManager>-->  
       <Publish v-if="this.$store.getters.getAdminPage === 5"></Publish>  
     </v-flex>
   </v-layout>
