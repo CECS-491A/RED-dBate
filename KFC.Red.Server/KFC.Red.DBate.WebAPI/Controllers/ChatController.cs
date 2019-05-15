@@ -257,5 +257,61 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
             }
         }
+
+
+        //sets the winning role
+        [HttpGet]
+        [Route("api/chat/decidewinner")]
+        public IHttpActionResult DecideWinner(string gameSessionToken, string role)
+        {
+            try
+            {
+                var currentGameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+                currentGameSession.Winner = role;
+                _GameSessionManager.UpdateGameSession(currentGameSession);
+
+                return Ok("Team is the winner");
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+            }
+        }
+
+        //checks if there's a winner
+        [HttpGet]
+        [Route("api/chat/istherewinner")]
+        public IHttpActionResult IsThereWinner(string gameSessionToken)
+        {
+            try
+            {
+                var currentGameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+                return Ok(currentGameSession.Winner);
+            }
+            catch(Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+            }
+        }
+
+        //sets issessionused to true
+        [HttpGet]
+        [Route("api/chat/unusegsession")]
+        public IHttpActionResult UnUseGSession(string gameSessionToken)
+        {
+            try
+            {
+                var currentGameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+                currentGameSession.isSessionUsed = false;
+                _GameSessionManager.UpdateGameSession(currentGameSession);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+            }
+        }
+
     }
 }

@@ -124,6 +124,9 @@
     <Compile Include="Migrations\201905150718088_updateUGS.Designer.cs">
       <DependentUpon>201905150718088_updateUGS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905151831484_winner.cs" />
+    <Compile Include="Migrations\201905151831484_winner.Designer.cs">
+      <DependentUpon>201905151831484_winner.cs</DependentUpon>
     <Compile Include="Migrations\201905152038158_isAdmin.cs" />
     <Compile Include="Migrations\201905152038158_isAdmin.Designer.cs">
       <DependentUpon>201905152038158_isAdmin.cs</DependentUpon>
@@ -187,6 +190,8 @@
     <EmbeddedResource Include="Migrations\201905150718088_updateUGS.resx">
       <DependentUpon>201905150718088_updateUGS.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905151831484_winner.resx">
+      <DependentUpon>201905151831484_winner.cs</DependentUpon>
     <EmbeddedResource Include="Migrations\201905152038158_isAdmin.resx">
       <DependentUpon>201905152038158_isAdmin.cs</DependentUpon>
     </EmbeddedResource>

@@ -30,10 +30,13 @@ const URL = {
     getPlayerCountURL: apiURL + 'chat/playercount',
     leaveGameURL: apiURL + 'chat/leavegame',
     useGSessionURL: apiURL + 'chat/usegsession',
+    unUseGSessionURL: apiURL + 'chat/unusegsession',
     isGSessionUsedURL: apiURL + 'chat/isgsessionused',
-    assignHostURL: apiURL + 'gameplay/assignhost',
-    assignPlayerURL: apiURL + 'gameplay/assignplayer',
-    getOrderURL: apiURL + 'gameplay/getorder',
+    decideWinnerURL: apiURL + 'chat/decidewinner',
+    isThereWinnerURL: apiURL + 'chat/istherewinner',
+    assignHostURL: apiURL + 'api/gameplay/assignhost',
+    assignPlayerURL: apiURL + 'api/gameplay/assignplayer',
+    getOrderURL: apiURL + 'api/gameplay/getorder',
     getGameUsersURL: apiURL + 'chat/getusers'
 }
 

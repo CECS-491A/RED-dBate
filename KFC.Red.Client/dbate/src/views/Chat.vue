@@ -52,10 +52,12 @@
         users: [],
         connection: null,
         proxy: null,
+        interval: null,        
         alertMsg: ''
       }
     },
     mounted () {
+      this.interval = setInterval(this.isGSessionUsed, 3000);
       this.username = this.$store.getters.getEmail;
       this.connection = $.hubConnection(chatServerURL);
       this.proxy = this.connection.createHubProxy('HubService');
@@ -75,6 +77,14 @@
       'countdown' : Countdown
     },
     methods: {
+      runDecideWinner(){
+        this.unUseGSession();
+        this.decideWinner();
+      },
+      decideWinner(){
+        let gameSession = localStorage.getItem('gameSessionToken');
+        this.$router.push('/decidewinner/' + gameSession);
+      },
       sendMessage (){
         
         axios.post(URL.sendMsgURL,{
@@ -91,19 +101,44 @@
           }
         )
       },
-      gameplay(){
-        //<v-alert>Game has started</v-alert>
-        if(this.$store.getters.getGameRole === "Team1"){
-            //<v-alert>Player Turn 1</v-alert>
-            //this.$store.dispatch('actIsPlayerTurn',false)
+      isGSessionUsed(){
+      axios.get(URL.isGSessionUsedURL,{
+        params: {
+          gameSessionToken: localStorage.getItem('gameSessionToken')
         }
+      })
+      .then(resp => {
+        let info = resp.data;
+        if(!info){          
+          this.decideWinner();
+          clearInterval(this.interval);
+          
+        }        
+      })
+      .catch( e =>{
+        this.error = e.response;
+        this.$router.push('/lobby');
+        clearInterval(this.interval);
+      })
+      
 
-        if(this.$store.getters.getGameRole == "Team2"){
-
-        }
-      }
     },
-  }
+    unUseGSession(){
+      axios.get(URL.unUseGSessionURL,{
+        params: {
+          gameSessionToken: localStorage.getItem('gameSessionToken') 
+        }
+      })
+      .then(resp =>{
+        this.response = resp.data;
+
+      })
+      .catch(e =>{
+        this.error = e.data;
+      })
+    },
+  },
+}
 </script>
 
 <style>

@@ -130,7 +130,6 @@ export default {
       })
       .then(resp => {
         let info = resp.data;
-        console.log('test:' + info);
         if(info){          
           this.startGame();
           clearInterval(this.interval);
