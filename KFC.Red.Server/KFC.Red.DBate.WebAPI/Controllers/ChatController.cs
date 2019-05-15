@@ -146,6 +146,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     }
         }
 
+        //When Host leaves the game, game session should end
         [HttpDelete]
         [Route("api/chat/deletegame")]
         public IHttpActionResult DeleteGameSession(string gameSessionToken)
@@ -156,6 +157,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok();
         }
 
+        //When non-host leaves the game, game session should still exist
         [HttpDelete]
         [Route("api/chat/leavegame")]
         public IHttpActionResult LeaveGame(string sessionToken)
@@ -177,6 +179,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             }
         }
 
+        //Returns the playercount
         [HttpGet]
         [Route("api/chat/playercount")]
         public IHttpActionResult GetPlayerCount(string gameSessionToken)
@@ -190,6 +193,42 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             catch (Exception)
             {
                 return Ok(0);
+            }
+        }
+
+        //sets issessionused to true
+        [HttpGet]
+        [Route("api/chat/usegsession")]
+        public IHttpActionResult UseGSession(string gameSessionToken)
+        {
+            try
+            {
+                var currentGameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+                currentGameSession.isSessionUsed = true;
+                _GameSessionManager.UpdateGameSession(currentGameSession);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+            }
+        }
+        
+        //Checks if game session is used
+        [HttpGet]
+        [Route("api/chat/isgsessionused")]
+        public IHttpActionResult IsGSessionUsed(string gameSessionToken)
+        {
+            try
+            {
+                var currentGameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+                return Ok(currentGameSession.isSessionUsed);                
+            }
+            catch(Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+
             }
         }
     }

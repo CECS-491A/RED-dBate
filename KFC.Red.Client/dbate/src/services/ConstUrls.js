@@ -27,7 +27,9 @@ const URL = {
     deleteSSOURL: apiURL + 'user/delete',
     postIPURL: apiURL + '',
     getPlayerCountURL: apiURL + 'chat/playercount',
-    leaveGameURL: apiURL + 'chat/leavegame'
+    leaveGameURL: apiURL + 'chat/leavegame',
+    useGSessionURL: apiURL + 'chat/usegsession',
+    isGSessionUsedURL: apiURL + 'chat/isgsessionused'
 }
 
 export {
