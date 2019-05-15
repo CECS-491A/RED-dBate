@@ -29,5 +29,6 @@ namespace KFC.Red.DataAccessLayer.Models
         public bool isSessionUsed { get; set; } = false;
 
         public int PlayerCount { get; set; } = 0;
+        public string Winner { get; set; } = "";
     }
 }

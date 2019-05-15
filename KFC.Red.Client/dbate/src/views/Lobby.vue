@@ -54,8 +54,8 @@ export default {
               localStorage.setItem('gameSessionToken',key.Token);
               console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
               this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
-              this.$store.dispatch('actGameRole', {GameRole: key.GameRole});
-              this.$store.dispatch('actGameOrder', {Order: key.Order});
+              //this.$store.dispatch('actGameRole', {GameRole: key.GameRole});
+              //this.$store.dispatch('actGameOrder', {Order: key.Order});
               this.$store.dispatch('actQuestion', {Question: key.Question });
               this.$router.push('/waitingroom/' + key.Token);
             })
@@ -77,8 +77,8 @@ export default {
             localStorage.setItem('gameSessionToken',key.Token);
             console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
             this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
-            this.$store.dispatch('actGameRole', {GameRole: key.GameRole});
-            this.$store.dispatch('actGameOrder', {Order: key.Order});
+            //this.$store.dispatch('actGameRole', {GameRole: key.GameRole});
+            //this.$store.dispatch('actGameOrder', {Order: key.Order});
             this.$store.dispatch('actQuestion', {Question: key.Question });
             this.$router.push('/waitingroom/' + key.Token)
           })

@@ -8,6 +8,7 @@ import Lobby from '@/views/Lobby'
 import Waitingroom from '@/views/Waitingroom'
 import AdminDashboard from '@/views/AdminDashboard'
 import UserDashboard from '@/views/UserDashboard'
+import DecideWinner from '@/views/DecideWinner'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/userdashboard',
       name: 'UserDashboard',
       component: UserDashboard
+    },
+    {
+      path: '/decidewinner/:id',
+      name: 'DecideWinner',
+      component: DecideWinner
     }
   ]
 })

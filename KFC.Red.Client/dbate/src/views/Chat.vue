@@ -2,6 +2,15 @@
 <template>
    <v-container fluid grid-list-xl>
   <v-layout row wrap>
+    
+     <v-flex sm3 offset-xs1>
+      <div class="text-xs-center">
+        <div>
+          <v-btn id="runDecideWinner" color="blue" v-on:click="runDecideWinner" dark large>Decide Winner</v-btn>
+        </div>
+      </div>
+    </v-flex>
+    
     <v-flex sm3 offset-xs1 class="scrollable">
       <h1>Team Members</h1>
       <players></players>
@@ -16,8 +25,7 @@
       <h1>Opposing Team</h1>
       <players></players>
     </v-flex>
-  </v-layout
-  >
+  </v-layout>
   <v-layout>
     <v-flex sm4 offset-xs1 style="position: relative;"  v-if="this.$store.getters.getPlayerAmount > 3">
       <v-toolbar-title>Group Chat Room</v-toolbar-title>
@@ -62,9 +70,11 @@
         users: [],
         connection: null,
         proxy: null,
+        interval: null
       }
     },
     mounted () {
+      this.interval = setInterval(this.isGSessionUsed, 3000);
       this.username = this.$store.getters.getEmail;
       this.connection = $.hubConnection(chatServerURL);
       this.proxy = this.connection.createHubProxy('HubService');
@@ -84,6 +94,14 @@
       'countdown' : Countdown
     },
     methods: {
+      runDecideWinner(){
+        this.unUseGSession();
+        this.decideWinner();
+      },
+      decideWinner(){
+        let gameSession = localStorage.getItem('gameSessionToken');
+        this.$router.push('/decidewinner/' + gameSession);
+      },
       sendMessage (){
         
         axios.post(URL.sendMsgURL,{
@@ -99,9 +117,44 @@
             console.log(error.data);
           }
         )
-      }
+      },
+      isGSessionUsed(){
+      axios.get(URL.isGSessionUsedURL,{
+        params: {
+          gameSessionToken: localStorage.getItem('gameSessionToken')
+        }
+      })
+      .then(resp => {
+        let info = resp.data;
+        if(!info){          
+          this.decideWinner();
+          clearInterval(this.interval);
+          
+        }        
+      })
+      .catch( e =>{
+        this.error = e.response;
+        this.$router.push('/lobby');
+        clearInterval(this.interval);
+      })
+
     },
-  }
+    unUseGSession(){
+      axios.get(URL.unUseGSessionURL,{
+        params: {
+          gameSessionToken: localStorage.getItem('gameSessionToken') 
+        }
+      })
+      .then(resp =>{
+        this.response = resp.data;
+
+      })
+      .catch(e =>{
+        this.error = e.data;
+      })
+    },
+  },
+}
 </script>
 
 <style>
