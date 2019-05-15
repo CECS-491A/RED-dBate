@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.DataAccessLayer.Repositories;
+using KFC.Red.ServiceLayer.UserManagement;
 
 namespace KFC.Red.ServiceLayer.SessionService
 {
@@ -46,6 +47,14 @@ namespace KFC.Red.ServiceLayer.SessionService
         public Session UpdateSession(ApplicationDbContext _db, Session s)
         {
             return _SessionRepo.UpdateSession(_db, s);
+        }
+
+        public List<Session> GetSessions(ApplicationDbContext _db, Guid userSSOID)
+        {
+            var userService = new UserService();
+            var user = userService.GetUser(_db, userSSOID);
+            var sessions = _db.Sessions.Where(s => s.UId == user.ID).ToList();
+            return sessions;
         }
     }
 }

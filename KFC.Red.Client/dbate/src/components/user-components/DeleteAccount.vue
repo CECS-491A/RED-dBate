@@ -32,7 +32,7 @@ export default {
     methods:{
         //NEED TO FIX
         deleteAccountSSO(){
-            axios.delete(URL.deleteSSOURL +'?token=' + localStorage.getItem('token'))
+            axios.post(URL.deleteSSOURL)
             .then(resp => {
                 this.response = 'Succesfully Delete';
                 localStorage.removeItem('token');
