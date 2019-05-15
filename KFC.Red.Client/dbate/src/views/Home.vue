@@ -2,6 +2,7 @@
   <div>
     <v-layout>
       <v-flex xs12 sm6 offset-sm3>
+        <br/>
         <h1 class="display-1">Home Page</h1>
         <img src = "..\assets\Dbate.png"/>
         <div>
