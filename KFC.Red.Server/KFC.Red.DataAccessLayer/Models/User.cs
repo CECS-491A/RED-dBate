@@ -39,5 +39,6 @@ namespace KFC.Red.DataAccessLayer.Models
 
         public bool IsUserPlaying { get; set; } = false;
 
+        public bool IsAdmin { get; set; } = false;
     }
 }

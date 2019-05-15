@@ -5,7 +5,7 @@
     </v-flex>
     <v-flex sm10>
       <UserProfile v-if="this.$store.getters.getUserPage === 1"></UserProfile>  
-      <DeleteAccount v-if="this.$store.getters.getUserPage === 2"></DeleteAccount>  
+      <!--<DeleteAccount v-if="this.$store.getters.getUserPage === 2"></DeleteAccount>-->
     </v-flex>
   </v-layout>
 </template>
