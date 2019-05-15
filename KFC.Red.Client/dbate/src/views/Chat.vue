@@ -6,8 +6,14 @@
   </v-layout>
   <v-layout row wrap>
     <players></players>
-  </v-layout
-  >
+  </v-layout  >
+  <v-flex sm3 offset-xs1>
+      <div class="text-xs-center">
+        <div>
+          <v-btn id="runDecideWinner" color="blue" v-on:click="runDecideWinner" dark large>Decide Winner</v-btn>
+        </div>
+      </div>
+    </v-flex>
   <v-layout>
     <v-flex sm4 offset-xs1 style="position: relative;"  v-if="this.$store.getters.getPlayerAmount > 3">
       <v-toolbar-title>Group Chat Room</v-toolbar-title>
