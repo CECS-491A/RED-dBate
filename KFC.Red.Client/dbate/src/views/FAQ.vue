@@ -6,7 +6,7 @@
         <div class="text-xs-center">
           <div>
             <h1 class="display-2">What is Dbate?</h1>
-            <h3 class="display-1">Dbate is an interractive chat where two teams debate on a random generated question and a moderator will decide the winner.</h3>
+            <h3 class="display-1">Dbate is an interactive chat where two teams debate on a random generated question and a moderator will decide the winner.</h3>
           </div>
           <div>
             <h1 class="display-2">How to Dbate?</h1>
@@ -14,7 +14,7 @@
           </div>
           <div>
             <h1 class="display-2">How do I Register/Login?</h1>
-            <h3 class="display-1">you can loging/register to our app in the kfc portal at kfc-sso.com.</h3>
+            <h3 class="display-1">you can login/register to our app in the kfc portal at kfc-sso.com.</h3>
           </div>
           <img src = "..\assets\Dbate.png"/>
         </div>
