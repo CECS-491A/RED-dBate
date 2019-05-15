@@ -181,9 +181,16 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/playercount")]
         public IHttpActionResult GetPlayerCount(string gameSessionToken)
         {
-            var gameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+            try
+            {
+                var gameSession = _GameSessionManager.GetGameSession(gameSessionToken);
 
-            return Ok(gameSession.PlayerCount);
+                return Ok(gameSession.PlayerCount);
+            }
+            catch (Exception)
+            {
+                return Ok(0);
+            }
         }
     }
 }

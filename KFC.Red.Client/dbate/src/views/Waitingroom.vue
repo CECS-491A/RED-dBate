@@ -53,17 +53,7 @@ export default {
     test: null
   }),
   mounted (){
-    
-
-  },
-  watch: {
-    playerCount (newCount, oldCount) {
-      console.log("count: " + newCount);
-      if(newCount === 3 ){
-        this.isMinPlayersMet = true;
-        this.loadingText = 'Minimum Amount of Players is met, you may start now';
-      }
-    }
+    setInterval(this.getPlayerCount, 3000);
   },
   methods: {
     startGame(){
@@ -72,7 +62,6 @@ export default {
     },
     endWait(){
       let gameSession = localStorage.getItem('gameSessionToken');
-
       axios.delete(URL.deleteGameSessionURL + '?gameSessionToken=' + gameSession)
       .then(resp => {
         this.loading = false;
@@ -95,30 +84,30 @@ export default {
       .catch(e =>{
         this.response = e.data;
       })
-
-
     },
     getPlayerCount(){
         axios.get(URL.getPlayerCountURL,{
           params: {
-            token: localStorage.getItem('gameSessionToken')
+            gameSessionToken: localStorage.getItem('gameSessionToken')
           }
         })
         .then(t => {
           let key = t.data;
           this.$store.dispatch('actPlayerAmount', {PlayerAmount: key});
+          console.log('playercount: ' + key);
         })
         .catch(e =>{
           this.error = e.response;
         })
     },
     
-  },
+  }
+  /*,
   created(){
     this.test = setInterval(getPlayerCount, 3000);
 
   }
-
+*/
 
 }
 </script>

@@ -198,7 +198,8 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
                 {
                     var lm = new LoggingManager<ErrorLogDTO>();
                     lm.CreateErrorLog(ex);
-                    return ex.Message + ex.TargetSite;
+                    //return ex.Message + ex.TargetSite;
+                    return null;
                 }
             }
         }
