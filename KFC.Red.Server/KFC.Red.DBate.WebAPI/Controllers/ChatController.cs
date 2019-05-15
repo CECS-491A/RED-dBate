@@ -30,11 +30,29 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             _SessionManager = new SessionManager();
         }
 
+        //Used to send messages in chatroom
         [HttpPost]
         [Route("api/chat/postmessage")]
         public IHttpActionResult PostMessage([FromBody] ChatMessageDTO chatMsg)
         {
             _ChatHub.Send(chatMsg.Username,chatMsg.Message);
+            return Ok(chatMsg);
+        }
+
+        //used to send messahes in private chatroom
+        [HttpPost]
+        [Route("api/chat/privatemessage")]
+        public IHttpActionResult PostGroupMessages([FromBody] ChatMessageDTO chatMsg)
+        {
+            var gameUsers = _UserGameStoreManager.GetUserGameStorages(8);
+            List<string> connectionIds = null;
+            for (int i = 0; i < gameUsers.Count; i++)
+            {
+                connectionIds.Add(gameUsers[i].ConnectionId);
+            }
+
+            _ChatHub.SendPrivateMessage(connectionIds,chatMsg.Username, chatMsg.Message);
+
             return Ok(chatMsg);
         }
 
@@ -83,7 +101,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     //questionManager.DeleteQuestion();
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
-
+                    _ChatHub.Connect(user.Email);
                     var gameSessionDTO = new GameSessionDTO()
                     {
                         Token = gameSession.Token,
@@ -130,6 +148,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
+                    _ChatHub.Connect(user.Email);
                     var gameSessionDTO = new GameSessionDTO()
                     {
                         Token = gameSession.Token,

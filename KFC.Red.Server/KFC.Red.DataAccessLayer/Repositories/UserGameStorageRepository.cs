@@ -1,5 +1,6 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 
@@ -33,6 +34,11 @@ namespace KFC.RED.DataAccessLayer.Repositories
         public UserGameStorage GetUGS(ApplicationDbContext _db, int Id)
         {
             return _db.UserGameStorages.Find(Id);
+        }
+
+        public UserGameStorage GetGameUser(ApplicationDbContext _db, int id)
+        {
+            return _db.UserGameStorages.Find(id);
         }
 
         public bool ExistingUGS(ApplicationDbContext _db, int id)

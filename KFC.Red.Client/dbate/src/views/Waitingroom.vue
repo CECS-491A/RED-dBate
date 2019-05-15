@@ -102,13 +102,6 @@ export default {
     },
     
   }
-  /*,
-  created(){
-    this.test = setInterval(getPlayerCount, 3000);
-
-  }
-*/
-
 }
 </script>
 

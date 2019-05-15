@@ -34,8 +34,24 @@ export default {
     name: 'lobby',
     data () {
         return {
-            error: ""
+            error: "",
+            connection: null,
+            proxy: null
         }
+    },
+    mounted (){
+      this.connection = $.hubConnection(chatServerURL);
+      this.proxy = this.connection.createHubProxy('HubService');
+      
+      this.proxy.on('messageReceived', (username, message) => {
+          console.log("Server message: " + this.message);
+          this.$store.dispatch('actMessages', {Messages: {username: username, message: message}});
+      });
+      
+      this.connection
+        .start({ })
+        .done(() => { console.log('Now connected') })
+        .fail((e) => { console.log('Could not connect' + e.data) })
     },
     methods:{
         createChat(){
