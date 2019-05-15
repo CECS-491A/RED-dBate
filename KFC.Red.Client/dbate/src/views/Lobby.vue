@@ -54,16 +54,13 @@ export default {
               localStorage.setItem('gameSessionToken',key.Token);
               console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
               this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
-              this.$store.dispatch('actGameRole', {GameRole: key.GameRole});
-              this.$store.dispatch('actGameOrder', {Order: key.Order});
               this.$store.dispatch('actQuestion', {Question: key.Question });
-              this.$router.push('/waitingroom/' + key.Token);
+              this.$router.push('/waitingroom/' + key.Token)
+
             })
             .catch(e => {
                 this.error = e.response;
             })
-
-
         },
         joinRandomChat(){
           axios.get(URL.joinRandomChatURL,{
@@ -73,12 +70,8 @@ export default {
           })
           .then(t => {
             let key = t.data;
-            console.log(key.Id)
             localStorage.setItem('gameSessionToken',key.Token);
-            console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
             this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
-            this.$store.dispatch('actGameRole', {GameRole: key.GameRole});
-            this.$store.dispatch('actGameOrder', {Order: key.Order});
             this.$store.dispatch('actQuestion', {Question: key.Question });
             this.$router.push('/waitingroom/' + key.Token)
           })

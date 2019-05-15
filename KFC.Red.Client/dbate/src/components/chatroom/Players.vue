@@ -1,34 +1,58 @@
 <template>
-  <v-list subheader>
-    <v-list-tile>
-      <!--{{this.$store.getters.getPlayerList}}!-->
-      <ul v-if="this.$store.getters.getPlayerList">
-        <li v-for="item in this.$store.getters.getPlayerList"> <strong>{{item}}</strong></li>
-      </ul>
-    </v-list-tile>
-  </v-list>
+    <v-layout row-wrap>
+     <v-flex sm3 offset-xs1 class="scrollable">
+        <h1>Team 1</h1>
+        <v-list-tile>
+          <ul v-if="this.userList">
+            <li v-for="item in this.userList" v-if="item.Role==='Team1'"> <strong>{{item.Email}}</strong></li>
+          </ul>
+        </v-list-tile>
+     </v-flex>
+     <v-flex sm3 offset-xs1 class="scrollable">
+        <h1>Moderator</h1>
+        <v-list-tile>
+          <ul v-if="this.userList">
+            <li v-for="item in this.userList" v-if="item.Role==='Host'"> <strong>{{item.Email}}</strong></li>
+          </ul>
+        </v-list-tile>
+     </v-flex>
+     <v-flex sm3 offset-xs1 class="scrollable">
+        <h1>Team 2</h1>
+        <v-list-tile>
+       <ul v-if="this.userList">
+            <li v-for="item in this.userList" v-if="item.Role==='Team2'"> <strong>{{item.Email}}</strong></li>
+          </ul>
+        </v-list-tile>
+     </v-flex>
+  </v-layout>
+
 </template>
 
 <script>
   import axios from "axios"
   import {URL} from '@/services/ConstUrls'
 
-  export default{
+  export default {
     data () {
       return {
+        userList: [],
         userPlaying: 'users playing'
       }
     },
-    watch: {
-      users (oldList, newList) {
-        axios.get()
+    mounted (){
+      this.getUsers()
+    },
+    methods: {
+      getUsers(){
+        axios.get(URL.getGameUsersURL,{
+          params:{
+            gameSessionToken: localStorage.getItem('gameSessionToken')
+          }
+        })
         .then(resp => {
-          let newPlayer = resp.data;
-          //this.$store.dispatch('actGetPlayerList',{});
+          this.userList = resp.data;
         })
-        .catch(error => {
-
-        })
+        .catch();
       }
     }
   }

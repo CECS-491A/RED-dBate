@@ -1,21 +1,11 @@
     
 <template>
    <v-container fluid grid-list-xl>
+  <v-layout row-wrap>
+    <v-alert>{{this.alertMsg}}</v-alert>
+  </v-layout>
   <v-layout row wrap>
-    <v-flex sm3 offset-xs1 class="scrollable">
-      <h1>Team Members</h1>
-      <players></players>
-    </v-flex>
-
-    <v-flex sm3 offset-xs1 class="scrollable">
-      <h1>Moderator</h1>
-      <players></players>
-    </v-flex>
-
-    <v-flex sm3 offset-xs1 class="scrollable">
-      <h1>Opposing Team</h1>
-      <players></players>
-    </v-flex>
+    <players></players>
   </v-layout
   >
   <v-layout>
@@ -36,7 +26,7 @@
           <li v-for="item in this.$store.getters.getMessages"> <strong>{{item.username}}</strong> : {{item.message}}</li>
         </ul>
       </div>
-      <div class="typer">
+      <div class="typer" v-if="this.$store.getters.getisPlayerTurn===true">
         <input type="text" placeholder="Type here..." v-on:keyup.enter="sendMessage" v-model="message">
       </div>
     </v-flex>
@@ -62,6 +52,7 @@
         users: [],
         connection: null,
         proxy: null,
+        alertMsg: ''
       }
     },
     mounted () {
@@ -99,6 +90,17 @@
             console.log(error.data);
           }
         )
+      },
+      gameplay(){
+        //<v-alert>Game has started</v-alert>
+        if(this.$store.getters.getGameRole === "Team1"){
+            //<v-alert>Player Turn 1</v-alert>
+            //this.$store.dispatch('actIsPlayerTurn',false)
+        }
+
+        if(this.$store.getters.getGameRole == "Team2"){
+
+        }
       }
     },
   }

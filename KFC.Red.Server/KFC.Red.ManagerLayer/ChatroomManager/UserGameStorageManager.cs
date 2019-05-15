@@ -116,7 +116,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             var ugsList = GetSessionUsers(gid);
             var users = new List<User>();
 
-            for (int i = 0; i < ugsList.Capacity; i++)
+            for (int i = 0; i < ugsList.Count; i++)
             {
                 var ugs = ugsList[i];
                 users.Add(uManager.GetUser(ugs.UId));

@@ -3,7 +3,7 @@
     <v-flex sm3 offset-xs1 class="scrollable">
       <br/>
       <h1>Players in the Game: {{this.$store.getters.getPlayerAmount}}</h1>
-      <players></players>
+      <!--<players></players>-->
     </v-flex>
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
