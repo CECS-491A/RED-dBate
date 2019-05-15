@@ -17,7 +17,7 @@ namespace KFC.Red.DataAccessLayer.Models
 
         public DateTime CreateTime { get; set; } = DateTime.Now;
         public DateTime DeleteTime { get; set; } = DateTime.Now.AddMinutes(MINUTES_UNTIL_EXPIRATION);
-        public DateTime UpdateTime { get; set; } = DateTime.UtcNow;
+        public DateTime UpdateTime { get; set; } = DateTime.Now;
 
         [ForeignKey("User")]
         public int UId { get; set; }

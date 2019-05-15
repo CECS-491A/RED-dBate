@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0">
+    <v-container fluid class="pa-0">
     <h4 class="display-3">The Lobby</h4>
     <br/>
      <v-layout justify-center>
@@ -49,7 +49,8 @@ export default {
               localStorage.setItem('gameSessionToken',key.Token);
               console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
               this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
-              this.$router.push('/waitingroom/' + key);
+              this.$store.dispatch('actQuestion', {Question: key.Question });
+              this.$router.push('/waitingroom/' + key.Token);
             })
             .catch(e => {
                 this.error = e.response;
@@ -63,10 +64,12 @@ export default {
           })
           .then(t => {
             let key = t.data;
+            console.log(key.Id)
             localStorage.setItem('gameSessionToken',key.Token);
             console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
             this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
-            this.$router.push('/waitingroom/' + key)
+            this.$store.dispatch('actQuestion', {Question: key.Question });
+            this.$router.push('/waitingroom/' + key.Token)
           })
           .catch(e => {
             this.error = e.response;

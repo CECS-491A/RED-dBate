@@ -1,5 +1,8 @@
 ﻿using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.DataAccessLayer.Models;
+using KFC.Red.ManagerLayer.QuestionManagement;
+using KFC.Red.ManagerLayer.SessionManagement;
+using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ServiceLayer;
 using KFC.Red.ServiceLayer.ChatRoom;
 using KFC.Red.ServiceLayer.QuestionManagement;
@@ -29,23 +32,19 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
         {
             IToken _tokenService = new TokenService();
             IQuestionService _questionService = new QuestionService();
-
+            var questionManager = new QuestionManager();
             using (var _db = new ApplicationDbContext())
             {
-                var questionResponse = _questionService.GetQuestion(_db, question.QuestionString);
-                if (questionResponse == null)
-                {
-                    return null;
-                }
 
-                GameSession session = new GameSession();
-                session.Token = _tokenService.GenerateToken();
-                session.Question = question;
-                session.QuestionID = question.QuestionID;
+                GameSession session = new GameSession
+                {
+                    Token = _tokenService.GenerateToken(),
+                    QuestionID = question.QuestionID
+                };
                 ++session.PlayerCount;
 
                 _GSessionService.CreateGameSession(_db, session);
-
+                _db.SaveChanges();
                 return session;
             }
         }
@@ -90,15 +89,44 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
             using (var _db = new ApplicationDbContext())
             {
                 ReusableServices reusableServices = new ReusableServices();
-                GameSession gameSession = new GameSession();
                 var gameSessionsList = _db.GameSessions.Where(c => c.isSessionUsed == false).ToList();
                 var maxSize = gameSessionsList.Count();
                 var index = reusableServices.GetNumberForRandomization(0,maxSize-1);
-                gameSession = gameSessionsList[index];
+                var gameSession = gameSessionsList[index];
                 return gameSession;
             }
         }
-        
+
+        public GameSession JoinRandomGameSession(string token)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                var userGameStorage = new UserGameStorage();
+                var userManager = new UserManager();
+                var sessionManager = new SessionManager();
+
+                var questionManager = new QuestionManager();
+                var reusableServices = new ReusableServices();
+
+                var question = questionManager.RandomizeQuestion();
+                var gameSessionsList = _db.GameSessions.Where(c => c.isSessionUsed == false).ToList();
+                var maxSize = gameSessionsList.Count();
+                var index = reusableServices.GetNumberForRandomization(0, maxSize - 1);
+
+                var gameSession = gameSessionsList[index];
+
+                gameSession = CreateGameSession(question);
+                var session = sessionManager.GetSession(token);
+                var user = userManager.GetUser(session.UId);
+
+                userGameStorage.UId = user.ID;
+                userGameStorage.GId = gameSession.Id;
+
+                //var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
+                return gameSession;
+            }
+        }
+
         public bool ExistingGameSession(int id)
         {
             using (var _db = new ApplicationDbContext())
@@ -117,8 +145,14 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
 
         public int UpdateGameSession(GameSession gameSession)
         {
+            if (gameSession == null)
+            {
+                return 0;
+            }
+
             using (var _db = new ApplicationDbContext())
             {
+
                 var response = _GSessionService.UpdateGameSession(_db, gameSession);
                 try
                 {
@@ -126,8 +160,6 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
                 }
                 catch (DbEntityValidationException)
                 {
-                    // catch error
-                    // rollback changes
                     _db.Entry(response).CurrentValues.SetValues(_db.Entry(response).OriginalValues);
                     _db.Entry(response).State = System.Data.Entity.EntityState.Unchanged;
                     return 0;

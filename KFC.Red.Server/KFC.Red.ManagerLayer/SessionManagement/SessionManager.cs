@@ -3,6 +3,7 @@ using KFC.Red.DataAccessLayer.Models;
 using KFC.Red.ServiceLayer.SessionService;
 using KFC.Red.ServiceLayer.Token;
 using KFC.Red.ServiceLayer.UserManagement;
+using System;
 
 namespace KFC.Red.ManagerLayer.SessionManagement
 {
@@ -44,14 +45,26 @@ namespace KFC.Red.ManagerLayer.SessionManagement
             }
         }
 
-        public string DeleteSession(string token)
+        public int DeleteSession(string token)
         {
             using (var _db = new ApplicationDbContext())
             {
                 Session response = _sService.DeleteSession(_db, token);
 
-                _db.SaveChanges();
-                return response.Token;
+                var resp = _db.SaveChanges();
+                return resp;
+            }
+        }
+ 
+        //Used to delete all sessions of users, Mostly used to delete from sso feature
+        public int DeleteSessions(Guid userID)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                var sessions = _sService.GetSessions(_db, userID);
+                _db.Sessions.RemoveRange(sessions);
+                var resp = _db.SaveChanges();
+                return resp;
             }
         }
 
@@ -61,7 +74,6 @@ namespace KFC.Red.ManagerLayer.SessionManagement
             {
                 Session response = _sService.GetSession(_db, token);
 
-                _db.SaveChanges();
                 return response;
             }
         }

@@ -10,6 +10,7 @@ using KFC.Red.DataAccessLayer.DTOs;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ManagerLayer.SessionManagement;
 using System.Web.Http.Cors;
+using KFC.RED.DataAccessLayer.DTOs;
 
 namespace KFC.Red.DBate.WebAPI.Controllers
 {
@@ -19,61 +20,79 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         private GameSessionManager _GameSessionManager;
         private UserGameStorageManager _UserGameStoreManager;
         private HubService _ChatHub;
+        private SessionManager _SessionManager;
 
         public ChatController()
         {
             _UserGameStoreManager = new UserGameStorageManager();
             _GameSessionManager = new GameSessionManager();
             _ChatHub = new HubService();
+            _SessionManager = new SessionManager();
         }
 
         [HttpPost]
         [Route("api/chat/postmessage")]
         public IHttpActionResult PostMessage([FromBody] ChatMessageDTO chatMsg)
         {
-            _ChatHub.SendMessage(chatMsg);
+            _ChatHub.Send(chatMsg.Username,chatMsg.Message);
             return Ok(chatMsg);
         }
 
 
         [HttpGet]
         [Route("api/chat/getusers")]
-        public List<string> GetUsers(int gid)
+        public List<User> GetUsers(int gid)
         {
-            _ChatHub.SendUserList(_UserGameStoreManager.GetGameUsernames(gid));
-            return _UserGameStoreManager.GetGameUsernames(gid);
+            //_ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
+            return _UserGameStoreManager.GetGameUsers(gid);
+        }
+
+        [HttpGet]
+        [Route("api/chat/getusers")]
+        public List<User> GetUsers(string gameSessionToken)
+        {
+            var gameSession = _GameSessionManager.GetGameSession(gameSessionToken);
+            var users = _UserGameStoreManager.GetGameUsers(gameSession.Id);
+            //_ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
+            return users;
         }
 
         [HttpGet]
         [Route("api/chat/createchat")]
         public IHttpActionResult CreateChat(string token)
         {
-                var userGameStorage = new UserGameStorage();
                 var userManager = new UserManager();
                 var gameSession = new GameSession();
                 var sessionManager = new SessionManager();
-
                 var questionManager = new QuestionManager();
                 
 
                 try
                 {
                     var question = questionManager.RandomizeQuestion();
-                    var questionObj = questionManager.GetQuestion(question);
 
-                    gameSession = _GameSessionManager.CreateGameSession(questionObj);
+                    gameSession = _GameSessionManager.CreateGameSession(question);
                     var session = sessionManager.GetSession(token);
                     var user = userManager.GetUser(session.UId);
 
-                    userGameStorage.UId = user.ID;
-                    userGameStorage.User = user;
-                    userGameStorage.GId = gameSession.Id;
-                    userGameStorage.GameSession = gameSession;
-                    userGameStorage.Order = 0;
+                    var userGameStorage = new UserGameStorage()
+                    {
+                        UId = user.ID,
+                        GId = gameSession.Id
+                    };
 
+                    //questionManager.DeleteQuestion();
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
-                    return Ok(gameSession);
+                    var gameSessionDTO = new GameSessionDTO()
+                    {
+                        Token = gameSession.Token,
+                        Question = questionManager.GetQuestion(gameSession.QuestionID).QuestionString,
+                        IsSessionUsed = gameSession.isSessionUsed,
+                        PlayerCount = gameSession.PlayerCount
+                    };
+
+                    return Ok(gameSessionDTO);
                 }
                 catch (ArgumentException)
                 {
@@ -81,7 +100,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Content(HttpStatusCode.BadRequest, e.ToString() + userGameStorage.UId);
+                    return Content(HttpStatusCode.BadRequest, e.ToString());
                 }
         }
 
@@ -90,10 +109,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         [Route("api/chat/joinrandomchat")]
         public IHttpActionResult JoinRandomChat(string token)
         {
-                UserGameStorage userGameStorage = new UserGameStorage();
-                UserManager userManager = new UserManager();
-                GameSession gameSession = new GameSession();
-                SessionManager sessionManager = new SessionManager();
+                var userManager = new UserManager();
+                var gameSession = new GameSession();
+                var sessionManager = new SessionManager();
+                var questionManager = new QuestionManager();
 
                 try
                 {
@@ -103,20 +122,28 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     var session = sessionManager.GetSession(token);
                     var user = userManager.GetUser(session.UId);
 
-                    userGameStorage.UId = user.ID;
-                    userGameStorage.User = user;
-                    userGameStorage.GId = gameSession.Id;
-                    userGameStorage.GameSession = gameSession;
-                    userGameStorage.Order = 0;
+                    var userGameStorage = new UserGameStorage()
+                    {
+                        UId = user.ID,
+                        GId = gameSession.Id
+                    };
 
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
+
+                    var gameSessionDTO = new GameSessionDTO()
+                    {
+                        Token = gameSession.Token,
+                        Question = questionManager.GetQuestion(gameSession.QuestionID).QuestionString,
+                        IsSessionUsed = gameSession.isSessionUsed,
+                        PlayerCount = gameSession.PlayerCount
+                    };
+
+                    return Ok(gameSessionDTO);
                 }
                 catch (Exception e)
-                {
-                    return Content(HttpStatusCode.BadRequest, e.ToString());
-                }
-
-                return Ok(gameSession);
+                    {
+                        return Content(HttpStatusCode.BadRequest, e.ToString());
+                    }
         }
 
         [HttpDelete]
@@ -127,6 +154,27 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             _UserGameStoreManager.DeleteGameSessionUsers(gameSessionToken);
             _GameSessionManager.DeleteGameSession(gameSession);
             return Ok();
+        }
+
+        [HttpDelete]
+        [Route("api/chat/leavegame")]
+        public IHttpActionResult LeaveGame(string sessionToken)
+        {
+            try
+            {
+                var userSession = _SessionManager.GetSession(sessionToken);
+                var userID = userSession.UId;
+                var currentUserGameStore = _UserGameStoreManager.GetUserGameStorage(userID);
+                var gameSession = _GameSessionManager.GetGameSession(currentUserGameStore.GId);
+                --gameSession.PlayerCount;
+                _GameSessionManager.UpdateGameSession(gameSession);
+                _UserGameStoreManager.DeleteGameUser(userID);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return Content(HttpStatusCode.Conflict, e.Message);
+            }
         }
 
         [HttpGet]

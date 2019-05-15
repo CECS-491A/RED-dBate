@@ -1,7 +1,10 @@
 <template>
   <v-list subheader>
     <v-list-tile>
-      {{this.$store.getters.getPlayerList}}
+      <!--{{this.$store.getters.getPlayerList}}!-->
+      <ul v-if="this.$store.getters.getPlayerList">
+        <li v-for="item in this.$store.getters.getPlayerList"> <strong>{{item}}</strong></li>
+      </ul>
     </v-list-tile>
   </v-list>
 </template>

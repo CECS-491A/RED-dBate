@@ -40,5 +40,17 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok(user.Role);
         }
 
+        [HttpGet]
+        [Route("api/gameplay/getorder")]
+        public IHttpActionResult GetOrder([FromBody]GameRoleDTO grDto)
+        {
+            var userManager = new UserManager();
+            var ugsManager = new UserGameStorageManager();
+            var user = userManager.GetUser(grDto.SsoId);
+            var order = ugsManager.GetUserGameStorage(user.ID).Order;
+            return Ok(order);
+
+        }
+
     }
 }

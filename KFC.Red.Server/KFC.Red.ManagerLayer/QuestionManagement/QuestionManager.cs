@@ -183,20 +183,16 @@ namespace KFC.Red.ManagerLayer.QuestionManagement
             return minSize;
         }
 
-        public string RandomizeQuestion()
+        public Question RandomizeQuestion()
         {
-            Question question;
-            string quest;
-
             using (var _db = CreateDbContext())
             {
                 try
                 {
-                    var index = _questionService.GetNumberForRandomization(MinQuestionSize(), 100);
-                    question = _questionService.GetQuestion(_db, index);
-                    quest = question.QuestionString;
+                    var index = _questionService.GetNumberForRandomization(MinQuestionSize(), MaxQuestionSize());
+                   //var question = _questionService.GetQuestion(_db, index);
 
-                    return quest;
+                    return _questionService.GetQuestion(_db, index);
                 }
                 catch (Exception ex)
                 {
