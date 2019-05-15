@@ -8,5 +8,7 @@ namespace KFC.Red.ServiceLayer.Dashboard.Interface
 {
     public interface IUADashboardService
     {
+        List<int> GetMonthLabels();
+        List<int> CountSuccessfulLogin();
     }
 }

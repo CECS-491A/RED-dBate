@@ -58,7 +58,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok(chatMsg);
         }
 
-
+        /*
         [HttpGet]
         [Route("api/chat/getusers")]
         public List<User> GetUsers(int gid)
@@ -66,7 +66,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             //_ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
             return _UserGameStoreManager.GetGameUsers(gid);
         }
-
+        */
         [HttpGet]
         [Route("api/chat/getusers")]
         public List<User> GetUsers(string gameSessionToken)

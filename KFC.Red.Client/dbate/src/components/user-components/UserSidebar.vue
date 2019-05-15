@@ -37,7 +37,7 @@
       drawer: null,
       items: [
         { icon: 'info', text: 'User Profile', num: 1 },
-        { icon: 'widgets', text: 'Delete Account', num: 2 }
+        //{ icon: 'widgets', text: 'Delete Account', num: 2 }
       ]
     }),
     methods: {

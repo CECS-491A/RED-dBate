@@ -39,7 +39,7 @@
         { icon: 'info', text: 'User Dashboard', num: 1 },
         { icon: 'widgets', text: 'Quesion Management', num: 2 },
         { icon: 'folder_open', text: 'Logging Management', num: 3 },
-        { icon: 'featured_play_list', text: 'User Management', num: 4 },
+        //{ icon: 'featured_play_list', text: 'User Management', num: 4 },
         { icon: 'edit', text: 'Publish/Edit App', num: 5 }
       ]
     }),

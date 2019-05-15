@@ -9,7 +9,8 @@ const state = {
   messages: [],
   question: '',
   gameRole: '',
-  order: 0
+  order: 0,
+  isPlayerTurn: false
 }
 
 // getters
@@ -34,6 +35,9 @@ const getters = {
   },
   getGameRole(state){
     return state.gameRole;
+  },
+  getisPlayerTurn(state){
+    return state.isPlayerTurn;
   }
 }
 
@@ -57,11 +61,14 @@ const actions = {
   actDeleteMessages (context) {
     context.commit('mutateDeleteMessages')
   },
-  actGameRole (context) {
-    context.commit('mutateGameRole')
+  actGameRole (context,payload) {
+    context.commit('mutateGameRole',payload)
   },
   actOrder (context) {
     context.commit('mutateOrder')
+  },
+  actIsPlayerTurn (context) {
+    context.commit('mutateIsPlayerTurn')
   }
 }
 
@@ -73,8 +80,9 @@ const mutations = {
   mutatePlayerAmount (state, payload) {
     state.playerAmount = payload.PlayerAmount
   },
-  mutateAddPlayerList (state, player) {
-    state.playerList.push(player)
+  mutateAddPlayerList (state, payload) {
+    state.playerList.push(payload.User)
+    //state.playerList = payload = 
   },
   mutateQuestion (state, payload) {
     state.question = payload.Question
@@ -90,6 +98,9 @@ const mutations = {
   },
   mutateOrder (state, payload) {
     state.order = payload.Order
+  },
+  mutateIsPlayerTurn (state, payload) {
+    state.isPlayerTurn = payload.IsPlayerTurn
   }
 }
 

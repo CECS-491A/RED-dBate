@@ -127,6 +127,9 @@
     <Compile Include="Migrations\201905151831484_winner.cs" />
     <Compile Include="Migrations\201905151831484_winner.Designer.cs">
       <DependentUpon>201905151831484_winner.cs</DependentUpon>
+    <Compile Include="Migrations\201905152038158_isAdmin.cs" />
+    <Compile Include="Migrations\201905152038158_isAdmin.Designer.cs">
+      <DependentUpon>201905152038158_isAdmin.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
@@ -189,6 +192,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905151831484_winner.resx">
       <DependentUpon>201905151831484_winner.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905152038158_isAdmin.resx">
+      <DependentUpon>201905152038158_isAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

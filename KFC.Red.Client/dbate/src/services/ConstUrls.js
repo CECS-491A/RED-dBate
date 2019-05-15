@@ -2,9 +2,10 @@ const apiURL = 'http://localhost:5000/api/'
 //const apiURL = 'https://thedbateproject.azurewebsites.net/backend/api/'
 //const KFCURL = 'https://kfc-sso.com'
 const KFCURL = 'http://localhost:61348'
-//const KFC_LoginURL = '"https://kfc-sso.com/#/login"'
+//const KFC_LoginURL = 'https://kfc-sso.com/#/login'
 const KFC_LoginURL = 'http://localhost:8081/#/login';
 const chatServerURL = 'http://localhost:5000/signalr';
+//const chatServerURL = 'https://thedbateproject.azurewebsites.net/backend/signalr';
 
 const URL = {
     randQuestURL: apiURL + 'question/randomquestion',
@@ -35,7 +36,8 @@ const URL = {
     isThereWinnerURL: apiURL + 'chat/istherewinner',
     assignHostURL: apiURL + 'api/gameplay/assignhost',
     assignPlayerURL: apiURL + 'api/gameplay/assignplayer',
-    getOrderURL: apiURL + 'api/gameplay/getorder'
+    getOrderURL: apiURL + 'api/gameplay/getorder',
+    getGameUsersURL: apiURL + 'chat/getusers'
 }
 
 export {

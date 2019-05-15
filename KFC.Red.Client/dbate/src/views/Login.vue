@@ -47,9 +47,10 @@ export default {
       .then(resp => {
             var userEmail = resp.data;
             localStorage.setItem('token', this.token);
-            console.log(localStorage.getItem('token'));
-            this.$store.dispatch('actEmail', {Email: userEmail});
+            this.$store.dispatch('actEmail', {Email: userEmail.Email});
+            this.$store.dispatch('actIsAdmin', {IsAdmin: userEmail.IsAdmin})
             this.$store.dispatch('actIsSessionStored', {IsSessionStored: true});
+            console.log(this.$store.getters.getisAdmin);
             this.loading = false;
             this.loadingText = '';
             this.$router.push('/lobby');
