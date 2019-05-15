@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KFC.Red.DataAccessLayer.Data;
 using KFC.Red.ManagerLayer.UserManagement;
 using KFC.Red.ServiceLayer.ChatRoom;
 
@@ -17,6 +14,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
 
         public GameplayManager()
         {
+            gameService = new GameplayService();
             uManager = new UserManager();
             ugsManager = new UserGameStorageManager();
         }
@@ -53,7 +51,7 @@ namespace KFC.Red.ManagerLayer.ChatroomManager
                 }
 
                 var currentTeam = ugsManager.GetGameUsers(gameId)
-                        .Where(tUser => String.Equals(tUser.Role, user.Role) && tUser.SsoId != user.SsoId) 
+                        .Where(tUser => string.Equals(tUser.Role, user.Role) && tUser.SsoId != user.SsoId) 
                         .ToList();
 
                 var ugs = ugsManager.GetUserGameStorages(gameId);

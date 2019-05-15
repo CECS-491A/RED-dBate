@@ -48,20 +48,20 @@ namespace KFC.Red.ServiceLayer.ChatRoom
 
             using (var _db = new ApplicationDbContext())
             {
-                var user = users.GetUser(_db,userName);
-                var gameuser = gameusers.GetGameUser(_db,user.ID);
-                gameuser.ConnectionId = id;
+                var serv = new UserGameStorageService();
+                    var user = users.GetUser(_db, userName);
+                    var gameuser = gameusers.GetGameUser(_db, user.ID);
+                    gameuser.ConnectionId = id;
 
-                var resp = gameusers.UpdateUGS(_db,gameuser);
-                _db.SaveChanges();
+                    var resp = gameusers.UpdateUGS(_db, gameuser);
+                    _db.SaveChanges();
 
-                //var ConnectedUsers = _db.UserGameStorage
-                // send to caller
-                Clients.Caller.onConnected(id, userName);
-                Clients.Caller.onConnected(id, userName);
-                // send to all except caller client
-                //Clients.AllExcept(id).onNewUserConnected(id, userName);
-
+                    //var ConnectedUsers = _db.UserGameStorage
+                    // send to caller
+                    Clients.Caller.onConnected(id, userName);
+                    Clients.Caller.onConnected(id, userName);
+                    // send to all except caller client
+                    //Clients.AllExcept(id).onNewUserConnected(id, userName);
             }
         }
 

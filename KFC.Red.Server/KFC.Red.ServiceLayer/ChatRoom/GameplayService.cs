@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KFC.Red.DataAccessLayer.Models;
 namespace KFC.Red.ServiceLayer.ChatRoom
 {
@@ -13,11 +10,11 @@ namespace KFC.Red.ServiceLayer.ChatRoom
             int t1Count = 0, t2Count = 0;
             for (int i = 0; i < users.Count(); i++)
             {
-                if (String.Equals(users[i].Role, "Team1"))
+                if (string.Equals(users[i].Role, "Team1"))
                 {
                     t1Count++;
                 }
-                else if (String.Equals(users[i].Role, "Team2"))
+                else if (string.Equals(users[i].Role, "Team2"))
                 {
                     t2Count++;
                 }

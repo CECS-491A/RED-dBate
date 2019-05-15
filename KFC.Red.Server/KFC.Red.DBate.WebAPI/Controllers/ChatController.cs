@@ -83,11 +83,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 var gameSession = new GameSession();
                 var sessionManager = new SessionManager();
                 var questionManager = new QuestionManager();
-                
+                var question = questionManager.RandomizeQuestion();
 
                 try
                 {
-                    var question = questionManager.RandomizeQuestion();
 
                     gameSession = _GameSessionManager.CreateGameSession(question);
                     var session = sessionManager.GetSession(token);
@@ -101,7 +100,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     //questionManager.DeleteQuestion();
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
-                    _ChatHub.Connect(user.Email);
+                    //_ChatHub.Connect(user.Email);
                     var gameSessionDTO = new GameSessionDTO()
                     {
                         Token = gameSession.Token,
@@ -118,7 +117,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
                 catch (Exception e)
                 {
-                    return Content(HttpStatusCode.BadRequest, e.ToString());
+                    return Content(HttpStatusCode.BadRequest, e.ToString() + question.QuestionString);
                 }
         }
 
@@ -148,7 +147,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
-                    _ChatHub.Connect(user.Email);
+                    //_ChatHub.Connect(user.Email);
                     var gameSessionDTO = new GameSessionDTO()
                     {
                         Token = gameSession.Token,

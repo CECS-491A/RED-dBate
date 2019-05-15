@@ -45,6 +45,7 @@
 </template>
 
 <script>
+  import Countdown from 'vuejs-countdown'
   import axios from "axios"
   import Players from '@/components/chatroom/Players.vue'
   import $ from 'jquery'
@@ -60,7 +61,7 @@
         username: '',
         users: [],
         connection: null,
-        proxy: null
+        proxy: null,
       }
     },
     mounted () {
@@ -79,7 +80,8 @@
         .fail((e) => { console.log('Could not connect' + e.data) })
     },
     components: {
-      'players': Players
+      'players': Players,
+      'countdown' : Countdown
     },
     methods: {
       sendMessage (){
