@@ -6,7 +6,7 @@
     <v-spacer></v-spacer>
 
     <v-btn to="home"  flat><strong class="white--text text--lighten-1">Home</strong></v-btn>
-    <v-btn to="about" flat><strong class="white--text text--lighten-1">FAQ</strong></v-btn>
+    <v-btn to="faq" flat><strong class="white--text text--lighten-1">FAQ</strong></v-btn>
     <v-btn to="lobby" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">Lobby</strong></v-btn>
     <v-btn to="admindashboard" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">Admin Portal</strong></v-btn>
     <v-btn to="userdashboard" flat v-if="this.$store.getters.getIsSessionStored"><strong class="white--text text--lighten-1">User Portal</strong></v-btn>
