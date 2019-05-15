@@ -28,5 +28,11 @@ namespace KFC.Red.ServiceLayer.ChatRoom
         {
             return _UGSRepo.UpdateUGS(_db, userGameStorage);
         }
+
+        public UserGameStorage GetGameUser(ApplicationDbContext _db, int Id)
+        {
+            return _UGSRepo.GetGameUser(_db, Id);
+        }
+
     }
 }

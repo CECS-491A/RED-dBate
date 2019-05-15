@@ -10,6 +10,5 @@ namespace KFC.Red.DataAccessLayer.DTOs
     public class PrivateMessageDTO
     {
         public List<string> userIDs { get; set; }
-
     }
 }

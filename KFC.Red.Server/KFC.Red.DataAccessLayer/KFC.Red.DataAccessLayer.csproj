@@ -120,6 +120,10 @@
     <Compile Include="Migrations\201905121905322_refactoring1.Designer.cs">
       <DependentUpon>201905121905322_refactoring1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905150718088_updateUGS.cs" />
+    <Compile Include="Migrations\201905150718088_updateUGS.Designer.cs">
+      <DependentUpon>201905150718088_updateUGS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatStorage.cs" />
@@ -175,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905121905322_refactoring1.resx">
       <DependentUpon>201905121905322_refactoring1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905150718088_updateUGS.resx">
+      <DependentUpon>201905150718088_updateUGS.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

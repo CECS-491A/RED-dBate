@@ -10,6 +10,8 @@ namespace KFC.Red.DataAccessLayer.Models
         [Required]
         public int Id { get; set; }
 
+        public string ConnectionId { get; set; }
+
         [ForeignKey("GameSession")]
         public int GId { get; set; }
         public GameSession GameSession { get; set; }

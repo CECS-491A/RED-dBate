@@ -24,27 +24,11 @@ namespace KFC.Red.ServiceLayer.ChatRoom
             context.Clients.All.messageReceived(username, message);
         }
 
-        public void SendPrivateMessage(PrivateMessageDTO privateMessageDTO)
+        //Send messages to group chatroom
+        public void SendPrivateMessage(List<string> connectionIds, string username, string message)
         {
-
-            IHubContext context = GlobalHost.ConnectionManager.GetHubContext("DbateChatHub");
-            using (var _db = new ApplicationDbContext())
-            {
-                string fromUserId = Context.ConnectionId;
-
-                var fromUser = us.GetUser(_db, int.Parse(fromUserId));
-
-                if (fromUser != null)
-                {
-                    // send to 
-                    Clients.Clients(privateMessageDTO.userIDs).sendPrivateMessage(fromUserId, fromUser.Email, "MESSAGE PLACEHOLDER");
-                    
-                    // send to caller user
-                    Clients.Caller.sendPrivateMessage(privateMessageDTO.userIDs, fromUser.Email, "Message PLACEHOLDER");
-                }
-
-            }
-
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext("HubService");
+            context.Clients.Clients(connectionIds).messageReceived(username, message);
         }
 
         /// <summary>
@@ -56,24 +40,28 @@ namespace KFC.Red.ServiceLayer.ChatRoom
             context.Clients.All.pushUserList(userList);
         }
 
-        public void Connect(string email)
+        public void Connect(string userName)
         {
-            using(var _db = new ApplicationDbContext())
+            var id = Context.ConnectionId;
+            var users = new UserService();
+            var gameusers = new UserGameStorageService();
+
+            using (var _db = new ApplicationDbContext())
             {
-                var user = us.GetUser(_db, email);
+                var user = users.GetUser(_db,userName);
+                var gameuser = gameusers.GetGameUser(_db,user.ID);
+                gameuser.ConnectionId = id;
 
-                if (!user.IsUserPlaying)
-                {
-                    user.IsUserPlaying = true;
-                    us.UpdateUser(_db,user);
+                var resp = gameusers.UpdateUGS(_db,gameuser);
+                _db.SaveChanges();
 
-                    // send to caller
-                    Clients.Caller.onConnected(user.ID.ToString(),user.Email,"Connected USERS PLACEHOLDER","Current Message");
+                //var ConnectedUsers = _db.UserGameStorage
+                // send to caller
+                Clients.Caller.onConnected(id, userName);
+                Clients.Caller.onConnected(id, userName);
+                // send to all except caller client
+                //Clients.AllExcept(id).onNewUserConnected(id, userName);
 
-                    // send to all except caller client
-                    Clients.AllExcept(user.ID.ToString()).onNewUserConnected(user.ID.ToString(), user.Email);
-
-                }
             }
         }
 
