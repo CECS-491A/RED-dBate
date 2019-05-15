@@ -21,9 +21,11 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         private UserGameStorageManager _UserGameStoreManager;
         private HubService _ChatHub;
         private SessionManager _SessionManager;
+        private GameplayManager _GameMan;
 
         public ChatController()
         {
+            _GameMan = new GameplayManager();
             _UserGameStoreManager = new UserGameStorageManager();
             _GameSessionManager = new GameSessionManager();
             _ChatHub = new HubService();
@@ -91,6 +93,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     gameSession = _GameSessionManager.CreateGameSession(question);
                     var session = sessionManager.GetSession(token);
                     var user = userManager.GetUser(session.UId);
+                    var host = _GameMan.AssignHost(user.SsoId);
 
                     var userGameStorage = new UserGameStorage()
                     {
@@ -106,7 +109,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                         Token = gameSession.Token,
                         Question = questionManager.GetQuestion(gameSession.QuestionID).QuestionString,
                         IsSessionUsed = gameSession.isSessionUsed,
-                        PlayerCount = gameSession.PlayerCount
+                        PlayerCount = gameSession.PlayerCount,
+                        GameRole = user.Role,
+                        Order = userGameStorage.Order
                     };
 
                     return Ok(gameSessionDTO);
@@ -147,13 +152,16 @@ namespace KFC.Red.DBate.WebAPI.Controllers
 
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
+                    var userTeam = _GameMan.AssignPlayer(user.SsoId);
                     //_ChatHub.Connect(user.Email);
                     var gameSessionDTO = new GameSessionDTO()
                     {
                         Token = gameSession.Token,
                         Question = questionManager.GetQuestion(gameSession.QuestionID).QuestionString,
                         IsSessionUsed = gameSession.isSessionUsed,
-                        PlayerCount = gameSession.PlayerCount
+                        PlayerCount = gameSession.PlayerCount,
+                        GameRole = user.Role,
+                        Order = userGameStorage.Order
                     };
 
                     return Ok(gameSessionDTO);

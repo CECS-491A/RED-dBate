@@ -7,7 +7,9 @@ const state = {
   isPlayerMinimumMet: true,//false,
   playerList: [],
   messages: [],
-  question: ''
+  question: '',
+  gameRole: '',
+  order: 0
 }
 
 // getters
@@ -26,6 +28,12 @@ const getters = {
   },
   getMessages(state){
     return state.messages;
+  },
+  getOrder(state){
+    return state.order;
+  },
+  getGameRole(state){
+    return state.gameRole;
   }
 }
 
@@ -48,6 +56,12 @@ const actions = {
   },
   actDeleteMessages (context) {
     context.commit('mutateDeleteMessages')
+  },
+  actGameRole (context) {
+    context.commit('mutateGameRole')
+  },
+  actOrder (context) {
+    context.commit('mutateOrder')
   }
 }
 
@@ -70,6 +84,12 @@ const mutations = {
   },
   mutateDeleteMessages (state) {
     state.messages = []
+  },
+  mutateGameRole (state, payload) {
+    state.gameRole = payload.GameRole
+  },
+  mutateOrder (state, payload) {
+    state.order = payload.Order
   }
 }
 
