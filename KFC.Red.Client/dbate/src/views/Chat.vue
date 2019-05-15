@@ -19,7 +19,7 @@
   </v-layout
   >
   <v-layout>
-    <v-flex sm4 offset-xs1 style="position: relative;">
+    <v-flex sm4 offset-xs1 style="position: relative;"  v-if="this.$store.getters.getPlayerAmount > 3">
       <v-toolbar-title>Group Chat Room</v-toolbar-title>
       <div class="chat-container" ref="chatContainer" >
       

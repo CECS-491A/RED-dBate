@@ -58,9 +58,9 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         }
 
         //NEED TO FIX
-        [HttpDelete]
+        [HttpPost]
         [Route("api/user/delete")]
-        public async Task<IHttpActionResult> DeleteFromSSO(string token)
+        public IHttpActionResult DeleteFromSSO([FromBody] LoginDTO request)
         {
 
             try
@@ -69,25 +69,18 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 var ssoManager = new SSO_Manager();
                 var userManager = new UserManager();
 
-                var session = sessionManager.GetSession(token);
-                var userId = session.UId;
-                var user = userManager.GetUser(userId);
+                var user = userManager.GetUser(request.SSOUserId);
 
                 if (user == null)
                 {
-                    return Content(HttpStatusCode.NotFound, "User does not exist: " + session + "/n" + userId + "/n" + user);
+                    return Ok("User doesn't exist");
                 }
 
-                var deleteResult = await ssoManager.DeleteAccountSSO(user);
+                var sessionDeleted = sessionManager.DeleteSessions(Guid.Parse(request.SSOUserId));
+                var userDeleted = userManager.DeleteUser(user);
 
-                if (deleteResult)
-                {
-                    var sessionDeleted = sessionManager.DeleteSession(token);
-                    var userDeleted = userManager.DeleteUser(user);
-                    return Ok();
-                }
+                return Ok("User deleted from DBate and SSO");
 
-                return Content(HttpStatusCode.NotImplemented,"User not able to delete");
             }
             catch (Exception e)
             {
