@@ -8,7 +8,7 @@
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
-          <v-btn id="startGame" color="blue" v-on:click="startGame" dark large v-if="this.$store.getters.getIsPlayerMinimumMet">Start Game</v-btn>
+          <v-btn id="runGame" color="blue" v-on:click="runGame" dark large v-if="this.$store.getters.getIsPlayerMinimumMet">Start Game</v-btn>
         </div>
       </div>
     </v-flex>
@@ -50,16 +50,24 @@ export default {
     validSession: true,
     popupMessage: '',
     response: '',
-    test: null
+    interval: null
   }),
   mounted (){
-    setInterval(this.getPlayerCount, 3000);
+      this.interval = setInterval(this.runInterval, 3000);
   },
   methods: {
+    runGame(){
+      this.useGSession();
+      this.startGame();
+    },
+    runInterval(){
+      this.getPlayerCount();
+      this.isGSessionUsed();
+    },
     startGame(){
       let gameSession = localStorage.getItem('gameSessionToken');
       this.$router.push('/chat/' + gameSession);
-    },
+    },    
     endWait(){
       let gameSession = localStorage.getItem('gameSessionToken');
       axios.delete(URL.deleteGameSessionURL + '?gameSessionToken=' + gameSession)
@@ -100,8 +108,44 @@ export default {
           this.error = e.response;
         })
     },
-    
+    useGSession(){
+      axios.get(URL.useGSessionURL,{
+        params: {
+          gameSessionToken: localStorage.getItem('gameSessionToken') 
+        }
+      })
+      .then(resp =>{
+        this.response = resp.data;
+      })
+      .catch(e =>{
+        this.error = e.data;
+      })
+    },
+    isGSessionUsed(){
+      axios.get(URL.isGSessionUsedURL,{
+        params: {
+          gameSessionToken: localStorage.getItem('gameSessionToken')
+        }
+      })
+      .then(resp => {
+        let info = resp.data;
+        console.log('test:' + info);
+        if(info){          
+          this.startGame();
+          clearInterval(this.interval);
+          
+        }        
+      })
+      .catch( e =>{
+        this.error = e.response;
+        this.$router.push('/lobby');
+        clearInterval(this.interval);
+      })
+
+    }
   }
+  
+
 }
 </script>
 
