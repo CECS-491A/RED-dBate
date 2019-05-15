@@ -8,21 +8,21 @@
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
-          <v-btn id="Team1" color="blue" v-on:click="chooseTeam1" dark large>Team 1</v-btn>
+          <v-btn id="Team1" color="blue" v-on:click="chooseTeam1" dark large v-if="this.$store.getters.getGameRole==='Host'">Team 1</v-btn>
         </div>
       </div>
     </v-flex>
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
-          <v-btn id="Team2" color="blue" v-on:click="chooseTeam2" dark large>Team 2</v-btn>
+          <v-btn id="Team2" color="blue" v-on:click="chooseTeam2" dark large v-if="this.$store.getters.getGameRole==='Host'">Team 2</v-btn>
         </div>
       </div>
     </v-flex>    
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
-          <v-btn id="endWait" color="blue" v-on:click="endWait" dark large>End Game</v-btn>
+          <v-btn id="endWait" color="blue" v-on:click="endWait" dark large v-if="this.$store.getters.getGameRole==='Host'">End Game</v-btn>
         </div>
       </div>
     </v-flex>

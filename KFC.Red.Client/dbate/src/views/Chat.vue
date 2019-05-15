@@ -10,7 +10,7 @@
   <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
         <div>
-          <v-btn id="runDecideWinner" color="blue" v-on:click="runDecideWinner" dark large>Decide Winner</v-btn>
+          <v-btn id="runDecideWinner" color="blue" v-on:click="runDecideWinner" dark large v-if="this.$store.getters.getGameRole==='Host'">Decide Winner</v-btn>
         </div>
       </div>
     </v-flex>

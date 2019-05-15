@@ -119,12 +119,6 @@
     <Compile Include="UserManagement\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KFC.Red.DataAccessLayer\KFC.Red.DataAccessLayer.csproj">
-      <Project>{0cad09c9-11e0-4eee-ad4b-7cc77e305bec}</Project>
-      <Name>KFC.Red.DataAccessLayer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Scripts\jquery.signalR-2.4.1.js" />
     <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
     <None Include="app.config" />
@@ -140,6 +134,14 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KFC.Red.DataAccessLayer\KFC.Red.DataAccessLayer.csproj">
+      <Project>{0cad09c9-11e0-4eee-ad4b-7cc77e305bec}</Project>
+      <Name>KFC.Red.DataAccessLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

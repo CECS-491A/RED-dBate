@@ -18,9 +18,9 @@ namespace KFC.RED.DataAccessLayer.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
             context.Questions.AddOrUpdate(x => x.QuestionID,
-                new Question() { QuestionString = "Question 1?" },
-                new Question() { QuestionString = "Question 2?" },
-                new Question() { QuestionString = "Question 3?" });
+                new Question() { QuestionString = "Would You rather or not to Know?" },
+                new Question() { QuestionString = "Do you prefer pepsi or Coke?" },
+                new Question() { QuestionString = "Which starwars film is better, episode 7 or Episode 8" });
 
             context.Users.AddOrUpdate(x => x.ID,
                 new User()
