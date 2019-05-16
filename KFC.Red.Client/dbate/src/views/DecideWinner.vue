@@ -3,7 +3,6 @@
     <v-flex sm3 offset-xs1 class="scrollable">
       <br/>
       <h1>Winning Team is: {{this.$store.getters.getPlayerAmount}}</h1>
-      <!--<players></players>-->
     </v-flex>
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
@@ -26,13 +25,9 @@
         </div>
       </div>
     </v-flex>
-    <!--<div v-if="loading">
-      <Loading :dialog="loading" :text="loadingText"/>
-    </div>-->
   </v-layout>
 </template>
 <script>
-//import Loading from '@/components/dialogs/Loading'
 import Players from '@/components/chatroom/Players'
 import axios from "axios"
 import {URL} from '@/services/ConstUrls'

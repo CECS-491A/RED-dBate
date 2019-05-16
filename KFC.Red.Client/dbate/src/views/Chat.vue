@@ -63,20 +63,19 @@
       }
     },
     mounted () {
-      this.interval = setInterval(this.isGSessionUsed, 3000);
+      this.interval = setInterval(this.SetIsGameSessionTrue, 3000);
       this.username = this.$store.getters.getEmail;
       this.connection = $.hubConnection(chatServerURL);
       this.proxy = this.connection.createHubProxy('HubService');
       
       this.proxy.on('messageReceived', (username, message) => {
-          console.log("Server message: " + this.message);
           this.$store.dispatch('actMessages', {Messages: {username: username, message: message}});
       });
       
       this.connection
         .start({ })
         .done(() => { console.log('Now connected') })
-        .fail((e) => { console.log('Could not connect' + e.data) })
+        .fail((e) => { console.log('Could not connect') })
     },
     components: {
       'players': Players,
@@ -84,7 +83,7 @@
     },
     methods: {
       runDecideWinner(){
-        this.unUseGSession();
+        this.SetGameSessionFalse();
         this.decideWinner();
       },
       decideWinner(){
@@ -98,16 +97,14 @@
           Message: this.message
         })
         .then( m => {
-          console.log(m.data);
         }
         )
         .catch(
           error => {
-            console.log(error.data);
           }
         )
       },
-      isGSessionUsed(){
+      SetIsGameSessionTrue(){
       axios.get(URL.isGSessionUsedURL,{
         params: {
           gameSessionToken: localStorage.getItem('gameSessionToken')
@@ -129,7 +126,7 @@
       
 
     },
-    unUseGSession(){
+    SetGameSessionFalse(){
       axios.get(URL.unUseGSessionURL,{
         params: {
           gameSessionToken: localStorage.getItem('gameSessionToken') 

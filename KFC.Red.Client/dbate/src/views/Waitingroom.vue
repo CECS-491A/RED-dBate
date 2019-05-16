@@ -3,7 +3,6 @@
     <v-flex sm3 offset-xs1 class="scrollable">
       <br/>
       <h1>Players in the Game: {{this.$store.getters.getPlayerAmount}}</h1>
-      <!--<players></players>-->
     </v-flex>
     <v-flex sm3 offset-xs1>
       <div class="text-xs-center">
@@ -103,7 +102,6 @@ export default {
         .then(t => {
           let key = t.data;
           this.$store.dispatch('actPlayerAmount', {PlayerAmount: key});
-          console.log('playercount: ' + key);
         })
         .catch(e =>{
           this.error = e.response;

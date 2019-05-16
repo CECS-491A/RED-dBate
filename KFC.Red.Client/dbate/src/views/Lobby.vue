@@ -52,7 +52,6 @@ export default {
             .then(t => {
               let key = t.data;
               localStorage.setItem('gameSessionToken',key.Token);
-              console.log(t.data + '\n' + key.Token + '\n' + key.PlayerCount);
               this.$store.dispatch('actPlayerAmount', {PlayerAmount: key.PlayerCount});
               this.$store.dispatch('actQuestion', {Question: key.Question });
               this.$store.dispatch('actGameRole',{GameRole: key.GameRole});

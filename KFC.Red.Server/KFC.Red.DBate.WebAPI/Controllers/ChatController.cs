@@ -41,39 +41,12 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             return Ok(chatMsg);
         }
 
-        //used to send messahes in private chatroom
-        [HttpPost]
-        [Route("api/chat/privatemessage")]
-        public IHttpActionResult PostGroupMessages([FromBody] ChatMessageDTO chatMsg)
-        {
-            var gameUsers = _UserGameStoreManager.GetUserGameStorages(8);
-            List<string> connectionIds = null;
-            for (int i = 0; i < gameUsers.Count; i++)
-            {
-                connectionIds.Add(gameUsers[i].ConnectionId);
-            }
-
-            _ChatHub.SendPrivateMessage(connectionIds,chatMsg.Username, chatMsg.Message);
-
-            return Ok(chatMsg);
-        }
-
-        /*
-        [HttpGet]
-        [Route("api/chat/getusers")]
-        public List<User> GetUsers(int gid)
-        {
-            //_ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
-            return _UserGameStoreManager.GetGameUsers(gid);
-        }
-        */
         [HttpGet]
         [Route("api/chat/getusers")]
         public List<User> GetUsers(string gameSessionToken)
         {
             var gameSession = _GameSessionManager.GetGameSession(gameSessionToken);
             var users = _UserGameStoreManager.GetGameUsers(gameSession.Id);
-            //_ChatHub.SendUserList(_UserGameStoreManager.GetGameUsers(gid));
             return users;
         }
 
@@ -101,9 +74,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                         GId = gameSession.Id
                     };
 
-                    //questionManager.DeleteQuestion();
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
-                    //_ChatHub.Connect(user.Email);
                     var gameSessionDTO = new GameSessionDTO()
                     {
                         Token = gameSession.Token,
@@ -126,7 +97,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                 }
         }
 
-        //When joining random room another game session is created MUST BE FIXED!!!!!
         [HttpGet]
         [Route("api/chat/joinrandomchat")]
         public IHttpActionResult JoinRandomChat(string token)
@@ -153,7 +123,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     var storage = _UserGameStoreManager.CreateUGS(userGameStorage);
 
                     var userTeam = _GameMan.AssignPlayer(user.SsoId);
-                    //_ChatHub.Connect(user.Email);
                     var gameSessionDTO = new GameSessionDTO()
                     {
                         Token = gameSession.Token,
@@ -172,7 +141,6 @@ namespace KFC.Red.DBate.WebAPI.Controllers
                     }
         }
 
-        //When Host leaves the game, game session should end
         [HttpDelete]
         [Route("api/chat/deletegame")]
         public IHttpActionResult DeleteGameSession(string gameSessionToken)
@@ -225,7 +193,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         //sets issessionused to true
         [HttpGet]
         [Route("api/chat/usegsession")]
-        public IHttpActionResult UseGSession(string gameSessionToken)
+        public IHttpActionResult SetGameSessionTrue(string gameSessionToken)
         {
             try
             {
@@ -244,7 +212,7 @@ namespace KFC.Red.DBate.WebAPI.Controllers
         //Checks if game session is used
         [HttpGet]
         [Route("api/chat/isgsessionused")]
-        public IHttpActionResult IsGSessionUsed(string gameSessionToken)
+        public IHttpActionResult IsGameSessionUsed(string gameSessionToken)
         {
             try
             {
@@ -294,10 +262,10 @@ namespace KFC.Red.DBate.WebAPI.Controllers
             }
         }
 
-        //sets issessionused to true
+        //sets issessionused to false
         [HttpGet]
         [Route("api/chat/unusegsession")]
-        public IHttpActionResult UnUseGSession(string gameSessionToken)
+        public IHttpActionResult SetSessionFalse(string gameSessionToken)
         {
             try
             {
