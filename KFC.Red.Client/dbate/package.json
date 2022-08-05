@@ -14,7 +14,7 @@
     "bulma": "^0.7.2",
     "chart.js": "^2.8.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.5.2",
+    "mongoose": "^5.7.5",
     "ms-signalr-client-jquery-3": "^2.2.10",
     "puppeteer": "^1.15.0",
     "signalr": "^2.4.1",
